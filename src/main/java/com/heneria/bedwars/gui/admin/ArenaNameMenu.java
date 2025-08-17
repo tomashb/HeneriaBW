@@ -1,5 +1,6 @@
 package com.heneria.bedwars.gui.admin;
 
+import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.gui.Menu;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -40,7 +41,10 @@ public class ArenaNameMenu extends Menu {
         }
 
         String name = ((AnvilInventory) event.getInventory()).getRenameText();
-        player.sendMessage("Nom choisi : " + name);
+        if (name != null && !name.isBlank()) {
+            HeneriaBedwars.getInstance().getArenaManager().createArena(name);
+            player.sendMessage("Arène créée: " + name);
+        }
         player.closeInventory();
     }
 

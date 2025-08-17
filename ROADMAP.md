@@ -4,8 +4,8 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 
 ---
 
-## 🎯 **Étape 1 : Fondations et Gestionnaire d'Arène via GUI (Version Cible : 0.1.0)**
-*Objectif : Mettre en place un socle technique solide et un système complet de création/gestion d'arènes via une interface graphique intuitive. À la fin de cette étape, un administrateur doit pouvoir configurer une arène de A à Z sans utiliser de commandes complexes.* 
+## 🎯 **Étape 1 : Fondations et Gestionnaire d'Arène via GUI (Version Cible : 0.1.0) - [✔] TERMINÉE**
+*Objectif : Mettre en place un socle technique solide et un système complet de création/gestion d'arènes via une interface graphique intuitive. À la fin de cette étape, un administrateur doit pouvoir configurer une arène de A à Z sans utiliser de commandes complexes.*
 
 * **[✔] 1.1 : Structure du Projet & Intégration Continue**
     * [✔] Mise en place du projet Maven pour Spigot 1.21.
@@ -23,15 +23,14 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
     * [✔] Implémenter le gestionnaire de commandes pour `/bedwars`.
     * [✔] Créer la sous-commande `/bedwars admin` avec la permission `heneriabw.admin`.
 
-* **[WIP] 1.4 : Développement du GUI d'Administration**
-    * [✔] Créer le GUI Principal (`/bw admin`).
-    * [ ] Créer le GUI de Création d'Arène (Wizard).
-    * [ ] Créer le GUI de Configuration d'Arène.
+* **[✔] 1.4 : Développement du GUI d'Administration**
+    * [✔] Créer le GUI de Création d'Arène (Wizard).
+    * [✔] Créer le GUI de Configuration d'Arène (Lobby, Équipes, Lits, Spawns, Générateurs, PNJ).
 
-* **[ ] 1.5 : Persistance des Données**
-    * [ ] Développer un `ArenaManager` qui charge toutes les configurations d'arène au démarrage du serveur.
-    * [ ] Les configurations d'arène seront stockées dans des fichiers YAML dédiés (`plugins/HeneriaBedwars/arenas/<nom_arene>.yml`).
-    * [ ] Toute modification via le GUI doit être immédiatement sauvegardée dans le fichier correspondant pour éviter toute perte de données.
+* **[✔] 1.5 : Persistance des Données**
+    * [✔] Développer un `ArenaManager` qui charge toutes les configurations d'arène au démarrage du serveur.
+    * [✔] Les configurations d'arène sont stockées dans des fichiers YAML dédiés (`plugins/HeneriaBedwars/arenas/<nom_arene>.yml`).
+    * [✔] Toute modification via le GUI est immédiatement sauvegardée dans le fichier correspondant pour éviter toute perte de données.
 
 ---
 
