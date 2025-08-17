@@ -1,8 +1,8 @@
 package com.heneria.bedwars;
 
 import com.heneria.bedwars.commands.CommandManager;
-import com.heneria.bedwars.listeners.AnvilListener;
 import com.heneria.bedwars.listeners.GUIListener;
+import com.heneria.bedwars.listeners.ChatListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -44,8 +44,8 @@ public final class HeneriaBedwars extends JavaPlugin {
         // Gère les clics dans tous les menus personnalisés (coffres, etc.)
         getServer().getPluginManager().registerEvents(new GUIListener(), this);
 
-        // Gère la logique complexe et spécifique de l'enclume pour la création d'arène
-        getServer().getPluginManager().registerEvents(new AnvilListener(), this);
+        // Intercepte la saisie du chat pour la création d'arène
+        getServer().getPluginManager().registerEvents(new ChatListener(), this);
     }
 
 

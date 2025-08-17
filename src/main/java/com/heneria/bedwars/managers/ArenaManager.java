@@ -7,13 +7,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Manages all arenas loaded on the server.
@@ -22,6 +20,7 @@ public class ArenaManager {
 
     private final HeneriaBedwars plugin;
     private final Map<String, Arena> arenas = new HashMap<>();
+    private final Set<UUID> playersInCreationMode = new HashSet<>();
 
     /**
      * Creates a new arena manager.
@@ -122,6 +121,18 @@ public class ArenaManager {
         return arenas.values();
     }
 
+    public void setPlayerInCreationMode(Player player) {
+        playersInCreationMode.add(player.getUniqueId());
+    }
+
+    public void removePlayerFromCreationMode(Player player) {
+        playersInCreationMode.remove(player.getUniqueId());
+    }
+
+    public boolean isPlayerInCreationMode(Player player) {
+        return playersInCreationMode.contains(player.getUniqueId());
+    }
+
     /**
      * Creates a new arena in memory.
      * GUI integration will handle configuration later on.
@@ -130,5 +141,13 @@ public class ArenaManager {
      */
     public void createArena(String name) {
         arenas.put(name.toLowerCase(), new Arena(name));
+    }
+
+    public void createAndSaveArena(String name, int playersPerTeam, int teamCount) {
+        Arena arena = new Arena(name);
+        arena.setMinPlayers(teamCount);
+        arena.setMaxPlayers(playersPerTeam * teamCount);
+        arenas.put(name.toLowerCase(), arena);
+        saveArena(arena);
     }
 }
