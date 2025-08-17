@@ -40,8 +40,8 @@ public class AdminMainMenu extends Menu {
             player.sendMessage("§aVeuillez entrer le nom de la nouvelle arène dans le chat.");
             player.sendMessage("§7Tapez 'annuler' pour quitter le mode création.");
         } else if (event.getSlot() == 15) {
-            player.sendMessage("§eCette fonctionnalité est en cours de développement (HBW-010).");
             player.closeInventory();
+            new ArenaListMenu().open(player);
         }
     }
 }

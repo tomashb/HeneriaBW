@@ -4,7 +4,7 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 
 ---
 
-## 🎯 **Étape 1 : Fondations et Gestionnaire d'Arène via GUI (Version Cible : 0.1.0) - [✔] TERMINÉE**
+## 🎯 **Étape 1 : Fondations et Gestionnaire d'Arène via GUI (Version Cible : 0.1.0) - [✔] TERMINÉE (atteinte en v0.1.2)**
 * **[✔] 1.1 : Structure du Projet & Intégration Continue**
 * **[✔] 1.2 : Modèles de Données (Core Engine)**
 * **[✔] 1.3 : Système de Commandes & Permissions**

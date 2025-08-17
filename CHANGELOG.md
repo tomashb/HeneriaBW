@@ -4,6 +4,11 @@
 
 ### Ajouté
 - Réécriture complète du système de création d'arène via saisie par chat, remplaçant l'ancien menu d'enclume instable.
+- Menu de gestion des arènes existantes permettant de configurer chaque arène.
+- Système centralisé `SetupManager`/`SetupListener` pour définir les positions en jeu via un bâton de configuration.
+- Menus de configuration pour le lobby, les équipes (spawns & lits), les générateurs et les PNJ.
+- Possibilité d'ajouter ou de supprimer des générateurs via le GUI.
+- Activation/désactivation d'une arène seulement lorsque tous les points requis sont définis.
 
 ## [0.1.1] - En développement
 
