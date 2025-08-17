@@ -22,6 +22,9 @@ public class Arena {
     private final Map<TeamColor, Team> teams = new EnumMap<>(TeamColor.class);
     private final List<Generator> generators = new ArrayList<>();
     private Location lobbyLocation;
+    private Location shopNpcLocation;
+    private Location upgradeNpcLocation;
+    private boolean enabled = false;
 
     /**
      * Creates a new arena with the given name.
@@ -174,5 +177,59 @@ public class Arena {
      */
     public void setLobbyLocation(Location lobbyLocation) {
         this.lobbyLocation = lobbyLocation;
+    }
+
+    /**
+     * Gets the location of the item shop NPC.
+     *
+     * @return shop NPC location
+     */
+    public Location getShopNpcLocation() {
+        return shopNpcLocation;
+    }
+
+    /**
+     * Sets the location of the item shop NPC.
+     *
+     * @param shopNpcLocation shop NPC location
+     */
+    public void setShopNpcLocation(Location shopNpcLocation) {
+        this.shopNpcLocation = shopNpcLocation;
+    }
+
+    /**
+     * Gets the location of the upgrade shop NPC.
+     *
+     * @return upgrade shop NPC location
+     */
+    public Location getUpgradeNpcLocation() {
+        return upgradeNpcLocation;
+    }
+
+    /**
+     * Sets the location of the upgrade shop NPC.
+     *
+     * @param upgradeNpcLocation upgrade shop NPC location
+     */
+    public void setUpgradeNpcLocation(Location upgradeNpcLocation) {
+        this.upgradeNpcLocation = upgradeNpcLocation;
+    }
+
+    /**
+     * Checks if the arena is enabled.
+     *
+     * @return true if enabled
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * Sets whether the arena is enabled.
+     *
+     * @param enabled enabled state
+     */
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

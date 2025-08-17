@@ -47,11 +47,11 @@ public class AdminMainMenu extends Menu {
 
         int slot = event.getRawSlot();
         if (slot == CREATE_ARENA_SLOT) {
-            player.sendMessage("Bientôt disponible...");
             player.closeInventory();
+            new ArenaNameMenu().open(player);
         } else if (slot == MANAGE_ARENAS_SLOT) {
-            player.sendMessage("Bientôt disponible...");
             player.closeInventory();
+            new ArenaListMenu().open(player);
         }
     }
 }
