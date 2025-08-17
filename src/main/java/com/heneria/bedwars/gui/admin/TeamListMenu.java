@@ -4,6 +4,7 @@ import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.enums.TeamColor;
 import com.heneria.bedwars.gui.Menu;
 import com.heneria.bedwars.utils.ItemBuilder;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -39,10 +40,17 @@ public class TeamListMenu extends Menu {
         for (TeamColor color : TeamColor.values()) {
             ItemStack item = new ItemBuilder(color.getWoolMaterial())
                     .setName(color.getChatColor() + color.getDisplayName())
+                    .addLore("&eCliquez pour configurer")
                     .build();
             inventory.setItem(slot, item);
             teamSlots.put(slot, color);
             slot++;
+        }
+        ItemStack filler = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
+        for (int i = 0; i < getSize(); i++) {
+            if (inventory.getItem(i) == null) {
+                inventory.setItem(i, filler);
+            }
         }
     }
 

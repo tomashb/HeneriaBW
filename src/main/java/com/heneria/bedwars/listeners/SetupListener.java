@@ -9,6 +9,7 @@ import com.heneria.bedwars.arena.enums.TeamColor;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.setup.SetupAction;
 import com.heneria.bedwars.setup.SetupType;
+import com.heneria.bedwars.utils.MessageUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -49,24 +50,24 @@ public class SetupListener implements Listener {
 
         if (action.getType() == SetupType.LOBBY) {
             arena.setLobbyLocation(loc);
-            player.sendMessage("Lobby défini.");
+            MessageUtils.sendMessage(player, "&aLobby défini.");
         } else if (action.getType() == SetupType.TEAM_SPAWN && action.getTeamColor() != null) {
             Team team = arena.getTeams().computeIfAbsent(action.getTeamColor(), Team::new);
             team.setSpawnLocation(loc);
-            player.sendMessage("Spawn de l'équipe " + action.getTeamColor().getDisplayName() + " défini.");
+            MessageUtils.sendMessage(player, "&aSpawn de l'équipe " + action.getTeamColor().getDisplayName() + " défini.");
         } else if (action.getType() == SetupType.TEAM_BED && action.getTeamColor() != null) {
             Team team = arena.getTeams().computeIfAbsent(action.getTeamColor(), Team::new);
             team.setBedLocation(loc);
-            player.sendMessage("Lit de l'équipe " + action.getTeamColor().getDisplayName() + " défini.");
+            MessageUtils.sendMessage(player, "&aLit de l'équipe " + action.getTeamColor().getDisplayName() + " défini.");
         } else if (action.getType() == SetupType.GENERATOR && action.getGeneratorType() != null) {
             arena.getGenerators().add(new Generator(loc, action.getGeneratorType(), 1));
-            player.sendMessage("Générateur " + action.getGeneratorType().name() + " ajouté.");
+            MessageUtils.sendMessage(player, "&aGénérateur " + action.getGeneratorType().name() + " ajouté.");
         } else if (action.getType() == SetupType.NPC_SHOP) {
             arena.setShopNpcLocation(loc);
-            player.sendMessage("PNJ Boutique défini.");
+            MessageUtils.sendMessage(player, "&aPNJ Boutique défini.");
         } else if (action.getType() == SetupType.NPC_UPGRADE) {
             arena.setUpgradeNpcLocation(loc);
-            player.sendMessage("PNJ Améliorations défini.");
+            MessageUtils.sendMessage(player, "&aPNJ Améliorations défini.");
         }
 
         HeneriaBedwars.getInstance().getArenaManager().saveArena(arena);

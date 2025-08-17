@@ -4,11 +4,13 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.gui.Menu;
 import com.heneria.bedwars.utils.ItemBuilder;
+import com.heneria.bedwars.utils.MessageUtils;
 import com.heneria.bedwars.setup.SetupAction;
 import com.heneria.bedwars.setup.SetupType;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * Menu for configuring NPC positions.
@@ -37,11 +39,19 @@ public class NpcConfigMenu extends Menu {
     @Override
     public void setupItems() {
         inventory.setItem(SHOP_SLOT, new ItemBuilder(Material.EMERALD)
-                .setName("Définir le PNJ Boutique")
+                .setName("&eDéfinir le PNJ Boutique")
+                .addLore("&7Cliquez pour définir la position")
                 .build());
         inventory.setItem(UPGRADE_SLOT, new ItemBuilder(Material.ANVIL)
-                .setName("Définir le PNJ Améliorations")
+                .setName("&eDéfinir le PNJ Améliorations")
+                .addLore("&7Cliquez pour définir la position")
                 .build());
+        ItemStack filler = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
+        for (int i = 0; i < getSize(); i++) {
+            if (inventory.getItem(i) == null) {
+                inventory.setItem(i, filler);
+            }
+        }
     }
 
     @Override
@@ -60,7 +70,7 @@ public class NpcConfigMenu extends Menu {
         } else {
             return;
         }
-        player.sendMessage("Clic droit pour définir la position du PNJ.");
+        MessageUtils.sendMessage(player, "&eClic droit pour définir la position du PNJ.");
         player.closeInventory();
     }
 }
