@@ -4,6 +4,7 @@
 
 ### Corrigé
 - Suppression définitive de l'avertissement de dépréciation récurrent dans `ArenaNameMenu.java` pour assurer un build 100% propre.
+- Correction d'un bug critique où le wizard de création d'arène ne continuait pas après la saisie du nom dans l'enclume.
 
 ## [0.0.1] - En développement
 
