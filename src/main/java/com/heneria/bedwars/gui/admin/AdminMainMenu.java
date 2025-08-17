@@ -1,7 +1,7 @@
 package com.heneria.bedwars.gui.admin;
 
+import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.gui.Menu;
-import com.heneria.bedwars.gui.admin.creation.ArenaNameMenu;
 import com.heneria.bedwars.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -35,7 +35,10 @@ public class AdminMainMenu extends Menu {
         if (event.getCurrentItem() == null || event.getCurrentItem().getType() == Material.AIR) return;
 
         if (event.getSlot() == 11) {
-            new ArenaNameMenu().open(player);
+            player.closeInventory();
+            HeneriaBedwars.getInstance().getArenaManager().setPlayerInCreationMode(player);
+            player.sendMessage("§aVeuillez entrer le nom de la nouvelle arène dans le chat.");
+            player.sendMessage("§7Tapez 'annuler' pour quitter le mode création.");
         } else if (event.getSlot() == 15) {
             player.sendMessage("§eCette fonctionnalité est en cours de développement (HBW-010).");
             player.closeInventory();

@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [0.1.2] - En développement
+
+### Ajouté
+- Réécriture complète du système de création d'arène via saisie par chat, remplaçant l'ancien menu d'enclume instable.
+
 ## [0.1.1] - En développement
 
 ### Corrigé
