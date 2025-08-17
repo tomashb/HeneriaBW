@@ -1,18 +1,14 @@
 package com.heneria.bedwars;
 
 import com.heneria.bedwars.commands.CommandManager;
+import com.heneria.bedwars.listeners.AnvilListener;
 import com.heneria.bedwars.listeners.GUIListener;
-import com.heneria.bedwars.listeners.PositionToolListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-/**
- * Main plugin class for HeneriaBedwars.
- */
 public final class HeneriaBedwars extends JavaPlugin {
 
     private static HeneriaBedwars instance;
-
     private ArenaManager arenaManager;
 
     @Override
@@ -20,18 +16,18 @@ public final class HeneriaBedwars extends JavaPlugin {
         instance = this;
         getLogger().info("HeneriaBedwars v" + getDescription().getVersion() + " est en cours de chargement...");
 
-        // Initialize managers
+        // Initialisation des managers
         this.arenaManager = new ArenaManager(this);
-        this.arenaManager.loadArenas();
+        this.arenaManager.loadArenas(); // Charge les arènes depuis les fichiers de config
 
-        // Register commands
+        // Enregistrement des commandes
         CommandManager commandManager = new CommandManager(this);
         getCommand("bedwars").setExecutor(commandManager);
         getCommand("bedwars").setTabCompleter(commandManager);
 
-        // Register listeners
-        getServer().getPluginManager().registerEvents(new GUIListener(), this);
-        getServer().getPluginManager().registerEvents(new PositionToolListener(this), this);
+        // Enregistrement des listeners (gestionnaires d'événements)
+        registerListeners();
+
 
         getLogger().info("HeneriaBedwars a été activé avec succès.");
     }
@@ -42,18 +38,28 @@ public final class HeneriaBedwars extends JavaPlugin {
     }
 
     /**
-     * Gets the singleton instance of the plugin.
-     *
-     * @return plugin instance
+     * Enregistre tous les listeners du plugin.
+     */
+    private void registerListeners() {
+        // Gère les clics dans tous les menus personnalisés (coffres, etc.)
+        getServer().getPluginManager().registerEvents(new GUIListener(), this);
+
+        // Gère la logique complexe et spécifique de l'enclume pour la création d'arène
+        getServer().getPluginManager().registerEvents(new AnvilListener(), this);
+    }
+
+
+    /**
+     * Permet d'accéder à l'instance principale du plugin depuis n'importe où.
+     * @return L'instance de HeneriaBedwars.
      */
     public static HeneriaBedwars getInstance() {
         return instance;
     }
 
     /**
-     * Gets the arena manager.
-     *
-     * @return the arena manager
+     * Permet d'accéder au gestionnaire d'arènes.
+     * @return L'instance de ArenaManager.
      */
     public ArenaManager getArenaManager() {
         return arenaManager;
