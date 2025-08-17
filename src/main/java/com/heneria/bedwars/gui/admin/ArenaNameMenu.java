@@ -5,7 +5,6 @@ import com.heneria.bedwars.gui.Menu;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
@@ -32,9 +31,9 @@ public class ArenaNameMenu extends Menu {
         inventory.setItem(0, new ItemStack(Material.PAPER));
     }
 
-    @SuppressWarnings("deprecation") // getRenameText is deprecated but needed for name input
+    @SuppressWarnings("deprecation")
     @Override
-    public void handleClick(InventoryClickEvent event) {
+    public void handleClick(org.bukkit.event.inventory.InventoryClickEvent event) {
         event.setCancelled(true);
         if (!(event.getWhoClicked() instanceof Player player)) {
             return;

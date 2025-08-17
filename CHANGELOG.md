@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [0.1.1] - En développement
+
+### Corrigé
+- Suppression définitive de l'avertissement de dépréciation récurrent dans `ArenaNameMenu.java` pour assurer un build 100% propre.
+
 ## [0.0.1] - En développement
 
 ### Ajouté
