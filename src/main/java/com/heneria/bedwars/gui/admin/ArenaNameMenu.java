@@ -5,8 +5,8 @@ import com.heneria.bedwars.gui.Menu;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -31,19 +31,39 @@ public class ArenaNameMenu extends Menu {
         inventory.setItem(0, new ItemStack(Material.PAPER));
     }
 
-    @SuppressWarnings("deprecation")
     @Override
-    public void handleClick(org.bukkit.event.inventory.InventoryClickEvent event) {
+    public void handleClick(InventoryClickEvent event) {
         event.setCancelled(true);
         if (!(event.getWhoClicked() instanceof Player player)) {
             return;
         }
 
-        String name = ((AnvilInventory) event.getInventory()).getRenameText();
-        HeneriaBedwars.getInstance().getArenaManager().createArena(name);
+        if (event.getRawSlot() != 2) {
+            return;
+        }
+
+        ItemStack result = event.getCurrentItem();
+        if (result == null || !result.hasItemMeta()) {
+            player.sendMessage("Nom invalide.");
+            return;
+        }
+
+        String name = result.getItemMeta().getDisplayName().trim();
+        if (name.isEmpty()) {
+            player.sendMessage("Le nom ne peut pas être vide.");
+            return;
+        }
+
+        var manager = HeneriaBedwars.getInstance().getArenaManager();
+        if (manager.getArena(name) != null) {
+            player.sendMessage("Une arène avec ce nom existe déjà.");
+            return;
+        }
+
+        manager.createArena(name);
         player.sendMessage("Arène " + name + " créée.");
         player.closeInventory();
-        new ArenaConfigMenu(HeneriaBedwars.getInstance().getArenaManager().getArena(name)).open(player);
+        new ArenaConfigMenu(manager.getArena(name)).open(player);
     }
 
     @Override
