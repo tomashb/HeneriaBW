@@ -16,3 +16,5 @@
 - Correction d'une erreur de compilation critique dans `ArenaNameMenu` due à une mauvaise importation de `InventoryType`.
 - Suppression d'un avertissement de dépréciation lié à `getRenameText()` dans le GUI de l'enclume.
 - Suppression finale de l'avertissement de dépréciation dans `ArenaNameMenu` qui avait été manqué lors du correctif précédent.
+- Correction d'une erreur de compilation due à la méthode `addLore(String)` manquante dans `ItemBuilder`.
+- Réapplication du correctif pour l'avertissement de dépréciation récurrent dans `ArenaNameMenu`.

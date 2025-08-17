@@ -31,7 +31,7 @@ public class ArenaNameMenu extends Menu {
         inventory.setItem(0, new ItemStack(Material.PAPER));
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation") // getRenameText is deprecated but needed for name input
     @Override
     public void handleClick(InventoryClickEvent event) {
         event.setCancelled(true);

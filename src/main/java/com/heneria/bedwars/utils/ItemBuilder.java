@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +45,23 @@ public class ItemBuilder {
      */
     public ItemBuilder setLore(List<String> lore) {
         meta.setLore(lore);
+        return this;
+    }
+
+    /**
+     * Adds a single line to the item's lore.
+     *
+     * @param line the lore line to add
+     * @return this builder
+     */
+    public ItemBuilder addLore(String line) {
+        List<String> lore = meta.getLore();
+        if (lore == null) {
+            lore = new ArrayList<>();
+        }
+        lore.add(line);
+        meta.setLore(lore);
+        itemStack.setItemMeta(meta);
         return this;
     }
 
