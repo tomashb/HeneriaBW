@@ -10,6 +10,14 @@
 - Commande `/bedwars admin` (alias: `/bw`, `/hbw`) avec permission `heneriabw.admin`.
 - Interface graphique (GUI) principale pour l'administration.
 - Gestionnaire de commandes pour supporter de futures sous-commandes.
+- Menu de gestion pour lister toutes les arènes existantes.
+- Menu de configuration complet par arène.
+- Outil de positionnement en jeu pour définir les emplacements (lobby, lits, spawns, etc.).
+- Configuration des équipes (lits et spawns) via GUI.
+- Ajout et suppression des générateurs de ressources via GUI.
+- Configuration des emplacements des PNJ (boutiques) via GUI.
+- Possibilité d'activer une arène une fois sa configuration terminée.
+- **L'ensemble des fonctionnalités de l'Étape 1 de la roadmap est désormais implémenté.**
 
 ### Corrigé
 - Avertissement de compilation Maven en remplaçant les flags `<source>`/`<target>` par `<release>` pour une meilleure compatibilité avec le JDK 21.

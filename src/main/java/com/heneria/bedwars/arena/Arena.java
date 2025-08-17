@@ -16,12 +16,15 @@ public class Arena {
     private final String name;
     private GameState state = GameState.WAITING;
     private String worldName;
+    private boolean enabled;
     private int minPlayers;
     private int maxPlayers;
     private final List<UUID> players = new ArrayList<>();
     private final Map<TeamColor, Team> teams = new EnumMap<>(TeamColor.class);
     private final List<Generator> generators = new ArrayList<>();
     private Location lobbyLocation;
+    private Location shopNpcLocation;
+    private Location upgradeNpcLocation;
 
     /**
      * Creates a new arena with the given name.
@@ -57,6 +60,24 @@ public class Arena {
      */
     public void setState(GameState state) {
         this.state = state;
+    }
+
+    /**
+     * Checks whether the arena is enabled for play.
+     *
+     * @return true if enabled
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * Sets whether the arena is enabled for play.
+     *
+     * @param enabled new enabled state
+     */
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     /**
@@ -174,5 +195,41 @@ public class Arena {
      */
     public void setLobbyLocation(Location lobbyLocation) {
         this.lobbyLocation = lobbyLocation;
+    }
+
+    /**
+     * Gets the shop NPC location.
+     *
+     * @return location or null
+     */
+    public Location getShopNpcLocation() {
+        return shopNpcLocation;
+    }
+
+    /**
+     * Sets the shop NPC location.
+     *
+     * @param shopNpcLocation location
+     */
+    public void setShopNpcLocation(Location shopNpcLocation) {
+        this.shopNpcLocation = shopNpcLocation;
+    }
+
+    /**
+     * Gets the upgrade NPC location.
+     *
+     * @return location or null
+     */
+    public Location getUpgradeNpcLocation() {
+        return upgradeNpcLocation;
+    }
+
+    /**
+     * Sets the upgrade NPC location.
+     *
+     * @param upgradeNpcLocation location
+     */
+    public void setUpgradeNpcLocation(Location upgradeNpcLocation) {
+        this.upgradeNpcLocation = upgradeNpcLocation;
     }
 }
