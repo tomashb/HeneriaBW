@@ -7,6 +7,7 @@
 - Correction d'un bug critique où le wizard de création d'arène ne continuait pas après la saisie du nom dans l'enclume.
 - Correction d'un bug critique où la validation du nom d'arène échouait systématiquement, empêchant toute création.
 - Correction définitive d'une régression critique où le wizard de création d'arène se bloquait silencieusement après la saisie du nom.
+- Correction majeure et définitive du wizard de création d'arène, résolvant le blocage silencieux et le bug du coût en XP.
 
 ## [0.0.1] - En développement
 
