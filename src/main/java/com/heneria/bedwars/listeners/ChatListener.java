@@ -3,6 +3,7 @@ package com.heneria.bedwars.listeners;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.gui.admin.creation.ArenaSettingsMenu;
 import com.heneria.bedwars.managers.ArenaManager;
+import com.heneria.bedwars.utils.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,21 +23,21 @@ public class ChatListener implements Listener {
 
             if (arenaName.equalsIgnoreCase("annuler")) {
                 arenaManager.removePlayerFromCreationMode(player);
-                player.sendMessage("§cCréation d'arène annulée.");
+                MessageUtils.sendMessage(player, "&cCréation d'arène annulée.");
                 return;
             }
 
             if (arenaName.trim().isEmpty() || arenaName.length() > 16) {
-                player.sendMessage("§cNom invalide (1-16 caractères). Veuillez réessayer ou tapez 'annuler'.");
+                MessageUtils.sendMessage(player, "&cNom invalide (1-16 caractères). Veuillez réessayer ou tapez 'annuler'.");
                 return;
             }
             if (arenaManager.getArena(arenaName) != null) {
-                player.sendMessage("§cUne arène avec ce nom existe déjà. Veuillez réessayer ou tapez 'annuler'.");
+                MessageUtils.sendMessage(player, "&cUne arène avec ce nom existe déjà. Veuillez réessayer ou tapez 'annuler'.");
                 return;
             }
 
             arenaManager.removePlayerFromCreationMode(player);
-            player.sendMessage("§aNom '§e" + arenaName + "§a' validé !");
+            MessageUtils.sendMessage(player, "&aNom '&e" + arenaName + "&a' validé !");
 
             Bukkit.getScheduler().runTask(HeneriaBedwars.getInstance(), () -> {
                 new ArenaSettingsMenu(arenaName).open(player);

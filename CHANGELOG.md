@@ -1,5 +1,12 @@
 # Changelog - HeneriaBedwars
 
+## [0.2.0] - En développement
+
+### Ajouté
+- Système de menus paginés avec classe de base `PaginatedMenu` et refonte du menu des générateurs.
+- Design unifié de toutes les interfaces avec bordures en vitres grises et lores colorées.
+- Utilitaire `MessageUtils` centralisant l'envoi de messages avec préfixe et codes couleurs.
+
 ## [0.1.2] - En développement
 
 ### Ajouté

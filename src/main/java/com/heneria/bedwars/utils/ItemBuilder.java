@@ -44,7 +44,11 @@ public class ItemBuilder {
      * @return this builder
      */
     public ItemBuilder setLore(List<String> lore) {
-        meta.setLore(lore);
+        List<String> colored = new ArrayList<>();
+        for (String line : lore) {
+            colored.add(ChatColor.translateAlternateColorCodes('&', line));
+        }
+        meta.setLore(colored);
         return this;
     }
 
@@ -59,7 +63,7 @@ public class ItemBuilder {
         if (lore == null) {
             lore = new ArrayList<>();
         }
-        lore.add(line);
+        lore.add(ChatColor.translateAlternateColorCodes('&', line));
         meta.setLore(lore);
         itemStack.setItemMeta(meta);
         return this;

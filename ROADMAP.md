@@ -16,10 +16,17 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 
 ---
 
-## 🎯 **Étape 2 : Cycle de Jeu & Lobby (Version Cible : 0.2.0)**
+## 🎯 **Étape 1.5 - Polissage & UX (Version Cible : 0.2.0) - [✔] TERMINÉE**
+* Ajout d'un système de pagination pour les menus.
+* Amélioration visuelle générale des GUIs.
+* Centralisation des messages via `MessageUtils`.
+
+---
+
+## 🎯 **Étape 2 : Cycle de Jeu & Lobby (Version Cible : 0.3.0)**
 *Objectif : Rendre les arènes jouables avec un cycle de vie complet, de l'attente au décompte, jusqu'à la fin de partie.*
 
-## 🎯 **Étape 3 : Systèmes Économiques & PNJ (Version Cible : 0.3.0)**
+## 🎯 **Étape 3 : Systèmes Économiques & PNJ (Version Cible : 0.4.0)**
 *Objectif : Intégrer les boutiques d'objets et d'améliorations d'équipe.*
 
 ## 🎯 **Étape 4 : Polissage & Fonctionnalités Avancées (Version Cible : 1.0.0)**
