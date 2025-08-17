@@ -6,6 +6,7 @@
 - Suppression définitive de l'avertissement de dépréciation récurrent dans `ArenaNameMenu.java` pour assurer un build 100% propre.
 - Correction d'un bug critique où le wizard de création d'arène ne continuait pas après la saisie du nom dans l'enclume.
 - Correction d'un bug critique où la validation du nom d'arène échouait systématiquement, empêchant toute création.
+- Correction définitive d'une régression critique où le wizard de création d'arène se bloquait silencieusement après la saisie du nom.
 
 ## [0.0.1] - En développement
 
