@@ -31,8 +31,8 @@ public class ArenaNameMenu extends Menu {
         inventory.setItem(0, new ItemStack(Material.PAPER));
     }
 
-    @Override
     @SuppressWarnings("deprecation")
+    @Override
     public void handleClick(InventoryClickEvent event) {
         event.setCancelled(true);
         if (!(event.getWhoClicked() instanceof Player player)) {
