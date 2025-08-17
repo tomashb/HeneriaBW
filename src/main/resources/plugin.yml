@@ -8,3 +8,8 @@ commands:
   bedwars:
     description: Commande principale de HeneriaBedwars.
     aliases: [bw, hbw]
+
+permissions:
+  heneriabw.admin:
+    description: Donne accès à toutes les commandes d'administration de HeneriaBedwars.
+    default: op

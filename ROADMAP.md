@@ -19,23 +19,14 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
     * [✔] Créer la classe `Generator`.
     * [✔] Créer des Enums pour les états de jeu, types de générateurs, et couleurs d'équipe.
 
-* **[ ] 1.3 : Système de Commandes & Permissions**
-    * [ ] Implémenter un gestionnaire de commandes robuste pour la commande principale `/bedwars` (ou `/hbw`).
-    * [ ] Créer la sous-commande `/bedwars admin` (permission : `heneriabw.admin`).
-    * [ ] L'exécution de `/bedwars admin` ouvrira l'interface graphique principale de gestion.
+* **[✔] 1.3 : Système de Commandes & Permissions**
+    * [✔] Implémenter le gestionnaire de commandes pour `/bedwars`.
+    * [✔] Créer la sous-commande `/bedwars admin` avec la permission `heneriabw.admin`.
 
-* **[ ] 1.4 : Développement du GUI d'Administration**
-    * [ ] **GUI Principal (`/bw admin`)** : Proposera les options "Créer une Arène" et "Gérer les Arènes Existantes".
-    * [ ] **GUI de Création d'Arène (Wizard)** :
-        * Étape 1 : Demander le nom de l'arène via un anvil GUI.
-        * Étape 2 : Définir le nombre de joueurs min/max et le nombre d'équipes.
-        * Étape 3 : Confirmer la création, ce qui génère un fichier de configuration vide et ajoute l'arène au gestionnaire.
-    * [ ] **GUI de Configuration d'Arène (Menu par arène)** :
-        * Item "Définir le Lobby d'attente" : Enregistre la position du joueur comme point de spawn d'attente.
-        * Item "Gestion des Équipes" : Ouvre un sous-menu pour configurer chaque équipe (couleur, taille max, position du lit, point de spawn).
-        * Item "Gestion des Générateurs" : Ouvre un sous-menu pour ajouter/supprimer des générateurs. L'ajout se fera via un item à placer physiquement, qui ouvrira un GUI pour choisir le type de ressource.
-        * Item "Gestion des PNJ" : Permet de définir les emplacements pour le PNJ de la boutique et celui des améliorations.
-        * Item "Activer/Désactiver l'arène" : Permet de rendre une arène jouable ou non.
+* **[WIP] 1.4 : Développement du GUI d'Administration**
+    * [✔] Créer le GUI Principal (`/bw admin`).
+    * [ ] Créer le GUI de Création d'Arène (Wizard).
+    * [ ] Créer le GUI de Configuration d'Arène.
 
 * **[ ] 1.5 : Persistance des Données**
     * [ ] Développer un `ArenaManager` qui charge toutes les configurations d'arène au démarrage du serveur.
