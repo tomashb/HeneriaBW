@@ -42,21 +42,21 @@ public class ArenaNameMenu extends Menu {
             return;
         }
 
-        ItemStack result = event.getCurrentItem();
-        if (result == null || !result.hasItemMeta()) {
-            player.sendMessage("Nom invalide.");
+        ItemStack result = event.getInventory().getItem(0);
+        if (result == null || !result.hasItemMeta() || !result.getItemMeta().hasDisplayName()) {
+            player.sendMessage("§cLe nom de l'arène ne peut pas être vide.");
             return;
         }
 
         String name = result.getItemMeta().getDisplayName().trim();
         if (name.isEmpty()) {
-            player.sendMessage("Le nom ne peut pas être vide.");
+            player.sendMessage("§cLe nom de l'arène ne peut pas être vide.");
             return;
         }
 
         var manager = HeneriaBedwars.getInstance().getArenaManager();
         if (manager.getArena(name) != null) {
-            player.sendMessage("Une arène avec ce nom existe déjà.");
+            player.sendMessage("§cUne arène avec le nom '" + name + "' existe déjà.");
             return;
         }
 
