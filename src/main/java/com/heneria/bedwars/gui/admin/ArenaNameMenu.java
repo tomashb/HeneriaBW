@@ -2,6 +2,7 @@ package com.heneria.bedwars.gui.admin;
 
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.gui.Menu;
+import com.heneria.bedwars.managers.ArenaManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -33,41 +34,46 @@ public class ArenaNameMenu extends Menu {
 
     @Override
     public void handleClick(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+
+        // Annuler l'événement est la première chose à faire pour éviter tout comportement par défaut.
         event.setCancelled(true);
-        if (!(event.getWhoClicked() instanceof Player player)) {
-            return;
+
+        // Vérifier si le clic est sur le slot de résultat (slot 2)
+        if (event.getSlot() != 2) {
+            return; // Si ce n'est pas le slot de résultat, on ne fait rien.
         }
 
-        if (event.getRawSlot() != 2) {
-            return;
-        }
-
+        // Vérifier si l'item de résultat existe
         ItemStack item = event.getCurrentItem();
-        if (item == null || item.getType() == Material.AIR) {
-            return;
+        if (item == null || item.getType() == Material.AIR || !item.hasItemMeta()) {
+            return; // Pas d'item, on ne fait rien.
         }
 
-        if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) {
+        // Récupérer le nom de manière fiable
+        String arenaName = item.getItemMeta().getDisplayName();
+
+        // Valider le nom
+        if (arenaName == null || arenaName.trim().isEmpty()) {
             player.sendMessage("§cLe nom de l'arène ne peut pas être vide.");
+            player.closeInventory();
             return;
         }
 
-        String name = item.getItemMeta().getDisplayName().trim();
-        if (name.isEmpty()) {
-            player.sendMessage("§cLe nom de l'arène ne peut pas être vide.");
+        // Valider la non-existence de l'arène
+        ArenaManager arenaManager = HeneriaBedwars.getInstance().getArenaManager();
+        if (arenaManager.getArena(arenaName) != null) {
+            player.sendMessage("§cUne arène avec le nom '" + arenaName + "' existe déjà.");
+            player.closeInventory();
             return;
         }
 
-        var manager = HeneriaBedwars.getInstance().getArenaManager();
-        if (manager.getArena(name) != null) {
-            player.sendMessage("§cUne arène avec le nom '" + name + "' existe déjà.");
-            return;
-        }
-
-        manager.createArena(name);
-        player.sendMessage("Arène " + name + " créée.");
+        // Toutes les vérifications ont réussi, on passe à la suite
         player.closeInventory();
-        new ArenaConfigMenu(manager.getArena(name)).open(player);
+        player.sendMessage("§aNom d'arène '" + arenaName + "' validé ! Configuration suivante...");
+
+        // Déclencher l'ouverture du menu suivant (Assurez-vous que ArenaSettingsMenu existe)
+        // new ArenaSettingsMenu(arenaName).open(player);
     }
 
     @Override
