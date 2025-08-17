@@ -18,6 +18,8 @@ public class Arena {
     private String worldName;
     private int minPlayers;
     private int maxPlayers;
+    private int playersPerTeam;
+    private int teamCount;
     private final List<UUID> players = new ArrayList<>();
     private final Map<TeamColor, Team> teams = new EnumMap<>(TeamColor.class);
     private final List<Generator> generators = new ArrayList<>();
@@ -111,6 +113,42 @@ public class Arena {
      */
     public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
+    }
+
+    /**
+     * Gets the number of players per team.
+     *
+     * @return players per team
+     */
+    public int getPlayersPerTeam() {
+        return playersPerTeam;
+    }
+
+    /**
+     * Sets the number of players per team.
+     *
+     * @param playersPerTeam players per team
+     */
+    public void setPlayersPerTeam(int playersPerTeam) {
+        this.playersPerTeam = playersPerTeam;
+    }
+
+    /**
+     * Gets the number of teams in the arena.
+     *
+     * @return team count
+     */
+    public int getTeamCount() {
+        return teamCount;
+    }
+
+    /**
+     * Sets the number of teams in the arena.
+     *
+     * @param teamCount team count
+     */
+    public void setTeamCount(int teamCount) {
+        this.teamCount = teamCount;
     }
 
     /**
