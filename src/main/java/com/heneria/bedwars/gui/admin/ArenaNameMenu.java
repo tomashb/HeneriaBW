@@ -42,13 +42,17 @@ public class ArenaNameMenu extends Menu {
             return;
         }
 
-        ItemStack result = event.getInventory().getItem(0);
-        if (result == null || !result.hasItemMeta() || !result.getItemMeta().hasDisplayName()) {
+        ItemStack item = event.getCurrentItem();
+        if (item == null || item.getType() == Material.AIR) {
+            return;
+        }
+
+        if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) {
             player.sendMessage("§cLe nom de l'arène ne peut pas être vide.");
             return;
         }
 
-        String name = result.getItemMeta().getDisplayName().trim();
+        String name = item.getItemMeta().getDisplayName().trim();
         if (name.isEmpty()) {
             player.sendMessage("§cLe nom de l'arène ne peut pas être vide.");
             return;
