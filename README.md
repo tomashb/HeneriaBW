@@ -21,3 +21,10 @@ Consultez notre [ROADMAP.md](ROADMAP.md) pour suivre le développement du projet
 2.  Naviguez dans le dossier : `cd HeneriaBW`
 3.  Compilez avec Maven : `mvn clean package`
 4.  Le JAR final se trouvera dans le dossier `target/`.
+
+## 🎮 Commandes & Permissions
+
+### Commandes Administrateur
+- `/bedwars admin` (Alias: `/bw admin`, `/hbw admin`)
+  - Ouvre le menu principal de gestion des arènes.
+  - **Permission :** `heneriabw.admin`
