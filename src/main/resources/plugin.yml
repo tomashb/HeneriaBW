@@ -1,0 +1,10 @@
+name: HeneriaBedwars
+version: ${project.version}
+main: com.heneria.bedwars.HeneriaBedwars
+api-version: '1.21'
+author: tomashb
+
+commands:
+  bedwars:
+    description: Commande principale de HeneriaBedwars.
+    aliases: [bw, hbw]
