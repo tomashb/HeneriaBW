@@ -1,43 +1,49 @@
 package com.heneria.bedwars;
 
+import com.heneria.bedwars.managers.ArenaManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * Main plugin class for HeneriaBedwars.
+ */
 public final class HeneriaBedwars extends JavaPlugin {
 
     private static HeneriaBedwars instance;
 
-    // Managers à implémenter
-    // private ArenaManager arenaManager;
+    private ArenaManager arenaManager;
 
     @Override
     public void onEnable() {
         instance = this;
         getLogger().info("HeneriaBedwars v" + getDescription().getVersion() + " est en cours de chargement...");
 
-        // 1. Charger les configurations
-
-        // 2. Initialiser les managers
-        // this.arenaManager = new ArenaManager(this);
-
-        // 3. Enregistrer les commandes
-
-        // 4. Enregistrer les listeners
+        // Initialize managers
+        this.arenaManager = new ArenaManager(this);
+        this.arenaManager.loadArenas();
 
         getLogger().info("HeneriaBedwars a été activé avec succès.");
     }
 
     @Override
     public void onDisable() {
-        // Logique de sauvegarde ou de nettoyage
         getLogger().info("HeneriaBedwars a été désactivé.");
     }
 
+    /**
+     * Gets the singleton instance of the plugin.
+     *
+     * @return plugin instance
+     */
     public static HeneriaBedwars getInstance() {
         return instance;
     }
 
-    // Getters pour les managers
-    // public ArenaManager getArenaManager() {
-    //     return arenaManager;
-    // }
+    /**
+     * Gets the arena manager.
+     *
+     * @return the arena manager
+     */
+    public ArenaManager getArenaManager() {
+        return arenaManager;
+    }
 }
