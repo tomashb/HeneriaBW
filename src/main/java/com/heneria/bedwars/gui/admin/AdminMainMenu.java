@@ -1,56 +1,45 @@
 package com.heneria.bedwars.gui.admin;
 
 import com.heneria.bedwars.gui.Menu;
+import com.heneria.bedwars.gui.admin.creation.ArenaNameMenu;
 import com.heneria.bedwars.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
 
-/**
- * Main administration menu opened via "/bedwars admin".
- */
 public class AdminMainMenu extends Menu {
 
-    private static final int CREATE_ARENA_SLOT = 11;
-    private static final int MANAGE_ARENAS_SLOT = 15;
+    @Override
+    public String getTitle() { return "§8HeneriaBedwars - Administration"; }
 
     @Override
-    public String getTitle() {
-        return "Gestion Bedwars";
-    }
-
-    @Override
-    public int getSize() {
-        return 27;
-    }
+    public int getSize() { return 27; }
 
     @Override
     public void setupItems() {
-        ItemStack createArena = new ItemBuilder(Material.NETHER_STAR)
-                .setName("Créer une Arène")
-                .build();
-        inventory.setItem(CREATE_ARENA_SLOT, createArena);
-
-        ItemStack manageArenas = new ItemBuilder(Material.COMPASS)
-                .setName("Gérer les Arènes Existantes")
-                .build();
-        inventory.setItem(MANAGE_ARENAS_SLOT, manageArenas);
+        inventory.setItem(11, new ItemBuilder(Material.NETHER_STAR).setName("§aCréer une Arène").addLore("§7Cliquez pour lancer l'assistant")
+                .addLore("§7de création d'arène.").build());
+        inventory.setItem(15, new ItemBuilder(Material.COMPASS).setName("§eGérer les Arènes Existantes").addLore("§7Cliquez pour voir et configurer")
+                .addLore("§7les arènes déjà créées.").build());
+        for (int i = 0; i < getSize(); i++) {
+            if (inventory.getItem(i) == null) {
+                inventory.setItem(i, new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build());
+            }
+        }
     }
 
     @Override
     public void handleClick(InventoryClickEvent event) {
         event.setCancelled(true);
-        if (!(event.getWhoClicked() instanceof Player player)) {
-            return;
-        }
+        Player player = (Player) event.getWhoClicked();
+        if (event.getCurrentItem() == null || event.getCurrentItem().getType() == Material.AIR) return;
 
-        int slot = event.getRawSlot();
-        if (slot == CREATE_ARENA_SLOT) {
-            player.closeInventory();
+        if (event.getSlot() == 11) {
             new ArenaNameMenu().open(player);
-        } else if (slot == MANAGE_ARENAS_SLOT) {
-            new ArenaListMenu().open(player);
+        } else if (event.getSlot() == 15) {
+            player.sendMessage("§eCette fonctionnalité est en cours de développement (HBW-010).");
+            player.closeInventory();
         }
     }
 }
+
