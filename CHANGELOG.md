@@ -4,7 +4,6 @@
 
 ### Ajouté
 - Initialisation de la structure du projet Maven pour Spigot 1.21.
-- Création du système de gestion d'arène (modèles de données).
-- Implémentation de la commande `/bedwars admin` pour ouvrir le GUI de gestion.
-- Développement de l'interface graphique principale pour la création et la configuration des arènes.
-- Mise en place de la persistance des arènes dans des fichiers YAML.
+- Création des modèles de données de base : `Arena`, `Team`, `Generator`.
+- Ajout des énumérations `GameState`, `GeneratorType`, et `TeamColor`.
+- Implémentation de la structure initiale de l' `ArenaManager` pour la gestion des arènes en mémoire.

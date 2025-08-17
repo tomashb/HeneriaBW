@@ -13,11 +13,11 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
     * [✔] Création du workflow GitHub Actions pour la compilation automatique (CI).
     * [✔] Initialisation de la structure des packages Java (`com.heneria.bedwars.*`).
 
-* **[ ] 1.2 : Modèles de Données (Core Engine)**
-    * [ ] Créer la classe `Arena` : Contiendra toutes les informations d'une arène (nom, état, joueurs, équipes, configuration du monde, etc.).
-    * [ ] Créer la classe `Team` : Gérera les informations d'une équipe (nom, couleur, joueurs, lit, améliorations).
-    * [ ] Créer la classe `Generator` : Modélisera les générateurs de ressources (type, emplacement, niveau).
-    * [ ] Créer des Enums pour les états de jeu (`GameState`: WAITING, STARTING, PLAYING, ENDING), les types de générateurs (`GeneratorType`: IRON, GOLD, DIAMOND, EMERALD), et les couleurs d'équipe (`TeamColor`).
+* **[✔] 1.2 : Modèles de Données (Core Engine)**
+    * [✔] Créer la classe `Arena`.
+    * [✔] Créer la classe `Team`.
+    * [✔] Créer la classe `Generator`.
+    * [✔] Créer des Enums pour les états de jeu, types de générateurs, et couleurs d'équipe.
 
 * **[ ] 1.3 : Système de Commandes & Permissions**
     * [ ] Implémenter un gestionnaire de commandes robuste pour la commande principale `/bedwars` (ou `/hbw`).
