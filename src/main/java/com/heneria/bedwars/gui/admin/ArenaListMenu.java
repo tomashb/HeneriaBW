@@ -33,8 +33,10 @@ public class ArenaListMenu extends Menu {
     public void setupItems() {
         int slot = 0;
         for (Arena arena : HeneriaBedwars.getInstance().getArenaManager().getAllArenas()) {
+            String status = arena.isEnabled() ? "§aJOUABLE" : "§cINCOMPLET";
             ItemStack item = new ItemBuilder(Material.PAPER)
                     .setName(arena.getName())
+                    .addLore("Statut : " + status)
                     .build();
             inventory.setItem(slot, item);
             arenaSlots.put(slot, arena);

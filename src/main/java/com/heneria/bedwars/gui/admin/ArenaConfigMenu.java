@@ -4,14 +4,12 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.gui.Menu;
 import com.heneria.bedwars.utils.ItemBuilder;
+import com.heneria.bedwars.setup.SetupAction;
+import com.heneria.bedwars.setup.SetupType;
+import com.heneria.bedwars.arena.elements.Team;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 /**
  * Main configuration menu for a specific arena.
@@ -74,7 +72,8 @@ public class ArenaConfigMenu extends Menu {
 
         int slot = event.getRawSlot();
         if (slot == SET_LOBBY_SLOT) {
-            giveTool(player, "lobby");
+            HeneriaBedwars.getInstance().getSetupManager().startSetup(player,
+                    new SetupAction(arena, SetupType.LOBBY));
             player.sendMessage("Faites un clic droit pour définir le lobby.");
             player.closeInventory();
         } else if (slot == TEAMS_SLOT) {
@@ -89,6 +88,16 @@ public class ArenaConfigMenu extends Menu {
                     player.sendMessage("Le lobby n'est pas défini.");
                     return;
                 }
+                for (Team team : arena.getTeams().values()) {
+                    if (team.getSpawnLocation() == null || team.getBedLocation() == null) {
+                        player.sendMessage("Toutes les équipes n'ont pas leur spawn et leur lit définis.");
+                        return;
+                    }
+                }
+                if (arena.getTeams().isEmpty()) {
+                    player.sendMessage("Aucune équipe configurée.");
+                    return;
+                }
                 arena.setEnabled(true);
                 player.sendMessage("Arène activée.");
             } else {
@@ -99,19 +108,5 @@ public class ArenaConfigMenu extends Menu {
             player.closeInventory();
             new ArenaConfigMenu(arena).open(player);
         }
-    }
-
-    private void giveTool(Player player, String type) {
-        ItemStack tool = new ItemBuilder(Material.BLAZE_ROD)
-                .setName("Outil de Positionnement")
-                .build();
-        ItemMeta meta = tool.getItemMeta();
-        NamespacedKey typeKey = new NamespacedKey(HeneriaBedwars.getInstance(), "pos-type");
-        NamespacedKey arenaKey = new NamespacedKey(HeneriaBedwars.getInstance(), "arena");
-        PersistentDataContainer data = meta.getPersistentDataContainer();
-        data.set(typeKey, PersistentDataType.STRING, type);
-        data.set(arenaKey, PersistentDataType.STRING, arena.getName());
-        tool.setItemMeta(meta);
-        player.getInventory().addItem(tool);
     }
 }

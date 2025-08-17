@@ -4,7 +4,7 @@
 
 Notre objectif principal est de fournir un système de gestion d'arène via une interface graphique (GUI) simple, rapide et puissante, éliminant le besoin de commandes complexes et de modifications manuelles de fichiers de configuration.
 
-## ✨ Fonctionnalités (v0.0.1)
+## ✨ Fonctionnalités (v0.1.2)
 
 - **Gestion d'Arène 100% GUI** : Créez, configurez et gérez vos arènes sans taper une seule commande de configuration.
 - **Menus de Configuration Complets** : Lobby, équipes, lits, spawns, générateurs et PNJ configurables via interface.
@@ -34,6 +34,11 @@ Consultez notre [ROADMAP.md](ROADMAP.md) pour suivre le développement du projet
 ## 🛠️ Guide de l'Administrateur
 
 1. **Ouvrir le panneau d'administration** : `/bw admin`.
-2. **Créer une arène** : cliquez sur "Créer une Arène" et entrez un nom.
-3. **Configurer l'arène** : dans "Gérer les Arènes Existantes", sélectionnez l'arène puis utilisez le menu pour définir le lobby, les équipes, les générateurs et les PNJ via l'outil de positionnement.
-4. **Activer l'arène** : lorsque tous les points essentiels sont définis, utilisez le bouton d'activation pour rendre l'arène jouable.
+2. **Créer une arène** : cliquez sur "Créer une Arène" et validez le nom, le nombre d'équipes et de joueurs.
+3. **Gérer les arènes existantes** : ouvrez "Gérer les Arènes Existantes" puis sélectionnez l'arène à configurer.
+4. **Définir les positions** dans le menu de configuration :
+   - *Définir le Lobby* : donne un bâton de configuration, faites un clic droit à l'endroit souhaité.
+   - *Gérer les Équipes* : choisissez une couleur puis définissez le **spawn** et le **lit** de chaque équipe.
+   - *Gérer les Générateurs* : ajoutez un générateur de ressource ou cliquez sur un existant pour le supprimer.
+   - *Gérer les PNJ* : positionnez la **Boutique d'objets** et la **Boutique d'améliorations**.
+5. **Activer l'arène** : lorsque le lobby, les spawns et lits de chaque équipe sont définis, utilisez le bouton d'activation pour rendre l'arène jouable. Toutes les positions sont sauvegardées immédiatement.
