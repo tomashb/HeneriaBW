@@ -1,6 +1,10 @@
 package com.heneria.bedwars.gui.admin;
 
+import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.gui.Menu;
+import com.heneria.bedwars.gui.admin.ArenaListMenu;
+import com.heneria.bedwars.gui.admin.creation.ArenaNameMenu;
+import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -47,11 +51,10 @@ public class AdminMainMenu extends Menu {
 
         int slot = event.getRawSlot();
         if (slot == CREATE_ARENA_SLOT) {
-            player.sendMessage("Bientôt disponible...");
-            player.closeInventory();
+            new ArenaNameMenu().open(player);
         } else if (slot == MANAGE_ARENAS_SLOT) {
-            player.sendMessage("Bientôt disponible...");
-            player.closeInventory();
+            ArenaManager arenaManager = HeneriaBedwars.getInstance().getArenaManager();
+            new ArenaListMenu(arenaManager).open(player);
         }
     }
 }

@@ -3,7 +3,12 @@ package com.heneria.bedwars;
 import com.heneria.bedwars.commands.CommandManager;
 import com.heneria.bedwars.listeners.GUIListener;
 import com.heneria.bedwars.managers.ArenaManager;
+import com.heneria.bedwars.gui.admin.creation.ArenaCreationWizard;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Main plugin class for HeneriaBedwars.
@@ -13,6 +18,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private static HeneriaBedwars instance;
 
     private ArenaManager arenaManager;
+    private final Map<UUID, ArenaCreationWizard> creationWizards = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -55,5 +61,9 @@ public final class HeneriaBedwars extends JavaPlugin {
      */
     public ArenaManager getArenaManager() {
         return arenaManager;
+    }
+
+    public Map<UUID, ArenaCreationWizard> getCreationWizards() {
+        return creationWizards;
     }
 }

@@ -25,13 +25,13 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 
 * **[WIP] 1.4 : Développement du GUI d'Administration**
     * [✔] Créer le GUI Principal (`/bw admin`).
-    * [ ] Créer le GUI de Création d'Arène (Wizard).
+    * [✔] Créer le GUI de Création d'Arène (Wizard).
     * [ ] Créer le GUI de Configuration d'Arène.
 
-* **[ ] 1.5 : Persistance des Données**
-    * [ ] Développer un `ArenaManager` qui charge toutes les configurations d'arène au démarrage du serveur.
-    * [ ] Les configurations d'arène seront stockées dans des fichiers YAML dédiés (`plugins/HeneriaBedwars/arenas/<nom_arene>.yml`).
-    * [ ] Toute modification via le GUI doit être immédiatement sauvegardée dans le fichier correspondant pour éviter toute perte de données.
+* **[✔] 1.5 : Persistance des Données**
+    * [✔] Développer un `ArenaManager` qui charge les configurations au démarrage.
+    * [✔] Sauvegarder les configurations d'arène dans des fichiers YAML dédiés.
+    * [✔] Assurer que les modifications via GUI sont sauvegardées.
 
 ---
 

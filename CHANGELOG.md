@@ -10,6 +10,10 @@
 - Commande `/bedwars admin` (alias: `/bw`, `/hbw`) avec permission `heneriabw.admin`.
 - Interface graphique (GUI) principale pour l'administration.
 - Gestionnaire de commandes pour supporter de futures sous-commandes.
+- Assistant de création d'arène en plusieurs étapes (GUI).
+- Système de persistance des données : les arènes sont désormais sauvegardées dans des fichiers YAML.
+- Chargement automatique des arènes au démarrage du serveur.
+- Menu de base pour lister les arènes existantes.
 
 ### Corrigé
 - Avertissement de compilation Maven en remplaçant les flags `<source>`/`<target>` par `<release>` pour une meilleure compatibilité avec le JDK 21.
