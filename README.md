@@ -111,6 +111,21 @@ database:
 ```
 
 
+
+## 📌 Placeholders
+
+Si [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) est installé, HeneriaBedwars enregistre automatiquement les placeholders suivants :
+
+- `%heneriabw_kills%`
+- `%heneriabw_deaths%`
+- `%heneriabw_wins%`
+- `%heneriabw_losses%`
+- `%heneriabw_beds_broken%`
+- `%heneriabw_games_played%`
+- `%heneriabw_kdr%`
+
+Vous pouvez les utiliser dans n'importe quel plugin compatible avec PlaceholderAPI pour afficher les statistiques des joueurs.
+
 ---
 
 ## 🔧 Compilation (pour les développeurs)
