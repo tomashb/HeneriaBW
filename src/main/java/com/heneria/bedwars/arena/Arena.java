@@ -10,6 +10,7 @@ import com.heneria.bedwars.utils.GameUtils;
 import com.heneria.bedwars.utils.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Entity;
@@ -46,6 +47,7 @@ public class Arena {
     private final Map<UUID, PlayerData> savedStates = new HashMap<>();
     // NEW CACHE SYSTEM: SIMPLE AND DIRECT
     private final Map<Block, Team> bedBlocks = new HashMap<>();
+    private final List<Block> placedBlocks = new ArrayList<>();
     private BukkitTask countdownTask;
     private int countdownDuration = 10;
 
@@ -257,6 +259,11 @@ public class Arena {
 
     public void clearBeds() {
         bedBlocks.clear();
+    }
+
+    // Player placed blocks
+    public List<Block> getPlacedBlocks() {
+        return placedBlocks;
     }
 
     public void registerBeds() {
@@ -535,5 +542,9 @@ public class Arena {
         state = GameState.WAITING;
         liveNpcs.forEach(Entity::remove);
         liveNpcs.clear();
+        for (Block block : placedBlocks) {
+            block.setType(Material.AIR);
+        }
+        placedBlocks.clear();
     }
 }

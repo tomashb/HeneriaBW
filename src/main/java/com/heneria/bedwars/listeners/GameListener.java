@@ -35,17 +35,13 @@ public class GameListener implements Listener {
         Player player = event.getPlayer();
         Block block = event.getBlock();
         Arena arena = arenaManager.getArena(player);
-        if (arena == null || arena.getState() != GameState.PLAYING) return;
+        if (arena == null || arena.getState() != GameState.PLAYING) {
+            return;
+        }
 
-        // On utilise la nouvelle méthode DIRECTE
         Team bedTeam = arena.getTeamOfBed(block);
 
-        System.out.println("=============================================");
-        System.out.println("[NOUVEAU DEBUG - LIT] Joueur: " + player.getName());
-        System.out.println("[NOUVEAU DEBUG - LIT] Bloc cassé: " + block.getType() + " @ " + block.getLocation());
-        
         if (bedTeam != null) {
-            System.out.println("[NOUVEAU DEBUG - LIT] Le bloc appartient à l'équipe: " + bedTeam.getColor().name());
             Team playerTeam = arena.getTeam(player);
             if (playerTeam != null && playerTeam.equals(bedTeam)) {
                 player.sendMessage("§cVous ne pouvez pas casser votre propre lit.");
@@ -55,10 +51,12 @@ public class GameListener implements Listener {
                 bedTeam.setHasBed(false);
                 arena.broadcastTitle("§cDESTRUCTION DE LIT !", "Lit de l'équipe " + bedTeam.getColor().getDisplayName() + " détruit par " + player.getName(), 10, 70, 20);
             }
-        } else {
-            System.out.println("[NOUVEAU DEBUG - LIT] Ce bloc n'est pas un lit d'équipe enregistré.");
+            return;
         }
-        System.out.println("=============================================");
+
+        if (!arena.getPlacedBlocks().remove(block)) {
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler
