@@ -3,11 +3,13 @@ package com.heneria.bedwars.listeners;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
+import com.heneria.bedwars.arena.enums.GameState;
+import com.heneria.bedwars.events.GameStateChangeEvent;
 import com.heneria.bedwars.managers.ArenaManager;
-import com.heneria.bedwars.utils.GameUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,46 +22,56 @@ public class GameListener implements Listener {
     private final HeneriaBedwars plugin = HeneriaBedwars.getInstance();
     private final ArenaManager arenaManager = plugin.getArenaManager();
 
+    // Quand le jeu démarre, on doit enregistrer les lits
+    // CECI EST UN NOUVEL ÉVÉNEMENT A AJOUTER
+    @EventHandler
+    public void onGameStateChange(GameStateChangeEvent event) {
+        if (event.getNewState() == GameState.PLAYING) {
+            Arena arena = event.getArena();
+            arena.clearBeds(); // Vider l'ancien cache
+            for (Team team : arena.getTeams().values()) {
+                Location bedLocation = team.getBedLocation();
+                if (bedLocation != null) {
+                    Block headBlock = bedLocation.getBlock();
+                    if (headBlock.getBlockData() instanceof Bed) {
+                        Bed bedData = (Bed) headBlock.getBlockData();
+                        Block footBlock = headBlock.getRelative(bedData.getFacing().getOppositeFace());
+                        arena.registerBed(headBlock, team);
+                        arena.registerBed(footBlock, team);
+                        System.out.println("[NOUVEAU DEBUG] Lit de l'équipe " + team.getColor() + " enregistré.");
+                    }
+                }
+            }
+        }
+    }
+
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         Block block = event.getBlock();
         Arena arena = arenaManager.getArena(player);
+        if (arena == null || arena.getState() != GameState.PLAYING) return;
+
+        // On utilise la nouvelle méthode DIRECTE
+        Team bedTeam = arena.getTeamOfBed(block);
 
         System.out.println("=============================================");
-        System.out.println("[HENERIA DEBUG - LIT] " + player.getName() + " a cassé un bloc de type " + block.getType());
-        if (arena == null) {
-            System.out.println("[HENERIA DEBUG - LIT] Le joueur n'est pas dans une arène. On ne fait rien.");
-            System.out.println("=============================================");
-            return;
-        }
-        System.out.println("[HENERIA DEBUG - LIT] Le joueur est dans l'arène: " + arena.getName());
-        if (!block.getType().name().endsWith("_BED")) {
-            System.out.println("[HENERIA DEBUG - LIT] Le bloc n'est pas un lit. On ne fait rien.");
-            System.out.println("=============================================");
-            return;
-        }
-        System.out.println("[HENERIA DEBUG - LIT] Le bloc EST un lit.");
-        Team playerTeam = arena.getTeam(player);
-        // Appel à la NOUVELLE méthode, beaucoup plus fiable
-        Team bedTeam = arena.getTeamFromBedLocation(block.getLocation());
-        if (playerTeam == null || bedTeam == null) {
-            System.out.println("[HENERIA DEBUG - LIT] ÉQUIPE INTROUVABLE. Annulation.");
-            event.setCancelled(true);
-            System.out.println("=============================================");
-            return;
-        }
-        System.out.println("[HENERIA DEBUG - LIT] Équipe du joueur: " + playerTeam.getColor().name());
-        System.out.println("[HENERIA DEBUG - LIT] Équipe du lit: " + bedTeam.getColor().name());
-        if (playerTeam.equals(bedTeam)) {
-            System.out.println("[HENERIA DEBUG - LIT] Le joueur essaie de casser son propre lit. Annulation.");
-            player.sendMessage("§cVous ne pouvez pas détruire le lit de votre propre équipe !");
-            event.setCancelled(true);
+        System.out.println("[NOUVEAU DEBUG - LIT] Joueur: " + player.getName());
+        System.out.println("[NOUVEAU DEBUG - LIT] Bloc cassé: " + block.getType() + " @ " + block.getLocation());
+        
+        if (bedTeam != null) {
+            System.out.println("[NOUVEAU DEBUG - LIT] Le bloc appartient à l'équipe: " + bedTeam.getColor().name());
+            Team playerTeam = arena.getTeam(player);
+            if (playerTeam != null && playerTeam.equals(bedTeam)) {
+                player.sendMessage("§cVous ne pouvez pas casser votre propre lit.");
+                event.setCancelled(true);
+            } else {
+                event.setDropItems(false);
+                bedTeam.setHasBed(false);
+                arena.broadcastTitle("§cDESTRUCTION DE LIT !", "Lit de l'équipe " + bedTeam.getColor().getDisplayName() + " détruit par " + player.getName(), 10, 70, 20);
+            }
         } else {
-            System.out.println("[HENERIA DEBUG - LIT] C'est un lit ennemi ! Destruction autorisée.");
-            event.setDropItems(false);
-            bedTeam.setHasBed(false);
-            arena.broadcastTitle("§cDESTRUCTION DE LIT !", "§fLe lit de l'équipe " + bedTeam.getColor().getChatColor() + bedTeam.getColor().getDisplayName() + "§f a été détruit par §e" + player.getName() + "§f!", 10, 70, 20);
+            System.out.println("[NOUVEAU DEBUG - LIT] Ce bloc n'est pas un lit d'équipe enregistré.");
         }
         System.out.println("=============================================");
     }
@@ -68,61 +80,40 @@ public class GameListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         Arena arena = arenaManager.getArena(player);
-
-        System.out.println("=============================================");
-        System.out.println("[HENERIA DEBUG - MORT] Le joueur " + player.getName() + " est mort.");
-        if (arena == null) {
-            System.out.println("[HENERIA DEBUG - MORT] Le joueur n'est pas dans une arène. On ne fait rien.");
-            System.out.println("=============================================");
-            return;
-        }
-        System.out.println("[HENERIA DEBUG - MORT] Le joueur est dans l'arène: " + arena.getName());
+        if (arena == null || arena.getState() != GameState.PLAYING) return;
+        
         event.setDroppedExp(0);
         event.getDrops().clear();
         event.setDeathMessage(null);
+        
+        // On force la réapparition pour éviter l'écran de mort
+        plugin.getServer().getScheduler().runTaskLater(plugin, () -> player.spigot().respawn(), 1L);
+
         Team playerTeam = arena.getTeam(player);
-        if (playerTeam == null) {
-            System.out.println("[HENERIA DEBUG - MORT] ÉQUIPE INTROUVABLE. Comportement par défaut.");
-            System.out.println("=============================================");
-            return;
-        }
-        System.out.println("[HENERIA DEBUG - MORT] Statut du lit de l'équipe " + playerTeam.getColor().name() + ": " + playerTeam.hasBed());
+        if (playerTeam == null) return;
+
         if (playerTeam.hasBed()) {
-            System.out.println("[HENERIA DEBUG - MORT] Le lit est intact. Lancement de la réapparition.");
-            Bukkit.getScheduler().runTask(plugin, () -> {
-                player.spigot().respawn();
-                player.setGameMode(GameMode.SPECTATOR);
-                player.teleport(playerTeam.getSpawnLocation());
-                new BukkitRunnable() {
-                    int countdown = 5;
-
-                    @Override
-                    public void run() {
-                        if (countdown > 0) {
-                            player.sendTitle("§cVOUS ÊTES MORT !", "§fRéapparition dans §e" + countdown + "s", 0, 25, 0);
-                            countdown--;
-                        } else {
-                            this.cancel();
-                            player.setGameMode(GameMode.SURVIVAL);
-                            player.teleport(playerTeam.getSpawnLocation());
-                            GameUtils.giveDefaultKit(player);
-                        }
+            player.setGameMode(GameMode.SPECTATOR);
+            player.teleport(playerTeam.getSpawnLocation());
+            new BukkitRunnable() {
+                int countdown = 5;
+                public void run() {
+                    if (countdown > 0) {
+                        player.sendTitle("§cVOUS ÊTES MORT !", "Réapparition dans §e" + countdown + "s", 0, 25, 0);
+                        countdown--;
+                    } else {
+                        this.cancel();
+                        player.setGameMode(GameMode.SURVIVAL);
+                        player.teleport(playerTeam.getSpawnLocation());
                     }
-                }.runTaskTimer(plugin, 0L, 20L);
-            });
+                }
+            }.runTaskTimer(plugin, 0L, 20L);
         } else {
-            System.out.println("[HENERIA DEBUG - MORT] Le lit est détruit. Élimination finale.");
-
-            // DOIT ÊTRE APPELÉ IMMÉDIATEMENT POUR SUPPRIMER L'ÉCRAN DE MORT
-            plugin.getServer().getScheduler().runTaskLater(plugin, () -> player.spigot().respawn(), 1L);
-
-            // Le reste de la logique peut suivre...
             arena.eliminatePlayer(player);
-            player.setGameMode(GameMode.SPECTATOR); // Spectateur permanent
+            player.setGameMode(GameMode.SPECTATOR);
             player.teleport(playerTeam.getSpawnLocation());
             arena.broadcastTitle("§cÉLIMINATION !", "§e" + player.getName() + "§f a été éliminé.", 10, 70, 20);
             arena.checkForWinner();
         }
-        System.out.println("=============================================");
     }
 }

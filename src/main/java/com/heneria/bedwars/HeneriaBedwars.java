@@ -5,7 +5,6 @@ import com.heneria.bedwars.listeners.ChatListener;
 import com.heneria.bedwars.listeners.GUIListener;
 import com.heneria.bedwars.listeners.GameListener;
 import com.heneria.bedwars.listeners.SetupListener;
-import com.heneria.bedwars.listeners.VoidKillListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
@@ -50,7 +49,6 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new GameListener(), this);
         getServer().getPluginManager().registerEvents(new SetupListener(this.setupManager), this);
-        getServer().getPluginManager().registerEvents(new VoidKillListener(), this);
     }
 
     public static HeneriaBedwars getInstance() {
