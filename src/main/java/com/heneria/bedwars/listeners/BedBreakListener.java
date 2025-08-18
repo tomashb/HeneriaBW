@@ -39,12 +39,28 @@ public class BedBreakListener implements Listener {
         Team targetTeam = null;
         for (Team team : arena.getTeams().values()) {
             Location loc = team.getBedLocation();
-            if (loc != null && loc.getWorld().equals(block.getWorld())
-                    && loc.getBlockX() == block.getX()
+            if (loc == null || !loc.getWorld().equals(block.getWorld())) {
+                continue;
+            }
+
+            // Direct match with the stored bed block
+            if (loc.getBlockX() == block.getX()
                     && loc.getBlockY() == block.getY()
                     && loc.getBlockZ() == block.getZ()) {
                 targetTeam = team;
                 break;
+            }
+
+            // Check the second part of the bed in case the player breaks the other half
+            Block bedBlock = loc.getBlock();
+            if (bedBlock.getBlockData() instanceof Bed bed) {
+                Block other = bedBlock.getRelative(bed.getFacing());
+                if (other.getX() == block.getX()
+                        && other.getY() == block.getY()
+                        && other.getZ() == block.getZ()) {
+                    targetTeam = team;
+                    break;
+                }
             }
         }
 

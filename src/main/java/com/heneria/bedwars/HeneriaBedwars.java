@@ -7,6 +7,7 @@ import com.heneria.bedwars.listeners.SetupListener;
 import com.heneria.bedwars.listeners.GameListener;
 import com.heneria.bedwars.listeners.PlayerDeathListener;
 import com.heneria.bedwars.listeners.BedBreakListener;
+import com.heneria.bedwars.listeners.VoidKillListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
@@ -22,6 +23,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        saveDefaultConfig();
         getLogger().info("HeneriaBedwars v" + getDescription().getVersion() + " est en cours de chargement...");
 
         // Initialisation des managers
@@ -62,6 +64,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GameListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
         getServer().getPluginManager().registerEvents(new BedBreakListener(), this);
+        getServer().getPluginManager().registerEvents(new VoidKillListener(), this);
     }
 
 

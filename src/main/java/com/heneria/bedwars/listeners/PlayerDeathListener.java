@@ -3,6 +3,7 @@ package com.heneria.bedwars.listeners;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
+import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.utils.MessageUtils;
 import org.bukkit.Bukkit;
@@ -25,7 +26,7 @@ public class PlayerDeathListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         Arena arena = arenaManager.getArenaByPlayer(player.getUniqueId());
-        if (arena == null) {
+        if (arena == null || arena.getState() != GameState.PLAYING) {
             return;
         }
 
