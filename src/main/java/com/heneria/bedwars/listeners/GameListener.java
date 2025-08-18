@@ -120,6 +120,10 @@ public class GameListener implements Listener {
             player.setGameMode(GameMode.SPECTATOR); // Spectateur permanent
             player.teleport(playerTeam.getSpawnLocation());
             arena.broadcastTitle("§cÉLIMINATION !", "§e" + player.getName() + "§f a été éliminé.", 10, 70, 20);
+            Team winner = arena.checkForWinner();
+            if (winner != null) {
+                arena.endGame(winner);
+            }
         }
         System.out.println("=============================================");
     }

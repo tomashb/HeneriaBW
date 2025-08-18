@@ -22,6 +22,7 @@ Consultez notre [ROADMAP.md](ROADMAP.md) pour suivre le développement du projet
 Chaque équipe possède un lit. Tant que ce lit est intact, les joueurs de l'équipe réapparaissent après quelques secondes.
 Si le lit est détruit, toute mort devient définitive : le joueur est éliminé et passe en mode spectateur pour la fin de la partie.
 Détruisez les lits adverses tout en protégeant le vôtre pour remporter la victoire.
+La partie se termine lorsqu'une seule équipe possède encore des joueurs en vie. L'arène annonce les vainqueurs, arrête les générateurs et se réinitialise automatiquement pour le prochain match.
 
 ## 🔧 Compilation
 
