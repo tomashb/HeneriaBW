@@ -5,6 +5,7 @@ import com.heneria.bedwars.managers.ResourceManager;
 import com.heneria.bedwars.managers.ResourceType;
 import com.heneria.bedwars.managers.ShopManager;
 import com.heneria.bedwars.utils.ItemBuilder;
+import com.heneria.bedwars.utils.GameUtils;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
@@ -14,6 +15,8 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -94,6 +97,12 @@ public class ShopItemsMenu extends Menu {
                 }
             }
             ItemStack give = new ItemStack(material, item.amount());
+            if (item.action() != null) {
+                ItemMeta meta = give.getItemMeta();
+                meta.getPersistentDataContainer().set(GameUtils.SPECIAL_ITEM_KEY,
+                        PersistentDataType.STRING, item.action());
+                give.setItemMeta(meta);
+            }
             player.getInventory().addItem(give);
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
         } else {

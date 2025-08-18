@@ -16,6 +16,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
 - ⚙️ **Haute Personnalisation** : Prenez le contrôle total du gameplay en modifiant les fichiers de configuration dédiés :
   - `generators.yml` : Réglez la vitesse et la quantité de chaque générateur de ressources.
   - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
+    - Utilisez le champ `action` pour ajouter des objets spéciaux (`FIREBALL`, `BEDWARS_TNT`, `BRIDGE_EGG`).
   - `upgrades.yml` : Définissez les améliorations d'équipe, leurs niveaux et leurs coûts en diamants.
 
 ### Pour les Joueurs

@@ -26,6 +26,10 @@ public final class GameUtils {
     public static final NamespacedKey STARTER_KEY =
             new NamespacedKey(HeneriaBedwars.getInstance(), "starter-item");
 
+    /** Key used to tag special shop items with custom actions. */
+    public static final NamespacedKey SPECIAL_ITEM_KEY =
+            new NamespacedKey(HeneriaBedwars.getInstance(), "special-action");
+
     /**
      * Gives the default starting kit to the specified player.
      *
