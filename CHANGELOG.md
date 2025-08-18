@@ -13,6 +13,7 @@
 
 ### Amélioré
 - L'orientation des joueurs au spawn est désormais normalisée pour qu'ils regardent toujours droit devant.
+- L'orientation de la vue est également normalisée lors de l'apparition dans le lobby d'attente.
 
 ## [0.1.2] - En développement
 

@@ -50,7 +50,18 @@ public class SetupListener implements Listener {
         Location loc = player.getLocation();
 
         if (action.getType() == SetupType.LOBBY) {
-            arena.setLobbyLocation(loc);
+            Block clickedBlock = event.getClickedBlock();
+            if (clickedBlock == null) {
+                MessageUtils.sendMessage(player, "&cVeuillez cliquer sur un bloc pour définir le lobby.");
+                return;
+            }
+            double x = clickedBlock.getX() + 0.5;
+            double y = clickedBlock.getY() + 1.0;
+            double z = clickedBlock.getZ() + 0.5;
+            float yaw = player.getLocation().getYaw();
+            float pitch = 0.0f;
+            Location lobbyLocation = new Location(player.getWorld(), x, y, z, yaw, pitch);
+            arena.setLobbyLocation(lobbyLocation);
             MessageUtils.sendMessage(player, "&aLobby défini.");
         } else if (action.getType() == SetupType.TEAM_SPAWN && action.getTeamColor() != null) {
             Block clickedBlock = event.getClickedBlock();
