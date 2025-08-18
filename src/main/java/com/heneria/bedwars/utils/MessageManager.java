@@ -76,6 +76,21 @@ public final class MessageManager {
     }
 
     /**
+     * Retrieves a list of formatted messages.
+     *
+     * @param path config path
+     * @return list of formatted strings
+     */
+    public static java.util.List<String> getList(String path) {
+        java.util.List<String> list = messages.getStringList(path);
+        java.util.List<String> formatted = new java.util.ArrayList<>();
+        for (String line : list) {
+            formatted.add(ChatColor.translateAlternateColorCodes('&', line));
+        }
+        return formatted;
+    }
+
+    /**
      * Sends a title to the player using messages from the file.
      *
      * @param player the player

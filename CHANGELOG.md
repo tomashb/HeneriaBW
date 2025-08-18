@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [0.8.0] - En développement
+
+### Ajouté
+- Ajout d'un système de statistiques joueurs avec support SQLite et MySQL.
+
 ## [0.7.0] - En développement
 
 ### Ajouté

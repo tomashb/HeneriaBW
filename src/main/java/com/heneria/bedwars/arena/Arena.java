@@ -8,6 +8,8 @@ import com.heneria.bedwars.arena.enums.TeamColor;
 import com.heneria.bedwars.events.GameStateChangeEvent;
 import com.heneria.bedwars.utils.GameUtils;
 import com.heneria.bedwars.utils.MessageManager;
+import com.heneria.bedwars.managers.StatsManager;
+import com.heneria.bedwars.stats.PlayerStats;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -506,13 +508,32 @@ public class Arena {
             return;
         }
         state = GameState.ENDING;
+        StatsManager statsManager = HeneriaBedwars.getInstance().getStatsManager();
         if (winner != null) {
             String teamName = winner.getColor().getChatColor() + winner.getColor().getDisplayName() + ChatColor.RESET;
             broadcast("game.team-win", "team", teamName);
             broadcastTitle("game.win-title", "game.win-subtitle", 10, 70, 20, "team", teamName);
+            for (UUID uuid : players) {
+                PlayerStats stats = statsManager.getStats(uuid);
+                if (stats != null) {
+                    stats.incrementGamesPlayed();
+                    if (winner.getMembers().contains(uuid)) {
+                        stats.incrementWins();
+                    } else {
+                        stats.incrementLosses();
+                    }
+                }
+            }
         } else {
             broadcast("game.no-winner");
             broadcastTitle("game.no-winner-title", "game.no-winner-subtitle", 10, 70, 20);
+            for (UUID uuid : players) {
+                PlayerStats stats = statsManager.getStats(uuid);
+                if (stats != null) {
+                    stats.incrementGamesPlayed();
+                    stats.incrementLosses();
+                }
+            }
         }
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().unregisterGenerator(gen);

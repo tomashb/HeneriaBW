@@ -11,12 +11,15 @@ import com.heneria.bedwars.listeners.UpgradeListener;
 import com.heneria.bedwars.listeners.StarterItemListener;
 import com.heneria.bedwars.listeners.SpecialItemListener;
 import com.heneria.bedwars.listeners.TrapListener;
+import com.heneria.bedwars.listeners.StatsListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
 import com.heneria.bedwars.managers.ShopManager;
 import com.heneria.bedwars.managers.UpgradeManager;
 import com.heneria.bedwars.managers.ScoreboardManager;
+import com.heneria.bedwars.managers.DatabaseManager;
+import com.heneria.bedwars.managers.StatsManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -29,6 +32,8 @@ public final class HeneriaBedwars extends JavaPlugin {
     private ShopManager shopManager;
     private UpgradeManager upgradeManager;
     private ScoreboardManager scoreboardManager;
+    private DatabaseManager databaseManager;
+    private StatsManager statsManager;
 
     @Override
     public void onEnable() {
@@ -45,6 +50,8 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.shopManager = new ShopManager(this);
         this.upgradeManager = new UpgradeManager(this);
         this.scoreboardManager = new ScoreboardManager(this);
+        this.databaseManager = new DatabaseManager(this);
+        this.statsManager = new StatsManager(this, this.databaseManager);
 
         // Enregistrement des commandes
         CommandManager commandManager = new CommandManager(this);
@@ -58,6 +65,9 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (statsManager != null) {
+            statsManager.saveAll();
+        }
         getLogger().info("HeneriaBedwars a été désactivé.");
     }
 
@@ -72,6 +82,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new StarterItemListener(), this);
         getServer().getPluginManager().registerEvents(new SpecialItemListener(), this);
         getServer().getPluginManager().registerEvents(new TrapListener(), this);
+        getServer().getPluginManager().registerEvents(new StatsListener(), this);
     }
 
     public static HeneriaBedwars getInstance() {
@@ -100,5 +111,13 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public ScoreboardManager getScoreboardManager() {
         return scoreboardManager;
+    }
+
+    public StatsManager getStatsManager() {
+        return statsManager;
+    }
+
+    public DatabaseManager getDatabaseManager() {
+        return databaseManager;
     }
 }
