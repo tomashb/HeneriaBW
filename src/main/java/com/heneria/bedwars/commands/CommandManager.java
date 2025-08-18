@@ -2,6 +2,8 @@ package com.heneria.bedwars.commands;
 
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.commands.subcommands.AdminCommand;
+import com.heneria.bedwars.commands.subcommands.JoinCommand;
+import com.heneria.bedwars.commands.subcommands.LeaveCommand;
 import com.heneria.bedwars.commands.subcommands.SubCommand;
 import com.heneria.bedwars.utils.MessageUtils;
 import org.bukkit.command.Command;
@@ -26,6 +28,8 @@ public class CommandManager implements CommandExecutor, TabCompleter {
      */
     public CommandManager(HeneriaBedwars plugin) {
         registerSubCommand(new AdminCommand());
+        registerSubCommand(new JoinCommand());
+        registerSubCommand(new LeaveCommand());
     }
 
     private void registerSubCommand(SubCommand subCommand) {
@@ -42,7 +46,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         Player player = (Player) sender;
 
         if (args.length == 0) {
-            MessageUtils.sendMessage(player, "&eUsage: /" + label + " <admin>");
+            MessageUtils.sendMessage(player, "&eUsage: /" + label + " <admin|join|leave>");
             return true;
         }
 

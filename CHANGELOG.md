@@ -6,6 +6,9 @@
 - Système de menus paginés avec classe de base `PaginatedMenu` et refonte du menu des générateurs.
 - Design unifié de toutes les interfaces avec bordures en vitres grises et lores colorées.
 - Utilitaire `MessageUtils` centralisant l'envoi de messages avec préfixe et codes couleurs.
+- Commandes `/bw join` et `/bw leave` pour les joueurs.
+- Lobby d'attente avec décompte et barre d'expérience en progression.
+- Lancement de la partie avec téléportation des joueurs et démarrage des générateurs.
 
 ## [0.1.2] - En développement
 
