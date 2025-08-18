@@ -12,6 +12,7 @@ Notre objectif principal est de fournir un système de gestion d'arène via une 
 - **Activation d'Arène** : Activez ou désactivez une arène une fois sa configuration terminée.
 - **Persistance des Données** : Les configurations d'arène sont sauvegardées de manière fiable dans des fichiers locaux.
 - **Conçu pour la 1.21** : Entièrement développé sur l'API Spigot 1.21 pour une performance et une stabilité optimales.
+- **Boutique d'objets fonctionnelle** : Achetez de l'équipement en dépensant vos ressources collectées.
 
 ## 🚀 Roadmap
 
@@ -96,3 +97,23 @@ main-menu:
 ```
 
 Chaque entrée renvoie vers une catégorie définie dans `shop-categories` où les objets à vendre seront listés.
+
+Exemple d'objet à l'intérieur d'une catégorie :
+
+```yaml
+shop-categories:
+  quick_buy_category:
+    title: "Achats Rapides"
+    rows: 5
+    items:
+      'wool':
+        material: WHITE_WOOL
+        name: "&fLaine"
+        amount: 16
+        cost:
+          resource: IRON
+          amount: 4
+        slot: 10
+```
+
+Le bloc `cost` indique la ressource et la quantité nécessaires pour acheter l'objet.

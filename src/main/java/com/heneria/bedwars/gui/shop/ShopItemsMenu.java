@@ -1,0 +1,87 @@
+package com.heneria.bedwars.gui.shop;
+
+import com.heneria.bedwars.gui.Menu;
+import com.heneria.bedwars.managers.ResourceManager;
+import com.heneria.bedwars.managers.ResourceType;
+import com.heneria.bedwars.managers.ShopManager;
+import com.heneria.bedwars.utils.ItemBuilder;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Menu displaying all items available for a given shop category.
+ */
+public class ShopItemsMenu extends Menu {
+
+    private final ShopManager shopManager;
+    private final ShopManager.ShopCategory category;
+    private final Map<Integer, ShopManager.ShopItem> slotItems = new HashMap<>();
+
+    public ShopItemsMenu(ShopManager shopManager, ShopManager.ShopCategory category) {
+        this.shopManager = shopManager;
+        this.category = category;
+    }
+
+    @Override
+    public String getTitle() {
+        return ChatColor.translateAlternateColorCodes('&', category.title());
+    }
+
+    @Override
+    public int getSize() {
+        return category.rows() * 9;
+    }
+
+    @Override
+    public void setupItems() {
+        for (ShopManager.ShopItem item : category.items().values()) {
+            ItemBuilder builder = new ItemBuilder(item.material())
+                    .setName(item.name())
+                    .addLore("&7Quantité: &f" + item.amount())
+                    .addLore("&7Coût: &f" + item.costAmount() + " " + item.costResource().getDisplayName());
+            ItemStack stack = builder.build();
+            stack.setAmount(item.amount());
+            inventory.setItem(item.slot(), stack);
+            slotItems.put(item.slot(), item);
+        }
+        ItemStack filler = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
+        for (int i = 0; i < getSize(); i++) {
+            if (inventory.getItem(i) == null) {
+                inventory.setItem(i, filler);
+            }
+        }
+    }
+
+    @Override
+    public void handleClick(InventoryClickEvent event) {
+        event.setCancelled(true);
+        if (handleBack(event)) {
+            return;
+        }
+        if (!(event.getWhoClicked() instanceof Player player)) {
+            return;
+        }
+        ShopManager.ShopItem item = slotItems.get(event.getRawSlot());
+        if (item == null) {
+            return;
+        }
+        ResourceType type = item.costResource();
+        int price = item.costAmount();
+        if (ResourceManager.hasResources(player, type, price)) {
+            ResourceManager.takeResources(player, type, price);
+            ItemStack give = new ItemStack(item.material(), item.amount());
+            player.getInventory().addItem(give);
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
+        } else {
+            player.sendMessage("§cVous n'avez pas assez de " + type.getDisplayName().toLowerCase() + " !");
+            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
+        }
+    }
+}

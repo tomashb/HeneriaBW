@@ -53,9 +53,28 @@ public class ShopManager {
         ConfigurationSection catSection = config.getConfigurationSection("shop-categories");
         if (catSection != null) {
             for (String id : catSection.getKeys(false)) {
-                String title = config.getString("shop-categories." + id + ".title", id);
-                int rows = config.getInt("shop-categories." + id + ".rows", 3);
-                categories.put(id, new ShopCategory(id, title, rows));
+                String base = "shop-categories." + id;
+                String title = config.getString(base + ".title", id);
+                int rows = config.getInt(base + ".rows", 3);
+                Map<Integer, ShopItem> items = new HashMap<>();
+                ConfigurationSection itemsSec = config.getConfigurationSection(base + ".items");
+                if (itemsSec != null) {
+                    for (String itemKey : itemsSec.getKeys(false)) {
+                        String path = base + ".items." + itemKey;
+                        try {
+                            Material material = Material.valueOf(config.getString(path + ".material", "STONE"));
+                            String name = config.getString(path + ".name", itemKey);
+                            int amount = config.getInt(path + ".amount", 1);
+                            ResourceType resource = ResourceType.valueOf(config.getString(path + ".cost.resource", "IRON"));
+                            int cost = config.getInt(path + ".cost.amount", 1);
+                            int slot = config.getInt(path + ".slot", 0);
+                            items.put(slot, new ShopItem(material, name, amount, resource, cost, slot));
+                        } catch (IllegalArgumentException ex) {
+                            plugin.getLogger().warning("Invalid item configuration for category " + id + ": " + itemKey);
+                        }
+                    }
+                }
+                categories.put(id, new ShopCategory(id, title, rows, items));
             }
         }
     }
@@ -79,6 +98,9 @@ public class ShopManager {
     public record MainMenuItem(Material material, String name, List<String> lore, int slot, String category) {
     }
 
-    public record ShopCategory(String id, String title, int rows) {
+    public record ShopItem(Material material, String name, int amount, ResourceType costResource, int costAmount, int slot) {
+    }
+
+    public record ShopCategory(String id, String title, int rows, Map<Integer, ShopItem> items) {
     }
 }

@@ -2,6 +2,9 @@
 
 ## [0.4.1] - En développement
 
+### Ajouté
+- La boutique d'objets est maintenant entièrement fonctionnelle, permettant l'achat d'items avec les ressources du jeu.
+
 ### Modifié
 - Re-architecture du système de PNJ pour une gestion par équipe au lieu de par arène.
 
