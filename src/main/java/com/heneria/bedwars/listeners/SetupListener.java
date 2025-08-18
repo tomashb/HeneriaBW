@@ -102,10 +102,32 @@ public class SetupListener implements Listener {
             arena.getGenerators().add(new Generator(loc, action.getGeneratorType(), 1));
             MessageUtils.sendMessage(player, "&aGénérateur " + action.getGeneratorType().name() + " ajouté.");
         } else if (action.getType() == SetupType.NPC_SHOP) {
-            arena.setShopNpcLocation(loc);
+            Block clickedBlock = event.getClickedBlock();
+            if (clickedBlock == null) {
+                MessageUtils.sendMessage(player, "&cVeuillez cliquer sur un bloc pour définir le PNJ.");
+                return;
+            }
+            double x = clickedBlock.getX() + 0.5;
+            double y = clickedBlock.getY() + 1.0;
+            double z = clickedBlock.getZ() + 0.5;
+            float yaw = player.getLocation().getYaw();
+            float pitch = 0.0f;
+            Location npcLocation = new Location(player.getWorld(), x, y, z, yaw, pitch);
+            arena.setShopNpcLocation(npcLocation);
             MessageUtils.sendMessage(player, "&aPNJ Boutique défini.");
         } else if (action.getType() == SetupType.NPC_UPGRADE) {
-            arena.setUpgradeNpcLocation(loc);
+            Block clickedBlock = event.getClickedBlock();
+            if (clickedBlock == null) {
+                MessageUtils.sendMessage(player, "&cVeuillez cliquer sur un bloc pour définir le PNJ.");
+                return;
+            }
+            double x = clickedBlock.getX() + 0.5;
+            double y = clickedBlock.getY() + 1.0;
+            double z = clickedBlock.getZ() + 0.5;
+            float yaw = player.getLocation().getYaw();
+            float pitch = 0.0f;
+            Location npcLocation = new Location(player.getWorld(), x, y, z, yaw, pitch);
+            arena.setUpgradeNpcLocation(npcLocation);
             MessageUtils.sendMessage(player, "&aPNJ Améliorations défini.");
         }
 
