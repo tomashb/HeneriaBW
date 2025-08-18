@@ -5,6 +5,7 @@ import com.heneria.bedwars.managers.ResourceManager;
 import com.heneria.bedwars.managers.ResourceType;
 import com.heneria.bedwars.managers.ShopManager;
 import com.heneria.bedwars.utils.ItemBuilder;
+import com.heneria.bedwars.utils.GameUtils;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
@@ -14,6 +15,8 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -85,15 +88,23 @@ public class ShopItemsMenu extends Menu {
             if (material.toString().endsWith("_WOOL") && team != null) {
                 material = team.getColor().getWoolMaterial();
             }
-            if (material.toString().endsWith("_SWORD")) {
+            boolean isSword = material.name().endsWith("_SWORD");
+            if (isSword) {
                 for (int i = 0; i < player.getInventory().getSize(); i++) {
                     ItemStack invItem = player.getInventory().getItem(i);
-                    if (invItem != null && invItem.getType().toString().endsWith("_SWORD")) {
+                    if (invItem != null && invItem.getType().name().endsWith("_SWORD")) {
                         player.getInventory().setItem(i, null);
                     }
                 }
             }
             ItemStack give = new ItemStack(material, item.amount());
+            if (isSword) {
+                ItemMeta meta = give.getItemMeta();
+                if (meta != null) {
+                    meta.getPersistentDataContainer().set(GameUtils.STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
+                    give.setItemMeta(meta);
+                }
+            }
             player.getInventory().addItem(give);
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
         } else {
