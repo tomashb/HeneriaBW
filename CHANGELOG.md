@@ -10,6 +10,7 @@
 - Lobby d'attente avec décompte et barre d'expérience en progression.
 - Lancement de la partie avec téléportation des joueurs et démarrage des générateurs.
 - Système de vitesse de génération des ressources configurable par type et par niveau.
+- Mécaniques de mort, réapparition et destruction des lits.
 
 ### Amélioré
 - L'orientation des joueurs au spawn est désormais normalisée pour qu'ils regardent toujours droit devant.

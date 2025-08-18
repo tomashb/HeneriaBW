@@ -28,6 +28,8 @@ public class Arena {
     private int minPlayers;
     private int maxPlayers;
     private final List<UUID> players = new ArrayList<>();
+    private final List<UUID> alivePlayers = new ArrayList<>();
+    private final List<UUID> spectators = new ArrayList<>();
     private final Map<TeamColor, Team> teams = new EnumMap<>(TeamColor.class);
     private final List<Generator> generators = new ArrayList<>();
     private Location lobbyLocation;
@@ -161,6 +163,7 @@ public class Arena {
      */
     public void addPlayer(UUID uuid) {
         players.add(uuid);
+        alivePlayers.add(uuid);
     }
 
     /**
@@ -170,6 +173,8 @@ public class Arena {
      */
     public void removePlayer(UUID uuid) {
         players.remove(uuid);
+        alivePlayers.remove(uuid);
+        spectators.remove(uuid);
     }
 
     /**
@@ -218,7 +223,7 @@ public class Arena {
         }
     }
 
-    private Team getTeam(UUID uuid) {
+    public Team getTeam(UUID uuid) {
         for (Team team : teams.values()) {
             if (team.isMember(uuid)) {
                 return team;
@@ -239,13 +244,37 @@ public class Arena {
         return result;
     }
 
-    private void broadcast(String message) {
+    public void broadcast(String message) {
         for (UUID id : players) {
             Player p = Bukkit.getPlayer(id);
             if (p != null) {
                 MessageUtils.sendMessage(p, message);
             }
         }
+    }
+
+    public List<UUID> getAlivePlayers() {
+        return alivePlayers;
+    }
+
+    public List<UUID> getSpectators() {
+        return spectators;
+    }
+
+    public void addSpectator(UUID uuid) {
+        spectators.add(uuid);
+    }
+
+    public void removeSpectator(UUID uuid) {
+        spectators.remove(uuid);
+    }
+
+    public void addAlivePlayer(UUID uuid) {
+        alivePlayers.add(uuid);
+    }
+
+    public void removeAlivePlayer(UUID uuid) {
+        alivePlayers.remove(uuid);
     }
 
     private void startCountdown() {
