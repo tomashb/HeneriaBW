@@ -5,6 +5,10 @@
 ### Ajouté
 - Ajout de la mécanique de construction : les joueurs peuvent maintenant acheter, poser et casser des blocs.
 - Amélioration des kits de départ (armure colorée liée, épée non-jetable). La laine achetée est désormais de la couleur de l'équipe et les nouvelles épées remplacent les anciennes.
+- Ajout des objets spéciaux : Boule de Feu, TNT à allumage rapide, Pont en œuf et Perle de l'End.
+
+### Corrigé
+- Correction de l'utilisation de l'API de détection des clics pour la Boule de Feu (remplacement de `isRightClick()` par la vérification de `Action.RIGHT_CLICK_AIR`/`BLOCK`).
 
 ## [0.5.1] - En développement
 
