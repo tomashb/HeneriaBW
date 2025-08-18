@@ -73,15 +73,24 @@ public abstract class PaginatedMenu extends Menu {
     @Override
     public void handleClick(InventoryClickEvent event) {
         event.setCancelled(true);
+        if (handleBack(event)) {
+            return;
+        }
         int slot = event.getRawSlot();
         if (slot == getPrevButtonSlot() && page > 0) {
             page--;
             setupItems();
+            if (previousMenu != null) {
+                inventory.setItem(getBackButtonSlot(), backButton());
+            }
             return;
         }
         if (slot == getNextButtonSlot() && (page + 1) * getItemsPerPage() < getPaginatedItems().size()) {
             page++;
             setupItems();
+            if (previousMenu != null) {
+                inventory.setItem(getBackButtonSlot(), backButton());
+            }
             return;
         }
         handleMenuClick(event);

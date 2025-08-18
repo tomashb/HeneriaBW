@@ -54,13 +54,16 @@ public class ArenaListMenu extends Menu {
     @Override
     public void handleClick(InventoryClickEvent event) {
         event.setCancelled(true);
+        if (handleBack(event)) {
+            return;
+        }
         if (!(event.getWhoClicked() instanceof Player player)) {
             return;
         }
         Arena arena = arenaSlots.get(event.getRawSlot());
         if (arena != null) {
             player.closeInventory();
-            new ArenaConfigMenu(arena).open(player);
+            new ArenaConfigMenu(arena).open(player, this);
         }
     }
 }

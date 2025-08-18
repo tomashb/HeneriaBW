@@ -48,7 +48,7 @@ public class AdminMainMenu extends Menu {
             MessageUtils.sendMessage(player, "&7Tapez 'annuler' pour quitter le mode création.");
         } else if (event.getSlot() == 15) {
             player.closeInventory();
-            new ArenaListMenu().open(player);
+            new ArenaListMenu().open(player, this);
         }
     }
 }

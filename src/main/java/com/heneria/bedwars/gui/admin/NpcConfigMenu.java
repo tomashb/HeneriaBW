@@ -57,6 +57,9 @@ public class NpcConfigMenu extends Menu {
     @Override
     public void handleClick(InventoryClickEvent event) {
         event.setCancelled(true);
+        if (handleBack(event)) {
+            return;
+        }
         if (!(event.getWhoClicked() instanceof Player player)) {
             return;
         }

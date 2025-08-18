@@ -4,6 +4,8 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.managers.ArenaManager;
+import com.heneria.bedwars.utils.GameUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -85,22 +87,26 @@ public class GameListener implements Listener {
         System.out.println("[HENERIA DEBUG - MORT] Statut du lit de l'équipe " + playerTeam.getColor().name() + ": " + playerTeam.hasBed());
         if (playerTeam.hasBed()) {
             System.out.println("[HENERIA DEBUG - MORT] Le lit est intact. Lancement de la réapparition.");
-            player.setGameMode(GameMode.SPECTATOR);
-            new BukkitRunnable() {
-                int countdown = 5;
-                @Override
-                public void run() {
-                    if (countdown > 0) {
-                        player.sendTitle("§cVOUS ÊTES MORT !", "§fRéapparition dans §e" + countdown + "s", 0, 25, 0);
-                        countdown--;
-                    } else {
-                        this.cancel();
-                        player.spigot().respawn();
-                        player.setGameMode(GameMode.SURVIVAL);
-                        player.teleport(playerTeam.getSpawnLocation());
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                player.spigot().respawn();
+                player.setGameMode(GameMode.SPECTATOR);
+                new BukkitRunnable() {
+                    int countdown = 5;
+
+                    @Override
+                    public void run() {
+                        if (countdown > 0) {
+                            player.sendTitle("§cVOUS ÊTES MORT !", "§fRéapparition dans §e" + countdown + "s", 0, 25, 0);
+                            countdown--;
+                        } else {
+                            this.cancel();
+                            player.setGameMode(GameMode.SURVIVAL);
+                            player.teleport(playerTeam.getSpawnLocation());
+                            GameUtils.giveDefaultKit(player);
+                        }
                     }
-                }
-            }.runTaskTimer(plugin, 0L, 20L);
+                }.runTaskTimer(plugin, 0L, 20L);
+            });
         } else {
             System.out.println("[HENERIA DEBUG - MORT] Le lit est détruit. Élimination finale.");
             arena.eliminatePlayer(player);

@@ -80,6 +80,9 @@ public class ArenaConfigMenu extends Menu {
     @Override
     public void handleClick(InventoryClickEvent event) {
         event.setCancelled(true);
+        if (handleBack(event)) {
+            return;
+        }
         if (!(event.getWhoClicked() instanceof Player player)) {
             return;
         }
@@ -91,11 +94,11 @@ public class ArenaConfigMenu extends Menu {
             MessageUtils.sendMessage(player, "&eFaites un clic droit pour définir le lobby.");
             player.closeInventory();
         } else if (slot == TEAMS_SLOT) {
-            new TeamListMenu(arena).open(player);
+            new TeamListMenu(arena).open(player, this);
         } else if (slot == GENERATORS_SLOT) {
-            new GeneratorConfigMenu(arena).open(player);
+            new GeneratorConfigMenu(arena).open(player, this);
         } else if (slot == NPC_SLOT) {
-            new NpcConfigMenu(arena).open(player);
+            new NpcConfigMenu(arena).open(player, this);
         } else if (slot == TOGGLE_SLOT) {
             if (!arena.isEnabled()) {
                 if (arena.getLobbyLocation() == null) {
@@ -120,7 +123,7 @@ public class ArenaConfigMenu extends Menu {
             }
             HeneriaBedwars.getInstance().getArenaManager().saveArena(arena);
             player.closeInventory();
-            new ArenaConfigMenu(arena).open(player);
+            new ArenaConfigMenu(arena).open(player, previousMenu);
         }
     }
 }
