@@ -112,18 +112,15 @@ public class GameListener implements Listener {
         } else {
             System.out.println("[HENERIA DEBUG - MORT] Le lit est détruit. Élimination finale.");
 
-            // Étape 1 : Forcer la réapparition immédiatement pour supprimer l'écran de mort
-            player.spigot().respawn();
+            // DOIT ÊTRE APPELÉ IMMÉDIATEMENT POUR SUPPRIMER L'ÉCRAN DE MORT
+            plugin.getServer().getScheduler().runTaskLater(plugin, () -> player.spigot().respawn(), 1L);
 
-            // Étape 2 : Appliquer les effets de l'élimination
+            // Le reste de la logique peut suivre...
             arena.eliminatePlayer(player);
             player.setGameMode(GameMode.SPECTATOR); // Spectateur permanent
             player.teleport(playerTeam.getSpawnLocation());
             arena.broadcastTitle("§cÉLIMINATION !", "§e" + player.getName() + "§f a été éliminé.", 10, 70, 20);
-            Team winner = arena.checkForWinner();
-            if (winner != null) {
-                arena.endGame(winner);
-            }
+            arena.checkForWinner();
         }
         System.out.println("=============================================");
     }

@@ -238,26 +238,35 @@ public class Arena {
     }
 
     /**
-     * Récupère une équipe à partir de l'emplacement d'un bloc de lit, en utilisant une vérification de distance.
+     * Récupère une équipe à partir de l'emplacement de N'IMPORTE QUELLE partie d'un lit.
+     *
      * @param location L'emplacement du bloc de lit cassé.
      * @return L'équipe propriétaire du lit, ou null si aucune équipe ne correspond.
      */
     public Team getTeamFromBedLocation(Location location) {
+        Block block = location.getBlock();
+        if (!(block.getBlockData() instanceof Bed)) return null; // Sécurité
+
+        Bed bedData = (Bed) block.getBlockData();
+        Location headLocation = location;
+
+        // Si on a cassé les pieds du lit, on trouve la tête
+        if (bedData.getPart() == Bed.Part.FOOT) {
+            headLocation = block.getRelative(bedData.getFacing()).getLocation();
+        }
+
+        // On compare maintenant la position de la TÊTE du lit avec nos données sauvegardées
         for (Team team : teams.values()) {
-            Location bedLocation = team.getBedLocation();
-
-            // On s'assure que le lit de l'équipe a bien été configuré
-            if (bedLocation == null) continue;
-
-            // On vérifie qu'on est bien dans le même monde
-            if (!bedLocation.getWorld().equals(location.getWorld())) continue;
-
-            // LA CORRECTION : On vérifie si le bloc cassé est à proximité (distance de 2 blocs max)
-            if (bedLocation.distanceSquared(location) <= 4) { // distanceSquared est plus performant
-                return team; // Correspondance trouvée !
+            Location savedBedLocation = team.getBedLocation();
+            if (savedBedLocation != null &&
+                    savedBedLocation.getWorld().equals(headLocation.getWorld()) &&
+                    savedBedLocation.getBlockX() == headLocation.getBlockX() &&
+                    savedBedLocation.getBlockY() == headLocation.getBlockY() &&
+                    savedBedLocation.getBlockZ() == headLocation.getBlockZ()) {
+                return team;
             }
         }
-        return null; // Aucune correspondance
+        return null;
     }
 
     private Team getLeastPopulatedTeam() {
@@ -460,17 +469,24 @@ public class Arena {
         this.upgradeNpcLocation = upgradeNpcLocation;
     }
 
-    public Team checkForWinner() {
-        Set<Team> remaining = new HashSet<>();
-        for (Team team : teams.values()) {
-            for (UUID member : team.getMembers()) {
-                if (alivePlayers.contains(member)) {
-                    remaining.add(team);
-                    break;
+    public void checkForWinner() {
+        Set<Team> teamsAlive = new HashSet<>();
+        for (UUID playerUUID : alivePlayers) {
+            Player p = Bukkit.getPlayer(playerUUID);
+            if (p != null) {
+                Team team = getTeam(p);
+                if (team != null) {
+                    teamsAlive.add(team);
                 }
             }
         }
-        return remaining.size() == 1 ? remaining.iterator().next() : null;
+
+        if (teamsAlive.size() == 1) {
+            Team winner = teamsAlive.iterator().next();
+            endGame(winner);
+        } else if (teamsAlive.isEmpty()) {
+            endGame(null); // Gérer le cas d'un match nul ou bug
+        }
     }
 
     public void endGame(Team winner) {
@@ -478,8 +494,13 @@ public class Arena {
             return;
         }
         state = GameState.ENDING;
-        broadcast("&aL'équipe " + winner.getColor().getDisplayName() + " remporte la partie !");
-        broadcastTitle("§aVictoire !", "§fÉquipe " + winner.getColor().getChatColor() + winner.getColor().getDisplayName() + "§f", 10, 70, 20);
+        if (winner != null) {
+            broadcast("&aL'équipe " + winner.getColor().getDisplayName() + " remporte la partie !");
+            broadcastTitle("§aVictoire !", "§fÉquipe " + winner.getColor().getChatColor() + winner.getColor().getDisplayName() + "§f", 10, 70, 20);
+        } else {
+            broadcast("&eLa partie se termine sans gagnant.");
+            broadcastTitle("§ePartie terminée", "§fAucun gagnant", 10, 70, 20);
+        }
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().unregisterGenerator(gen);
         }
