@@ -18,6 +18,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
   - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
   - `scoreboard.yml` : Personnalisez le titre et les lignes du tableau de bord en jeu.
+  - `events.yml` : Planifiez les événements automatiques (ex : amélioration des générateurs).
   - `messages.yml` : Traduisez et personnalisez tous les messages du plugin.
 
 Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le plugin à n'importe quelle langue ou style.
@@ -92,6 +93,21 @@ traps:
       duration: 10
       amplifier: 1
 ```
+
+### Configuration des Événements de Jeu
+
+Le fichier `events.yml` permet de définir une chronologie d'événements pendant une partie, comme l'amélioration automatique des générateurs :
+
+```yaml
+game-events:
+  - time: '6m'
+    type: 'UPGRADE_GENERATORS'
+    targets: [DIAMOND]
+    new-tier: 2
+    broadcast-message: "&bLes générateurs de Diamants ont été améliorés au Niveau II !"
+```
+
+Chaque entrée peut préciser un temps (`time`), le type d'événement (`type`), les cibles (`targets`), le nouveau niveau (`new-tier`) et le message diffusé aux joueurs.
 
 ### Configuration de la Base de Données
 

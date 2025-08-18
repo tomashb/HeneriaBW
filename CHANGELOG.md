@@ -1,5 +1,13 @@
 # Changelog - HeneriaBedwars
 
+## [0.9.0] - En développement
+
+### Corrigé
+- Correction de l'URL du dépôt Maven pour PlaceholderAPI, résolvant les erreurs de build.
+
+### Ajouté
+- Système d'événements temporisés améliorant automatiquement les générateurs de Diamants et d'Émeraudes avec annonces et intégration au scoreboard.
+
 ## [0.8.0] - En développement
 
 ### Ajouté

@@ -4,6 +4,7 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.TeamColor;
+import com.heneria.bedwars.managers.EventManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -156,12 +157,18 @@ public class ScoreboardManager {
     }
 
     private String getNextEventName(Arena arena) {
-        // Placeholder for future event system
-        return "N/A";
+        EventManager em = plugin.getEventManager();
+        if (em == null) {
+            return "N/A";
+        }
+        return em.getNextEventName(arena);
     }
 
     private String getNextEventTime(Arena arena) {
-        // Placeholder for future event system
-        return "--";
+        EventManager em = plugin.getEventManager();
+        if (em == null) {
+            return "--";
+        }
+        return em.getNextEventTime(arena);
     }
 }

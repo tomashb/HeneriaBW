@@ -421,6 +421,7 @@ public class Arena {
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);
         }
+        HeneriaBedwars.getInstance().getEventManager().startTimeline(this);
         for (Team team : this.getTeams().values()) {
             if (team.getItemShopNpcLocation() != null) {
                 Villager npc = (Villager) team.getItemShopNpcLocation().getWorld().spawnEntity(team.getItemShopNpcLocation(), EntityType.VILLAGER);
@@ -547,6 +548,7 @@ public class Arena {
     }
 
     public void reset() {
+        HeneriaBedwars.getInstance().getEventManager().stopTimeline(this);
         for (UUID id : new ArrayList<>(players)) {
             Player p = Bukkit.getPlayer(id);
             if (p != null) {

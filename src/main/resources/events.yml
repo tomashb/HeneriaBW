@@ -1,0 +1,13 @@
+game-events:
+  - time: '6m'
+    type: 'UPGRADE_GENERATORS'
+    targets: [DIAMOND]
+    new-tier: 2
+    broadcast-message: "&bLes générateurs de Diamants ont été améliorés au Niveau II !"
+
+  - time: '12m'
+    type: 'UPGRADE_GENERATORS'
+    targets: [EMERALD]
+    new-tier: 2
+    broadcast-message: "&2Les générateurs d'Émeraudes ont été améliorés au Niveau II !"
+
