@@ -13,6 +13,7 @@ import com.heneria.bedwars.utils.MessageUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -80,8 +81,22 @@ public class SetupListener implements Listener {
             team.setSpawnLocation(spawnLocation);
             MessageUtils.sendMessage(player, "&aSpawn de l'équipe " + action.getTeamColor().getDisplayName() + " défini.");
         } else if (action.getType() == SetupType.TEAM_BED && action.getTeamColor() != null) {
+            Block clickedBlock = event.getClickedBlock();
+            if (clickedBlock == null || !(clickedBlock.getBlockData() instanceof Bed)) {
+                MessageUtils.sendMessage(player, "&cVous devez cliquer sur un lit !");
+                return;
+            }
+
+            Bed bedData = (Bed) clickedBlock.getBlockData();
+            Block headBlock = clickedBlock;
+            if (bedData.getPart() == Bed.Part.FOOT) {
+                headBlock = clickedBlock.getRelative(bedData.getFacing());
+            }
+
+            Location bedHeadLocation = headBlock.getLocation().add(0.5, 0, 0.5);
+
             Team team = arena.getTeams().computeIfAbsent(action.getTeamColor(), Team::new);
-            team.setBedLocation(loc);
+            team.setBedLocation(bedHeadLocation);
             MessageUtils.sendMessage(player, "&aLit de l'équipe " + action.getTeamColor().getDisplayName() + " défini.");
         } else if (action.getType() == SetupType.GENERATOR && action.getGeneratorType() != null) {
             arena.getGenerators().add(new Generator(loc, action.getGeneratorType(), 1));
