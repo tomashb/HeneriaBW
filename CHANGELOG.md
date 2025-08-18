@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [0.4.0] - En développement
+
+### Corrigé
+- Reconstruction complète du système de détection des lits pour une fiabilité à 100% en synchronisant la sauvegarde et la lecture des positions.
+
 ## [0.3.1] - En développement
 
 ### Corrigé

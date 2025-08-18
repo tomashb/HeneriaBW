@@ -11,6 +11,7 @@ import com.heneria.bedwars.utils.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -250,6 +251,29 @@ public class Arena {
 
     public void clearBeds() {
         bedBlocks.clear();
+    }
+
+    public void registerBeds() {
+        bedBlocks.clear();
+        for (Team team : teams.values()) {
+            Location headLocation = team.getBedLocation();
+            if (headLocation != null) {
+                Block headBlock = headLocation.getBlock();
+                if (headBlock.getBlockData() instanceof Bed) {
+                    Bed bedData = (Bed) headBlock.getBlockData();
+                    if (bedData.getPart() != Bed.Part.HEAD) {
+                        System.out.println("[ERREUR CRITIQUE] La position sauvegardée pour le lit de l'équipe " + team.getColor() + " n'est pas la tête !");
+                        continue;
+                    }
+                    Block footBlock = headBlock.getRelative(bedData.getFacing().getOppositeFace());
+                    bedBlocks.put(headBlock, team);
+                    bedBlocks.put(footBlock, team);
+                    System.out.println("[DEBUG] Lit de " + team.getColor() + " enregistré. Tête: " + headBlock.getLocation().toVector() + ", Pieds: " + footBlock.getLocation().toVector());
+                } else {
+                    System.out.println("[ERREUR CRITIQUE] Le bloc à la position sauvegardée pour le lit de l'équipe " + team.getColor() + " n'est pas un lit !");
+                }
+            }
+        }
     }
 
     private Team getLeastPopulatedTeam() {

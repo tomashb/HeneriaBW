@@ -7,9 +7,7 @@ import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.events.GameStateChangeEvent;
 import com.heneria.bedwars.managers.ArenaManager;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,20 +26,7 @@ public class GameListener implements Listener {
     public void onGameStateChange(GameStateChangeEvent event) {
         if (event.getNewState() == GameState.PLAYING) {
             Arena arena = event.getArena();
-            arena.clearBeds(); // Vider l'ancien cache
-            for (Team team : arena.getTeams().values()) {
-                Location bedLocation = team.getBedLocation();
-                if (bedLocation != null) {
-                    Block headBlock = bedLocation.getBlock();
-                    if (headBlock.getBlockData() instanceof Bed) {
-                        Bed bedData = (Bed) headBlock.getBlockData();
-                        Block footBlock = headBlock.getRelative(bedData.getFacing().getOppositeFace());
-                        arena.registerBed(headBlock, team);
-                        arena.registerBed(footBlock, team);
-                        System.out.println("[NOUVEAU DEBUG] Lit de l'équipe " + team.getColor() + " enregistré.");
-                    }
-                }
-            }
+            arena.registerBeds();
         }
     }
 
