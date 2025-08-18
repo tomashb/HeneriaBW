@@ -23,15 +23,13 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 
 ---
 
-## 🎯 **Étape 2 : Cycle de Jeu & Lobby (Version Cible : 0.3.0) - [WIP]**
-*Objectif : Rendre les arènes jouables avec un cycle de vie complet, de l'attente au décompte, jusqu'à la fin de partie.*
-
+## 🎯 **Étape 2 : Cycle de Jeu & Lobby (Version Cible : 0.3.0) - [✔] TERMINÉE**
 * [✔] Système pour rejoindre/quitter une arène.
 * [✔] Lobby d'attente avec décompte.
 * [✔] Lancement de la partie (téléportation, démarrage des générateurs).
 * [✔] Vitesse et niveaux des générateurs de ressources.
 * [✔] Gestion de la réapparition et de la destruction des lits.
-* [ ] Conditions de victoire et fin de partie.
+* [✔] Conditions de victoire et fin de partie.
 
 ## 🎯 **Étape 3 : Systèmes Économiques & PNJ (Version Cible : 0.4.0)**
 *Objectif : Intégrer les boutiques d'objets et d'améliorations d'équipe.*

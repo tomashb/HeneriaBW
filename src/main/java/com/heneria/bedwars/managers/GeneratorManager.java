@@ -106,6 +106,10 @@ public class GeneratorManager {
         counters.put(gen, getDelayCycles(gen));
     }
 
+    public void unregisterGenerator(Generator gen) {
+        counters.remove(gen);
+    }
+
     /**
      * Record of delay and amount for a generator tier.
      */

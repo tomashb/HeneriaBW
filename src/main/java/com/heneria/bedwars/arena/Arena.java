@@ -459,4 +459,56 @@ public class Arena {
     public void setUpgradeNpcLocation(Location upgradeNpcLocation) {
         this.upgradeNpcLocation = upgradeNpcLocation;
     }
+
+    public Team checkForWinner() {
+        Set<Team> remaining = new HashSet<>();
+        for (Team team : teams.values()) {
+            for (UUID member : team.getMembers()) {
+                if (alivePlayers.contains(member)) {
+                    remaining.add(team);
+                    break;
+                }
+            }
+        }
+        return remaining.size() == 1 ? remaining.iterator().next() : null;
+    }
+
+    public void endGame(Team winner) {
+        if (state != GameState.PLAYING) {
+            return;
+        }
+        state = GameState.ENDING;
+        broadcast("&aL'équipe " + winner.getColor().getDisplayName() + " remporte la partie !");
+        broadcastTitle("§aVictoire !", "§fÉquipe " + winner.getColor().getChatColor() + winner.getColor().getDisplayName() + "§f", 10, 70, 20);
+        for (Generator gen : generators) {
+            HeneriaBedwars.getInstance().getGeneratorManager().unregisterGenerator(gen);
+        }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                reset();
+            }
+        }.runTaskLater(HeneriaBedwars.getInstance(), 200L);
+    }
+
+    public void reset() {
+        for (UUID id : new ArrayList<>(players)) {
+            Player p = Bukkit.getPlayer(id);
+            if (p != null) {
+                PlayerData data = savedStates.remove(id);
+                if (data != null) {
+                    data.restore(p);
+                }
+            }
+        }
+        players.clear();
+        alivePlayers.clear();
+        spectators.clear();
+        savedStates.clear();
+        for (Team team : teams.values()) {
+            team.getMembers().clear();
+            team.setHasBed(true);
+        }
+        state = GameState.WAITING;
+    }
 }

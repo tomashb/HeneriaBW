@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [0.3.0] - En développement
+
+### Ajouté
+- Implémentation des conditions de victoire et de la séquence de fin de partie. Le cycle de jeu de l'Étape 2 est maintenant complet.
+
 ## [0.2.1] - En développement
 
 ### Ajouté

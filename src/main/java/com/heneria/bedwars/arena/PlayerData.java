@@ -1,5 +1,6 @@
 package com.heneria.bedwars.arena;
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,6 +15,7 @@ public class PlayerData {
     private final Location location;
     private final float exp;
     private final int level;
+    private final GameMode gameMode;
 
     /**
      * Captures the current state of the given player.
@@ -26,6 +28,7 @@ public class PlayerData {
         this.location = player.getLocation();
         this.exp = player.getExp();
         this.level = player.getLevel();
+        this.gameMode = player.getGameMode();
     }
 
     /**
@@ -39,6 +42,7 @@ public class PlayerData {
         player.teleport(location);
         player.setExp(exp);
         player.setLevel(level);
+        player.setGameMode(gameMode);
     }
 }
 
