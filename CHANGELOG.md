@@ -5,6 +5,9 @@
 ### Corrigé
 - Correction d'erreurs de compilation dues à la mise à jour des noms de constantes de l'API Spigot 1.21.
 
+### Documentation
+- Refonte complète du fichier README.md pour refléter l'état actuel du projet et améliorer la présentation.
+
 ## [0.5.0] - 2024-??-??
 
 ### Ajouté
