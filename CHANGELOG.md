@@ -2,8 +2,8 @@
 
 ## [0.4.1] - En développement
 
-### Corrigé
-- Correction d'une régression critique où les PNJ n'étaient pas gérés par arène, les faisant apparaître au mauvais endroit.
+### Modifié
+- Re-architecture du système de PNJ pour une gestion par équipe au lieu de par arène.
 
 ## [0.4.0] - En développement
 

@@ -38,8 +38,6 @@ public class Arena {
     private final Map<TeamColor, Team> teams = new EnumMap<>(TeamColor.class);
     private final List<Generator> generators = new ArrayList<>();
     private Location lobbyLocation;
-    private Location itemShopNpcLocation;
-    private Location upgradeShopNpcLocation;
     /**
      * Stores all NPC entities spawned for this arena so they can be removed
      * without affecting NPCs of other arenas.
@@ -411,27 +409,29 @@ public class Arena {
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);
         }
-        if (itemShopNpcLocation != null) {
-            Villager npc = (Villager) itemShopNpcLocation.getWorld().spawnEntity(itemShopNpcLocation, EntityType.VILLAGER);
-            npc.setAI(false);
-            npc.setInvulnerable(true);
-            npc.setSilent(true);
-            npc.setCollidable(false);
-            npc.addScoreboardTag("shop_npc");
-            npc.setCustomName("§aBoutique");
-            npc.setCustomNameVisible(true);
-            liveNpcs.add(npc);
-        }
-        if (upgradeShopNpcLocation != null) {
-            Villager npc = (Villager) upgradeShopNpcLocation.getWorld().spawnEntity(upgradeShopNpcLocation, EntityType.VILLAGER);
-            npc.setAI(false);
-            npc.setInvulnerable(true);
-            npc.setSilent(true);
-            npc.setCollidable(false);
-            npc.addScoreboardTag("upgrade_npc");
-            npc.setCustomName("§aAméliorations");
-            npc.setCustomNameVisible(true);
-            liveNpcs.add(npc);
+        for (Team team : this.getTeams().values()) {
+            if (team.getItemShopNpcLocation() != null) {
+                Villager npc = (Villager) team.getItemShopNpcLocation().getWorld().spawnEntity(team.getItemShopNpcLocation(), EntityType.VILLAGER);
+                npc.setAI(false);
+                npc.setInvulnerable(true);
+                npc.setSilent(true);
+                npc.setCollidable(false);
+                npc.addScoreboardTag("shop_npc");
+                npc.setCustomName("§aBoutique");
+                npc.setCustomNameVisible(true);
+                liveNpcs.add(npc);
+            }
+            if (team.getUpgradeShopNpcLocation() != null) {
+                Villager npc = (Villager) team.getUpgradeShopNpcLocation().getWorld().spawnEntity(team.getUpgradeShopNpcLocation(), EntityType.VILLAGER);
+                npc.setAI(false);
+                npc.setInvulnerable(true);
+                npc.setSilent(true);
+                npc.setCollidable(false);
+                npc.addScoreboardTag("upgrade_npc");
+                npc.setCustomName("§aAméliorations");
+                npc.setCustomNameVisible(true);
+                liveNpcs.add(npc);
+            }
         }
     }
 
@@ -469,42 +469,6 @@ public class Arena {
      */
     public void setLobbyLocation(Location lobbyLocation) {
         this.lobbyLocation = lobbyLocation;
-    }
-
-    /**
-     * Gets the shop NPC location.
-     *
-     * @return location or null
-     */
-    public Location getItemShopNpcLocation() {
-        return itemShopNpcLocation;
-    }
-
-    /**
-     * Sets the item shop NPC location.
-     *
-     * @param itemShopNpcLocation location
-     */
-    public void setItemShopNpcLocation(Location itemShopNpcLocation) {
-        this.itemShopNpcLocation = itemShopNpcLocation;
-    }
-
-    /**
-     * Gets the upgrade NPC location.
-     *
-     * @return location or null
-     */
-    public Location getUpgradeShopNpcLocation() {
-        return upgradeShopNpcLocation;
-    }
-
-    /**
-     * Sets the upgrade shop NPC location.
-     *
-     * @param upgradeShopNpcLocation location
-     */
-    public void setUpgradeShopNpcLocation(Location upgradeShopNpcLocation) {
-        this.upgradeShopNpcLocation = upgradeShopNpcLocation;
     }
 
     public void checkForWinner() {

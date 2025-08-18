@@ -21,8 +21,10 @@ public class TeamConfigMenu extends Menu {
     private final Arena arena;
     private final TeamColor color;
 
-    private static final int SPAWN_SLOT = 11;
-    private static final int BED_SLOT = 15;
+    private static final int SPAWN_SLOT = 10;
+    private static final int BED_SLOT = 12;
+    private static final int SHOP_SLOT = 14;
+    private static final int UPGRADE_SLOT = 16;
 
     public TeamConfigMenu(Arena arena, TeamColor color) {
         this.arena = arena;
@@ -47,6 +49,14 @@ public class TeamConfigMenu extends Menu {
                 .build());
         inventory.setItem(BED_SLOT, new ItemBuilder(Material.RED_BED)
                 .setName("&eDéfinir le lit")
+                .addLore("&7Cliquez pour définir la position")
+                .build());
+        inventory.setItem(SHOP_SLOT, new ItemBuilder(Material.EMERALD)
+                .setName("&eDéfinir PNJ Boutique")
+                .addLore("&7Cliquez pour définir la position")
+                .build());
+        inventory.setItem(UPGRADE_SLOT, new ItemBuilder(Material.ANVIL)
+                .setName("&eDéfinir PNJ Améliorations")
                 .addLore("&7Cliquez pour définir la position")
                 .build());
         ItemStack filler = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
@@ -76,6 +86,16 @@ public class TeamConfigMenu extends Menu {
             HeneriaBedwars.getInstance().getSetupManager().startSetup(player,
                     new SetupAction(arena, SetupType.TEAM_BED, color));
             MessageUtils.sendMessage(player, "&eClic droit pour définir le lit.");
+            player.closeInventory();
+        } else if (slot == SHOP_SLOT) {
+            HeneriaBedwars.getInstance().getSetupManager().startSetup(player,
+                    new SetupAction(arena, SetupType.NPC_SHOP, color));
+            MessageUtils.sendMessage(player, "&eClic droit pour définir le PNJ Boutique.");
+            player.closeInventory();
+        } else if (slot == UPGRADE_SLOT) {
+            HeneriaBedwars.getInstance().getSetupManager().startSetup(player,
+                    new SetupAction(arena, SetupType.NPC_UPGRADE, color));
+            MessageUtils.sendMessage(player, "&eClic droit pour définir le PNJ Améliorations.");
             player.closeInventory();
         }
     }
