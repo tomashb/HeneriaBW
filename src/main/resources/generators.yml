@@ -1,0 +1,28 @@
+IRON:
+  tier-1:
+    delay: 1.5
+    amount: 1
+  tier-2:
+    delay: 1.0
+    amount: 1
+  tier-3:
+    delay: 0.5
+    amount: 2
+GOLD:
+  tier-1:
+    delay: 6.0
+    amount: 1
+  tier-2:
+    delay: 4.0
+    amount: 1
+DIAMOND:
+  tier-1:
+    delay: 30.0
+    amount: 1
+  tier-2:
+    delay: 20.0
+    amount: 1
+EMERALD:
+  tier-1:
+    delay: 65.0
+    amount: 1

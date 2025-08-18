@@ -4,7 +4,6 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.elements.Generator;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.GameState;
-import com.heneria.bedwars.arena.enums.GeneratorType;
 import com.heneria.bedwars.arena.enums.TeamColor;
 import com.heneria.bedwars.utils.MessageUtils;
 import org.bukkit.Bukkit;
@@ -36,7 +35,6 @@ public class Arena {
     private Location upgradeNpcLocation;
     private final Map<UUID, PlayerData> savedStates = new HashMap<>();
     private BukkitTask countdownTask;
-    private final List<BukkitTask> generatorTasks = new ArrayList<>();
     private int countdownDuration = 10;
 
     /**
@@ -316,26 +314,8 @@ public class Arena {
             p.setLevel(0);
             p.setExp(0f);
         }
-        startGenerators();
-    }
-
-    private void startGenerators() {
         for (Generator gen : generators) {
-            BukkitTask task = new BukkitRunnable() {
-                @Override
-                public void run() {
-                    Material material;
-                    GeneratorType type = gen.getType();
-                    switch (type) {
-                        case GOLD -> material = Material.GOLD_INGOT;
-                        case DIAMOND -> material = Material.DIAMOND;
-                        case EMERALD -> material = Material.EMERALD;
-                        default -> material = Material.IRON_INGOT;
-                    }
-                    gen.getLocation().getWorld().dropItemNaturally(gen.getLocation(), new ItemStack(material));
-                }
-            }.runTaskTimer(HeneriaBedwars.getInstance(), 0L, 20L * 5);
-            generatorTasks.add(task);
+            HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);
         }
     }
 

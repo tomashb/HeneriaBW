@@ -11,6 +11,7 @@ public class Generator {
     private Location location;
     private GeneratorType type;
     private int level;
+    private int tier = 1;
 
     /**
      * Creates a new generator.
@@ -77,5 +78,23 @@ public class Generator {
      */
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    /**
+     * Gets the tier of the generator.
+     *
+     * @return the tier
+     */
+    public int getTier() {
+        return tier;
+    }
+
+    /**
+     * Sets the tier of the generator.
+     *
+     * @param tier the new tier
+     */
+    public void setTier(int tier) {
+        this.tier = tier;
     }
 }
