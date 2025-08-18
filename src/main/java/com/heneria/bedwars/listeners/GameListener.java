@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import com.heneria.bedwars.utils.GameUtils;
 
 public class GameListener implements Listener {
 
@@ -88,6 +89,7 @@ public class GameListener implements Listener {
                         this.cancel();
                         player.setGameMode(GameMode.SURVIVAL);
                         player.teleport(playerTeam.getSpawnLocation());
+                        GameUtils.giveDefaultKit(player, playerTeam);
                     }
                 }
             }.runTaskTimer(plugin, 0L, 20L);

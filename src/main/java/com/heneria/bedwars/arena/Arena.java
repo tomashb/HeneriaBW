@@ -411,7 +411,7 @@ public class Arena {
             if (team != null && team.getSpawnLocation() != null) {
                 p.teleport(team.getSpawnLocation());
             }
-            GameUtils.giveDefaultKit(p);
+            GameUtils.giveDefaultKit(p, team);
         }
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);

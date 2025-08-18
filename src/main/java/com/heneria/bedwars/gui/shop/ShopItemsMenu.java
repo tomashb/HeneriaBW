@@ -5,6 +5,9 @@ import com.heneria.bedwars.managers.ResourceManager;
 import com.heneria.bedwars.managers.ResourceType;
 import com.heneria.bedwars.managers.ShopManager;
 import com.heneria.bedwars.utils.ItemBuilder;
+import com.heneria.bedwars.HeneriaBedwars;
+import com.heneria.bedwars.arena.Arena;
+import com.heneria.bedwars.arena.elements.Team;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -76,7 +79,21 @@ public class ShopItemsMenu extends Menu {
         int price = item.costAmount();
         if (ResourceManager.hasResources(player, type, price)) {
             ResourceManager.takeResources(player, type, price);
-            ItemStack give = new ItemStack(item.material(), item.amount());
+            Material material = item.material();
+            Arena arena = HeneriaBedwars.getInstance().getArenaManager().getArena(player);
+            Team team = arena != null ? arena.getTeam(player) : null;
+            if (material.toString().endsWith("_WOOL") && team != null) {
+                material = team.getColor().getWoolMaterial();
+            }
+            if (material.toString().endsWith("_SWORD")) {
+                for (int i = 0; i < player.getInventory().getSize(); i++) {
+                    ItemStack invItem = player.getInventory().getItem(i);
+                    if (invItem != null && invItem.getType().toString().endsWith("_SWORD")) {
+                        player.getInventory().setItem(i, null);
+                    }
+                }
+            }
+            ItemStack give = new ItemStack(material, item.amount());
             player.getInventory().addItem(give);
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
         } else {
