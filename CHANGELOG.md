@@ -2,6 +2,9 @@
 
 ## [0.4.0] - En développement
 
+### Ajouté
+- Mise en place des fondations du système de boutique avec PNJ interactifs et configuration via `shop.yml`.
+
 ### Corrigé
 - Reconstruction complète du système de détection des lits pour une fiabilité à 100% en synchronisant la sauvegarde et la lecture des positions.
 

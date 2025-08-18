@@ -75,3 +75,25 @@ IRON:
 ```
 
 Modifiez ces valeurs selon vos besoins puis rechargez le plugin pour appliquer les changements.
+
+## 🛒 Configuration de la Boutique
+
+Le fichier `shop.yml` définit les catégories et les objets disponibles dans la boutique. Il est généré automatiquement au premier lancement du plugin et peut être modifié pour personnaliser les menus.
+
+Exemple de structure du menu principal :
+
+```yaml
+main-menu:
+  title: "Boutique d'objets"
+  rows: 4
+  items:
+    'quick-buy':
+      material: NETHER_STAR
+      name: "&aAchats Rapides"
+      lore:
+        - "&7Les objets les plus utiles"
+      slot: 10
+      category: 'quick_buy_category'
+```
+
+Chaque entrée renvoie vers une catégorie définie dans `shop-categories` où les objets à vendre seront listés.

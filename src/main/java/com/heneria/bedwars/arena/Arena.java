@@ -13,6 +13,7 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -37,6 +38,8 @@ public class Arena {
     private Location lobbyLocation;
     private Location shopNpcLocation;
     private Location upgradeNpcLocation;
+    private Villager shopNpc;
+    private Villager upgradeNpc;
     private final Map<UUID, PlayerData> savedStates = new HashMap<>();
     // NEW CACHE SYSTEM: SIMPLE AND DIRECT
     private final Map<Block, Team> bedBlocks = new HashMap<>();
@@ -403,6 +406,7 @@ public class Arena {
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);
         }
+        spawnNpcs();
     }
 
     /**
@@ -539,5 +543,42 @@ public class Arena {
             team.setHasBed(true);
         }
         state = GameState.WAITING;
+        removeNpcs();
+    }
+
+    private void spawnNpcs() {
+        if (shopNpcLocation != null && shopNpcLocation.getWorld() != null) {
+            shopNpc = shopNpcLocation.getWorld().spawn(shopNpcLocation, Villager.class, villager -> {
+                villager.setAI(false);
+                villager.setInvulnerable(true);
+                villager.setSilent(true);
+                villager.setCollidable(false);
+                villager.addScoreboardTag("shop_npc");
+                villager.setCustomName("§aBoutique");
+                villager.setCustomNameVisible(true);
+            });
+        }
+        if (upgradeNpcLocation != null && upgradeNpcLocation.getWorld() != null) {
+            upgradeNpc = upgradeNpcLocation.getWorld().spawn(upgradeNpcLocation, Villager.class, villager -> {
+                villager.setAI(false);
+                villager.setInvulnerable(true);
+                villager.setSilent(true);
+                villager.setCollidable(false);
+                villager.addScoreboardTag("upgrade_npc");
+                villager.setCustomName("§aAméliorations");
+                villager.setCustomNameVisible(true);
+            });
+        }
+    }
+
+    private void removeNpcs() {
+        if (shopNpc != null) {
+            shopNpc.remove();
+            shopNpc = null;
+        }
+        if (upgradeNpc != null) {
+            upgradeNpc.remove();
+            upgradeNpc = null;
+        }
     }
 }
