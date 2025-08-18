@@ -274,6 +274,10 @@ public class ArenaManager {
         return null;
     }
 
+    public Arena getArena(Player player) {
+        return getArenaByPlayer(player.getUniqueId());
+    }
+
     public void setPlayerInCreationMode(Player player) {
         playersInCreationMode.add(player.getUniqueId());
     }

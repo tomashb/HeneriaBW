@@ -9,6 +9,8 @@ import com.heneria.bedwars.utils.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -232,6 +234,34 @@ public class Arena {
         return null;
     }
 
+    public Team getTeam(Player player) {
+        return getTeam(player.getUniqueId());
+    }
+
+    public Team getTeamFromBedLocation(Location location) {
+        for (Team team : teams.values()) {
+            Location loc = team.getBedLocation();
+            if (loc == null || !loc.getWorld().equals(location.getWorld())) {
+                continue;
+            }
+            if (loc.getBlockX() == location.getBlockX()
+                    && loc.getBlockY() == location.getBlockY()
+                    && loc.getBlockZ() == location.getBlockZ()) {
+                return team;
+            }
+            Block bedBlock = loc.getBlock();
+            if (bedBlock.getBlockData() instanceof Bed bed) {
+                Block other = bedBlock.getRelative(bed.getFacing());
+                if (other.getX() == location.getBlockX()
+                        && other.getY() == location.getBlockY()
+                        && other.getZ() == location.getBlockZ()) {
+                    return team;
+                }
+            }
+        }
+        return null;
+    }
+
     private Team getLeastPopulatedTeam() {
         Team result = null;
         int count = Integer.MAX_VALUE;
@@ -251,6 +281,21 @@ public class Arena {
                 MessageUtils.sendMessage(p, message);
             }
         }
+    }
+
+    public void broadcastTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut) {
+        for (UUID id : players) {
+            Player p = Bukkit.getPlayer(id);
+            if (p != null) {
+                p.sendTitle(title, subtitle, fadeIn, stay, fadeOut);
+            }
+        }
+    }
+
+    public void eliminatePlayer(Player player) {
+        removeAlivePlayer(player.getUniqueId());
+        addSpectator(player.getUniqueId());
+        broadcast("&c" + player.getName() + " a été éliminé !");
     }
 
     public List<UUID> getAlivePlayers() {
