@@ -3,7 +3,6 @@ package com.heneria.bedwars.gui.shop;
 import com.heneria.bedwars.gui.Menu;
 import com.heneria.bedwars.managers.ShopManager;
 import com.heneria.bedwars.utils.ItemBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -67,12 +66,10 @@ public class ShopCategoryMenu extends Menu {
         if (categoryId != null) {
             ShopManager.ShopCategory category = shopManager.getCategory(categoryId);
             if (category != null) {
-                String title = ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', category.title()));
-                player.sendMessage("§eOuverture du menu des " + title.toLowerCase() + "...");
+                new ShopItemsMenu(shopManager, category).open(player, this);
             } else {
                 player.sendMessage("§cCatégorie introuvable.");
             }
-            player.closeInventory();
         }
     }
 }

@@ -35,7 +35,7 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 *Objectif : Intégrer les boutiques d'objets et d'améliorations d'équipe.*
 
 * [✔] Fondations du système : PNJ, configuration `shop.yml`, menu principal.
-* [ ] Logique d'achat d'objets et gestion des ressources.
+* [✔] Logique d'achat d'objets et gestion des ressources.
 * [ ] Boutique d'améliorations d'équipe.
 
 ## 🎯 **Étape 4 : Polissage & Fonctionnalités Avancées (Version Cible : 1.0.0)**
