@@ -17,6 +17,13 @@ main-menu:
         - "&7Pour construire et défendre"
       slot: 11
       category: 'blocks_category'
+    'special':
+      material: BLAZE_POWDER
+      name: "&cObjets Spéciaux"
+      lore:
+        - "&7Utilitaires stratégiques"
+      slot: 12
+      category: 'special_category'
 
 # Définition d'une catégorie d'objets
 shop-categories:
@@ -68,3 +75,42 @@ shop-categories:
           resource: IRON
           amount: 24
         slot: 12
+  'special_category':
+    title: "Objets Spéciaux"
+    rows: 5
+    items:
+      'fireball':
+        material: FIRE_CHARGE
+        name: "&6Boule de Feu"
+        amount: 1
+        cost:
+          resource: IRON
+          amount: 40
+        slot: 10
+        action: FIREBALL
+      'tnt':
+        material: TNT
+        name: "&cTNT de BedWars"
+        amount: 1
+        cost:
+          resource: GOLD
+          amount: 4
+        slot: 11
+        action: BEDWARS_TNT
+      'ender_pearl':
+        material: ENDER_PEARL
+        name: "&5Perle de l'End"
+        amount: 1
+        cost:
+          resource: EMERALD
+          amount: 4
+        slot: 12
+      'bridge_egg':
+        material: EGG
+        name: "&aPont en Œuf"
+        amount: 1
+        cost:
+          resource: EMERALD
+          amount: 1
+        slot: 13
+        action: BRIDGE_EGG

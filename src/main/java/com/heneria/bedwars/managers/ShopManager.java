@@ -68,7 +68,8 @@ public class ShopManager {
                             ResourceType resource = ResourceType.valueOf(config.getString(path + ".cost.resource", "IRON"));
                             int cost = config.getInt(path + ".cost.amount", 1);
                             int slot = config.getInt(path + ".slot", 0);
-                            items.put(slot, new ShopItem(material, name, amount, resource, cost, slot));
+                            String action = config.getString(path + ".action");
+                            items.put(slot, new ShopItem(material, name, amount, resource, cost, slot, action));
                         } catch (IllegalArgumentException ex) {
                             plugin.getLogger().warning("Invalid item configuration for category " + id + ": " + itemKey);
                         }
@@ -98,7 +99,8 @@ public class ShopManager {
     public record MainMenuItem(Material material, String name, List<String> lore, int slot, String category) {
     }
 
-    public record ShopItem(Material material, String name, int amount, ResourceType costResource, int costAmount, int slot) {
+    public record ShopItem(Material material, String name, int amount, ResourceType costResource, int costAmount, int slot,
+                           String action) {
     }
 
     public record ShopCategory(String id, String title, int rows, Map<Integer, ShopItem> items) {

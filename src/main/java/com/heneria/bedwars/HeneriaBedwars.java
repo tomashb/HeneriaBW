@@ -9,6 +9,7 @@ import com.heneria.bedwars.listeners.SetupListener;
 import com.heneria.bedwars.listeners.ShopListener;
 import com.heneria.bedwars.listeners.UpgradeListener;
 import com.heneria.bedwars.listeners.StarterItemListener;
+import com.heneria.bedwars.listeners.SpecialItemListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
@@ -63,6 +64,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ShopListener(), this);
         getServer().getPluginManager().registerEvents(new UpgradeListener(), this);
         getServer().getPluginManager().registerEvents(new StarterItemListener(), this);
+        getServer().getPluginManager().registerEvents(new SpecialItemListener(), this);
     }
 
     public static HeneriaBedwars getInstance() {

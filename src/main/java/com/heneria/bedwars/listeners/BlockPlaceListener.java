@@ -17,7 +17,7 @@ public class BlockPlaceListener implements Listener {
 
     private final ArenaManager arenaManager = HeneriaBedwars.getInstance().getArenaManager();
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         Arena arena = arenaManager.getArena(player);
