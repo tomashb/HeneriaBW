@@ -12,6 +12,7 @@ import com.heneria.bedwars.setup.SetupType;
 import com.heneria.bedwars.utils.MessageUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -52,8 +53,20 @@ public class SetupListener implements Listener {
             arena.setLobbyLocation(loc);
             MessageUtils.sendMessage(player, "&aLobby défini.");
         } else if (action.getType() == SetupType.TEAM_SPAWN && action.getTeamColor() != null) {
+            Block clickedBlock = event.getClickedBlock();
+            if (clickedBlock == null) {
+                MessageUtils.sendMessage(player, "&cVeuillez cliquer sur un bloc pour définir le spawn.");
+                return;
+            }
+            double x = clickedBlock.getX() + 0.5;
+            double y = clickedBlock.getY() + 1.0;
+            double z = clickedBlock.getZ() + 0.5;
+            float yaw = player.getLocation().getYaw();
+            float pitch = 0.0f;
+            Location spawnLocation = new Location(player.getWorld(), x, y, z, yaw, pitch);
+
             Team team = arena.getTeams().computeIfAbsent(action.getTeamColor(), Team::new);
-            team.setSpawnLocation(loc);
+            team.setSpawnLocation(spawnLocation);
             MessageUtils.sendMessage(player, "&aSpawn de l'équipe " + action.getTeamColor().getDisplayName() + " défini.");
         } else if (action.getType() == SetupType.TEAM_BED && action.getTeamColor() != null) {
             Team team = arena.getTeams().computeIfAbsent(action.getTeamColor(), Team::new);
