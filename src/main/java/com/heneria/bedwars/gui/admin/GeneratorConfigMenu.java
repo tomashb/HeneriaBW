@@ -49,12 +49,12 @@ public class GeneratorConfigMenu extends PaginatedMenu {
 
     @Override
     protected int getItemStartSlot() {
-        return 18;
+        return 19;
     }
 
     @Override
     protected int getItemsPerPage() {
-        return 9;
+        return 8;
     }
 
     @Override
@@ -108,6 +108,9 @@ public class GeneratorConfigMenu extends PaginatedMenu {
                 page--;
             }
             setupItems();
+            if (previousMenu != null) {
+                inventory.setItem(getBackButtonSlot(), backButton());
+            }
         }
     }
 

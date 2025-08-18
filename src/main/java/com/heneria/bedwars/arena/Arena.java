@@ -5,14 +5,13 @@ import com.heneria.bedwars.arena.elements.Generator;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.arena.enums.TeamColor;
+import com.heneria.bedwars.utils.GameUtils;
 import com.heneria.bedwars.utils.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -380,10 +379,7 @@ public class Arena {
             if (team != null && team.getSpawnLocation() != null) {
                 p.teleport(team.getSpawnLocation());
             }
-            p.getInventory().clear();
-            p.getInventory().addItem(new ItemStack(Material.WOODEN_SWORD));
-            p.setLevel(0);
-            p.setExp(0f);
+            GameUtils.giveDefaultKit(p);
         }
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);

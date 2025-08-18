@@ -57,13 +57,16 @@ public class TeamListMenu extends Menu {
     @Override
     public void handleClick(InventoryClickEvent event) {
         event.setCancelled(true);
+        if (handleBack(event)) {
+            return;
+        }
         if (!(event.getWhoClicked() instanceof Player player)) {
             return;
         }
         TeamColor color = teamSlots.get(event.getRawSlot());
         if (color != null) {
             player.closeInventory();
-            new TeamConfigMenu(arena, color).open(player);
+            new TeamConfigMenu(arena, color).open(player, this);
         }
     }
 }

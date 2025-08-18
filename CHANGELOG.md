@@ -2,6 +2,10 @@
 
 ## [0.2.1] - En développement
 
+### Ajouté
+- Amélioration complète du cycle de mort/réapparition (void kill, timer visuel, rééquipement)
+- Ajout de boutons de retour pour la navigation dans les menus d'administration
+
 ### Corrigé
 - Refactorisation majeure des listeners de jeu pour corriger les bugs de lits et de morts, avec ajout d'un logging de débogage.
 - Correction d'un bug critique qui empêchait la destruction des lits en raison d'une mauvaise détection d'équipe.
