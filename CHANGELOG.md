@@ -8,6 +8,7 @@
 - Amélioration : les joueurs en mode spectateur sont désormais téléportés sur leur île d'équipe.
 
 ### Corrigé
+- Correction d'un bug critique où l'écran de mort de Minecraft apparaissait lors de l'élimination finale.
 - Refactorisation majeure des listeners de jeu pour corriger les bugs de lits et de morts, avec ajout d'un logging de débogage.
 - Correction d'un bug critique qui empêchait la destruction des lits en raison d'une mauvaise détection d'équipe.
 - Correction définitive du bug de destruction des lits via une détection par distance.
