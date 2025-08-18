@@ -5,6 +5,8 @@ import org.bukkit.Location;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -19,6 +21,7 @@ public class Team {
     private Location itemShopNpcLocation;
     private Location upgradeShopNpcLocation;
     private boolean hasBed = true;
+    private final Map<String, Integer> upgradeLevels = new HashMap<>();
 
     /**
      * Creates a new team with the given color.
@@ -163,5 +166,25 @@ public class Team {
      */
     public void setHasBed(boolean hasBed) {
         this.hasBed = hasBed;
+    }
+
+    /**
+     * Gets the current level of a team upgrade.
+     *
+     * @param id the upgrade id
+     * @return the level, or {@code 0} if not purchased
+     */
+    public int getUpgradeLevel(String id) {
+        return upgradeLevels.getOrDefault(id, 0);
+    }
+
+    /**
+     * Sets the level of a team upgrade.
+     *
+     * @param id    the upgrade id
+     * @param level the new level
+     */
+    public void setUpgradeLevel(String id, int level) {
+        upgradeLevels.put(id, level);
     }
 }

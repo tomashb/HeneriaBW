@@ -5,6 +5,11 @@
 ### Corrigé
 - Correction d'erreurs de compilation dues à la mise à jour des noms de constantes de l'API Spigot 1.21.
 
+## [0.5.0] - 2024-??-??
+
+### Ajouté
+- Ajout de la boutique d'améliorations d'équipe. Le système économique de l'Étape 3 est maintenant complet.
+
 ## [0.4.1] - En développement
 
 ### Ajouté
