@@ -22,6 +22,8 @@ import com.heneria.bedwars.managers.DatabaseManager;
 import com.heneria.bedwars.managers.StatsManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.Bukkit;
+import com.heneria.bedwars.placeholders.HeneriaPlaceholders;
 
 public final class HeneriaBedwars extends JavaPlugin {
 
@@ -52,6 +54,10 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.scoreboardManager = new ScoreboardManager(this);
         this.databaseManager = new DatabaseManager(this);
         this.statsManager = new StatsManager(this, this.databaseManager);
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new HeneriaPlaceholders(this).register();
+        }
 
         // Enregistrement des commandes
         CommandManager commandManager = new CommandManager(this);

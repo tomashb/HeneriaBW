@@ -48,4 +48,5 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 * [✔] Les Pièges d'Équipe.
   * [✔] Un Fichier de Langue Complet (messages.yml).
   * [✔] Sauvegarde des Statistiques des Joueurs.
-  * [ ] Compatibilité avec PlaceholderAPI.
+  * [✔] Compatibilité avec PlaceholderAPI.
+  * [ ] Optimisation et Finitions.

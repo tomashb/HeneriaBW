@@ -4,6 +4,7 @@
 
 ### Ajouté
 - Ajout d'un système de statistiques joueurs avec support SQLite et MySQL.
+- Intégration avec PlaceholderAPI pour afficher les statistiques dans d'autres plugins.
 
 ## [0.7.0] - En développement
 
