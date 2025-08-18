@@ -238,25 +238,22 @@ public class Arena {
         return getTeam(player.getUniqueId());
     }
 
+    /**
+     * Retrieves the team that owns a bed based on a block location.
+     *
+     * @param location the location of the broken bed block
+     * @return the owning team, or null if none matches
+     */
     public Team getTeamFromBedLocation(Location location) {
         for (Team team : teams.values()) {
-            Location loc = team.getBedLocation();
-            if (loc == null || !loc.getWorld().equals(location.getWorld())) {
-                continue;
-            }
-            if (loc.getBlockX() == location.getBlockX()
-                    && loc.getBlockY() == location.getBlockY()
-                    && loc.getBlockZ() == location.getBlockZ()) {
+            Location bedLocation = team.getBedLocation();
+
+            if (bedLocation != null
+                    && bedLocation.getWorld().equals(location.getWorld())
+                    && bedLocation.getBlockX() == location.getBlockX()
+                    && bedLocation.getBlockY() == location.getBlockY()
+                    && bedLocation.getBlockZ() == location.getBlockZ()) {
                 return team;
-            }
-            Block bedBlock = loc.getBlock();
-            if (bedBlock.getBlockData() instanceof Bed bed) {
-                Block other = bedBlock.getRelative(bed.getFacing());
-                if (other.getX() == location.getBlockX()
-                        && other.getY() == location.getBlockY()
-                        && other.getZ() == location.getBlockZ()) {
-                    return team;
-                }
             }
         }
         return null;
