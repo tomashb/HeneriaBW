@@ -4,6 +4,7 @@
 
 ### Ajouté
 - Ajout d'un scoreboard en jeu dynamique et configurable via `scoreboard.yml`.
+- Ajout des pièges de base configurables dans la boutique d'améliorations.
 
 ### Corrigé
 - Correction d'un bug de duplication de la TNT.

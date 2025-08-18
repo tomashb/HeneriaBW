@@ -16,7 +16,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
 - ⚙️ **Haute Personnalisation** : Prenez le contrôle total du gameplay en modifiant les fichiers de configuration dédiés :
   - `generators.yml` : Réglez la vitesse et la quantité de chaque générateur de ressources.
   - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
-  - `upgrades.yml` : Définissez les améliorations d'équipe, leurs niveaux et leurs coûts en diamants.
+  - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
   - `scoreboard.yml` : Personnalisez le titre et les lignes du tableau de bord en jeu.
 
 ### Pour les Joueurs
@@ -67,6 +67,25 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
 4.  Cliquez sur votre nouvelle arène pour ouvrir son menu de configuration.
 5.  Utilisez les différentes options et l'outil de positionnement pour définir le lobby, les équipes (lits, spawns, PNJ) et les générateurs.
 6.  Quand tout est prêt, cliquez sur **"Activer l'Arène"** pour la rendre accessible aux joueurs.
+
+### Configuration des Pièges d'Équipe
+
+Les pièges sont définis dans le fichier `upgrades.yml` sous la section `traps`. Chaque piège possède un nom, un item de menu, un coût en diamants et un effet de potion appliqué à l'intrus.
+
+```yaml
+traps:
+  miner-fatigue-trap:
+    name: "&cPiège de Fatigue"
+    item: PRISMARINE_SHARD
+    cost: 1
+    description:
+      - "&7Le prochain ennemi qui entre"
+      - "&7dans votre base recevra Fatigue de Minage."
+    effect:
+      type: SLOW_DIGGING
+      duration: 10
+      amplifier: 1
+```
 
 ---
 

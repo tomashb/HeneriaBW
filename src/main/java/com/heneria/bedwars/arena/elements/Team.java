@@ -22,6 +22,7 @@ public class Team {
     private Location upgradeShopNpcLocation;
     private boolean hasBed = true;
     private final Map<String, Integer> upgradeLevels = new HashMap<>();
+    private final Map<String, Boolean> traps = new HashMap<>();
 
     /**
      * Creates a new team with the given color.
@@ -186,5 +187,34 @@ public class Team {
      */
     public void setUpgradeLevel(String id, int level) {
         upgradeLevels.put(id, level);
+    }
+
+    /**
+     * Checks whether the specified trap is active for this team.
+     *
+     * @param id trap identifier
+     * @return {@code true} if the trap has been purchased and not yet triggered
+     */
+    public boolean isTrapActive(String id) {
+        return traps.getOrDefault(id, false);
+    }
+
+    /**
+     * Sets the active state of a trap for this team.
+     *
+     * @param id     trap identifier
+     * @param active whether the trap is active
+     */
+    public void setTrapActive(String id, boolean active) {
+        traps.put(id, active);
+    }
+
+    /**
+     * Gets all traps and their active state for this team.
+     *
+     * @return map of traps
+     */
+    public Map<String, Boolean> getTraps() {
+        return traps;
     }
 }

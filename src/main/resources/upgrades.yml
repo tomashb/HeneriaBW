@@ -38,3 +38,29 @@ forge:
     2:
       cost: 8
       description: "&7Générateurs encore plus rapides."
+
+# Catégorie pour les pièges
+traps:
+  miner-fatigue-trap:
+    name: "&cPiège de Fatigue"
+    item: PRISMARINE_SHARD
+    cost: 1
+    description:
+      - "&7Le prochain ennemi qui entre"
+      - "&7dans votre base recevra Fatigue de Minage."
+    effect:
+      type: SLOW_DIGGING
+      duration: 10
+      amplifier: 1
+
+  blindness-trap:
+    name: "&8Piège d'Aveuglement"
+    item: INK_SAC
+    cost: 1
+    description:
+      - "&7Le prochain ennemi qui entre"
+      - "&7dans votre base deviendra aveugle."
+    effect:
+      type: BLINDNESS
+      duration: 8
+      amplifier: 0
