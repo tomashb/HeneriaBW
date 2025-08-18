@@ -41,6 +41,7 @@ public class GameListener implements Listener {
         }
         System.out.println("[HENERIA DEBUG - LIT] Le bloc EST un lit.");
         Team playerTeam = arena.getTeam(player);
+        // Appel à la NOUVELLE méthode, beaucoup plus fiable
         Team bedTeam = arena.getTeamFromBedLocation(block.getLocation());
         if (playerTeam == null || bedTeam == null) {
             System.out.println("[HENERIA DEBUG - LIT] ÉQUIPE INTROUVABLE. Annulation.");

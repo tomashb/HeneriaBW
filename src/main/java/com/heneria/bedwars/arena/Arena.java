@@ -37,6 +37,7 @@ public class Arena {
     private Location shopNpcLocation;
     private Location upgradeNpcLocation;
     private final Map<UUID, PlayerData> savedStates = new HashMap<>();
+    private final Map<Location, Team> registeredBedBlocks = new HashMap<>();
     private BukkitTask countdownTask;
     private int countdownDuration = 10;
 
@@ -238,35 +239,37 @@ public class Arena {
     }
 
     /**
-     * Récupère une équipe à partir de l'emplacement de N'IMPORTE QUELLE partie d'un lit.
+     * Enregistre les blocs de lit de chaque équipe au début de la partie.
+     */
+    public void registerBeds() {
+        registeredBedBlocks.clear();
+        for (Team team : teams.values()) {
+            Location headLocation = team.getBedLocation();
+            if (headLocation != null) {
+                Block headBlock = headLocation.getBlock();
+                if (headBlock.getBlockData() instanceof Bed) {
+                    Bed bedData = (Bed) headBlock.getBlockData();
+                    Block footBlock = headBlock.getRelative(bedData.getFacing().getOppositeFace());
+
+                    // Enregistrer la tête ET les pieds
+                    registeredBedBlocks.put(headBlock.getLocation(), team);
+                    registeredBedBlocks.put(footBlock.getLocation(), team);
+                    System.out.println("[HENERIA DEBUG] Lit de l'équipe " + team.getColor() + " enregistré en " + headBlock.getLocation() + " et " + footBlock.getLocation());
+                }
+            }
+        }
+    }
+
+    /**
+     * Récupère une équipe à partir de l'emplacement d'un bloc de lit.
      *
      * @param location L'emplacement du bloc de lit cassé.
      * @return L'équipe propriétaire du lit, ou null si aucune équipe ne correspond.
      */
     public Team getTeamFromBedLocation(Location location) {
-        Block block = location.getBlock();
-        if (!(block.getBlockData() instanceof Bed)) return null; // Sécurité
-
-        Bed bedData = (Bed) block.getBlockData();
-        Location headLocation = location;
-
-        // Si on a cassé les pieds du lit, on trouve la tête
-        if (bedData.getPart() == Bed.Part.FOOT) {
-            headLocation = block.getRelative(bedData.getFacing()).getLocation();
-        }
-
-        // On compare maintenant la position de la TÊTE du lit avec nos données sauvegardées
-        for (Team team : teams.values()) {
-            Location savedBedLocation = team.getBedLocation();
-            if (savedBedLocation != null &&
-                    savedBedLocation.getWorld().equals(headLocation.getWorld()) &&
-                    savedBedLocation.getBlockX() == headLocation.getBlockX() &&
-                    savedBedLocation.getBlockY() == headLocation.getBlockY() &&
-                    savedBedLocation.getBlockZ() == headLocation.getBlockZ()) {
-                return team;
-            }
-        }
-        return null;
+        // On crée une nouvelle location avec des coordonnées entières pour une recherche fiable
+        Location blockLocation = new Location(location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
+        return registeredBedBlocks.get(blockLocation);
     }
 
     private Team getLeastPopulatedTeam() {
@@ -376,6 +379,7 @@ public class Arena {
      * Starts the game for all players currently in the arena.
      */
     public void startGame() {
+        registerBeds();
         state = GameState.PLAYING;
         if (countdownTask != null) {
             countdownTask.cancel();
