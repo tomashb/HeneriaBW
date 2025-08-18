@@ -38,5 +38,9 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 * [✔] Logique d'achat d'objets et gestion des ressources.
 * [✔] Boutique d'améliorations d'équipe.
 
-## 🎯 **Étape 4 : Polissage & Fonctionnalités Avancées (Version Cible : 1.0.0)**
+## 🎯 **Étape 4 : Polissage & Fonctionnalités Avancées (Version Cible : 1.0.0) - [WIP]**
 *Objectif : Ajouter les fonctionnalités spéciales, optimiser le code et préparer la version stable.*
+
+* [✔] La Construction : Ajout de la pose/destruction de blocs par les joueurs.
+* [ ] Les Objets Spéciaux (TNT, Boules de feu...).
+* [ ] Le Tableau de Bord (Scoreboard).

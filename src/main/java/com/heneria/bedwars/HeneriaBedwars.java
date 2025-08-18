@@ -4,6 +4,7 @@ import com.heneria.bedwars.commands.CommandManager;
 import com.heneria.bedwars.listeners.ChatListener;
 import com.heneria.bedwars.listeners.GUIListener;
 import com.heneria.bedwars.listeners.GameListener;
+import com.heneria.bedwars.listeners.BlockPlaceListener;
 import com.heneria.bedwars.listeners.SetupListener;
 import com.heneria.bedwars.listeners.ShopListener;
 import com.heneria.bedwars.listeners.UpgradeListener;
@@ -56,6 +57,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GUIListener(), this);
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new GameListener(), this);
+        getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
         getServer().getPluginManager().registerEvents(new SetupListener(this.setupManager), this);
         getServer().getPluginManager().registerEvents(new ShopListener(), this);
         getServer().getPluginManager().registerEvents(new UpgradeListener(), this);

@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [0.6.0] - En développement
+
+### Ajouté
+- Ajout de la mécanique de construction : les joueurs peuvent maintenant acheter, poser et casser des blocs.
+
 ## [0.5.1] - En développement
 
 ### Corrigé
