@@ -1,11 +1,10 @@
 package com.heneria.bedwars.arena.elements;
 
 import com.heneria.bedwars.arena.enums.TeamColor;
+import com.heneria.bedwars.managers.UpgradeType;
 import org.bukkit.Location;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Represents a team within an arena.
@@ -19,6 +18,7 @@ public class Team {
     private Location itemShopNpcLocation;
     private Location upgradeShopNpcLocation;
     private boolean hasBed = true;
+    private final Map<UpgradeType, Integer> upgrades = new EnumMap<>(UpgradeType.class);
 
     /**
      * Creates a new team with the given color.
@@ -163,5 +163,34 @@ public class Team {
      */
     public void setHasBed(boolean hasBed) {
         this.hasBed = hasBed;
+    }
+
+    /**
+     * Gets the level of a specific upgrade.
+     *
+     * @param type the upgrade type
+     * @return current level, 0 if none
+     */
+    public int getUpgradeLevel(UpgradeType type) {
+        return upgrades.getOrDefault(type, 0);
+    }
+
+    /**
+     * Sets the level of a specific upgrade.
+     *
+     * @param type  upgrade type
+     * @param level new level
+     */
+    public void setUpgradeLevel(UpgradeType type, int level) {
+        upgrades.put(type, level);
+    }
+
+    /**
+     * Gets the map of all upgrades levels.
+     *
+     * @return map of upgrades
+     */
+    public Map<UpgradeType, Integer> getUpgrades() {
+        return upgrades;
     }
 }

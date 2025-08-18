@@ -1,0 +1,43 @@
+sharpness:
+  name: "&aTranchant d'équipe"
+  item: IRON_SWORD
+  tiers:
+    1:
+      cost: 4
+      description: "&7Toutes les épées de l'équipe obtiennent Tranchant I."
+
+protection:
+  name: "&aProtection d'équipe"
+  item: IRON_CHESTPLATE
+  tiers:
+    1:
+      cost: 2
+      description: "&7Toutes les armures de l'équipe obtiennent Protection I."
+    2:
+      cost: 4
+      description: "&7Toutes les armures de l'équipe obtiennent Protection II."
+    3:
+      cost: 8
+      description: "&7Toutes les armures de l'équipe obtiennent Protection III."
+
+haste:
+  name: "&aHâte d'équipe"
+  item: GOLDEN_PICKAXE
+  tiers:
+    1:
+      cost: 2
+      description: "&7Les membres de l'équipe obtiennent Hâte I."
+    2:
+      cost: 4
+      description: "&7Les membres de l'équipe obtiennent Hâte II."
+
+forge:
+  name: "&aForge"
+  item: FURNACE
+  tiers:
+    1:
+      cost: 4
+      description: "&7Améliore la forge de l'équipe au niveau II."
+    2:
+      cost: 8
+      description: "&7Améliore la forge de l'équipe au niveau III."

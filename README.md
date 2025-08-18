@@ -4,7 +4,7 @@
 
 Notre objectif principal est de fournir un système de gestion d'arène via une interface graphique (GUI) simple, rapide et puissante, éliminant le besoin de commandes complexes et de modifications manuelles de fichiers de configuration.
 
-## ✨ Fonctionnalités (v0.1.2)
+## ✨ Fonctionnalités (v0.5.0)
 
 - **Gestion d'Arène 100% GUI** : Créez, configurez et gérez vos arènes sans taper une seule commande de configuration.
 - **Menus de Configuration Complets** : Lobby, équipes (lits, spawns et PNJ), générateurs configurables via interface.
@@ -13,6 +13,7 @@ Notre objectif principal est de fournir un système de gestion d'arène via une 
 - **Persistance des Données** : Les configurations d'arène sont sauvegardées de manière fiable dans des fichiers locaux.
 - **Conçu pour la 1.21** : Entièrement développé sur l'API Spigot 1.21 pour une performance et une stabilité optimales.
 - **Boutique d'objets fonctionnelle** : Achetez de l'équipement en dépensant vos ressources collectées.
+- **Boutique d'améliorations d'équipe** : Investissez vos diamants pour débloquer des bonus permanents.
 
 ## 🚀 Roadmap
 
@@ -117,3 +118,35 @@ shop-categories:
 ```
 
 Le bloc `cost` indique la ressource et la quantité nécessaires pour acheter l'objet.
+
+## 🔨 Boutique d'Améliorations d'Équipe
+
+Le fichier `upgrades.yml` définit les différentes améliorations disponibles ainsi que leur coût en diamants.
+
+Exemple de configuration :
+
+```yaml
+sharpness:
+  name: "&aTranchant d'équipe"
+  item: IRON_SWORD
+  tiers:
+    1:
+      cost: 4
+      description: "&7Toutes les épées de l'équipe obtiennent Tranchant I."
+
+protection:
+  name: "&aProtection d'équipe"
+  item: IRON_CHESTPLATE
+  tiers:
+    1:
+      cost: 2
+      description: "&7Toutes les armures de l'équipe obtiennent Protection I."
+    2:
+      cost: 4
+      description: "&7Toutes les armures de l'équipe obtiennent Protection II."
+    3:
+      cost: 8
+      description: "&7Toutes les armures de l'équipe obtiennent Protection III."
+```
+
+Chaque niveau ne spécifie qu'un coût en diamants et une courte description. Les joueurs peuvent accéder à cette boutique en interagissant avec le PNJ d'améliorations de leur île.

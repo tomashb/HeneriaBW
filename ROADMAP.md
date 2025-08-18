@@ -31,12 +31,10 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 * [✔] Gestion de la réapparition et de la destruction des lits.
 * [✔] Conditions de victoire et fin de partie.
 
-## 🎯 **Étape 3 : Systèmes Économiques & PNJ (Version Cible : 0.4.0) - [WIP]**
-*Objectif : Intégrer les boutiques d'objets et d'améliorations d'équipe.*
-
+## 🎯 **Étape 3 : Systèmes Économiques & PNJ (Version Cible : 0.5.0) - [✔] TERMINÉE**
 * [✔] Fondations du système : PNJ, configuration `shop.yml`, menu principal.
 * [✔] Logique d'achat d'objets et gestion des ressources.
-* [ ] Boutique d'améliorations d'équipe.
+* [✔] Boutique d'améliorations d'équipe (Coût en Diamants uniquement).
 
 ## 🎯 **Étape 4 : Polissage & Fonctionnalités Avancées (Version Cible : 1.0.0)**
 *Objectif : Ajouter les fonctionnalités spéciales, optimiser le code et préparer la version stable.*
