@@ -238,24 +238,26 @@ public class Arena {
     }
 
     /**
-     * Retrieves the team that owns a bed based on a block location.
-     *
-     * @param location the location of the broken bed block
-     * @return the owning team, or null if none matches
+     * Récupère une équipe à partir de l'emplacement d'un bloc de lit, en utilisant une vérification de distance.
+     * @param location L'emplacement du bloc de lit cassé.
+     * @return L'équipe propriétaire du lit, ou null si aucune équipe ne correspond.
      */
     public Team getTeamFromBedLocation(Location location) {
         for (Team team : teams.values()) {
             Location bedLocation = team.getBedLocation();
 
-            if (bedLocation != null
-                    && bedLocation.getWorld().equals(location.getWorld())
-                    && bedLocation.getBlockX() == location.getBlockX()
-                    && bedLocation.getBlockY() == location.getBlockY()
-                    && bedLocation.getBlockZ() == location.getBlockZ()) {
-                return team;
+            // On s'assure que le lit de l'équipe a bien été configuré
+            if (bedLocation == null) continue;
+
+            // On vérifie qu'on est bien dans le même monde
+            if (!bedLocation.getWorld().equals(location.getWorld())) continue;
+
+            // LA CORRECTION : On vérifie si le bloc cassé est à proximité (distance de 2 blocs max)
+            if (bedLocation.distanceSquared(location) <= 4) { // distanceSquared est plus performant
+                return team; // Correspondance trouvée !
             }
         }
-        return null;
+        return null; // Aucune correspondance
     }
 
     private Team getLeastPopulatedTeam() {
