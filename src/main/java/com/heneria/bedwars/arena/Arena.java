@@ -5,12 +5,12 @@ import com.heneria.bedwars.arena.elements.Generator;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.arena.enums.TeamColor;
+import com.heneria.bedwars.events.GameStateChangeEvent;
 import com.heneria.bedwars.utils.GameUtils;
 import com.heneria.bedwars.utils.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -37,7 +37,8 @@ public class Arena {
     private Location shopNpcLocation;
     private Location upgradeNpcLocation;
     private final Map<UUID, PlayerData> savedStates = new HashMap<>();
-    private final Map<Location, Team> registeredBedBlocks = new HashMap<>();
+    // NEW CACHE SYSTEM: SIMPLE AND DIRECT
+    private final Map<Block, Team> bedBlocks = new HashMap<>();
     private BukkitTask countdownTask;
     private int countdownDuration = 10;
 
@@ -238,38 +239,17 @@ public class Arena {
         return getTeam(player.getUniqueId());
     }
 
-    /**
-     * Enregistre les blocs de lit de chaque équipe au début de la partie.
-     */
-    public void registerBeds() {
-        registeredBedBlocks.clear();
-        for (Team team : teams.values()) {
-            Location headLocation = team.getBedLocation();
-            if (headLocation != null) {
-                Block headBlock = headLocation.getBlock();
-                if (headBlock.getBlockData() instanceof Bed) {
-                    Bed bedData = (Bed) headBlock.getBlockData();
-                    Block footBlock = headBlock.getRelative(bedData.getFacing().getOppositeFace());
-
-                    // Enregistrer la tête ET les pieds
-                    registeredBedBlocks.put(headBlock.getLocation(), team);
-                    registeredBedBlocks.put(footBlock.getLocation(), team);
-                    System.out.println("[HENERIA DEBUG] Lit de l'équipe " + team.getColor() + " enregistré en " + headBlock.getLocation() + " et " + footBlock.getLocation());
-                }
-            }
-        }
+    // Bed cache management
+    public void registerBed(Block block, Team team) {
+        bedBlocks.put(block, team);
     }
 
-    /**
-     * Récupère une équipe à partir de l'emplacement d'un bloc de lit.
-     *
-     * @param location L'emplacement du bloc de lit cassé.
-     * @return L'équipe propriétaire du lit, ou null si aucune équipe ne correspond.
-     */
-    public Team getTeamFromBedLocation(Location location) {
-        // On crée une nouvelle location avec des coordonnées entières pour une recherche fiable
-        Location blockLocation = new Location(location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
-        return registeredBedBlocks.get(blockLocation);
+    public Team getTeamOfBed(Block block) {
+        return bedBlocks.get(block);
+    }
+
+    public void clearBeds() {
+        bedBlocks.clear();
     }
 
     private Team getLeastPopulatedTeam() {
@@ -379,8 +359,8 @@ public class Arena {
      * Starts the game for all players currently in the arena.
      */
     public void startGame() {
-        registerBeds();
         state = GameState.PLAYING;
+        Bukkit.getPluginManager().callEvent(new GameStateChangeEvent(this, GameState.PLAYING));
         if (countdownTask != null) {
             countdownTask.cancel();
             countdownTask = null;
