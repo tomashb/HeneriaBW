@@ -9,7 +9,7 @@ import com.heneria.bedwars.managers.ResourceType;
 import com.heneria.bedwars.managers.UpgradeManager;
 import com.heneria.bedwars.managers.UpgradeManager.Trap;
 import com.heneria.bedwars.utils.ItemBuilder;
-import com.heneria.bedwars.utils.MessageUtils;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -42,7 +42,7 @@ public class TeamUpgradesMenu extends Menu {
 
     @Override
     public String getTitle() {
-        return "§aAméliorations";
+        return MessageManager.get("menus.upgrades-title");
     }
 
     @Override
@@ -103,12 +103,12 @@ public class TeamUpgradesMenu extends Menu {
             int current = team.getUpgradeLevel(upgrade.id());
             UpgradeManager.UpgradeTier tier = upgrade.tiers().get(current + 1);
             if (tier == null) {
-                player.sendMessage("§cCette amélioration est déjà au maximum.");
+                MessageManager.sendMessage(player, "errors.upgrade-max-level");
                 return;
             }
             int cost = tier.cost();
             if (!ResourceManager.hasResources(player, ResourceType.DIAMOND, cost)) {
-                player.sendMessage("§cVous n'avez pas assez de diamants !");
+                MessageManager.sendMessage(player, "errors.not-enough-diamonds");
                 player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
                 return;
             }
@@ -125,12 +125,12 @@ public class TeamUpgradesMenu extends Menu {
             return;
         }
         if (team.isTrapActive(trap.id())) {
-            player.sendMessage("§cCe piège a déjà été acheté.");
+            MessageManager.sendMessage(player, "errors.trap-already-bought");
             return;
         }
         int cost = trap.cost();
         if (!ResourceManager.hasResources(player, ResourceType.DIAMOND, cost)) {
-            player.sendMessage("§cVous n'avez pas assez de diamants !");
+            MessageManager.sendMessage(player, "errors.not-enough-diamonds");
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
             return;
         }
@@ -139,7 +139,7 @@ public class TeamUpgradesMenu extends Menu {
         for (UUID uuid : team.getMembers()) {
             Player p = Bukkit.getPlayer(uuid);
             if (p != null) {
-                MessageUtils.sendMessage(p, "Votre équipe a acheté " + trap.name());
+                MessageManager.sendMessage(p, "game.team-trap-purchased", "trap", trap.name());
             }
         }
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);

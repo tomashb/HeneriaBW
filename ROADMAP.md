@@ -46,4 +46,5 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
  * [✔] Les Objets Spéciaux (TNT, Boules de feu...).
 * [✔] Le Tableau de Bord (Scoreboard).
 * [✔] Les Pièges d'Équipe.
-* [ ] Un Fichier de Langue Complet (messages.yml).
+* [✔] Un Fichier de Langue Complet (messages.yml).
+* [ ] Sauvegarde des Statistiques des Joueurs.

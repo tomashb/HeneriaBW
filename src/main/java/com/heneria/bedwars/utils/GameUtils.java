@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.persistence.PersistentDataType;
+import com.heneria.bedwars.utils.MessageManager;
 
 import java.util.Collections;
 
@@ -53,7 +54,7 @@ public final class GameUtils {
         LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
         meta.setColor(color);
         meta.addEnchant(Enchantment.BINDING_CURSE, 1, true);
-        meta.setLore(Collections.singletonList("§7Objet de départ"));
+        meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
         meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
         item.setItemMeta(meta);
         return item;
@@ -62,7 +63,7 @@ public final class GameUtils {
     private static ItemStack createStarterSword() {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         ItemMeta meta = item.getItemMeta();
-        meta.setLore(Collections.singletonList("§7Objet de départ"));
+        meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
         meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
         item.setItemMeta(meta);
         return item;

@@ -8,7 +8,7 @@ import com.heneria.bedwars.gui.PaginatedMenu;
 import com.heneria.bedwars.setup.SetupAction;
 import com.heneria.bedwars.setup.SetupType;
 import com.heneria.bedwars.utils.ItemBuilder;
-import com.heneria.bedwars.utils.MessageUtils;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -102,7 +102,7 @@ public class GeneratorConfigMenu extends PaginatedMenu {
         } else if (generatorSlots.containsKey(slot)) {
             arena.getGenerators().remove(generatorSlots.get(slot));
             HeneriaBedwars.getInstance().getArenaManager().saveArena(arena);
-            MessageUtils.sendMessage(player, "&cGénérateur supprimé.");
+            MessageManager.sendMessage(player, "admin.generator-removed");
             generatorSlots.clear();
             if (page > 0 && page * getItemsPerPage() >= arena.getGenerators().size()) {
                 page--;
@@ -117,7 +117,7 @@ public class GeneratorConfigMenu extends PaginatedMenu {
     private void startSetup(Player player, GeneratorType type) {
         HeneriaBedwars.getInstance().getSetupManager().startSetup(player,
                 new SetupAction(arena, SetupType.GENERATOR, type));
-        MessageUtils.sendMessage(player, "&eClic droit pour définir la position du générateur.");
+        MessageManager.sendMessage(player, "setup.start-generator-setup");
         player.closeInventory();
     }
 

@@ -9,7 +9,7 @@ import com.heneria.bedwars.arena.enums.TeamColor;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.setup.SetupAction;
 import com.heneria.bedwars.setup.SetupType;
-import com.heneria.bedwars.utils.MessageUtils;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -53,7 +53,7 @@ public class SetupListener implements Listener {
         if (action.getType() == SetupType.LOBBY) {
             Block clickedBlock = event.getClickedBlock();
             if (clickedBlock == null) {
-                MessageUtils.sendMessage(player, "&cVeuillez cliquer sur un bloc pour définir le lobby.");
+                MessageManager.sendMessage(player, "setup.lobby-click-block");
                 return;
             }
             double x = clickedBlock.getX() + 0.5;
@@ -63,11 +63,11 @@ public class SetupListener implements Listener {
             float pitch = 0.0f;
             Location lobbyLocation = new Location(player.getWorld(), x, y, z, yaw, pitch);
             arena.setLobbyLocation(lobbyLocation);
-            MessageUtils.sendMessage(player, "&aLobby défini.");
+            MessageManager.sendMessage(player, "setup.lobby-set");
         } else if (action.getType() == SetupType.TEAM_SPAWN && action.getTeamColor() != null) {
             Block clickedBlock = event.getClickedBlock();
             if (clickedBlock == null) {
-                MessageUtils.sendMessage(player, "&cVeuillez cliquer sur un bloc pour définir le spawn.");
+                MessageManager.sendMessage(player, "setup.spawn-click-block");
                 return;
             }
             double x = clickedBlock.getX() + 0.5;
@@ -79,11 +79,11 @@ public class SetupListener implements Listener {
 
             Team team = arena.getTeams().computeIfAbsent(action.getTeamColor(), Team::new);
             team.setSpawnLocation(spawnLocation);
-            MessageUtils.sendMessage(player, "&aSpawn de l'équipe " + action.getTeamColor().getDisplayName() + " défini.");
+            MessageManager.sendMessage(player, "setup.spawn-set", "team", action.getTeamColor().getDisplayName());
         } else if (action.getType() == SetupType.TEAM_BED && action.getTeamColor() != null) {
             Block clickedBlock = event.getClickedBlock();
             if (clickedBlock == null || !(clickedBlock.getBlockData() instanceof Bed)) {
-                MessageUtils.sendMessage(player, "&cVous devez cliquer sur un lit !");
+                MessageManager.sendMessage(player, "setup.bed-click-block");
                 return;
             }
 
@@ -97,14 +97,14 @@ public class SetupListener implements Listener {
 
             Team team = arena.getTeams().computeIfAbsent(action.getTeamColor(), Team::new);
             team.setBedLocation(bedHeadLocation);
-            MessageUtils.sendMessage(player, "&aLit de l'équipe " + action.getTeamColor().getDisplayName() + " défini.");
+            MessageManager.sendMessage(player, "setup.bed-set", "team", action.getTeamColor().getDisplayName());
         } else if (action.getType() == SetupType.GENERATOR && action.getGeneratorType() != null) {
             arena.getGenerators().add(new Generator(loc, action.getGeneratorType(), 1));
-            MessageUtils.sendMessage(player, "&aGénérateur " + action.getGeneratorType().name() + " ajouté.");
+            MessageManager.sendMessage(player, "setup.generator-added", "generator", action.getGeneratorType().name());
         } else if (action.getType() == SetupType.NPC_SHOP && action.getTeamColor() != null) {
             Block clickedBlock = event.getClickedBlock();
             if (clickedBlock == null) {
-                MessageUtils.sendMessage(player, "&cVeuillez cliquer sur un bloc pour définir le PNJ.");
+                MessageManager.sendMessage(player, "setup.npc-click-block");
                 return;
             }
             double x = clickedBlock.getX() + 0.5;
@@ -115,11 +115,11 @@ public class SetupListener implements Listener {
             Location npcLocation = new Location(player.getWorld(), x, y, z, yaw, pitch);
             Team team = arena.getTeams().computeIfAbsent(action.getTeamColor(), Team::new);
             team.setItemShopNpcLocation(npcLocation);
-            MessageUtils.sendMessage(player, "&aPNJ Boutique pour l'équipe " + action.getTeamColor().getDisplayName() + " défini.");
+            MessageManager.sendMessage(player, "setup.shop-npc-set", "team", action.getTeamColor().getDisplayName());
         } else if (action.getType() == SetupType.NPC_UPGRADE && action.getTeamColor() != null) {
             Block clickedBlock = event.getClickedBlock();
             if (clickedBlock == null) {
-                MessageUtils.sendMessage(player, "&cVeuillez cliquer sur un bloc pour définir le PNJ.");
+                MessageManager.sendMessage(player, "setup.npc-click-block");
                 return;
             }
             double x = clickedBlock.getX() + 0.5;
@@ -130,7 +130,7 @@ public class SetupListener implements Listener {
             Location npcLocation = new Location(player.getWorld(), x, y, z, yaw, pitch);
             Team team = arena.getTeams().computeIfAbsent(action.getTeamColor(), Team::new);
             team.setUpgradeShopNpcLocation(npcLocation);
-            MessageUtils.sendMessage(player, "&aPNJ Améliorations pour l'équipe " + action.getTeamColor().getDisplayName() + " défini.");
+            MessageManager.sendMessage(player, "setup.upgrade-npc-set", "team", action.getTeamColor().getDisplayName());
         }
 
         HeneriaBedwars.getInstance().getArenaManager().saveArena(arena);

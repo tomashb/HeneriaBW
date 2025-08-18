@@ -1,7 +1,7 @@
 package com.heneria.bedwars.commands.subcommands;
 
 import com.heneria.bedwars.gui.admin.AdminMainMenu;
-import com.heneria.bedwars.utils.MessageUtils;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.entity.Player;
 
 import java.util.Collections;
@@ -20,7 +20,7 @@ public class AdminCommand implements SubCommand {
     @Override
     public void execute(Player player, String[] args) {
         if (!player.hasPermission("heneriabw.admin")) {
-            MessageUtils.sendMessage(player, "&cVous n'avez pas la permission.");
+            MessageManager.sendMessage(player, "errors.no-permission");
             return;
         }
         new AdminMainMenu().open(player);

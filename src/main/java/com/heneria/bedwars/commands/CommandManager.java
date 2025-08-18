@@ -5,7 +5,7 @@ import com.heneria.bedwars.commands.subcommands.AdminCommand;
 import com.heneria.bedwars.commands.subcommands.JoinCommand;
 import com.heneria.bedwars.commands.subcommands.LeaveCommand;
 import com.heneria.bedwars.commands.subcommands.SubCommand;
-import com.heneria.bedwars.utils.MessageUtils;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -39,14 +39,14 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            MessageUtils.sendMessage(sender, "&cCette commande est réservée aux joueurs.");
+            MessageManager.sendMessage(sender, "errors.not-a-player");
             return true;
         }
 
         Player player = (Player) sender;
 
         if (args.length == 0) {
-            MessageUtils.sendMessage(player, "&eUsage: /" + label + " <admin|join|leave>");
+            MessageManager.sendMessage(player, "commands.main-usage", "label", label);
             return true;
         }
 
@@ -54,7 +54,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         if (subCommand != null) {
             subCommand.execute(player, Arrays.copyOfRange(args, 1, args.length));
         } else {
-            MessageUtils.sendMessage(player, "&cSous-commande inconnue.");
+            MessageManager.sendMessage(player, "errors.unknown-subcommand");
         }
         return true;
     }
