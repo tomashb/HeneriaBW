@@ -124,7 +124,7 @@ public class ArenaManager {
                             config.getDouble("npc.shop.z"),
                             (float) config.getDouble("npc.shop.yaw"),
                             (float) config.getDouble("npc.shop.pitch"));
-                    arena.setShopNpcLocation(loc);
+                    arena.setItemShopNpcLocation(loc);
                 }
             }
             if (config.contains("npc.upgrade.world")) {
@@ -136,7 +136,7 @@ public class ArenaManager {
                             config.getDouble("npc.upgrade.z"),
                             (float) config.getDouble("npc.upgrade.yaw"),
                             (float) config.getDouble("npc.upgrade.pitch"));
-                    arena.setUpgradeNpcLocation(loc);
+                    arena.setUpgradeShopNpcLocation(loc);
                 }
             }
             arenas.put(name.toLowerCase(), arena);
@@ -215,8 +215,8 @@ public class ArenaManager {
                 i++;
             }
         }
-        if (arena.getShopNpcLocation() != null) {
-            Location loc = arena.getShopNpcLocation();
+        if (arena.getItemShopNpcLocation() != null) {
+            Location loc = arena.getItemShopNpcLocation();
             config.set("npc.shop.world", Objects.requireNonNull(loc.getWorld()).getName());
             config.set("npc.shop.x", loc.getX());
             config.set("npc.shop.y", loc.getY());
@@ -224,8 +224,8 @@ public class ArenaManager {
             config.set("npc.shop.yaw", loc.getYaw());
             config.set("npc.shop.pitch", loc.getPitch());
         }
-        if (arena.getUpgradeNpcLocation() != null) {
-            Location loc = arena.getUpgradeNpcLocation();
+        if (arena.getUpgradeShopNpcLocation() != null) {
+            Location loc = arena.getUpgradeShopNpcLocation();
             config.set("npc.upgrade.world", Objects.requireNonNull(loc.getWorld()).getName());
             config.set("npc.upgrade.x", loc.getX());
             config.set("npc.upgrade.y", loc.getY());

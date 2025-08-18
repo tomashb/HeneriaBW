@@ -113,7 +113,7 @@ public class SetupListener implements Listener {
             float yaw = player.getLocation().getYaw();
             float pitch = 0.0f;
             Location npcLocation = new Location(player.getWorld(), x, y, z, yaw, pitch);
-            arena.setShopNpcLocation(npcLocation);
+            arena.setItemShopNpcLocation(npcLocation);
             MessageUtils.sendMessage(player, "&aPNJ Boutique défini.");
         } else if (action.getType() == SetupType.NPC_UPGRADE) {
             Block clickedBlock = event.getClickedBlock();
@@ -127,7 +127,7 @@ public class SetupListener implements Listener {
             float yaw = player.getLocation().getYaw();
             float pitch = 0.0f;
             Location npcLocation = new Location(player.getWorld(), x, y, z, yaw, pitch);
-            arena.setUpgradeNpcLocation(npcLocation);
+            arena.setUpgradeShopNpcLocation(npcLocation);
             MessageUtils.sendMessage(player, "&aPNJ Améliorations défini.");
         }
 

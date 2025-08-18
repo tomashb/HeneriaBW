@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [0.4.1] - En développement
+
+### Corrigé
+- Correction d'une régression critique où les PNJ n'étaient pas gérés par arène, les faisant apparaître au mauvais endroit.
+
 ## [0.4.0] - En développement
 
 ### Ajouté
