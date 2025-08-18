@@ -31,7 +31,7 @@ import java.util.*;
 public class Arena {
 
     private final String name;
-    private GameState state = GameState.WAITING;
+    private GameState state;
     private String worldName;
     private boolean enabled;
     private int minPlayers;
@@ -61,6 +61,7 @@ public class Arena {
      */
     public Arena(String name) {
         this.name = name;
+        this.state = GameState.WAITING;
     }
 
     /**

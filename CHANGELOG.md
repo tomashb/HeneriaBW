@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [0.9.1] - En développement
+
+### Corrigé
+- Correction d'une `NullPointerException` en initialisant l'état par défaut des arènes à leur création.
+
 ## [0.9.0] - En développement
 
 ### Corrigé
