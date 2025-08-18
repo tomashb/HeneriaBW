@@ -20,6 +20,7 @@ import com.heneria.bedwars.managers.UpgradeManager;
 import com.heneria.bedwars.managers.ScoreboardManager;
 import com.heneria.bedwars.managers.DatabaseManager;
 import com.heneria.bedwars.managers.StatsManager;
+import com.heneria.bedwars.managers.EventManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -32,6 +33,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private ShopManager shopManager;
     private UpgradeManager upgradeManager;
     private ScoreboardManager scoreboardManager;
+    private EventManager eventManager;
     private DatabaseManager databaseManager;
     private StatsManager statsManager;
 
@@ -49,6 +51,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.generatorManager = new GeneratorManager(this);
         this.shopManager = new ShopManager(this);
         this.upgradeManager = new UpgradeManager(this);
+        this.eventManager = new EventManager(this);
         this.scoreboardManager = new ScoreboardManager(this);
         this.databaseManager = new DatabaseManager(this);
         this.statsManager = new StatsManager(this, this.databaseManager);
@@ -111,6 +114,10 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public ScoreboardManager getScoreboardManager() {
         return scoreboardManager;
+    }
+
+    public EventManager getEventManager() {
+        return eventManager;
     }
 
     public StatsManager getStatsManager() {
