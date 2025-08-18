@@ -97,6 +97,30 @@ public class ArenaManager {
                             team.setBedLocation(loc);
                         }
                     }
+                    if (config.contains("teams." + key + ".npc.shop.world")) {
+                        World w = Bukkit.getWorld(config.getString("teams." + key + ".npc.shop.world"));
+                        if (w != null) {
+                            Location loc = new Location(w,
+                                    config.getDouble("teams." + key + ".npc.shop.x"),
+                                    config.getDouble("teams." + key + ".npc.shop.y"),
+                                    config.getDouble("teams." + key + ".npc.shop.z"),
+                                    (float) config.getDouble("teams." + key + ".npc.shop.yaw"),
+                                    (float) config.getDouble("teams." + key + ".npc.shop.pitch"));
+                            team.setItemShopNpcLocation(loc);
+                        }
+                    }
+                    if (config.contains("teams." + key + ".npc.upgrade.world")) {
+                        World w = Bukkit.getWorld(config.getString("teams." + key + ".npc.upgrade.world"));
+                        if (w != null) {
+                            Location loc = new Location(w,
+                                    config.getDouble("teams." + key + ".npc.upgrade.x"),
+                                    config.getDouble("teams." + key + ".npc.upgrade.y"),
+                                    config.getDouble("teams." + key + ".npc.upgrade.z"),
+                                    (float) config.getDouble("teams." + key + ".npc.upgrade.yaw"),
+                                    (float) config.getDouble("teams." + key + ".npc.upgrade.pitch"));
+                            team.setUpgradeShopNpcLocation(loc);
+                        }
+                    }
                     arena.getTeams().put(color, team);
                 }
             }
@@ -113,30 +137,6 @@ public class ArenaManager {
                         int level = config.getInt(base + "level", 1);
                         arena.getGenerators().add(new Generator(loc, type, level));
                     }
-                }
-            }
-            if (config.contains("npc.shop.world")) {
-                World w = Bukkit.getWorld(config.getString("npc.shop.world"));
-                if (w != null) {
-                    Location loc = new Location(w,
-                            config.getDouble("npc.shop.x"),
-                            config.getDouble("npc.shop.y"),
-                            config.getDouble("npc.shop.z"),
-                            (float) config.getDouble("npc.shop.yaw"),
-                            (float) config.getDouble("npc.shop.pitch"));
-                    arena.setItemShopNpcLocation(loc);
-                }
-            }
-            if (config.contains("npc.upgrade.world")) {
-                World w = Bukkit.getWorld(config.getString("npc.upgrade.world"));
-                if (w != null) {
-                    Location loc = new Location(w,
-                            config.getDouble("npc.upgrade.x"),
-                            config.getDouble("npc.upgrade.y"),
-                            config.getDouble("npc.upgrade.z"),
-                            (float) config.getDouble("npc.upgrade.yaw"),
-                            (float) config.getDouble("npc.upgrade.pitch"));
-                    arena.setUpgradeShopNpcLocation(loc);
                 }
             }
             arenas.put(name.toLowerCase(), arena);
@@ -199,6 +199,24 @@ public class ArenaManager {
                     config.set(base + "bed.yaw", loc.getYaw());
                     config.set(base + "bed.pitch", loc.getPitch());
                 }
+                if (team.getItemShopNpcLocation() != null) {
+                    Location loc = team.getItemShopNpcLocation();
+                    config.set(base + "npc.shop.world", Objects.requireNonNull(loc.getWorld()).getName());
+                    config.set(base + "npc.shop.x", loc.getX());
+                    config.set(base + "npc.shop.y", loc.getY());
+                    config.set(base + "npc.shop.z", loc.getZ());
+                    config.set(base + "npc.shop.yaw", loc.getYaw());
+                    config.set(base + "npc.shop.pitch", loc.getPitch());
+                }
+                if (team.getUpgradeShopNpcLocation() != null) {
+                    Location loc = team.getUpgradeShopNpcLocation();
+                    config.set(base + "npc.upgrade.world", Objects.requireNonNull(loc.getWorld()).getName());
+                    config.set(base + "npc.upgrade.x", loc.getX());
+                    config.set(base + "npc.upgrade.y", loc.getY());
+                    config.set(base + "npc.upgrade.z", loc.getZ());
+                    config.set(base + "npc.upgrade.yaw", loc.getYaw());
+                    config.set(base + "npc.upgrade.pitch", loc.getPitch());
+                }
             }
         }
         if (!arena.getGenerators().isEmpty()) {
@@ -214,24 +232,6 @@ public class ArenaManager {
                 config.set(base + "level", gen.getLevel());
                 i++;
             }
-        }
-        if (arena.getItemShopNpcLocation() != null) {
-            Location loc = arena.getItemShopNpcLocation();
-            config.set("npc.shop.world", Objects.requireNonNull(loc.getWorld()).getName());
-            config.set("npc.shop.x", loc.getX());
-            config.set("npc.shop.y", loc.getY());
-            config.set("npc.shop.z", loc.getZ());
-            config.set("npc.shop.yaw", loc.getYaw());
-            config.set("npc.shop.pitch", loc.getPitch());
-        }
-        if (arena.getUpgradeShopNpcLocation() != null) {
-            Location loc = arena.getUpgradeShopNpcLocation();
-            config.set("npc.upgrade.world", Objects.requireNonNull(loc.getWorld()).getName());
-            config.set("npc.upgrade.x", loc.getX());
-            config.set("npc.upgrade.y", loc.getY());
-            config.set("npc.upgrade.z", loc.getZ());
-            config.set("npc.upgrade.yaw", loc.getYaw());
-            config.set("npc.upgrade.pitch", loc.getPitch());
         }
         try {
             config.save(file);

@@ -101,7 +101,7 @@ public class SetupListener implements Listener {
         } else if (action.getType() == SetupType.GENERATOR && action.getGeneratorType() != null) {
             arena.getGenerators().add(new Generator(loc, action.getGeneratorType(), 1));
             MessageUtils.sendMessage(player, "&aGénérateur " + action.getGeneratorType().name() + " ajouté.");
-        } else if (action.getType() == SetupType.NPC_SHOP) {
+        } else if (action.getType() == SetupType.NPC_SHOP && action.getTeamColor() != null) {
             Block clickedBlock = event.getClickedBlock();
             if (clickedBlock == null) {
                 MessageUtils.sendMessage(player, "&cVeuillez cliquer sur un bloc pour définir le PNJ.");
@@ -113,9 +113,10 @@ public class SetupListener implements Listener {
             float yaw = player.getLocation().getYaw();
             float pitch = 0.0f;
             Location npcLocation = new Location(player.getWorld(), x, y, z, yaw, pitch);
-            arena.setItemShopNpcLocation(npcLocation);
-            MessageUtils.sendMessage(player, "&aPNJ Boutique défini.");
-        } else if (action.getType() == SetupType.NPC_UPGRADE) {
+            Team team = arena.getTeams().computeIfAbsent(action.getTeamColor(), Team::new);
+            team.setItemShopNpcLocation(npcLocation);
+            MessageUtils.sendMessage(player, "&aPNJ Boutique pour l'équipe " + action.getTeamColor().getDisplayName() + " défini.");
+        } else if (action.getType() == SetupType.NPC_UPGRADE && action.getTeamColor() != null) {
             Block clickedBlock = event.getClickedBlock();
             if (clickedBlock == null) {
                 MessageUtils.sendMessage(player, "&cVeuillez cliquer sur un bloc pour définir le PNJ.");
@@ -127,8 +128,9 @@ public class SetupListener implements Listener {
             float yaw = player.getLocation().getYaw();
             float pitch = 0.0f;
             Location npcLocation = new Location(player.getWorld(), x, y, z, yaw, pitch);
-            arena.setUpgradeShopNpcLocation(npcLocation);
-            MessageUtils.sendMessage(player, "&aPNJ Améliorations défini.");
+            Team team = arena.getTeams().computeIfAbsent(action.getTeamColor(), Team::new);
+            team.setUpgradeShopNpcLocation(npcLocation);
+            MessageUtils.sendMessage(player, "&aPNJ Améliorations pour l'équipe " + action.getTeamColor().getDisplayName() + " défini.");
         }
 
         HeneriaBedwars.getInstance().getArenaManager().saveArena(arena);

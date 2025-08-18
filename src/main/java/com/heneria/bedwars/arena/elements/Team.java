@@ -16,6 +16,8 @@ public class Team {
     private final List<UUID> members = new ArrayList<>();
     private Location spawnLocation;
     private Location bedLocation;
+    private Location itemShopNpcLocation;
+    private Location upgradeShopNpcLocation;
     private boolean hasBed = true;
 
     /**
@@ -107,6 +109,42 @@ public class Team {
      */
     public void setBedLocation(Location bedLocation) {
         this.bedLocation = bedLocation;
+    }
+
+    /**
+     * Gets the location of the team's item shop NPC.
+     *
+     * @return the item shop NPC location
+     */
+    public Location getItemShopNpcLocation() {
+        return itemShopNpcLocation;
+    }
+
+    /**
+     * Sets the location of the team's item shop NPC.
+     *
+     * @param itemShopNpcLocation location of the NPC
+     */
+    public void setItemShopNpcLocation(Location itemShopNpcLocation) {
+        this.itemShopNpcLocation = itemShopNpcLocation;
+    }
+
+    /**
+     * Gets the location of the team's upgrade shop NPC.
+     *
+     * @return the upgrade shop NPC location
+     */
+    public Location getUpgradeShopNpcLocation() {
+        return upgradeShopNpcLocation;
+    }
+
+    /**
+     * Sets the location of the team's upgrade shop NPC.
+     *
+     * @param upgradeShopNpcLocation location of the NPC
+     */
+    public void setUpgradeShopNpcLocation(Location upgradeShopNpcLocation) {
+        this.upgradeShopNpcLocation = upgradeShopNpcLocation;
     }
 
     /**

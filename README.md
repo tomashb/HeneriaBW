@@ -7,7 +7,7 @@ Notre objectif principal est de fournir un système de gestion d'arène via une 
 ## ✨ Fonctionnalités (v0.1.2)
 
 - **Gestion d'Arène 100% GUI** : Créez, configurez et gérez vos arènes sans taper une seule commande de configuration.
-- **Menus de Configuration Complets** : Lobby, équipes, lits, spawns, générateurs et PNJ configurables via interface.
+- **Menus de Configuration Complets** : Lobby, équipes (lits, spawns et PNJ), générateurs configurables via interface.
 - **Outil de Positionnement** : Un simple bâton permet d'enregistrer les positions directement en jeu.
 - **Activation d'Arène** : Activez ou désactivez une arène une fois sa configuration terminée.
 - **Persistance des Données** : Les configurations d'arène sont sauvegardées de manière fiable dans des fichiers locaux.
@@ -52,9 +52,8 @@ La partie se termine lorsqu'une seule équipe possède encore des joueurs en vie
 3. **Gérer les arènes existantes** : ouvrez "Gérer les Arènes Existantes" puis sélectionnez l'arène à configurer.
 4. **Définir les positions** dans le menu de configuration :
    - *Définir le Lobby* : donne un bâton de configuration, faites un clic droit à l'endroit souhaité.
-   - *Gérer les Équipes* : choisissez une couleur puis définissez le **spawn** et le **lit** de chaque équipe.
+   - *Gérer les Équipes* : choisissez une couleur puis définissez le **spawn**, le **lit** et les **PNJ Boutique/Améliorations** de chaque équipe.
    - *Gérer les Générateurs* : ajoutez un générateur de ressource ou cliquez sur un existant pour le supprimer.
-   - *Gérer les PNJ* : positionnez la **Boutique d'objets** et la **Boutique d'améliorations**.
 5. **Activer l'arène** : lorsque le lobby, les spawns et lits de chaque équipe sont définis, utilisez le bouton d'activation pour rendre l'arène jouable. Toutes les positions sont sauvegardées immédiatement.
 
 ## ⚙️ Configuration des Générateurs

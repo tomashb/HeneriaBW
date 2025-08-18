@@ -23,7 +23,6 @@ public class ArenaConfigMenu extends Menu {
     private static final int SET_LOBBY_SLOT = 10;
     private static final int TEAMS_SLOT = 12;
     private static final int GENERATORS_SLOT = 14;
-    private static final int NPC_SLOT = 16;
     private static final int TOGGLE_SLOT = 22;
 
     public ArenaConfigMenu(Arena arena) {
@@ -55,11 +54,6 @@ public class ArenaConfigMenu extends Menu {
         inventory.setItem(GENERATORS_SLOT, new ItemBuilder(Material.FURNACE)
                 .setName("&eGestion des Générateurs")
                 .addLore("&7Ajouter ou supprimer des générateurs")
-                .build());
-
-        inventory.setItem(NPC_SLOT, new ItemBuilder(Material.VILLAGER_SPAWN_EGG)
-                .setName("&eGestion des PNJ")
-                .addLore("&7Définir les PNJ boutique et amélioration")
                 .build());
 
         Material toggleMaterial = arena.isEnabled() ? Material.REDSTONE_BLOCK : Material.EMERALD_BLOCK;
@@ -97,8 +91,6 @@ public class ArenaConfigMenu extends Menu {
             new TeamListMenu(arena).open(player, this);
         } else if (slot == GENERATORS_SLOT) {
             new GeneratorConfigMenu(arena).open(player, this);
-        } else if (slot == NPC_SLOT) {
-            new NpcConfigMenu(arena).open(player, this);
         } else if (slot == TOGGLE_SLOT) {
             if (!arena.isEnabled()) {
                 if (arena.getLobbyLocation() == null) {
