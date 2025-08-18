@@ -1,8 +1,11 @@
 package com.heneria.bedwars.managers;
 
 import com.heneria.bedwars.HeneriaBedwars;
+import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Generator;
+import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.GeneratorType;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -108,6 +111,29 @@ public class GeneratorManager {
 
     public void unregisterGenerator(Generator gen) {
         counters.remove(gen);
+    }
+
+    /**
+     * Upgrades the tier of generators near a team's spawn point.
+     *
+     * @param arena the arena containing the generators
+     * @param team  the team whose generators to upgrade
+     * @param tier  the new tier
+     */
+    public void upgradeTeamGenerators(Arena arena, Team team, int tier) {
+        Location spawn = team.getSpawnLocation();
+        if (spawn == null) {
+            return;
+        }
+        for (Generator gen : arena.getGenerators()) {
+            if (gen.getType() == GeneratorType.IRON || gen.getType() == GeneratorType.GOLD) {
+                if (gen.getLocation() != null && gen.getLocation().getWorld() == spawn.getWorld()
+                        && gen.getLocation().distance(spawn) < 10) {
+                    gen.setTier(tier);
+                    counters.put(gen, getDelayCycles(gen));
+                }
+            }
+        }
     }
 
     /**

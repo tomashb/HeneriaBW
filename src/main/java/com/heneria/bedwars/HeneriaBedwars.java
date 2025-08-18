@@ -6,10 +6,12 @@ import com.heneria.bedwars.listeners.GUIListener;
 import com.heneria.bedwars.listeners.GameListener;
 import com.heneria.bedwars.listeners.SetupListener;
 import com.heneria.bedwars.listeners.ShopListener;
+import com.heneria.bedwars.listeners.UpgradeListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
 import com.heneria.bedwars.managers.ShopManager;
+import com.heneria.bedwars.managers.UpgradeManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class HeneriaBedwars extends JavaPlugin {
@@ -19,6 +21,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private SetupManager setupManager;
     private GeneratorManager generatorManager;
     private ShopManager shopManager;
+    private UpgradeManager upgradeManager;
 
     @Override
     public void onEnable() {
@@ -32,6 +35,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.arenaManager.loadArenas();
         this.generatorManager = new GeneratorManager(this);
         this.shopManager = new ShopManager(this);
+        this.upgradeManager = new UpgradeManager(this);
 
         // Enregistrement des commandes
         CommandManager commandManager = new CommandManager(this);
@@ -54,6 +58,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GameListener(), this);
         getServer().getPluginManager().registerEvents(new SetupListener(this.setupManager), this);
         getServer().getPluginManager().registerEvents(new ShopListener(), this);
+        getServer().getPluginManager().registerEvents(new UpgradeListener(), this);
     }
 
     public static HeneriaBedwars getInstance() {
@@ -74,5 +79,9 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public ShopManager getShopManager() {
         return shopManager;
+    }
+
+    public UpgradeManager getUpgradeManager() {
+        return upgradeManager;
     }
 }

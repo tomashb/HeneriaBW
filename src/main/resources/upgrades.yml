@@ -1,0 +1,40 @@
+sharpness:
+  name: "&aTranchant d'équipe"
+  item: DIAMOND_SWORD
+  tiers:
+    1:
+      cost: 4
+      description: "&7Les épées de l'équipe obtiennent Tranchant I."
+protection:
+  name: "&aProtection d'équipe"
+  item: DIAMOND_CHESTPLATE
+  tiers:
+    1:
+      cost: 2
+      description: "&7Les armures de l'équipe obtiennent Protection I."
+    2:
+      cost: 4
+      description: "&7Les armures de l'équipe obtiennent Protection II."
+    3:
+      cost: 8
+      description: "&7Les armures de l'équipe obtiennent Protection III."
+haste:
+  name: "&aHâte d'équipe"
+  item: GOLDEN_PICKAXE
+  tiers:
+    1:
+      cost: 2
+      description: "&7Les joueurs gagnent Hâte I."
+    2:
+      cost: 4
+      description: "&7Les joueurs gagnent Hâte II."
+forge:
+  name: "&aForge améliorée"
+  item: FURNACE
+  tiers:
+    1:
+      cost: 4
+      description: "&7Augmente la vitesse des générateurs de l'équipe."
+    2:
+      cost: 8
+      description: "&7Générateurs encore plus rapides."
