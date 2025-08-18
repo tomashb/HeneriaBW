@@ -45,4 +45,5 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 * [✔] Ajout des kits de départ complets (armure liée, épée).
  * [✔] Les Objets Spéciaux (TNT, Boules de feu...).
 * [✔] Le Tableau de Bord (Scoreboard).
-* [ ] Les Pièges d'Équipe.
+* [✔] Les Pièges d'Équipe.
+* [ ] Un Fichier de Langue Complet (messages.yml).

@@ -7,7 +7,9 @@ import com.heneria.bedwars.gui.Menu;
 import com.heneria.bedwars.managers.ResourceManager;
 import com.heneria.bedwars.managers.ResourceType;
 import com.heneria.bedwars.managers.UpgradeManager;
+import com.heneria.bedwars.managers.UpgradeManager.Trap;
 import com.heneria.bedwars.utils.ItemBuilder;
+import com.heneria.bedwars.utils.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -29,6 +31,7 @@ public class TeamUpgradesMenu extends Menu {
     private final Team team;
     private final UpgradeManager upgradeManager;
     private final Map<Integer, UpgradeManager.Upgrade> slotUpgrades = new HashMap<>();
+    private final Map<Integer, Trap> slotTraps = new HashMap<>();
 
     public TeamUpgradesMenu(HeneriaBedwars plugin, Arena arena, Team team) {
         this.plugin = plugin;
@@ -50,6 +53,7 @@ public class TeamUpgradesMenu extends Menu {
     @Override
     public void setupItems() {
         slotUpgrades.clear();
+        slotTraps.clear();
         int slot = 10;
         for (UpgradeManager.Upgrade upgrade : upgradeManager.getUpgrades()) {
             int current = team.getUpgradeLevel(upgrade.id());
@@ -63,6 +67,18 @@ public class TeamUpgradesMenu extends Menu {
             }
             inventory.setItem(slot, builder.build());
             slotUpgrades.put(slot, upgrade);
+            slot++;
+        }
+
+        for (Trap trap : upgradeManager.getTraps()) {
+            ItemBuilder builder = new ItemBuilder(trap.item()).setName(trap.name()).setLore(trap.description());
+            if (!team.isTrapActive(trap.id())) {
+                builder.addLore("&7Coût: &b" + trap.cost() + " Diamants");
+            } else {
+                builder.addLore("&7Piège acheté");
+            }
+            inventory.setItem(slot, builder.build());
+            slotTraps.put(slot, trap);
             slot++;
         }
         ItemStack filler = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
@@ -83,24 +99,49 @@ public class TeamUpgradesMenu extends Menu {
             return;
         }
         UpgradeManager.Upgrade upgrade = slotUpgrades.get(event.getRawSlot());
-        if (upgrade == null) {
+        if (upgrade != null) {
+            int current = team.getUpgradeLevel(upgrade.id());
+            UpgradeManager.UpgradeTier tier = upgrade.tiers().get(current + 1);
+            if (tier == null) {
+                player.sendMessage("§cCette amélioration est déjà au maximum.");
+                return;
+            }
+            int cost = tier.cost();
+            if (!ResourceManager.hasResources(player, ResourceType.DIAMOND, cost)) {
+                player.sendMessage("§cVous n'avez pas assez de diamants !");
+                player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
+                return;
+            }
+            ResourceManager.takeResources(player, ResourceType.DIAMOND, cost);
+            team.setUpgradeLevel(upgrade.id(), current + 1);
+            applyUpgradeEffect(upgrade.id(), current + 1);
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
+            new TeamUpgradesMenu(plugin, arena, team).open(player, previousMenu);
             return;
         }
-        int current = team.getUpgradeLevel(upgrade.id());
-        UpgradeManager.UpgradeTier tier = upgrade.tiers().get(current + 1);
-        if (tier == null) {
-            player.sendMessage("§cCette amélioration est déjà au maximum.");
+
+        Trap trap = slotTraps.get(event.getRawSlot());
+        if (trap == null) {
             return;
         }
-        int cost = tier.cost();
+        if (team.isTrapActive(trap.id())) {
+            player.sendMessage("§cCe piège a déjà été acheté.");
+            return;
+        }
+        int cost = trap.cost();
         if (!ResourceManager.hasResources(player, ResourceType.DIAMOND, cost)) {
             player.sendMessage("§cVous n'avez pas assez de diamants !");
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
             return;
         }
         ResourceManager.takeResources(player, ResourceType.DIAMOND, cost);
-        team.setUpgradeLevel(upgrade.id(), current + 1);
-        applyUpgradeEffect(upgrade.id(), current + 1);
+        team.setTrapActive(trap.id(), true);
+        for (UUID uuid : team.getMembers()) {
+            Player p = Bukkit.getPlayer(uuid);
+            if (p != null) {
+                MessageUtils.sendMessage(p, "Votre équipe a acheté " + trap.name());
+            }
+        }
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
         new TeamUpgradesMenu(plugin, arena, team).open(player, previousMenu);
     }

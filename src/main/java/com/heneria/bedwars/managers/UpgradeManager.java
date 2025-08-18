@@ -21,6 +21,7 @@ public class UpgradeManager {
     private final HeneriaBedwars plugin;
     private YamlConfiguration config;
     private final Map<String, Upgrade> upgrades = new HashMap<>();
+    private final Map<String, Trap> traps = new HashMap<>();
 
     public UpgradeManager(HeneriaBedwars plugin) {
         this.plugin = plugin;
@@ -35,6 +36,7 @@ public class UpgradeManager {
         this.config = YamlConfiguration.loadConfiguration(file);
         upgrades.clear();
         for (String id : config.getKeys(false)) {
+            if (id.equalsIgnoreCase("traps")) continue;
             String base = id + ".";
             String name = config.getString(base + "name", id);
             Material item = Material.valueOf(config.getString(base + "item", "STONE"));
@@ -53,6 +55,23 @@ public class UpgradeManager {
             }
             upgrades.put(id, new Upgrade(id, name, item, tiers));
         }
+
+        traps.clear();
+        ConfigurationSection trapSection = config.getConfigurationSection("traps");
+        if (trapSection != null) {
+            for (String id : trapSection.getKeys(false)) {
+                String base = id + ".";
+                String name = trapSection.getString(base + "name", id);
+                Material item = Material.valueOf(trapSection.getString(base + "item", "STONE"));
+                int cost = trapSection.getInt(base + "cost", 1);
+                List<String> description = trapSection.getStringList(base + "description");
+                ConfigurationSection effectSec = trapSection.getConfigurationSection(base + "effect");
+                PotionEffectType type = PotionEffectType.getByName(effectSec.getString("type", "BLINDNESS"));
+                int duration = effectSec.getInt("duration", 5);
+                int amplifier = effectSec.getInt("amplifier", 0);
+                traps.put(id, new Trap(id, name, item, cost, description, type, duration, amplifier));
+            }
+        }
     }
 
     public Collection<Upgrade> getUpgrades() {
@@ -61,6 +80,14 @@ public class UpgradeManager {
 
     public Upgrade getUpgrade(String id) {
         return upgrades.get(id);
+    }
+
+    public Collection<Trap> getTraps() {
+        return traps.values();
+    }
+
+    public Trap getTrap(String id) {
+        return traps.get(id);
     }
 
     /**
@@ -94,9 +121,23 @@ public class UpgradeManager {
         player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, duration, amplifier, true, true, true));
     }
 
+    /**
+     * Applies the trap's potion effect to the player.
+     *
+     * @param player the player affected
+     * @param trap   the trap definition
+     */
+    public void applyTrapEffect(Player player, Trap trap) {
+        player.addPotionEffect(new PotionEffect(trap.effectType(), trap.duration() * 20, trap.amplifier(), true, true, true));
+    }
+
     public record Upgrade(String id, String name, Material item, Map<Integer, UpgradeTier> tiers) {
     }
 
     public record UpgradeTier(int cost, String description) {
+    }
+
+    public record Trap(String id, String name, Material item, int cost, List<String> description,
+                        PotionEffectType effectType, int duration, int amplifier) {
     }
 }
