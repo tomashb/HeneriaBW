@@ -1,10 +1,19 @@
 package com.heneria.bedwars.arena;
 
+import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.elements.Generator;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.GameState;
+import com.heneria.bedwars.arena.enums.GeneratorType;
 import com.heneria.bedwars.arena.enums.TeamColor;
+import com.heneria.bedwars.utils.MessageUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 
@@ -25,6 +34,10 @@ public class Arena {
     private Location lobbyLocation;
     private Location shopNpcLocation;
     private Location upgradeNpcLocation;
+    private final Map<UUID, PlayerData> savedStates = new HashMap<>();
+    private BukkitTask countdownTask;
+    private final List<BukkitTask> generatorTasks = new ArrayList<>();
+    private int countdownDuration = 10;
 
     /**
      * Creates a new arena with the given name.
@@ -159,6 +172,171 @@ public class Arena {
      */
     public void removePlayer(UUID uuid) {
         players.remove(uuid);
+    }
+
+    /**
+     * Adds a player to this arena and moves them to the lobby.
+     *
+     * @param player the player to add
+     */
+    public void addPlayer(Player player) {
+        addPlayer(player.getUniqueId());
+        savedStates.put(player.getUniqueId(), new PlayerData(player));
+        player.getInventory().clear();
+        player.teleport(lobbyLocation);
+        player.setLevel(0);
+        player.setExp(0f);
+        Team team = getLeastPopulatedTeam();
+        if (team != null) {
+            team.addMember(player.getUniqueId());
+            MessageUtils.sendMessage(player, "&aVous avez rejoint l'équipe " + team.getColor().getDisplayName() + "");
+        }
+        broadcast("&e" + player.getName() + " a rejoint l'arène. (&b" + players.size() + "&e/" + maxPlayers + ")");
+        if (players.size() >= minPlayers && state == GameState.WAITING) {
+            startCountdown();
+        }
+    }
+
+    /**
+     * Removes a player from this arena and restores their previous state.
+     *
+     * @param player the player to remove
+     */
+    public void removePlayer(Player player) {
+        removePlayer(player.getUniqueId());
+        Team team = getTeam(player.getUniqueId());
+        if (team != null) {
+            team.removeMember(player.getUniqueId());
+        }
+        PlayerData data = savedStates.remove(player.getUniqueId());
+        if (data != null) {
+            data.restore(player);
+        }
+        player.setLevel(0);
+        player.setExp(0f);
+        broadcast("&c" + player.getName() + " a quitté l'arène.");
+        if (state == GameState.STARTING && players.size() < minPlayers) {
+            cancelCountdown();
+        }
+    }
+
+    private Team getTeam(UUID uuid) {
+        for (Team team : teams.values()) {
+            if (team.isMember(uuid)) {
+                return team;
+            }
+        }
+        return null;
+    }
+
+    private Team getLeastPopulatedTeam() {
+        Team result = null;
+        int count = Integer.MAX_VALUE;
+        for (Team team : teams.values()) {
+            if (team.getMembers().size() < count) {
+                count = team.getMembers().size();
+                result = team;
+            }
+        }
+        return result;
+    }
+
+    private void broadcast(String message) {
+        for (UUID id : players) {
+            Player p = Bukkit.getPlayer(id);
+            if (p != null) {
+                MessageUtils.sendMessage(p, message);
+            }
+        }
+    }
+
+    private void startCountdown() {
+        state = GameState.STARTING;
+        final int total = countdownDuration;
+        countdownTask = new BukkitRunnable() {
+            int time = total;
+
+            @Override
+            public void run() {
+                if (time <= 0) {
+                    cancel();
+                    startGame();
+                    return;
+                }
+                broadcast("&eLa partie commence dans &6" + time + "s");
+                for (UUID id : players) {
+                    Player p = Bukkit.getPlayer(id);
+                    if (p != null) {
+                        p.setLevel(time);
+                        p.setExp((float) time / total);
+                        p.sendTitle("", "§eDémarrage dans " + time + "s", 0, 20, 0);
+                    }
+                }
+                time--;
+            }
+        }.runTaskTimer(HeneriaBedwars.getInstance(), 0L, 20L);
+    }
+
+    private void cancelCountdown() {
+        if (countdownTask != null) {
+            countdownTask.cancel();
+            countdownTask = null;
+        }
+        state = GameState.WAITING;
+        for (UUID id : players) {
+            Player p = Bukkit.getPlayer(id);
+            if (p != null) {
+                p.setExp(0f);
+                p.setLevel(0);
+            }
+        }
+        broadcast("&cDécompte annulé : pas assez de joueurs.");
+    }
+
+    /**
+     * Starts the game for all players currently in the arena.
+     */
+    public void startGame() {
+        state = GameState.PLAYING;
+        if (countdownTask != null) {
+            countdownTask.cancel();
+            countdownTask = null;
+        }
+        for (UUID id : players) {
+            Player p = Bukkit.getPlayer(id);
+            if (p == null) {
+                continue;
+            }
+            Team team = getTeam(id);
+            if (team != null && team.getSpawnLocation() != null) {
+                p.teleport(team.getSpawnLocation());
+            }
+            p.getInventory().clear();
+            p.getInventory().addItem(new ItemStack(Material.WOODEN_SWORD));
+            p.setLevel(0);
+            p.setExp(0f);
+        }
+        startGenerators();
+    }
+
+    private void startGenerators() {
+        for (Generator gen : generators) {
+            BukkitTask task = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    Material material;
+                    GeneratorType type = gen.getType();
+                    switch (type) {
+                        case GOLD -> material = Material.GOLD_INGOT;
+                        case DIAMOND -> material = Material.DIAMOND;
+                        case EMERALD -> material = Material.EMERALD;
+                        default -> material = Material.IRON_INGOT;
+                    }
+                    gen.getLocation().getWorld().dropItemNaturally(gen.getLocation(), new ItemStack(material));
+                }
+            }.runTaskTimer(HeneriaBedwars.getInstance(), 0L, 20L * 5);
+            generatorTasks.add(task);
+        }
     }
 
     /**

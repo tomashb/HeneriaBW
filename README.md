@@ -31,6 +31,13 @@ Consultez notre [ROADMAP.md](ROADMAP.md) pour suivre le développement du projet
   - Ouvre le menu principal de gestion des arènes.
   - **Permission :** `heneriabw.admin`
 
+### Commandes pour les Joueurs
+- `/bw join <arène>`
+  - Rejoindre une arène disponible.
+  - **Permission :** `heneriabw.player.join`
+- `/bw leave`
+  - Quitter l'arène actuelle.
+
 ## 🛠️ Guide de l'Administrateur
 
 1. **Ouvrir le panneau d'administration** : `/bw admin`.

@@ -259,6 +259,21 @@ public class ArenaManager {
         return arenas.values();
     }
 
+    /**
+     * Retrieves the arena a player is currently in.
+     *
+     * @param uuid the player's unique id
+     * @return the arena or {@code null} if none
+     */
+    public Arena getArenaByPlayer(UUID uuid) {
+        for (Arena arena : arenas.values()) {
+            if (arena.getPlayers().contains(uuid)) {
+                return arena;
+            }
+        }
+        return null;
+    }
+
     public void setPlayerInCreationMode(Player player) {
         playersInCreationMode.add(player.getUniqueId());
     }
