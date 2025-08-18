@@ -91,6 +91,7 @@ public class GameListener implements Listener {
             Bukkit.getScheduler().runTask(plugin, () -> {
                 player.spigot().respawn();
                 player.setGameMode(GameMode.SPECTATOR);
+                player.teleport(playerTeam.getSpawnLocation());
                 new BukkitRunnable() {
                     int countdown = 5;
 
@@ -112,6 +113,7 @@ public class GameListener implements Listener {
             System.out.println("[HENERIA DEBUG - MORT] Le lit est détruit. Élimination finale.");
             arena.eliminatePlayer(player);
             player.setGameMode(GameMode.SPECTATOR);
+            player.teleport(playerTeam.getSpawnLocation());
             arena.broadcastTitle("§cÉLIMINATION !", "§e" + player.getName() + "§f a été éliminé.", 10, 70, 20);
         }
         System.out.println("=============================================");
