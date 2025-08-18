@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [0.5.0] - En développement
+
+### Ajouté
+- Ajout de la boutique d'améliorations d'équipe (coûts en diamants). Le système économique de l'Étape 3 est maintenant complet.
+
 ## [0.4.1] - En développement
 
 ### Ajouté
