@@ -1,5 +1,11 @@
 # Changelog - HeneriaBedwars
 
+## [0.6.1] - En développement
+
+### Corrigé
+- Correction d'un bug de duplication de la TNT.
+- Les épées achetées dans la boutique sont maintenant liées au joueur et ne peuvent plus être jetées.
+
 ## [0.6.0] - En développement
 
 ### Ajouté

@@ -83,6 +83,8 @@ public class SpecialItemListener implements Listener {
         TNTPrimed tnt = player.getWorld().spawn(block.getLocation().add(0.5, 0, 0.5), TNTPrimed.class);
         tnt.setFuseTicks(40);
         tnt.setSource(player);
+        ItemStack itemInHand = player.getInventory().getItemInMainHand();
+        itemInHand.setAmount(itemInHand.getAmount() - 1);
     }
 
     @EventHandler
