@@ -3,6 +3,7 @@
 ## [0.2.1] - En développement
 
 ### Corrigé
+- Refactorisation majeure des listeners de jeu pour corriger les bugs de lits et de morts, avec ajout d'un logging de débogage.
 - Correction d'un bug empêchant la destruction des lits ennemis.
 - La réapparition personnalisée se déclenche désormais pour toutes les morts, y compris environnementales.
 - Ajout d'une mort rapide dans le vide configurable (`void-kill-height`).
