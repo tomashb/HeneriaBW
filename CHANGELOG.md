@@ -10,8 +10,9 @@
 - Refactorisation majeure des listeners de jeu pour corriger les bugs de lits et de morts, avec ajout d'un logging de débogage.
 - Correction d'un bug critique qui empêchait la destruction des lits en raison d'une mauvaise détection d'équipe.
 - La réapparition personnalisée se déclenche désormais pour toutes les morts, y compris environnementales.
-- Ajout d'une mort rapide dans le vide configurable (`void-kill-height`).
+- La mort dans le vide est maintenant instantanée (hauteur configurable via `void-kill-height`).
 - Correction d'une erreur de compilation liée à l'initialisation du `SetupListener`.
+- Les lits détruits ne drop plus d'item.
 
 ## [0.2.0] - En développement
 
