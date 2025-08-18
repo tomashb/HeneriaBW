@@ -207,6 +207,7 @@ public class Arena {
             MessageUtils.sendMessage(player, "&aVous avez rejoint l'équipe " + team.getColor().getDisplayName() + "");
         }
         broadcast("&e" + player.getName() + " a rejoint l'arène. (&b" + players.size() + "&e/" + maxPlayers + ")");
+        HeneriaBedwars.getInstance().getScoreboardManager().setScoreboard(player);
         if (players.size() >= minPlayers && state == GameState.WAITING) {
             startCountdown();
         }
@@ -230,6 +231,7 @@ public class Arena {
         player.setLevel(0);
         player.setExp(0f);
         broadcast("&c" + player.getName() + " a quitté l'arène.");
+        HeneriaBedwars.getInstance().getScoreboardManager().removeScoreboard(player);
         if (state == GameState.STARTING && players.size() < minPlayers) {
             cancelCountdown();
         }
@@ -529,6 +531,7 @@ public class Arena {
                 if (data != null) {
                     data.restore(p);
                 }
+                HeneriaBedwars.getInstance().getScoreboardManager().removeScoreboard(p);
             }
         }
         players.clear();

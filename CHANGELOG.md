@@ -2,6 +2,9 @@
 
 ## [0.6.1] - En développement
 
+### Ajouté
+- Ajout d'un scoreboard en jeu dynamique et configurable via `scoreboard.yml`.
+
 ### Corrigé
 - Correction d'un bug de duplication de la TNT.
 - Les épées achetées dans la boutique sont maintenant liées au joueur et ne peuvent plus être jetées.

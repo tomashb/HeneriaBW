@@ -15,6 +15,7 @@ import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
 import com.heneria.bedwars.managers.ShopManager;
 import com.heneria.bedwars.managers.UpgradeManager;
+import com.heneria.bedwars.managers.ScoreboardManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class HeneriaBedwars extends JavaPlugin {
@@ -25,6 +26,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private GeneratorManager generatorManager;
     private ShopManager shopManager;
     private UpgradeManager upgradeManager;
+    private ScoreboardManager scoreboardManager;
 
     @Override
     public void onEnable() {
@@ -39,6 +41,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.generatorManager = new GeneratorManager(this);
         this.shopManager = new ShopManager(this);
         this.upgradeManager = new UpgradeManager(this);
+        this.scoreboardManager = new ScoreboardManager(this);
 
         // Enregistrement des commandes
         CommandManager commandManager = new CommandManager(this);
@@ -89,5 +92,9 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public UpgradeManager getUpgradeManager() {
         return upgradeManager;
+    }
+
+    public ScoreboardManager getScoreboardManager() {
+        return scoreboardManager;
     }
 }

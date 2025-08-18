@@ -17,6 +17,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `generators.yml` : Réglez la vitesse et la quantité de chaque générateur de ressources.
   - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
   - `upgrades.yml` : Définissez les améliorations d'équipe, leurs niveaux et leurs coûts en diamants.
+  - `scoreboard.yml` : Personnalisez le titre et les lignes du tableau de bord en jeu.
 
 ### Pour les Joueurs
 
@@ -27,6 +28,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
 - 🧱 **Construction de Blocs** : Achetez, placez et cassez des blocs pour bâtir ponts et défenses.
 - 🛡️ **Kit de départ lié** : Vous réapparaissez avec une armure en cuir teintée aux couleurs de votre équipe et une épée en bois impossible à jeter.
 - 🌈 **Achats intelligents** : La laine achetée s'adapte automatiquement à la couleur de votre équipe et toute nouvelle épée remplace la précédente.
+- 📊 **Tableau de Bord Dynamique** : Consultez en un coup d'œil l'état des équipes et le prochain événement.
 - 🏆 **Conditions de Victoire** : La partie se termine automatiquement lorsque la dernière équipe en vie est déclarée vainqueur, et l'arène se réinitialise pour le prochain combat.
 
 ---
