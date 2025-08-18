@@ -7,6 +7,8 @@
 
 ### Corrigé
 - Reconstruction complète du système de détection des lits pour une fiabilité à 100% en synchronisant la sauvegarde et la lecture des positions.
+- Correction d'un bug où les PNJ n'étaient pas gérés par arène.
+- L'orientation des PNJ au spawn est désormais normalisée.
 
 ## [0.3.1] - En développement
 
