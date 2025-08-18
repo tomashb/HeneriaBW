@@ -1,0 +1,46 @@
+# Ce menu affiche les catégories principales de la boutique.
+main-menu:
+  title: "Boutique d'objets"
+  rows: 4
+  items:
+    'quick-buy':
+      material: NETHER_STAR
+      name: "&aAchats Rapides"
+      lore:
+        - "&7Les objets les plus utiles"
+      slot: 10
+      category: 'quick_buy_category' # ID de la catégorie à ouvrir
+    'blocks':
+      material: BRICKS
+      name: "&aBlocs"
+      lore:
+        - "&7Pour construire et défendre"
+      slot: 11
+      category: 'blocks_category'
+
+# Définition d'une catégorie d'objets
+shop-categories:
+  'quick_buy_category':
+    title: "Achats Rapides"
+    rows: 5
+    items:
+      'wool':
+        material: WHITE_WOOL
+        name: "&fLaine"
+        amount: 16
+        cost:
+          resource: IRON
+          amount: 4
+        slot: 10
+      'stone-sword':
+        material: STONE_SWORD
+        name: "&7Épée en Pierre"
+        amount: 1
+        cost:
+          resource: IRON
+          amount: 10
+        slot: 11
+  'blocks_category':
+    title: "Blocs"
+    rows: 5
+    items: {} # à remplir plus tard

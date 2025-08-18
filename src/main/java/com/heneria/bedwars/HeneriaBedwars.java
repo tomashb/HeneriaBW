@@ -5,9 +5,11 @@ import com.heneria.bedwars.listeners.ChatListener;
 import com.heneria.bedwars.listeners.GUIListener;
 import com.heneria.bedwars.listeners.GameListener;
 import com.heneria.bedwars.listeners.SetupListener;
+import com.heneria.bedwars.listeners.ShopListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
+import com.heneria.bedwars.managers.ShopManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class HeneriaBedwars extends JavaPlugin {
@@ -16,6 +18,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private ArenaManager arenaManager;
     private SetupManager setupManager;
     private GeneratorManager generatorManager;
+    private ShopManager shopManager;
 
     @Override
     public void onEnable() {
@@ -28,6 +31,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.setupManager = new SetupManager();
         this.arenaManager.loadArenas();
         this.generatorManager = new GeneratorManager(this);
+        this.shopManager = new ShopManager(this);
 
         // Enregistrement des commandes
         CommandManager commandManager = new CommandManager(this);
@@ -49,6 +53,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new GameListener(), this);
         getServer().getPluginManager().registerEvents(new SetupListener(this.setupManager), this);
+        getServer().getPluginManager().registerEvents(new ShopListener(), this);
     }
 
     public static HeneriaBedwars getInstance() {
@@ -65,5 +70,9 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public GeneratorManager getGeneratorManager() {
         return generatorManager;
+    }
+
+    public ShopManager getShopManager() {
+        return shopManager;
     }
 }
