@@ -17,6 +17,12 @@ Notre objectif principal est de fournir un système de gestion d'arène via une 
 
 Consultez notre [ROADMAP.md](ROADMAP.md) pour suivre le développement du projet étape par étape.
 
+## 🕹️ Gameplay
+
+Chaque équipe possède un lit. Tant que ce lit est intact, les joueurs de l'équipe réapparaissent après quelques secondes.
+Si le lit est détruit, toute mort devient définitive : le joueur est éliminé et passe en mode spectateur pour la fin de la partie.
+Détruisez les lits adverses tout en protégeant le vôtre pour remporter la victoire.
+
 ## 🔧 Compilation
 
 1.  Clonez ce dépôt : `git clone https://github.com/tomashb/HeneriaBW.git`

@@ -5,6 +5,8 @@ import com.heneria.bedwars.listeners.GUIListener;
 import com.heneria.bedwars.listeners.ChatListener;
 import com.heneria.bedwars.listeners.SetupListener;
 import com.heneria.bedwars.listeners.GameListener;
+import com.heneria.bedwars.listeners.PlayerDeathListener;
+import com.heneria.bedwars.listeners.BedBreakListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
@@ -58,6 +60,8 @@ public final class HeneriaBedwars extends JavaPlugin {
         // Gère les interactions avec l'outil de positionnement
         getServer().getPluginManager().registerEvents(new SetupListener(setupManager), this);
         getServer().getPluginManager().registerEvents(new GameListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
+        getServer().getPluginManager().registerEvents(new BedBreakListener(), this);
     }
 
 
