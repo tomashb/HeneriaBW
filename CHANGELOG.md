@@ -7,6 +7,7 @@
 - Correction d'un bug empêchant la destruction des lits ennemis.
 - La réapparition personnalisée se déclenche désormais pour toutes les morts, y compris environnementales.
 - Ajout d'une mort rapide dans le vide configurable (`void-kill-height`).
+- Correction d'une régression critique où l'outil de configuration d'arène était devenu inactif.
 
 ## [0.2.0] - En développement
 
