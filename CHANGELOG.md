@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [0.5.1] - En développement
+
+### Corrigé
+- Correction d'erreurs de compilation dues à la mise à jour des noms de constantes de l'API Spigot 1.21.
+
 ## [0.4.1] - En développement
 
 ### Ajouté
