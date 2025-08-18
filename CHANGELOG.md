@@ -11,6 +11,9 @@
 - Lancement de la partie avec téléportation des joueurs et démarrage des générateurs.
 - Système de vitesse de génération des ressources configurable par type et par niveau.
 
+### Amélioré
+- L'orientation des joueurs au spawn est désormais normalisée pour qu'ils regardent toujours droit devant.
+
 ## [0.1.2] - En développement
 
 ### Ajouté
