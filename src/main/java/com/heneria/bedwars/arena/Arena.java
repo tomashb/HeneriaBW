@@ -15,6 +15,7 @@ import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
+import org.bukkit.entity.EntityType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -37,13 +38,13 @@ public class Arena {
     private final Map<TeamColor, Team> teams = new EnumMap<>(TeamColor.class);
     private final List<Generator> generators = new ArrayList<>();
     private Location lobbyLocation;
-    private Location shopNpcLocation;
-    private Location upgradeNpcLocation;
+    private Location itemShopNpcLocation;
+    private Location upgradeShopNpcLocation;
     /**
      * Stores all NPC entities spawned for this arena so they can be removed
      * without affecting NPCs of other arenas.
      */
-    private final List<Entity> npcs = new ArrayList<>();
+    private final List<Entity> liveNpcs = new ArrayList<>();
     private final Map<UUID, PlayerData> savedStates = new HashMap<>();
     // NEW CACHE SYSTEM: SIMPLE AND DIRECT
     private final Map<Block, Team> bedBlocks = new HashMap<>();
@@ -410,7 +411,28 @@ public class Arena {
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);
         }
-        spawnNpcs();
+        if (itemShopNpcLocation != null) {
+            Villager npc = (Villager) itemShopNpcLocation.getWorld().spawnEntity(itemShopNpcLocation, EntityType.VILLAGER);
+            npc.setAI(false);
+            npc.setInvulnerable(true);
+            npc.setSilent(true);
+            npc.setCollidable(false);
+            npc.addScoreboardTag("shop_npc");
+            npc.setCustomName("§aBoutique");
+            npc.setCustomNameVisible(true);
+            liveNpcs.add(npc);
+        }
+        if (upgradeShopNpcLocation != null) {
+            Villager npc = (Villager) upgradeShopNpcLocation.getWorld().spawnEntity(upgradeShopNpcLocation, EntityType.VILLAGER);
+            npc.setAI(false);
+            npc.setInvulnerable(true);
+            npc.setSilent(true);
+            npc.setCollidable(false);
+            npc.addScoreboardTag("upgrade_npc");
+            npc.setCustomName("§aAméliorations");
+            npc.setCustomNameVisible(true);
+            liveNpcs.add(npc);
+        }
     }
 
     /**
@@ -454,17 +476,17 @@ public class Arena {
      *
      * @return location or null
      */
-    public Location getShopNpcLocation() {
-        return shopNpcLocation;
+    public Location getItemShopNpcLocation() {
+        return itemShopNpcLocation;
     }
 
     /**
-     * Sets the shop NPC location.
+     * Sets the item shop NPC location.
      *
-     * @param shopNpcLocation location
+     * @param itemShopNpcLocation location
      */
-    public void setShopNpcLocation(Location shopNpcLocation) {
-        this.shopNpcLocation = shopNpcLocation;
+    public void setItemShopNpcLocation(Location itemShopNpcLocation) {
+        this.itemShopNpcLocation = itemShopNpcLocation;
     }
 
     /**
@@ -472,17 +494,17 @@ public class Arena {
      *
      * @return location or null
      */
-    public Location getUpgradeNpcLocation() {
-        return upgradeNpcLocation;
+    public Location getUpgradeShopNpcLocation() {
+        return upgradeShopNpcLocation;
     }
 
     /**
-     * Sets the upgrade NPC location.
+     * Sets the upgrade shop NPC location.
      *
-     * @param upgradeNpcLocation location
+     * @param upgradeShopNpcLocation location
      */
-    public void setUpgradeNpcLocation(Location upgradeNpcLocation) {
-        this.upgradeNpcLocation = upgradeNpcLocation;
+    public void setUpgradeShopNpcLocation(Location upgradeShopNpcLocation) {
+        this.upgradeShopNpcLocation = upgradeShopNpcLocation;
     }
 
     public void checkForWinner() {
@@ -547,40 +569,7 @@ public class Arena {
             team.setHasBed(true);
         }
         state = GameState.WAITING;
-        removeNpcs();
-    }
-
-    private void spawnNpcs() {
-        if (shopNpcLocation != null && shopNpcLocation.getWorld() != null) {
-            Villager villager = shopNpcLocation.getWorld().spawn(shopNpcLocation, Villager.class, v -> {
-                v.setAI(false);
-                v.setInvulnerable(true);
-                v.setSilent(true);
-                v.setCollidable(false);
-                v.addScoreboardTag("shop_npc");
-                v.setCustomName("§aBoutique");
-                v.setCustomNameVisible(true);
-            });
-            npcs.add(villager);
-        }
-        if (upgradeNpcLocation != null && upgradeNpcLocation.getWorld() != null) {
-            Villager villager = upgradeNpcLocation.getWorld().spawn(upgradeNpcLocation, Villager.class, v -> {
-                v.setAI(false);
-                v.setInvulnerable(true);
-                v.setSilent(true);
-                v.setCollidable(false);
-                v.addScoreboardTag("upgrade_npc");
-                v.setCustomName("§aAméliorations");
-                v.setCustomNameVisible(true);
-            });
-            npcs.add(villager);
-        }
-    }
-
-    private void removeNpcs() {
-        for (Entity npc : npcs) {
-            npc.remove();
-        }
-        npcs.clear();
+        liveNpcs.forEach(Entity::remove);
+        liveNpcs.clear();
     }
 }
