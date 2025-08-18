@@ -4,6 +4,7 @@
 
 ### Ajouté
 - Ajout de la mécanique de construction : les joueurs peuvent maintenant acheter, poser et casser des blocs.
+- Amélioration des kits de départ (armure colorée liée, épée non-jetable). La laine achetée est désormais de la couleur de l'équipe et les nouvelles épées remplacent les anciennes.
 
 ## [0.5.1] - En développement
 

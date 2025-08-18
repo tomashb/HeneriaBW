@@ -42,5 +42,6 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 *Objectif : Ajouter les fonctionnalités spéciales, optimiser le code et préparer la version stable.*
 
 * [✔] La Construction : Ajout de la pose/destruction de blocs par les joueurs.
+* [✔] Ajout des kits de départ complets (armure liée, épée).
 * [ ] Les Objets Spéciaux (TNT, Boules de feu...).
 * [ ] Le Tableau de Bord (Scoreboard).
