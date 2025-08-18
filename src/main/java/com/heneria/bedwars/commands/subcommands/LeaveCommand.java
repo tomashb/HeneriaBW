@@ -3,7 +3,7 @@ package com.heneria.bedwars.commands.subcommands;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.managers.ArenaManager;
-import com.heneria.bedwars.utils.MessageUtils;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.entity.Player;
 
 import java.util.Collections;
@@ -24,7 +24,7 @@ public class LeaveCommand implements SubCommand {
         ArenaManager manager = HeneriaBedwars.getInstance().getArenaManager();
         Arena arena = manager.getArenaByPlayer(player.getUniqueId());
         if (arena == null) {
-            MessageUtils.sendMessage(player, "&cVous n'êtes pas dans une arène.");
+            MessageManager.sendMessage(player, "errors.not-in-arena");
             return;
         }
         arena.removePlayer(player);

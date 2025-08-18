@@ -18,6 +18,9 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
   - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
   - `scoreboard.yml` : Personnalisez le titre et les lignes du tableau de bord en jeu.
+  - `messages.yml` : Traduisez et personnalisez tous les messages du plugin.
+
+Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le plugin à n'importe quelle langue ou style.
 
 ### Pour les Joueurs
 

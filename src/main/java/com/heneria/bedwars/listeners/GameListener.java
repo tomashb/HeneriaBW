@@ -6,6 +6,7 @@ import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.events.GameStateChangeEvent;
 import com.heneria.bedwars.managers.ArenaManager;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.GameMode;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -45,12 +46,12 @@ public class GameListener implements Listener {
         if (bedTeam != null) {
             Team playerTeam = arena.getTeam(player);
             if (playerTeam != null && playerTeam.equals(bedTeam)) {
-                player.sendMessage("§cVous ne pouvez pas casser votre propre lit.");
+                MessageManager.sendMessage(player, "errors.break-own-bed");
                 event.setCancelled(true);
             } else {
                 event.setDropItems(false);
                 bedTeam.setHasBed(false);
-                arena.broadcastTitle("§cDESTRUCTION DE LIT !", "Lit de l'équipe " + bedTeam.getColor().getDisplayName() + " détruit par " + player.getName(), 10, 70, 20);
+                arena.broadcastTitle("game.bed-destroyed-title", "game.bed-destroyed-subtitle", 10, 70, 20, "team", bedTeam.getColor().getDisplayName(), "player", player.getName());
             }
             return;
         }
@@ -83,7 +84,7 @@ public class GameListener implements Listener {
                 int countdown = 5;
                 public void run() {
                     if (countdown > 0) {
-                        player.sendTitle("§cVOUS ÊTES MORT !", "Réapparition dans §e" + countdown + "s", 0, 25, 0);
+                        MessageManager.sendTitle(player, "game.respawn-title", "game.respawn-subtitle", 0, 25, 0, "seconds", String.valueOf(countdown));
                         countdown--;
                     } else {
                         this.cancel();
@@ -97,7 +98,7 @@ public class GameListener implements Listener {
             arena.eliminatePlayer(player);
             player.setGameMode(GameMode.SPECTATOR);
             player.teleport(playerTeam.getSpawnLocation());
-            arena.broadcastTitle("§cÉLIMINATION !", "§e" + player.getName() + "§f a été éliminé.", 10, 70, 20);
+            arena.broadcastTitle("game.elimination-title", "game.elimination-subtitle", 10, 70, 20, "player", player.getName());
             arena.checkForWinner();
         }
     }

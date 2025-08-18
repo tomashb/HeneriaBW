@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [0.7.0] - En développement
+
+### Ajouté
+- Ajout d'un fichier `messages.yml` pour permettre la traduction complète du plugin.
+
 ## [0.6.1] - En développement
 
 ### Ajouté

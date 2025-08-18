@@ -5,7 +5,7 @@ import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.enums.TeamColor;
 import com.heneria.bedwars.gui.Menu;
 import com.heneria.bedwars.utils.ItemBuilder;
-import com.heneria.bedwars.utils.MessageUtils;
+import com.heneria.bedwars.utils.MessageManager;
 import com.heneria.bedwars.setup.SetupAction;
 import com.heneria.bedwars.setup.SetupType;
 import org.bukkit.Material;
@@ -80,22 +80,22 @@ public class TeamConfigMenu extends Menu {
         if (slot == SPAWN_SLOT) {
             HeneriaBedwars.getInstance().getSetupManager().startSetup(player,
                     new SetupAction(arena, SetupType.TEAM_SPAWN, color));
-            MessageUtils.sendMessage(player, "&eClic droit pour définir le spawn.");
+            MessageManager.sendMessage(player, "setup.start-team-spawn-setup");
             player.closeInventory();
         } else if (slot == BED_SLOT) {
             HeneriaBedwars.getInstance().getSetupManager().startSetup(player,
                     new SetupAction(arena, SetupType.TEAM_BED, color));
-            MessageUtils.sendMessage(player, "&eClic droit pour définir le lit.");
+            MessageManager.sendMessage(player, "setup.start-team-bed-setup");
             player.closeInventory();
         } else if (slot == SHOP_SLOT) {
             HeneriaBedwars.getInstance().getSetupManager().startSetup(player,
                     new SetupAction(arena, SetupType.NPC_SHOP, color));
-            MessageUtils.sendMessage(player, "&eClic droit pour définir le PNJ Boutique.");
+            MessageManager.sendMessage(player, "setup.start-shop-npc-setup");
             player.closeInventory();
         } else if (slot == UPGRADE_SLOT) {
             HeneriaBedwars.getInstance().getSetupManager().startSetup(player,
                     new SetupAction(arena, SetupType.NPC_UPGRADE, color));
-            MessageUtils.sendMessage(player, "&eClic droit pour définir le PNJ Améliorations.");
+            MessageManager.sendMessage(player, "setup.start-upgrade-npc-setup");
             player.closeInventory();
         }
     }

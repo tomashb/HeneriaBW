@@ -7,8 +7,9 @@ import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.arena.enums.TeamColor;
 import com.heneria.bedwars.events.GameStateChangeEvent;
 import com.heneria.bedwars.utils.GameUtils;
-import com.heneria.bedwars.utils.MessageUtils;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -204,9 +205,9 @@ public class Arena {
         Team team = getLeastPopulatedTeam();
         if (team != null) {
             team.addMember(player.getUniqueId());
-            MessageUtils.sendMessage(player, "&aVous avez rejoint l'équipe " + team.getColor().getDisplayName() + "");
+            MessageManager.sendMessage(player, "game.team-joined", "team", team.getColor().getDisplayName());
         }
-        broadcast("&e" + player.getName() + " a rejoint l'arène. (&b" + players.size() + "&e/" + maxPlayers + ")");
+        broadcast("game.player-join-arena", "player", player.getName(), "current_players", String.valueOf(players.size()), "max_players", String.valueOf(maxPlayers));
         HeneriaBedwars.getInstance().getScoreboardManager().setScoreboard(player);
         if (players.size() >= minPlayers && state == GameState.WAITING) {
             startCountdown();
@@ -230,7 +231,7 @@ public class Arena {
         }
         player.setLevel(0);
         player.setExp(0f);
-        broadcast("&c" + player.getName() + " a quitté l'arène.");
+        broadcast("game.player-leave-arena", "player", player.getName());
         HeneriaBedwars.getInstance().getScoreboardManager().removeScoreboard(player);
         if (state == GameState.STARTING && players.size() < minPlayers) {
             cancelCountdown();
@@ -303,20 +304,20 @@ public class Arena {
         return result;
     }
 
-    public void broadcast(String message) {
+    public void broadcast(String path, String... placeholders) {
         for (UUID id : players) {
             Player p = Bukkit.getPlayer(id);
             if (p != null) {
-                MessageUtils.sendMessage(p, message);
+                MessageManager.sendMessage(p, path, placeholders);
             }
         }
     }
 
-    public void broadcastTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut) {
+    public void broadcastTitle(String titlePath, String subtitlePath, int fadeIn, int stay, int fadeOut, String... placeholders) {
         for (UUID id : players) {
             Player p = Bukkit.getPlayer(id);
             if (p != null) {
-                p.sendTitle(title, subtitle, fadeIn, stay, fadeOut);
+                MessageManager.sendTitle(p, titlePath, subtitlePath, fadeIn, stay, fadeOut, placeholders);
             }
         }
     }
@@ -324,7 +325,7 @@ public class Arena {
     public void eliminatePlayer(Player player) {
         removeAlivePlayer(player.getUniqueId());
         addSpectator(player.getUniqueId());
-        broadcast("&c" + player.getName() + " a été éliminé !");
+        broadcast("game.player-eliminated", "player", player.getName());
     }
 
     public List<UUID> getAlivePlayers() {
@@ -364,13 +365,13 @@ public class Arena {
                     startGame();
                     return;
                 }
-                broadcast("&eLa partie commence dans &6" + time + "s");
+                broadcast("game.countdown", "time", String.valueOf(time));
                 for (UUID id : players) {
                     Player p = Bukkit.getPlayer(id);
                     if (p != null) {
                         p.setLevel(time);
                         p.setExp((float) time / total);
-                        p.sendTitle("", "§eDémarrage dans " + time + "s", 0, 20, 0);
+                        MessageManager.sendTitle(p, "game.countdown-title", "game.countdown-subtitle", 0, 20, 0, "time", String.valueOf(time));
                     }
                 }
                 time--;
@@ -391,7 +392,7 @@ public class Arena {
                 p.setLevel(0);
             }
         }
-        broadcast("&cDécompte annulé : pas assez de joueurs.");
+        broadcast("game.countdown-cancelled");
     }
 
     /**
@@ -426,7 +427,7 @@ public class Arena {
                 npc.setSilent(true);
                 npc.setCollidable(false);
                 npc.addScoreboardTag("shop_npc");
-                npc.setCustomName("§aBoutique");
+                npc.setCustomName(MessageManager.get("game.shop-npc-name"));
                 npc.setCustomNameVisible(true);
                 liveNpcs.add(npc);
             }
@@ -437,7 +438,7 @@ public class Arena {
                 npc.setSilent(true);
                 npc.setCollidable(false);
                 npc.addScoreboardTag("upgrade_npc");
-                npc.setCustomName("§aAméliorations");
+                npc.setCustomName(MessageManager.get("game.upgrade-npc-name"));
                 npc.setCustomNameVisible(true);
                 liveNpcs.add(npc);
             }
@@ -506,11 +507,12 @@ public class Arena {
         }
         state = GameState.ENDING;
         if (winner != null) {
-            broadcast("&aL'équipe " + winner.getColor().getDisplayName() + " remporte la partie !");
-            broadcastTitle("§aVictoire !", "§fÉquipe " + winner.getColor().getChatColor() + winner.getColor().getDisplayName() + "§f", 10, 70, 20);
+            String teamName = winner.getColor().getChatColor() + winner.getColor().getDisplayName() + ChatColor.RESET;
+            broadcast("game.team-win", "team", teamName);
+            broadcastTitle("game.win-title", "game.win-subtitle", 10, 70, 20, "team", teamName);
         } else {
-            broadcast("&eLa partie se termine sans gagnant.");
-            broadcastTitle("§ePartie terminée", "§fAucun gagnant", 10, 70, 20);
+            broadcast("game.no-winner");
+            broadcastTitle("game.no-winner-title", "game.no-winner-subtitle", 10, 70, 20);
         }
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().unregisterGenerator(gen);

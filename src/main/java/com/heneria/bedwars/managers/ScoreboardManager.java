@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
+import com.heneria.bedwars.utils.MessageManager;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -133,9 +134,9 @@ public class ScoreboardManager {
             TeamColor color = team.getColor();
             String colorCode = color.getChatColor().toString();
             String icon = color.name().substring(0, 1);
-            String bedStatus = team.hasBed() ? "§a✔" : "§c❌";
+            String bedStatus = team.hasBed() ? MessageManager.get("scoreboard.bed-alive") : MessageManager.get("scoreboard.bed-destroyed");
             long alive = arena.getAlivePlayers().stream().filter(team::isMember).count();
-            String you = team.equals(playerTeam) ? "§e(VOUS)" : "";
+            String you = team.equals(playerTeam) ? MessageManager.get("scoreboard.you-marker") : "";
             String line = teamLineFormat
                     .replace("{team_color_code}", colorCode)
                     .replace("{team_icon}", icon)

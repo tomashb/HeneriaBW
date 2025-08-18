@@ -3,7 +3,7 @@ package com.heneria.bedwars.gui.admin.creation;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.gui.Menu;
 import com.heneria.bedwars.utils.ItemBuilder;
-import com.heneria.bedwars.utils.MessageUtils;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -21,7 +21,7 @@ public class ArenaSettingsMenu extends Menu {
 
     @Override
     public String getTitle() {
-        return "§8Configurer: " + arenaName;
+        return MessageManager.get("menus.arena-settings-title", "arena", arenaName);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ArenaSettingsMenu extends Menu {
             Player player = (Player) event.getWhoClicked();
             player.closeInventory();
             HeneriaBedwars.getInstance().getArenaManager().createAndSaveArena(arenaName, playersPerTeam, teamCount);
-            MessageUtils.sendMessage(player, "&aL'arène '&e" + arenaName + "&a' a été créée avec succès !");
+            MessageManager.sendMessage(player, "admin.arena-created", "arena", arenaName);
         }
     }
 }

@@ -4,7 +4,7 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.gui.Menu;
 import com.heneria.bedwars.utils.ItemBuilder;
-import com.heneria.bedwars.utils.MessageUtils;
+import com.heneria.bedwars.utils.MessageManager;
 import com.heneria.bedwars.setup.SetupAction;
 import com.heneria.bedwars.setup.SetupType;
 import com.heneria.bedwars.arena.elements.Team;
@@ -85,7 +85,7 @@ public class ArenaConfigMenu extends Menu {
         if (slot == SET_LOBBY_SLOT) {
             HeneriaBedwars.getInstance().getSetupManager().startSetup(player,
                     new SetupAction(arena, SetupType.LOBBY));
-            MessageUtils.sendMessage(player, "&eFaites un clic droit pour définir le lobby.");
+            MessageManager.sendMessage(player, "setup.start-lobby-setup");
             player.closeInventory();
         } else if (slot == TEAMS_SLOT) {
             new TeamListMenu(arena).open(player, this);
@@ -94,24 +94,24 @@ public class ArenaConfigMenu extends Menu {
         } else if (slot == TOGGLE_SLOT) {
             if (!arena.isEnabled()) {
                 if (arena.getLobbyLocation() == null) {
-                    MessageUtils.sendMessage(player, "&cLe lobby n'est pas défini.");
+                    MessageManager.sendMessage(player, "errors.lobby-not-set");
                     return;
                 }
                 for (Team team : arena.getTeams().values()) {
                     if (team.getSpawnLocation() == null || team.getBedLocation() == null) {
-                        MessageUtils.sendMessage(player, "&cToutes les équipes n'ont pas leur spawn et leur lit définis.");
+                        MessageManager.sendMessage(player, "errors.team-incomplete");
                         return;
                     }
                 }
                 if (arena.getTeams().isEmpty()) {
-                    MessageUtils.sendMessage(player, "&cAucune équipe configurée.");
+                    MessageManager.sendMessage(player, "errors.no-teams-configured");
                     return;
                 }
                 arena.setEnabled(true);
-                MessageUtils.sendMessage(player, "&aArène activée.");
+                MessageManager.sendMessage(player, "admin.arena-activated");
             } else {
                 arena.setEnabled(false);
-                MessageUtils.sendMessage(player, "&cArène désactivée.");
+                MessageManager.sendMessage(player, "admin.arena-deactivated");
             }
             HeneriaBedwars.getInstance().getArenaManager().saveArena(arena);
             player.closeInventory();

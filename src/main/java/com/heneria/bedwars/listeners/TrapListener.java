@@ -4,7 +4,7 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.managers.UpgradeManager;
-import com.heneria.bedwars.utils.MessageUtils;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -61,11 +61,11 @@ public class TrapListener implements Listener {
                     }
                     upgradeManager.applyTrapEffect(player, trap);
                     team.setTrapActive(entry.getKey(), false);
-                    MessageUtils.sendMessage(player, "Vous avez déclenché " + trap.name());
+                    MessageManager.sendMessage(player, "game.trap-triggered-attacker", "trap", trap.name());
                     for (UUID uuid : team.getMembers()) {
                         Player p = Bukkit.getPlayer(uuid);
                         if (p != null) {
-                            MessageUtils.sendMessage(p, player.getName() + " a déclenché " + trap.name());
+                            MessageManager.sendMessage(p, "game.trap-triggered-defender", "player", player.getName(), "trap", trap.name());
                         }
                     }
                     triggered = true;

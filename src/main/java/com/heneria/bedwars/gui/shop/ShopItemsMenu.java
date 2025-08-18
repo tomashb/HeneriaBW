@@ -6,6 +6,7 @@ import com.heneria.bedwars.managers.ResourceType;
 import com.heneria.bedwars.managers.ShopManager;
 import com.heneria.bedwars.utils.ItemBuilder;
 import com.heneria.bedwars.utils.GameUtils;
+import com.heneria.bedwars.utils.MessageManager;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
@@ -108,7 +109,7 @@ public class ShopItemsMenu extends Menu {
             player.getInventory().addItem(give);
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
         } else {
-            player.sendMessage("§cVous n'avez pas assez de " + type.getDisplayName().toLowerCase() + " !");
+            MessageManager.sendMessage(player, "errors.not-enough-resource", "resource", type.getDisplayName().toLowerCase());
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
         }
     }
