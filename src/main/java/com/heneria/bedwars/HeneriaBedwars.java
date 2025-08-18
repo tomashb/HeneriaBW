@@ -7,6 +7,7 @@ import com.heneria.bedwars.listeners.SetupListener;
 import com.heneria.bedwars.listeners.GameListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
+import com.heneria.bedwars.managers.GeneratorManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class HeneriaBedwars extends JavaPlugin {
@@ -14,6 +15,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private static HeneriaBedwars instance;
     private ArenaManager arenaManager;
     private SetupManager setupManager;
+    private GeneratorManager generatorManager;
 
     @Override
     public void onEnable() {
@@ -24,6 +26,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.arenaManager = new ArenaManager(this);
         this.arenaManager.loadArenas(); // Charge les arènes depuis les fichiers de config
         this.setupManager = new SetupManager();
+        this.generatorManager = new GeneratorManager(this);
 
         // Enregistrement des commandes
         CommandManager commandManager = new CommandManager(this);
@@ -76,5 +79,9 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public SetupManager getSetupManager() {
         return setupManager;
+    }
+
+    public GeneratorManager getGeneratorManager() {
+        return generatorManager;
     }
 }

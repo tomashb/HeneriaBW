@@ -29,6 +29,7 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 * [✔] Système pour rejoindre/quitter une arène.
 * [✔] Lobby d'attente avec décompte.
 * [✔] Lancement de la partie (téléportation, démarrage des générateurs).
+* [✔] Vitesse et niveaux des générateurs de ressources.
 * [ ] Gestion de la réapparition et de la destruction des lits.
 
 ## 🎯 **Étape 3 : Systèmes Économiques & PNJ (Version Cible : 0.4.0)**

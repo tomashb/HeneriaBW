@@ -9,6 +9,7 @@
 - Commandes `/bw join` et `/bw leave` pour les joueurs.
 - Lobby d'attente avec décompte et barre d'expérience en progression.
 - Lancement de la partie avec téléportation des joueurs et démarrage des générateurs.
+- Système de vitesse de génération des ressources configurable par type et par niveau.
 
 ## [0.1.2] - En développement
 

@@ -49,3 +49,22 @@ Consultez notre [ROADMAP.md](ROADMAP.md) pour suivre le développement du projet
    - *Gérer les Générateurs* : ajoutez un générateur de ressource ou cliquez sur un existant pour le supprimer.
    - *Gérer les PNJ* : positionnez la **Boutique d'objets** et la **Boutique d'améliorations**.
 5. **Activer l'arène** : lorsque le lobby, les spawns et lits de chaque équipe sont définis, utilisez le bouton d'activation pour rendre l'arène jouable. Toutes les positions sont sauvegardées immédiatement.
+
+## ⚙️ Configuration des Générateurs
+
+Les vitesses et quantités des ressources générées sont définies dans le fichier `generators.yml`. Ce fichier est créé automatiquement lors du premier lancement du plugin et peut être personnalisé pour ajuster le délai (en secondes) et le nombre d'items produits pour chaque type de ressource et chaque niveau.
+
+```yaml
+IRON:
+  tier-1:
+    delay: 1.5
+    amount: 1
+  tier-2:
+    delay: 1.0
+    amount: 1
+  tier-3:
+    delay: 0.5
+    amount: 2
+```
+
+Modifiez ces valeurs selon vos besoins puis rechargez le plugin pour appliquer les changements.
