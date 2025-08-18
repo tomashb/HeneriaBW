@@ -56,6 +56,7 @@ public class GameListener implements Listener {
             event.setCancelled(true);
         } else {
             System.out.println("[HENERIA DEBUG - LIT] C'est un lit ennemi ! Destruction autorisée.");
+            event.setDropItems(false);
             bedTeam.setHasBed(false);
             arena.broadcastTitle("§cDESTRUCTION DE LIT !", "§fLe lit de l'équipe " + bedTeam.getColor().getChatColor() + bedTeam.getColor().getDisplayName() + "§f a été détruit par §e" + player.getName() + "§f!", 10, 70, 20);
         }
