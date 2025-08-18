@@ -4,6 +4,7 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.commands.subcommands.AdminCommand;
 import com.heneria.bedwars.commands.subcommands.JoinCommand;
 import com.heneria.bedwars.commands.subcommands.LeaveCommand;
+import com.heneria.bedwars.commands.subcommands.StatsCommand;
 import com.heneria.bedwars.commands.subcommands.SubCommand;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.command.Command;
@@ -30,6 +31,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         registerSubCommand(new AdminCommand());
         registerSubCommand(new JoinCommand());
         registerSubCommand(new LeaveCommand());
+        registerSubCommand(new StatsCommand());
     }
 
     private void registerSubCommand(SubCommand subCommand) {

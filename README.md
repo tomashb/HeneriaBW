@@ -61,6 +61,9 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - `/bw leave`
   - Permet de quitter l'arène actuelle.
   - **Permission :** `heneriabw.player.leave`
+- `/bw stats [joueur]`
+  - Affiche vos statistiques ou celles d'un autre joueur.
+  - **Permission :** `heneriabw.admin.stats` pour consulter celles d'un autre joueur.
 
 ### Créer et Configurer une Arène (Flux de travail)
 
@@ -89,6 +92,24 @@ traps:
       duration: 10
       amplifier: 1
 ```
+
+### Configuration de la Base de Données
+
+Les statistiques des joueurs sont sauvegardées dans une base de données configurée via `config.yml` :
+
+```yaml
+database:
+  type: sqlite # sqlite ou mysql
+  save-interval: 5 # minutes entre chaque sauvegarde automatique
+  mysql:
+    host: localhost
+    port: 3306
+    database: bedwars
+    username: root
+    password: ""
+    useSSL: false
+```
+
 
 ---
 

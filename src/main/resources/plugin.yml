@@ -13,3 +13,6 @@ permissions:
   heneriabw.admin:
     description: Donne accès à toutes les commandes d'administration de HeneriaBedwars.
     default: op
+  heneriabw.admin.stats:
+    description: Permet de voir les statistiques des autres joueurs.
+    default: op

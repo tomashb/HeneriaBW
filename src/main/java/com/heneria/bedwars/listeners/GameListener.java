@@ -6,6 +6,8 @@ import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.events.GameStateChangeEvent;
 import com.heneria.bedwars.managers.ArenaManager;
+import com.heneria.bedwars.managers.StatsManager;
+import com.heneria.bedwars.stats.PlayerStats;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.GameMode;
 import org.bukkit.block.Block;
@@ -21,6 +23,7 @@ public class GameListener implements Listener {
 
     private final HeneriaBedwars plugin = HeneriaBedwars.getInstance();
     private final ArenaManager arenaManager = plugin.getArenaManager();
+    private final StatsManager statsManager = plugin.getStatsManager();
 
     // Quand le jeu démarre, on doit enregistrer les lits
     // CECI EST UN NOUVEL ÉVÉNEMENT A AJOUTER
@@ -45,16 +48,20 @@ public class GameListener implements Listener {
 
         if (bedTeam != null) {
             Team playerTeam = arena.getTeam(player);
-            if (playerTeam != null && playerTeam.equals(bedTeam)) {
-                MessageManager.sendMessage(player, "errors.break-own-bed");
-                event.setCancelled(true);
-            } else {
-                event.setDropItems(false);
-                bedTeam.setHasBed(false);
-                arena.broadcastTitle("game.bed-destroyed-title", "game.bed-destroyed-subtitle", 10, 70, 20, "team", bedTeam.getColor().getDisplayName(), "player", player.getName());
+                if (playerTeam != null && playerTeam.equals(bedTeam)) {
+                    MessageManager.sendMessage(player, "errors.break-own-bed");
+                    event.setCancelled(true);
+                } else {
+                    event.setDropItems(false);
+                    bedTeam.setHasBed(false);
+                    arena.broadcastTitle("game.bed-destroyed-title", "game.bed-destroyed-subtitle", 10, 70, 20, "team", bedTeam.getColor().getDisplayName(), "player", player.getName());
+                    PlayerStats stats = statsManager.getStats(player);
+                    if (stats != null) {
+                        stats.incrementBedsBroken();
+                    }
+                }
+                return;
             }
-            return;
-        }
 
         if (!arena.getPlacedBlocks().remove(block)) {
             event.setCancelled(true);
@@ -76,6 +83,18 @@ public class GameListener implements Listener {
 
         Team playerTeam = arena.getTeam(player);
         if (playerTeam == null) return;
+
+        Player killer = player.getKiller();
+        if (killer != null) {
+            PlayerStats killerStats = statsManager.getStats(killer);
+            if (killerStats != null) {
+                killerStats.incrementKills();
+            }
+        }
+        PlayerStats victimStats = statsManager.getStats(player);
+        if (victimStats != null) {
+            victimStats.incrementDeaths();
+        }
 
         if (playerTeam.hasBed()) {
             player.setGameMode(GameMode.SPECTATOR);

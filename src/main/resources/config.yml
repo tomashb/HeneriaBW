@@ -1,2 +1,13 @@
 void-kill-height: 0
 trap-radius: 10
+
+database:
+  type: sqlite # sqlite or mysql
+  save-interval: 5 # minutes between automatic saves
+  mysql:
+    host: localhost
+    port: 3306
+    database: bedwars
+    username: root
+    password: ""
+    useSSL: false

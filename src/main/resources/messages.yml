@@ -3,6 +3,7 @@ prefix: "&8[&bHeneriaBedwars&8] &r"
 errors:
   no-permission: "&cVous n'avez pas la permission d'exécuter cette commande."
   not-a-player: "&cCette commande est réservée aux joueurs."
+  player-not-found: "&cJoueur introuvable."
   arena-not-found: "&cArène introuvable."
   arena-not-available: "&cCette arène n'est pas disponible."
   already-in-arena: "&cVous êtes déjà dans une arène."
@@ -92,3 +93,13 @@ scoreboard:
   bed-alive: "&a✔"
   bed-destroyed: "&c❌"
   you-marker: "&e(VOUS)"
+
+stats:
+  format:
+    - "&aStatistiques de {player}:"
+    - "&7Kills: &e{kills}"
+    - "&7Morts: &e{deaths}"
+    - "&7Victoires: &e{wins}"
+    - "&7Défaites: &e{losses}"
+    - "&7Lits détruits: &e{beds_broken}"
+    - "&7Parties jouées: &e{games_played}"
