@@ -3,7 +3,7 @@
 ## [0.3.1] - En développement
 
 ### Corrigé
-- Correction définitive de la destruction de lit : identification de la tête du lit pour gérer les deux moitiés.
+- Refactorisation complète du système de détection des lits avec un cache de blocs pour une fiabilité à 100%.
 - Correction de la régression où l'écran de mort réapparaissait lors de l'élimination finale.
 - Correction de la condition de victoire qui ne se déclenchait pas à la fin de la partie.
 
