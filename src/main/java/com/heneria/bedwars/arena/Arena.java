@@ -15,6 +15,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -55,12 +56,14 @@ public class Arena {
     private final Map<UUID, PlayerData> savedStates = new HashMap<>();
     // NEW CACHE SYSTEM: SIMPLE AND DIRECT
     private final Map<Block, Team> bedBlocks = new HashMap<>();
+    private final Map<Block, BlockState> originalBedStates = new HashMap<>();
     private final List<Block> placedBlocks = new ArrayList<>();
     private final List<EnderDragon> dragons = new ArrayList<>();
     /** Tracks per-player purchase counts for limited special shop items. */
     private final Map<UUID, Map<String, Integer>> purchaseCounts = new HashMap<>();
     private BukkitTask countdownTask;
     private int countdownDuration = 10;
+    private int maxBuildY = 256;
 
     /**
      * Creates a new arena with the given name.
@@ -169,6 +172,14 @@ public class Arena {
      */
     public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
+    }
+
+    public int getMaxBuildY() {
+        return maxBuildY;
+    }
+
+    public void setMaxBuildY(int maxBuildY) {
+        this.maxBuildY = maxBuildY;
     }
 
     /**
@@ -359,6 +370,7 @@ public class Arena {
 
     public void registerBeds() {
         bedBlocks.clear();
+        originalBedStates.clear();
         for (Team team : teams.values()) {
             Location headLocation = team.getBedLocation();
             if (headLocation != null) {
@@ -372,6 +384,8 @@ public class Arena {
                     Block footBlock = headBlock.getRelative(bedData.getFacing().getOppositeFace());
                     bedBlocks.put(headBlock, team);
                     bedBlocks.put(footBlock, team);
+                    originalBedStates.put(headBlock, headBlock.getState());
+                    originalBedStates.put(footBlock, footBlock.getState());
                     System.out.println("[DEBUG] Lit de " + team.getColor() + " enregistré. Tête: " + headBlock.getLocation().toVector() + ", Pieds: " + footBlock.getLocation().toVector());
                 } else {
                     System.out.println("[ERREUR CRITIQUE] Le bloc à la position sauvegardée pour le lit de l'équipe " + team.getColor() + " n'est pas un lit !");
@@ -714,5 +728,20 @@ public class Arena {
             block.setType(Material.AIR);
         }
         placedBlocks.clear();
+
+        for (BlockState state : originalBedStates.values()) {
+            state.update(true, false);
+        }
+        bedBlocks.clear();
+        originalBedStates.clear();
+
+        World world = Bukkit.getWorld(worldName);
+        if (world != null) {
+            for (Entity entity : new ArrayList<>(world.getEntities())) {
+                if (entity.getType() == EntityType.ITEM) {
+                    entity.remove();
+                }
+            }
+        }
     }
 }

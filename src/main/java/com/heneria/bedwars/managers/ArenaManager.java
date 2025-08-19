@@ -57,6 +57,9 @@ public class ArenaManager {
             if (config.contains("maxPlayers")) {
                 arena.setMaxPlayers(config.getInt("maxPlayers"));
             }
+            if (config.contains("boundaries.max-y")) {
+                arena.setMaxBuildY(config.getInt("boundaries.max-y"));
+            }
             if (config.contains("lobby.world")) {
                 World world = Bukkit.getWorld(config.getString("lobby.world"));
                 if (world != null) {
@@ -180,6 +183,7 @@ public class ArenaManager {
         config.set("enabled", arena.isEnabled());
         config.set("minPlayers", arena.getMinPlayers());
         config.set("maxPlayers", arena.getMaxPlayers());
+        config.set("boundaries.max-y", arena.getMaxBuildY());
         if (arena.getLobbyLocation() != null) {
             Location loc = arena.getLobbyLocation();
             config.set("lobby.world", Objects.requireNonNull(loc.getWorld()).getName());

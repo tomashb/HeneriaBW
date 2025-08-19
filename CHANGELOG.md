@@ -1,5 +1,15 @@
 # Changelog - HeneriaBedwars
 
+## [1.0.0-RC2] - En développement
+
+### Ajouté
+- Réinitialisation complète des arènes avec restauration des lits et nettoyage des items.
+- Limites de construction configurables par arène via `boundaries.max-y`.
+- Mort instantanée dans le vide grâce à `void-kill-height`.
+
+### Corrigé
+- Mise à jour de l'API Spigot : remplacement de `EntityType.DROPPED_ITEM` par `EntityType.ITEM`.
+
 ## [1.0.0-RC] - En développement
 
 ### Corrigé

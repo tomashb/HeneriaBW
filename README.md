@@ -202,6 +202,17 @@ items:
     purchase-limit: 3
 ```
 
+### Limites de Construction de l'Arène
+
+Chaque arène peut définir une hauteur maximale de construction pour éviter les abus. Dans le fichier `arenas/<nom>.yml`, ajoutez:
+
+```yaml
+boundaries:
+  max-y: 150
+```
+
+Tout bloc placé au-dessus de cette limite sera automatiquement annulé côté serveur.
+
 ### Configuration de la Base de Données
 
 Les statistiques des joueurs sont sauvegardées dans une base de données configurée via `config.yml` :
