@@ -1,5 +1,13 @@
 # Changelog - HeneriaBedwars
 
+## [1.0.0-RC3] - En développement
+
+### Ajouté
+- Affichage d'hologrammes dynamiques au-dessus des générateurs de Diamants et d'Émeraudes.
+
+### Corrigé
+- Correction de l'URL du dépôt Maven de DecentHolograms empêchant le build.
+
 ## [1.0.0-RC2] - En développement
 
 ### Ajouté

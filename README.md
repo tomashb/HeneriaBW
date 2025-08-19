@@ -19,7 +19,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
   - `scoreboard.yml` : Personnalisez les tableaux de bord du lobby d'attente et de la partie via les sections `lobby` et `game`.
   - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons) et définissez un `display-name` lisible pour l'affichage du prochain événement sur le scoreboard.
-  - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`).
+  - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`) ou l'affichage des hologrammes des générateurs via `generator-holograms`.
   - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie, avec l'option `purchase-limit` pour limiter le nombre d'achats par joueur.
   - `messages.yml` : Traduisez et personnalisez tous les messages du plugin.
 
@@ -47,6 +47,10 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 2.  Placez le fichier `.jar` téléchargé dans le dossier `plugins` de votre serveur Spigot 1.21.
 3.  Redémarrez votre serveur.
 4.  Les fichiers de configuration par défaut seront générés dans le dossier `plugins/HeneriaBedwars/`.
+
+### Dépendances Optionnelles
+
+- **DecentHolograms** : affiche des hologrammes au-dessus des générateurs de Diamants et d'Émeraudes. Le plugin fonctionne également sans cette dépendance.
 
 ---
 
