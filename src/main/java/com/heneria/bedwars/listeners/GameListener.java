@@ -16,6 +16,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.EntityChangeBlockEvent;
+import org.bukkit.entity.EntityType;
 import org.bukkit.scheduler.BukkitRunnable;
 import com.heneria.bedwars.utils.GameUtils;
 
@@ -64,6 +66,13 @@ public class GameListener implements Listener {
             }
 
         if (!arena.getPlacedBlocks().remove(block)) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onEntityChangeBlock(EntityChangeBlockEvent event) {
+        if (event.getEntity().getType() == EntityType.ENDER_DRAGON) {
             event.setCancelled(true);
         }
     }
