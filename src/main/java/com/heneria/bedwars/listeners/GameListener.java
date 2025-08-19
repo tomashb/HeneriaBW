@@ -106,6 +106,7 @@ public class GameListener implements Listener {
         }
 
         if (playerTeam.hasBed()) {
+            plugin.getPlayerProgressionManager().resetProgress(player.getUniqueId());
             player.setGameMode(GameMode.SPECTATOR);
             player.teleport(playerTeam.getSpawnLocation());
             new BukkitRunnable() {
@@ -127,6 +128,7 @@ public class GameListener implements Listener {
             player.setGameMode(GameMode.SPECTATOR);
             player.teleport(playerTeam.getSpawnLocation());
             arena.broadcastTitle("game.elimination-title", "game.elimination-subtitle", 10, 70, 20, "player", player.getName());
+            plugin.getPlayerProgressionManager().removePlayer(player.getUniqueId());
             arena.checkForWinner();
         }
     }

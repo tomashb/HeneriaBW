@@ -24,6 +24,7 @@ import com.heneria.bedwars.managers.ScoreboardManager;
 import com.heneria.bedwars.managers.DatabaseManager;
 import com.heneria.bedwars.managers.StatsManager;
 import com.heneria.bedwars.managers.EventManager;
+import com.heneria.bedwars.managers.PlayerProgressionManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -41,6 +42,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private EventManager eventManager;
     private DatabaseManager databaseManager;
     private StatsManager statsManager;
+    private PlayerProgressionManager playerProgressionManager;
     private static NamespacedKey itemTypeKey;
 
     @Override
@@ -63,6 +65,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.scoreboardManager = new ScoreboardManager(this);
         this.databaseManager = new DatabaseManager(this);
         this.statsManager = new StatsManager(this, this.databaseManager);
+        this.playerProgressionManager = new PlayerProgressionManager();
 
         // Enregistrement des commandes
         CommandManager commandManager = new CommandManager(this);
@@ -144,5 +147,9 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public static NamespacedKey getItemTypeKey() {
         return itemTypeKey;
+    }
+
+    public PlayerProgressionManager getPlayerProgressionManager() {
+        return playerProgressionManager;
     }
 }

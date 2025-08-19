@@ -2,6 +2,7 @@ package com.heneria.bedwars.gui.shop;
 
 import com.heneria.bedwars.gui.Menu;
 import com.heneria.bedwars.managers.ShopManager;
+import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.utils.ItemBuilder;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Material;
@@ -67,7 +68,9 @@ public class ShopCategoryMenu extends Menu {
         if (categoryId != null) {
             ShopManager.ShopCategory category = shopManager.getCategory(categoryId);
             if (category != null) {
-                new ShopItemsMenu(shopManager, category).open(player, this);
+                new ShopItemsMenu(shopManager, category,
+                        HeneriaBedwars.getInstance().getPlayerProgressionManager(), player)
+                        .open(player, this);
             } else {
                 MessageManager.sendMessage(player, "errors.category-not-found");
             }

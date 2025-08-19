@@ -4,6 +4,7 @@ import com.heneria.bedwars.gui.Menu;
 import com.heneria.bedwars.managers.ResourceManager;
 import com.heneria.bedwars.managers.ResourceType;
 import com.heneria.bedwars.managers.ShopManager;
+import com.heneria.bedwars.managers.PlayerProgressionManager;
 import com.heneria.bedwars.utils.ItemBuilder;
 import com.heneria.bedwars.utils.GameUtils;
 import com.heneria.bedwars.utils.MessageManager;
@@ -19,8 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Menu displaying all items available for a given shop category.
@@ -29,11 +29,16 @@ public class ShopItemsMenu extends Menu {
 
     private final ShopManager shopManager;
     private final ShopManager.ShopCategory category;
+    private final Player player;
+    private final PlayerProgressionManager progressionManager;
     private final Map<Integer, ShopManager.ShopItem> slotItems = new HashMap<>();
 
-    public ShopItemsMenu(ShopManager shopManager, ShopManager.ShopCategory category) {
+    public ShopItemsMenu(ShopManager shopManager, ShopManager.ShopCategory category,
+                         PlayerProgressionManager progressionManager, Player player) {
         this.shopManager = shopManager;
         this.category = category;
+        this.progressionManager = progressionManager;
+        this.player = player;
     }
 
     @Override
@@ -48,15 +53,43 @@ public class ShopItemsMenu extends Menu {
 
     @Override
     public void setupItems() {
-        for (ShopManager.ShopItem item : category.items().values()) {
-            ItemBuilder builder = new ItemBuilder(item.material())
-                    .setName(item.name())
-                    .addLore("&7Quantité: &f" + item.amount())
-                    .addLore("&7Coût: &f" + item.costAmount() + " " + item.costResource().getDisplayName());
+        slotItems.clear();
+        for (Map.Entry<Integer, List<ShopManager.ShopItem>> entry : category.items().entrySet()) {
+            int slot = entry.getKey();
+            List<ShopManager.ShopItem> items = entry.getValue();
+            ShopManager.ShopItem display = items.get(0);
+            if (items.size() > 1 && items.get(0).upgradeType() != null) {
+                items.sort(Comparator.comparingInt(ShopManager.ShopItem::upgradeLevel));
+                int current = getTier(items.get(0).upgradeType());
+                int max = items.get(items.size() - 1).upgradeLevel();
+                if (current >= max) {
+                    ItemStack owned = new ItemBuilder(Material.RED_STAINED_GLASS_PANE)
+                            .setName("&cDéjà possédé").build();
+                    inventory.setItem(slot, owned);
+                    continue;
+                }
+                int next = current + 1;
+                display = null;
+                for (ShopManager.ShopItem candidate : items) {
+                    if (candidate.upgradeLevel() == next) {
+                        display = candidate;
+                        break;
+                    }
+                }
+                if (display == null) {
+                    ItemStack placeholder = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
+                    inventory.setItem(slot, placeholder);
+                    continue;
+                }
+            }
+            ItemBuilder builder = new ItemBuilder(display.material())
+                    .setName(display.name())
+                    .addLore("&7Quantité: &f" + display.amount())
+                    .addLore("&7Coût: &f" + display.costAmount() + " " + display.costResource().getDisplayName());
             ItemStack stack = builder.build();
-            stack.setAmount(item.amount());
-            inventory.setItem(item.slot(), stack);
-            slotItems.put(item.slot(), item);
+            stack.setAmount(display.amount());
+            inventory.setItem(slot, stack);
+            slotItems.put(slot, display);
         }
         ItemStack filler = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
         for (int i = 0; i < getSize(); i++) {
@@ -72,7 +105,7 @@ public class ShopItemsMenu extends Menu {
         if (handleBack(event)) {
             return;
         }
-        if (!(event.getWhoClicked() instanceof Player player)) {
+        if (!(event.getWhoClicked() instanceof Player clicker)) {
             return;
         }
         ShopManager.ShopItem item = slotItems.get(event.getRawSlot());
@@ -81,20 +114,20 @@ public class ShopItemsMenu extends Menu {
         }
         ResourceType type = item.costResource();
         int price = item.costAmount();
-        if (ResourceManager.hasResources(player, type, price)) {
-            ResourceManager.takeResources(player, type, price);
+        if (ResourceManager.hasResources(clicker, type, price)) {
+            ResourceManager.takeResources(clicker, type, price);
             Material material = item.material();
-            Arena arena = HeneriaBedwars.getInstance().getArenaManager().getArena(player);
-            Team team = arena != null ? arena.getTeam(player) : null;
+            Arena arena = HeneriaBedwars.getInstance().getArenaManager().getArena(clicker);
+            Team team = arena != null ? arena.getTeam(clicker) : null;
             if (material.toString().endsWith("_WOOL") && team != null) {
                 material = team.getColor().getWoolMaterial();
             }
             boolean isSword = material.name().endsWith("_SWORD");
             if (isSword) {
-                for (int i = 0; i < player.getInventory().getSize(); i++) {
-                    ItemStack invItem = player.getInventory().getItem(i);
+                for (int i = 0; i < clicker.getInventory().getSize(); i++) {
+                    ItemStack invItem = clicker.getInventory().getItem(i);
                     if (invItem != null && invItem.getType().name().endsWith("_SWORD")) {
-                        player.getInventory().setItem(i, null);
+                        clicker.getInventory().setItem(i, null);
                     }
                 }
             }
@@ -110,11 +143,61 @@ public class ShopItemsMenu extends Menu {
                 }
                 give.setItemMeta(meta);
             }
-            player.getInventory().addItem(give);
-            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
+            handleUpgrade(clicker, item, give);
+            clicker.playSound(clicker.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
+            setupItems();
+            if (previousMenu != null) {
+                inventory.setItem(getBackButtonSlot(), backButton());
+            }
+            clicker.updateInventory();
         } else {
-            MessageManager.sendMessage(player, "errors.not-enough-resource", "resource", type.getDisplayName().toLowerCase());
-            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
+            MessageManager.sendMessage(clicker, "errors.not-enough-resource", "resource", type.getDisplayName().toLowerCase());
+            clicker.playSound(clicker.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
+        }
+    }
+
+    private int getTier(String type) {
+        UUID uuid = player.getUniqueId();
+        return switch (type.toUpperCase()) {
+            case "PICKAXE" -> progressionManager.getPickaxeTier(uuid);
+            case "AXE" -> progressionManager.getAxeTier(uuid);
+            case "ARMOR" -> progressionManager.getArmorTier(uuid);
+            default -> 0;
+        };
+    }
+
+    private void handleUpgrade(Player clicker, ShopManager.ShopItem item, ItemStack give) {
+        String type = item.upgradeType();
+        if (type == null) {
+            clicker.getInventory().addItem(give);
+            return;
+        }
+        UUID uuid = clicker.getUniqueId();
+        switch (type.toUpperCase()) {
+            case "PICKAXE" -> {
+                removeTool(clicker, "_PICKAXE");
+                clicker.getInventory().addItem(give);
+                progressionManager.setPickaxeTier(uuid, item.upgradeLevel());
+            }
+            case "AXE" -> {
+                removeTool(clicker, "_AXE");
+                clicker.getInventory().addItem(give);
+                progressionManager.setAxeTier(uuid, item.upgradeLevel());
+            }
+            case "ARMOR" -> {
+                clicker.getInventory().setBoots(give);
+                progressionManager.setArmorTier(uuid, item.upgradeLevel());
+            }
+            default -> clicker.getInventory().addItem(give);
+        }
+    }
+
+    private void removeTool(Player player, String suffix) {
+        for (int i = 0; i < player.getInventory().getSize(); i++) {
+            ItemStack invItem = player.getInventory().getItem(i);
+            if (invItem != null && invItem.getType().name().endsWith(suffix)) {
+                player.getInventory().setItem(i, null);
+            }
         }
     }
 }

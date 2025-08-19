@@ -24,6 +24,20 @@ main-menu:
         - "&7Objets spéciaux"
       slot: 12
       category: 'utilities_category'
+    'armors':
+      material: CHAINMAIL_BOOTS
+      name: "&aArmures"
+      lore:
+        - "&7Protège ta peau"
+      slot: 13
+      category: 'armors_category'
+    'tools':
+      material: STONE_PICKAXE
+      name: "&aOutils"
+      lore:
+        - "&7Pour creuser vite"
+      slot: 14
+      category: 'tools_category'
 
 # Définition d'une catégorie d'objets
 shop-categories:
@@ -120,3 +134,118 @@ shop-categories:
           amount: 24
         slot: 14
         action: 'POPUP_TOWER'
+  'armors_category':
+    title: "Armures"
+    rows: 3
+    items:
+      'chainmail-boots':
+        material: CHAINMAIL_BOOTS
+        name: "&7Bottes en Mailles"
+        amount: 1
+        cost:
+          resource: IRON
+          amount: 40
+        slot: 10
+        upgrade_tier:
+          type: 'ARMOR'
+          level: 1
+      'iron-boots':
+        material: IRON_BOOTS
+        name: "&fBottes en Fer"
+        amount: 1
+        cost:
+          resource: GOLD
+          amount: 12
+        slot: 10
+        upgrade_tier:
+          type: 'ARMOR'
+          level: 2
+      'diamond-boots':
+        material: DIAMOND_BOOTS
+        name: "&bBottes en Diamant"
+        amount: 1
+        cost:
+          resource: EMERALD
+          amount: 6
+        slot: 10
+        upgrade_tier:
+          type: 'ARMOR'
+          level: 3
+  'tools_category':
+    title: "Outils"
+    rows: 3
+    items:
+      'stone-pickaxe':
+        material: STONE_PICKAXE
+        name: "&fPioche en Pierre"
+        amount: 1
+        cost:
+          resource: IRON
+          amount: 10
+        slot: 10
+        upgrade_tier:
+          type: 'PICKAXE'
+          level: 1
+      'iron-pickaxe':
+        material: IRON_PICKAXE
+        name: "&fPioche en Fer"
+        amount: 1
+        cost:
+          resource: GOLD
+          amount: 4
+        slot: 10
+        upgrade_tier:
+          type: 'PICKAXE'
+          level: 2
+      'diamond-pickaxe':
+        material: DIAMOND_PICKAXE
+        name: "&bPioche en Diamant"
+        amount: 1
+        cost:
+          resource: GOLD
+          amount: 12
+        slot: 10
+        upgrade_tier:
+          type: 'PICKAXE'
+          level: 3
+      'stone-axe':
+        material: STONE_AXE
+        name: "&fHache en Pierre"
+        amount: 1
+        cost:
+          resource: IRON
+          amount: 10
+        slot: 11
+        upgrade_tier:
+          type: 'AXE'
+          level: 1
+      'iron-axe':
+        material: IRON_AXE
+        name: "&fHache en Fer"
+        amount: 1
+        cost:
+          resource: GOLD
+          amount: 3
+        slot: 11
+        upgrade_tier:
+          type: 'AXE'
+          level: 2
+      'diamond-axe':
+        material: DIAMOND_AXE
+        name: "&bHache en Diamant"
+        amount: 1
+        cost:
+          resource: GOLD
+          amount: 6
+        slot: 11
+        upgrade_tier:
+          type: 'AXE'
+          level: 3
+      'shears':
+        material: SHEARS
+        name: "&fCisailles"
+        amount: 1
+        cost:
+          resource: IRON
+          amount: 20
+        slot: 12
