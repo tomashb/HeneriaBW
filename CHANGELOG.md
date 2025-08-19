@@ -10,6 +10,11 @@
 ### Corrigé
 - Utilisation de `Bukkit.getPlayer` pour la logique du Lait du Guérisseur afin d'éviter l'erreur de compilation.
 
+## [1.0.1] - 2024-05-02
+
+### Ajouté
+- Ajout du Grès, de l'Obsidienne, des Échelles et de la Toile d'Araignée à la boutique.
+
 ## [1.0.0] - 2024-04-30
 
 ### Ajouté
