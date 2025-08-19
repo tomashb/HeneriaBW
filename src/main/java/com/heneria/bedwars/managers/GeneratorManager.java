@@ -51,6 +51,9 @@ public class GeneratorManager {
                 }
             }
             settings.put(type, tierMap);
+            if (type == GeneratorType.GOLD) {
+                plugin.getLogger().info("[DEBUG] Loaded " + tierMap.size() + " gold generator tiers");
+            }
         }
     }
 
@@ -88,6 +91,9 @@ public class GeneratorManager {
         }
         Location dropLocation = gen.getLocation().clone().add(0.5, 0.5, 0.5);
         dropLocation.getWorld().dropItem(dropLocation, new ItemStack(material, gs.amount()));
+        if (gen.getType() == GeneratorType.GOLD) {
+            plugin.getLogger().info("[DEBUG] Spawned gold at " + dropLocation);
+        }
     }
 
     private GeneratorSettings getSettings(Generator gen) {
@@ -108,6 +114,9 @@ public class GeneratorManager {
 
     public void registerGenerator(Generator gen) {
         counters.put(gen, getDelayCycles(gen));
+        if (gen.getType() == GeneratorType.GOLD) {
+            plugin.getLogger().info("[DEBUG] Registered gold generator at " + gen.getLocation());
+        }
     }
 
     public void unregisterGenerator(Generator gen) {

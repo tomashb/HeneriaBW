@@ -77,7 +77,12 @@ public class GameListener implements Listener {
                     event.setDropItems(false);
                     bedTeam.setHasBed(false);
                     arena.broadcastTitle("game.bed-destroyed-title", "game.bed-destroyed-subtitle", 10, 70, 20, "team", bedTeam.getColor().getDisplayName(), "player", player.getName());
-                    arena.broadcast("game.bed-destroyed-chat", "team", bedTeam.getColor().getDisplayName(), "player", player.getName());
+                    String attackerColor = playerTeam != null ? playerTeam.getColor().getChatColor().toString() : "";
+                    arena.broadcast("game.bed-destroyed-chat",
+                            "victim_team_color", bedTeam.getColor().getChatColor().toString(),
+                            "victim_team_name", bedTeam.getColor().getDisplayName(),
+                            "attacker_color", attackerColor,
+                            "attacker_name", player.getName());
                     PlayerStats stats = statsManager.getStats(player);
                     if (stats != null) {
                         stats.incrementBedsBroken();
@@ -125,6 +130,21 @@ public class GameListener implements Listener {
         PlayerStats victimStats = statsManager.getStats(player);
         if (victimStats != null) {
             victimStats.incrementDeaths();
+        }
+
+        String victimColor = playerTeam.getColor().getChatColor().toString();
+        if (killer != null) {
+            Team killerTeam = arena.getTeam(killer);
+            String attackerColor = killerTeam != null ? killerTeam.getColor().getChatColor().toString() : "";
+            arena.broadcast("game.player-kill-by-player",
+                    "victim_color", victimColor,
+                    "victim_name", player.getName(),
+                    "attacker_color", attackerColor,
+                    "attacker_name", killer.getName());
+        } else {
+            arena.broadcast("game.player-kill-void",
+                    "victim_color", victimColor,
+                    "victim_name", player.getName());
         }
 
         if (playerTeam.hasBed()) {
