@@ -196,7 +196,15 @@ public class ShopItemsMenu extends Menu {
                 progressionManager.setAxeTier(uuid, item.upgradeLevel());
             }
             case "ARMOR" -> {
-                clicker.getInventory().setBoots(give);
+                Material bootsType = give.getType();
+                clicker.getInventory().setBoots(GameUtils.createBoundArmor(bootsType));
+                Material leggingsType = switch (bootsType) {
+                    case CHAINMAIL_BOOTS -> Material.CHAINMAIL_LEGGINGS;
+                    case IRON_BOOTS -> Material.IRON_LEGGINGS;
+                    case DIAMOND_BOOTS -> Material.DIAMOND_LEGGINGS;
+                    default -> Material.LEATHER_LEGGINGS;
+                };
+                clicker.getInventory().setLeggings(GameUtils.createBoundArmor(leggingsType));
                 progressionManager.setArmorTier(uuid, item.upgradeLevel());
             }
             default -> clicker.getInventory().addItem(give);

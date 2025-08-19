@@ -31,7 +31,8 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 💰 **Système Économique** : Collectez du Fer, de l'Or, des Diamants et des Émeraudes à des vitesses différentes pour acheter de l'équipement.
 - 🛒 **Boutiques Fonctionnelles** : Interagissez avec les PNJ pour acheter des objets dans la boutique d'items ou des améliorations permanentes pour votre équipe.
 - 🧱 **Construction de Blocs** : Achetez, placez et cassez des blocs pour bâtir ponts et défenses.
-- 🛡️ **Kit de départ lié** : Vous réapparaissez avec une armure en cuir teintée aux couleurs de votre équipe et une épée en bois impossible à jeter.
+ - 🛡️ **Kit de départ lié** : Vous réapparaissez avec une armure en cuir teintée aux couleurs de votre équipe ainsi qu'une épée, une pioche et une hache en bois impossibles à jeter.
+ - 🛡️ **Progression Hybride** : Les armures achetées sont conservées après la mort, tandis que les outils et épées doivent être rachetés.
 - 🌈 **Achats intelligents** : La laine achetée s'adapte automatiquement à la couleur de votre équipe et toute nouvelle épée remplace la précédente.
 - 📊 **Tableau de Bord Dynamique** : Consultez en un coup d'œil l'état des équipes et le prochain événement.
 - 🛍️ **Marchand Mystérieux** : Un PNJ spécial apparaît au centre en milieu de partie pour vendre des objets uniques comme le Golem de Fer de Poche.
@@ -79,7 +80,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 
 ### Configuration de la Boutique d'Items
 
-La progression des outils et des armures se configure dans le fichier `shop.yml`. Chaque palier est un objet distinct possédant un bloc `upgrade_tier` indiquant son type (`PICKAXE`, `AXE`, `ARMOR`) et son niveau. Les objets partageant le même `slot` s'affichent progressivement au fur et à mesure des achats.
+La boutique mélange améliorations permanentes et achats temporaires, tous définis dans le fichier `shop.yml`. Les armures (jambières et bottes) utilisent des paliers `upgrade_tier` de type `ARMOR` et sont conservées après la mort. Les pioches et haches sont vendues par paliers (`PICKAXE`, `AXE`) dont le niveau reste débloqué, mais l'outil doit être racheté après chaque mort. Les épées sont listées directement et sont toujours perdues à la mort.
 
 ```yaml
 tools_category:
@@ -104,7 +105,7 @@ tools_category:
         level: 2
 ```
 
-Seul le prochain palier disponible est proposé à l'achat.
+Seul le prochain palier disponible est proposé à l'achat. Après une mort, les joueurs réapparaissent avec leur meilleure armure débloquée mais uniquement les outils et armes en bois.
 
 ### Configuration des Pièges d'Équipe
 
