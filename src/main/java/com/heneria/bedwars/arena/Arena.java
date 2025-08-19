@@ -43,6 +43,8 @@ public class Arena {
     private final Map<TeamColor, Team> teams = new EnumMap<>(TeamColor.class);
     private final List<Generator> generators = new ArrayList<>();
     private Location lobbyLocation;
+    private Location specialNpcLocation;
+    private Entity specialNpc;
     /**
      * Stores all NPC entities spawned for this arena so they can be removed
      * without affecting NPCs of other arenas.
@@ -276,6 +278,42 @@ public class Arena {
 
     public List<EnderDragon> getDragons() {
         return dragons;
+    }
+
+    public void addNpc(Entity entity) {
+        liveNpcs.add(entity);
+    }
+
+    public Location getSpecialNpcLocation() {
+        return specialNpcLocation;
+    }
+
+    public void setSpecialNpcLocation(Location specialNpcLocation) {
+        this.specialNpcLocation = specialNpcLocation;
+    }
+
+    public void spawnSpecialNpc() {
+        if (specialNpcLocation == null || specialNpc != null) {
+            return;
+        }
+        Villager npc = (Villager) specialNpcLocation.getWorld().spawnEntity(specialNpcLocation, EntityType.VILLAGER);
+        npc.setAI(false);
+        npc.setInvulnerable(true);
+        npc.setSilent(true);
+        npc.setCollidable(false);
+        npc.addScoreboardTag("special_npc");
+        npc.setCustomName(ChatColor.translateAlternateColorCodes('&', "&5Marchand Mystérieux"));
+        npc.setCustomNameVisible(true);
+        liveNpcs.add(npc);
+        specialNpc = npc;
+    }
+
+    public void despawnSpecialNpc() {
+        if (specialNpc != null) {
+            specialNpc.remove();
+            liveNpcs.remove(specialNpc);
+            specialNpc = null;
+        }
     }
 
     public void registerBeds() {
@@ -621,6 +659,7 @@ public class Arena {
         state = GameState.WAITING;
         liveNpcs.forEach(Entity::remove);
         liveNpcs.clear();
+        specialNpc = null;
         dragons.forEach(Entity::remove);
         dragons.clear();
         for (Block block : placedBlocks) {

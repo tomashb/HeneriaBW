@@ -10,12 +10,15 @@ import com.heneria.bedwars.listeners.ShopListener;
 import com.heneria.bedwars.listeners.UpgradeListener;
 import com.heneria.bedwars.listeners.StarterItemListener;
 import com.heneria.bedwars.listeners.SpecialItemListener;
+import com.heneria.bedwars.listeners.SpecialNpcListener;
+import com.heneria.bedwars.listeners.GolemListener;
 import com.heneria.bedwars.listeners.TrapListener;
 import com.heneria.bedwars.listeners.StatsListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
 import com.heneria.bedwars.managers.ShopManager;
+import com.heneria.bedwars.managers.SpecialShopManager;
 import com.heneria.bedwars.managers.UpgradeManager;
 import com.heneria.bedwars.managers.ScoreboardManager;
 import com.heneria.bedwars.managers.DatabaseManager;
@@ -32,6 +35,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private SetupManager setupManager;
     private GeneratorManager generatorManager;
     private ShopManager shopManager;
+    private SpecialShopManager specialShopManager;
     private UpgradeManager upgradeManager;
     private ScoreboardManager scoreboardManager;
     private EventManager eventManager;
@@ -53,6 +57,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.arenaManager.loadArenas();
         this.generatorManager = new GeneratorManager(this);
         this.shopManager = new ShopManager(this);
+        this.specialShopManager = new SpecialShopManager(this);
         this.upgradeManager = new UpgradeManager(this);
         this.eventManager = new EventManager(this);
         this.scoreboardManager = new ScoreboardManager(this);
@@ -87,6 +92,8 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new UpgradeListener(), this);
         getServer().getPluginManager().registerEvents(new StarterItemListener(), this);
         getServer().getPluginManager().registerEvents(new SpecialItemListener(), this);
+        getServer().getPluginManager().registerEvents(new SpecialNpcListener(), this);
+        getServer().getPluginManager().registerEvents(new GolemListener(), this);
         getServer().getPluginManager().registerEvents(new TrapListener(), this);
         getServer().getPluginManager().registerEvents(new StatsListener(), this);
     }
@@ -109,6 +116,10 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public ShopManager getShopManager() {
         return shopManager;
+    }
+
+    public SpecialShopManager getSpecialShopManager() {
+        return specialShopManager;
     }
 
     public UpgradeManager getUpgradeManager() {

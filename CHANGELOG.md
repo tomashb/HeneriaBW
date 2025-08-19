@@ -6,6 +6,9 @@
 - Correction d'une `NullPointerException` en initialisant l'état par défaut des arènes à leur création.
 - Correction d'un bug dans l'algorithme de vérification d'espace qui empêchait la Tour Instantanée de fonctionner.
 
+### Ajouté
+- Apparition d'un PNJ spécial de milieu de partie et ajout de l'objet "Golem de Fer de Poche".
+
 ## [0.9.0] - En développement
 
 ### Corrigé

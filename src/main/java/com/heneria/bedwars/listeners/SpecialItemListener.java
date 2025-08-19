@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Egg;
+import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
@@ -126,12 +127,36 @@ public class SpecialItemListener implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (event.getBlockPlaced().getType() != Material.TNT) {
-            return;
-        }
         Player player = event.getPlayer();
+        ItemStack item = event.getItemInHand();
         Arena arena = arenaManager.getArena(player);
         if (arena == null || arena.getState() != GameState.PLAYING) {
+            return;
+        }
+
+        if (item != null) {
+            ItemMeta meta = item.getItemMeta();
+            if (meta != null) {
+                PersistentDataContainer container = meta.getPersistentDataContainer();
+                String special = container.get(HeneriaBedwars.getItemTypeKey(), PersistentDataType.STRING);
+                if ("SPAWN_IRON_GOLEM".equals(special)) {
+                    event.setCancelled(true);
+                    event.getBlock().setType(Material.AIR);
+                    item.setAmount(item.getAmount() - 1);
+                    Location loc = event.getBlock().getLocation().add(0.5, 0, 0.5);
+                    IronGolem golem = loc.getWorld().spawn(loc, IronGolem.class);
+                    golem.setPlayerCreated(true);
+                    Team team = arena.getTeam(player);
+                    if (team != null) {
+                        golem.addScoreboardTag("team_" + team.getColor().name());
+                    }
+                    arena.addNpc(golem);
+                    return;
+                }
+            }
+        }
+
+        if (event.getBlockPlaced().getType() != Material.TNT) {
             return;
         }
         event.setCancelled(true);

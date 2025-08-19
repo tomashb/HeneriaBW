@@ -11,6 +11,14 @@ game-events:
     new-tier: 2
     broadcast-message: "&2Les générateurs d'Émeraudes ont été améliorés au Niveau II !"
 
+  - time: '15m'
+    type: 'SPAWN_SPECIAL_NPC'
+    broadcast-message: "&d&lUn Marchand Mystérieux est apparu au centre !"
+
+  - time: '18m'
+    type: 'DESPAWN_SPECIAL_NPC'
+    broadcast-message: "&dLe Marchand Mystérieux est parti !"
+
   - time: '30m'
     type: 'SUDDEN_DEATH'
     broadcast-message: "&c&lMORT SUBITE ! &fTous les lits restants ont été détruits !"

@@ -69,6 +69,18 @@ public class ArenaManager {
                     arena.setLobbyLocation(loc);
                 }
             }
+            if (config.contains("special-npc.world")) {
+                World w = Bukkit.getWorld(config.getString("special-npc.world"));
+                if (w != null) {
+                    Location loc = new Location(w,
+                            config.getDouble("special-npc.x"),
+                            config.getDouble("special-npc.y"),
+                            config.getDouble("special-npc.z"),
+                            (float) config.getDouble("special-npc.yaw"),
+                            (float) config.getDouble("special-npc.pitch"));
+                    arena.setSpecialNpcLocation(loc);
+                }
+            }
             if (config.contains("teams")) {
                 for (String key : Objects.requireNonNull(config.getConfigurationSection("teams")).getKeys(false)) {
                     TeamColor color = TeamColor.valueOf(key.toUpperCase());
@@ -176,6 +188,15 @@ public class ArenaManager {
             config.set("lobby.z", loc.getZ());
             config.set("lobby.yaw", loc.getYaw());
             config.set("lobby.pitch", loc.getPitch());
+        }
+        if (arena.getSpecialNpcLocation() != null) {
+            Location loc = arena.getSpecialNpcLocation();
+            config.set("special-npc.world", Objects.requireNonNull(loc.getWorld()).getName());
+            config.set("special-npc.x", loc.getX());
+            config.set("special-npc.y", loc.getY());
+            config.set("special-npc.z", loc.getZ());
+            config.set("special-npc.yaw", loc.getYaw());
+            config.set("special-npc.pitch", loc.getPitch());
         }
         if (!arena.getTeams().isEmpty()) {
             for (Map.Entry<TeamColor, Team> entry : arena.getTeams().entrySet()) {

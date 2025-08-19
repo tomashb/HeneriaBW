@@ -19,6 +19,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
   - `scoreboard.yml` : Personnalisez le titre et les lignes du tableau de bord en jeu.
   - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons).
+  - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie.
   - `messages.yml` : Traduisez et personnalisez tous les messages du plugin.
 
 Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le plugin à n'importe quelle langue ou style.
@@ -33,6 +34,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🛡️ **Kit de départ lié** : Vous réapparaissez avec une armure en cuir teintée aux couleurs de votre équipe et une épée en bois impossible à jeter.
 - 🌈 **Achats intelligents** : La laine achetée s'adapte automatiquement à la couleur de votre équipe et toute nouvelle épée remplace la précédente.
 - 📊 **Tableau de Bord Dynamique** : Consultez en un coup d'œil l'état des équipes et le prochain événement.
+- 🛍️ **Marchand Mystérieux** : Un PNJ spécial apparaît au centre en milieu de partie pour vendre des objets uniques comme le Golem de Fer de Poche.
 - 🏆 **Conditions de Victoire** : La partie se termine automatiquement lorsque la dernière équipe en vie est déclarée vainqueur, et l'arène se réinitialise pour le prochain combat.
 
 ---
@@ -114,6 +116,8 @@ Les types disponibles incluent :
 - `UPGRADE_GENERATORS` : améliore le niveau de certains générateurs.
 - `SUDDEN_DEATH` : détruit tous les lits restants et empêche toute réapparition.
 - `SPAWN_DRAGONS` : fait apparaître un ou plusieurs dragons pour accélérer la fin de partie.
+- `SPAWN_SPECIAL_NPC` : fait apparaître temporairement le Marchand Mystérieux au centre.
+- `DESPAWN_SPECIAL_NPC` : retire le Marchand Mystérieux de l'arène.
 
 Exemple incluant ces nouveaux événements :
 
@@ -126,6 +130,35 @@ game-events:
   - time: '31m'
     type: 'SPAWN_DRAGONS'
     broadcast-message: "&c&lLES DRAGONS ARRIVENT !"
+
+  - time: '15m'
+    type: 'SPAWN_SPECIAL_NPC'
+    broadcast-message: "&d&lUn Marchand Mystérieux est apparu au centre !"
+
+  - time: '18m'
+    type: 'DESPAWN_SPECIAL_NPC'
+    broadcast-message: "&dLe Marchand Mystérieux est parti !"
+```
+
+### Configuration du Marchand Mystérieux
+
+Le contenu de la boutique du PNJ spécial est défini dans le fichier `special_shop.yml` :
+
+```yaml
+title: "&5Marchand Mystérieux"
+rows: 3
+items:
+  iron-golem:
+    material: IRON_BLOCK
+    name: "&fGolem de Fer de Poche"
+    lore:
+      - "&7Posez ce bloc pour faire apparaître"
+      - "&7un Golem de Fer qui défendra votre île."
+    cost:
+      resource: DIAMOND
+      amount: 8
+    slot: 11
+    action: 'SPAWN_IRON_GOLEM'
 ```
 
 ### Configuration de la Base de Données
