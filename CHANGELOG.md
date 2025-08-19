@@ -1,5 +1,12 @@
 # Changelog - HeneriaBedwars
 
+## [1.0.0-RC2] - En développement
+
+### Ajouté
+- Réinitialisation complète de la carte avec restauration des lits et nettoyage des items.
+- Limites de construction configurables par arène.
+- Mort instantanée sous le niveau du vide via un listener prioritaire.
+
 ## [1.0.0-RC] - En développement
 
 ### Corrigé

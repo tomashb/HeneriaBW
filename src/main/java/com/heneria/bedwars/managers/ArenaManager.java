@@ -81,6 +81,15 @@ public class ArenaManager {
                     arena.setSpecialNpcLocation(loc);
                 }
             }
+            if (config.contains("boundaries")) {
+                arena.setBoundaries(
+                        config.getInt("boundaries.min-x"),
+                        config.getInt("boundaries.max-x"),
+                        config.getInt("boundaries.min-y"),
+                        config.getInt("boundaries.max-y"),
+                        config.getInt("boundaries.min-z"),
+                        config.getInt("boundaries.max-z"));
+            }
             if (config.contains("teams")) {
                 for (String key : Objects.requireNonNull(config.getConfigurationSection("teams")).getKeys(false)) {
                     TeamColor color = TeamColor.valueOf(key.toUpperCase());
@@ -197,6 +206,14 @@ public class ArenaManager {
             config.set("special-npc.z", loc.getZ());
             config.set("special-npc.yaw", loc.getYaw());
             config.set("special-npc.pitch", loc.getPitch());
+        }
+        if (arena.hasBoundaries()) {
+            config.set("boundaries.min-x", arena.getMinX());
+            config.set("boundaries.max-x", arena.getMaxX());
+            config.set("boundaries.min-y", arena.getMinY());
+            config.set("boundaries.max-y", arena.getMaxY());
+            config.set("boundaries.min-z", arena.getMinZ());
+            config.set("boundaries.max-z", arena.getMaxZ());
         }
         if (!arena.getTeams().isEmpty()) {
             for (Map.Entry<TeamColor, Team> entry : arena.getTeams().entrySet()) {
