@@ -86,10 +86,11 @@ admin:
   delete-confirmed: "&aL'arène {arena} a été supprimée."
   delete-expired: "&cConfirmation expirée pour l'arène {arena}."
 
-menus:
-  admin-main-title: "&8HeneriaBedwars - Administration"
-  arena-settings-title: "&8Configurer: {arena}"
-  upgrades-title: "&aAméliorations"
+  menus:
+    admin-main-title: "&8HeneriaBedwars - Administration"
+    arena-settings-title: "&8Configurer: {arena}"
+    upgrades-title: "&aAméliorations"
+    team-selector-title: "&eSélection d'équipe"
 
 items:
   starter-lore: "&7Objet de départ"
