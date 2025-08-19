@@ -114,6 +114,25 @@ tools_category:
 
 Seul le prochain palier disponible est proposé à l'achat. Après une mort, les joueurs réapparaissent avec leur meilleure armure débloquée mais uniquement les outils et armes en bois.
 
+La configuration prend aussi en charge des objets plus avancés. La boutique par défaut inclut désormais les catégories « Potions », « Combat à Distance » et « Utilitaires » pour des effets temporaires, des arcs enchantés et des objets pratiques comme la Pomme d'Or.
+
+Les items peuvent définir des effets de potion et des enchantements personnalisés via les sections `potion-effects` et `enchantments` du `shop.yml` :
+
+```yaml
+speed-potion:
+  material: POTION
+  cost: { resource: EMERALD, amount: 1 }
+  potion-effects:
+    - { type: SPEED, duration: 45, amplifier: 0 }
+power-bow:
+  material: BOW
+  cost: { resource: GOLD, amount: 24 }
+  enchantments:
+    - { type: POWER, level: 1 }
+```
+
+La durée des effets est exprimée en secondes.
+
 ### Configuration des Pièges d'Équipe
 
 Les pièges sont définis dans le fichier `upgrades.yml` sous la section `traps`. Chaque piège possède un nom, un item de menu, un coût en diamants et un effet de potion appliqué à l'intrus.

@@ -1,5 +1,14 @@
 # Changelog - HeneriaBedwars
 
+## [1.2.0] - 2024-05-27
+
+### Ajouté
+- Support des effets de potion et des enchantements dans `shop.yml`.
+- Nouvelles catégories de boutique : Potions, Combat à Distance et Utilitaires.
+- Ajout de potions de vitesse, de saut et d'invisibilité.
+- Ajout des flèches, d'un arc et d'un arc Puissant.
+- Ajout de la Pomme d'Or et du Seau d'eau.
+
 ## [1.1.0] - 2024-05-01
 
 ### Ajouté
