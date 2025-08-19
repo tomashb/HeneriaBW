@@ -19,7 +19,7 @@ game:
     - "&7{date}"
     - "&1"
     - "Prochain événement:"
-    - "&a{next_event_name} &fen &a{next_event_time}"
+    - "&a{next_event_name} &fdans &a{next_event_time}"
     - "&2"
     - "{team_status}"
     - "&3"

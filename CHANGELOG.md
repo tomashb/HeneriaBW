@@ -5,6 +5,10 @@
 ### Corrigé
 - Correction d'un bug de blocage du décompte de démarrage de partie.
 - Correction d'un bug critique qui empêchait le démarrage des parties (monde non défini).
+- Tous les équipements fournis ou achetés sont désormais incassables.
+- La Forge d'équipe accélère le Fer et l'Or avec des paliers rééquilibrés et génère des Émeraudes au niveau final.
+- Les nouvelles armes achetées héritent correctement des enchantements d'équipe débloqués.
+- Correction d'une faute de frappe dans le scoreboard par défaut.
 
 ## [1.0.0-RC2] - En développement
 

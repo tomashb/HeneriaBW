@@ -168,6 +168,33 @@ public class UpgradeManager {
         }
     }
 
+    /**
+     * Applies relevant team upgrades to a freshly obtained item.
+     *
+     * @param player the owner of the item
+     * @param item   the item to update
+     */
+    public void applyTeamUpgrades(Player player, ItemStack item) {
+        if (item == null) return;
+        Arena arena = plugin.getArenaManager().getArena(player);
+        if (arena == null) return;
+        Team team = arena.getTeam(player);
+        if (team == null) return;
+        String name = item.getType().name();
+        if (name.endsWith("SWORD")) {
+            int sharpness = team.getUpgradeLevel("sharpness");
+            if (sharpness > 0) {
+                applySharpness(item, sharpness);
+            }
+        } else if (name.endsWith("HELMET") || name.endsWith("CHESTPLATE")
+                || name.endsWith("LEGGINGS") || name.endsWith("BOOTS")) {
+            int protection = team.getUpgradeLevel("protection");
+            if (protection > 0) {
+                applyProtection(item, protection);
+            }
+        }
+    }
+
     public record Upgrade(String id, String name, Material item, Map<Integer, UpgradeTier> tiers) {
     }
 
