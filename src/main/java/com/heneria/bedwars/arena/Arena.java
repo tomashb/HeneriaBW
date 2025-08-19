@@ -15,6 +15,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -55,12 +56,22 @@ public class Arena {
     private final Map<UUID, PlayerData> savedStates = new HashMap<>();
     // NEW CACHE SYSTEM: SIMPLE AND DIRECT
     private final Map<Block, Team> bedBlocks = new HashMap<>();
+    private final Map<Team, BlockState[]> originalBedStates = new HashMap<>();
     private final List<Block> placedBlocks = new ArrayList<>();
     private final List<EnderDragon> dragons = new ArrayList<>();
     /** Tracks per-player purchase counts for limited special shop items. */
     private final Map<UUID, Map<String, Integer>> purchaseCounts = new HashMap<>();
     private BukkitTask countdownTask;
     private int countdownDuration = 10;
+
+    // Build boundaries
+    private boolean boundariesEnabled = false;
+    private int minX;
+    private int maxX;
+    private int minY;
+    private int maxY;
+    private int minZ;
+    private int maxZ;
 
     /**
      * Creates a new arena with the given name.
@@ -357,8 +368,55 @@ public class Arena {
         }
     }
 
+    // Boundaries management
+    public void setBoundaries(int minX, int maxX, int minY, int maxY, int minZ, int maxZ) {
+        this.boundariesEnabled = true;
+        this.minX = minX;
+        this.maxX = maxX;
+        this.minY = minY;
+        this.maxY = maxY;
+        this.minZ = minZ;
+        this.maxZ = maxZ;
+    }
+
+    public boolean hasBoundaries() {
+        return boundariesEnabled;
+    }
+
+    public boolean isWithinBoundaries(int x, int y, int z) {
+        if (!boundariesEnabled) {
+            return true;
+        }
+        return x >= minX && x <= maxX && y >= minY && y <= maxY && z >= minZ && z <= maxZ;
+    }
+
+    public int getMinX() {
+        return minX;
+    }
+
+    public int getMaxX() {
+        return maxX;
+    }
+
+    public int getMinY() {
+        return minY;
+    }
+
+    public int getMaxY() {
+        return maxY;
+    }
+
+    public int getMinZ() {
+        return minZ;
+    }
+
+    public int getMaxZ() {
+        return maxZ;
+    }
+
     public void registerBeds() {
         bedBlocks.clear();
+        originalBedStates.clear();
         for (Team team : teams.values()) {
             Location headLocation = team.getBedLocation();
             if (headLocation != null) {
@@ -372,6 +430,7 @@ public class Arena {
                     Block footBlock = headBlock.getRelative(bedData.getFacing().getOppositeFace());
                     bedBlocks.put(headBlock, team);
                     bedBlocks.put(footBlock, team);
+                    originalBedStates.put(team, new BlockState[]{headBlock.getState(), footBlock.getState()});
                     System.out.println("[DEBUG] Lit de " + team.getColor() + " enregistré. Tête: " + headBlock.getLocation().toVector() + ", Pieds: " + footBlock.getLocation().toVector());
                 } else {
                     System.out.println("[ERREUR CRITIQUE] Le bloc à la position sauvegardée pour le lit de l'équipe " + team.getColor() + " n'est pas un lit !");
@@ -532,6 +591,7 @@ public class Arena {
      */
     public void startGame() {
         state = GameState.PLAYING;
+        registerBeds();
         Bukkit.getPluginManager().callEvent(new GameStateChangeEvent(this, GameState.PLAYING));
         if (countdownTask != null) {
             countdownTask.cancel();
@@ -714,5 +774,22 @@ public class Arena {
             block.setType(Material.AIR);
         }
         placedBlocks.clear();
+        if (worldName != null) {
+            World world = Bukkit.getWorld(worldName);
+            if (world != null) {
+                for (Entity entity : world.getEntities()) {
+                    if (entity.getType() == EntityType.DROPPED_ITEM) {
+                        entity.remove();
+                    }
+                }
+            }
+        }
+        for (BlockState[] states : originalBedStates.values()) {
+            for (BlockState state : states) {
+                state.update(true, false);
+            }
+        }
+        originalBedStates.clear();
+        bedBlocks.clear();
     }
 }

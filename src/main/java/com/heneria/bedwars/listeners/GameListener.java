@@ -4,7 +4,6 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.GameState;
-import com.heneria.bedwars.events.GameStateChangeEvent;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.StatsManager;
 import com.heneria.bedwars.stats.PlayerStats;
@@ -29,16 +28,6 @@ public class GameListener implements Listener {
     private final HeneriaBedwars plugin = HeneriaBedwars.getInstance();
     private final ArenaManager arenaManager = plugin.getArenaManager();
     private final StatsManager statsManager = plugin.getStatsManager();
-
-    // Quand le jeu démarre, on doit enregistrer les lits
-    // CECI EST UN NOUVEL ÉVÉNEMENT A AJOUTER
-    @EventHandler
-    public void onGameStateChange(GameStateChangeEvent event) {
-        if (event.getNewState() == GameState.PLAYING) {
-            Arena arena = event.getArena();
-            arena.registerBeds();
-        }
-    }
 
     @EventHandler
     public void onBedInteract(PlayerInteractEvent event) {

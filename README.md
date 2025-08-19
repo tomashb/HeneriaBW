@@ -79,6 +79,22 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 5.  Utilisez les différentes options et l'outil de positionnement pour définir le lobby, les équipes (lits, spawns, PNJ) et les générateurs.
 6.  Quand tout est prêt, cliquez sur **"Activer l'Arène"** pour la rendre accessible aux joueurs.
 
+### Limites de Construction
+
+Définissez une zone de jeu sûre pour empêcher les constructions abusives. Dans chaque fichier d'arène, ajoutez une section `boundaries` :
+
+```yaml
+boundaries:
+  min-x: -50
+  max-x: 50
+  min-y: 0
+  max-y: 100
+  min-z: -50
+  max-z: 50
+```
+
+Toute tentative de placement de bloc en dehors de cette zone sera refusée.
+
 ### Configuration de la Boutique d'Items
 
 La boutique mélange améliorations permanentes et achats temporaires, tous définis dans le fichier `shop.yml`. Les armures (jambières et bottes) utilisent des paliers `upgrade_tier` de type `ARMOR` et sont conservées après la mort. Les pioches et haches sont vendues par paliers (`PICKAXE`, `AXE`) dont le niveau reste débloqué, mais l'outil doit être racheté après chaque mort. Les épées sont listées directement et sont toujours perdues à la mort.
