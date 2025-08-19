@@ -280,6 +280,12 @@ public class Arena {
         if (state == GameState.STARTING && players.size() < minPlayers) {
             cancelCountdown();
         }
+        // Always send players to the main lobby when leaving an arena
+        Location lobby = HeneriaBedwars.getInstance().getMainLobby();
+        if (lobby != null) {
+            player.teleport(lobby);
+            player.setGameMode(GameMode.ADVENTURE);
+        }
     }
 
     public Team getTeam(UUID uuid) {

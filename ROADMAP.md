@@ -57,6 +57,15 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 
 ---
 
+## 🎯 **Étape 5 : Lobby Principal & Sélecteur d'Arène (Version Cible : 2.0.0) - [🚧] EN COURS**
+*Objectif : Introduire un lobby central où les joueurs rejoignent les parties via des PNJ.*
+
+* [ ] Définition d'un lobby principal protégé.
+* [ ] PNJ persistants de sélection de mode.
+* [ ] Menu graphique de choix d'arène.
+
+---
+
 ## 🎉 **Version 1.0.0 Stable**
 Toutes les étapes de la roadmap initiale sont maintenant complétées. Le plugin est prêt pour une utilisation en production.
-✅ Avancement global : 100%
+✅ Avancement global : 80%

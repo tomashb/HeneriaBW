@@ -4,6 +4,7 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.gui.admin.AdminMainMenu;
 import com.heneria.bedwars.utils.MessageManager;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -55,6 +56,23 @@ public class AdminCommand implements SubCommand {
                     MessageManager.sendMessage(player, "errors.arena-not-found");
                 }
                 return;
+            } else if (sub.equals("setmainlobby")) {
+                if (!player.hasPermission("heneriabw.admin.setmainlobby")) {
+                    MessageManager.sendMessage(player, "errors.no-permission");
+                    return;
+                }
+                plugin.setMainLobby(player.getLocation());
+                player.sendMessage(ChatColor.GREEN + "Lobby principal défini.");
+                return;
+            } else if (sub.equals("setjoinnpc") && args.length >= 2) {
+                if (!player.hasPermission("heneriabw.admin.setjoinnpc")) {
+                    MessageManager.sendMessage(player, "errors.no-permission");
+                    return;
+                }
+                String mode = args[1].toLowerCase();
+                plugin.getNpcManager().addNpc(player.getLocation(), mode);
+                player.sendMessage(ChatColor.GREEN + "PNJ de jonction " + mode + " placé.");
+                return;
             }
         }
 
@@ -68,7 +86,7 @@ public class AdminCommand implements SubCommand {
     @Override
     public List<String> tabComplete(Player player, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("delete", "confirmdelete");
+            return Arrays.asList("delete", "confirmdelete", "setmainlobby", "setjoinnpc");
         }
         if (args.length == 2 && (args[0].equalsIgnoreCase("delete") || args[0].equalsIgnoreCase("confirmdelete"))) {
             List<String> names = new ArrayList<>();
@@ -78,6 +96,9 @@ public class AdminCommand implements SubCommand {
                 }
             }
             return names;
+        }
+        if (args.length == 2 && args[0].equalsIgnoreCase("setjoinnpc")) {
+            return Arrays.asList("solos", "duos", "trios", "quads");
         }
         return Collections.emptyList();
     }

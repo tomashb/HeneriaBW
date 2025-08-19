@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [2.0.0] - 2024-05-05
+
+### Ajouté
+- Introduction d'un lobby principal avec PNJ de sélection d'arène.
+
 ## [1.3.0] - 2024-05-04
 
 ### Ajouté
