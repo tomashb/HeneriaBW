@@ -44,6 +44,7 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 * [✔] La Construction : Ajout de la pose/destruction de blocs par les joueurs.
 * [✔] Ajout des kits de départ complets (armure liée, épée).
  * [✔] Les Objets Spéciaux (TNT, Boules de feu...).
+* [✔] Tour Instantanée (Pop-up Tower).
 * [✔] Le Tableau de Bord (Scoreboard).
 * [✔] Les Pièges d'Équipe.
   * [✔] Un Fichier de Langue Complet (messages.yml).

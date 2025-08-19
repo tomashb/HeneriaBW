@@ -9,10 +9,12 @@
 
 ### Corrigé
 - Correction de l'URL du dépôt Maven pour PlaceholderAPI, résolvant les erreurs de build.
+- Correction d'une erreur de compilation due à une mauvaise utilisation de l'API `BlockFace` pour la Tour Instantanée.
 
 ### Ajouté
 - Système d'événements temporisés améliorant automatiquement les générateurs de Diamants et d'Émeraudes avec annonces et intégration au scoreboard.
 - Ajout des événements de Mort Subite (destruction des lits) et d'apparition de Dragons.
+- Ajout de l'objet spécial "Tour Instantanée".
 
 ## [0.8.0] - En développement
 
