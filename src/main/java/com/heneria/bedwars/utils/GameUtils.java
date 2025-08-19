@@ -35,30 +35,62 @@ public final class GameUtils {
      */
     public static void giveDefaultKit(Player player, Team team) {
         player.getInventory().clear();
-        if (team != null) {
-            Color color = team.getColor().getLeatherColor();
-            player.getInventory().setArmorContents(new ItemStack[]{
-                    createArmor(Material.LEATHER_BOOTS, color),
-                    createArmor(Material.LEATHER_LEGGINGS, color),
-                    createArmor(Material.LEATHER_CHESTPLATE, color),
-                    createArmor(Material.LEATHER_HELMET, color)
-            });
-        }
+        int armorTier = HeneriaBedwars.getInstance().getPlayerProgressionManager()
+                .getArmorTier(player.getUniqueId());
+        equipArmorTier(player, team, armorTier);
         player.getInventory().addItem(createStarterSword());
         player.setLevel(0);
         player.setExp(0f);
     }
 
+    /**
+     * Equips the player with armor corresponding to the provided tier.
+     * Tier 0 gives full leather, higher tiers upgrade boots and leggings.
+     */
+    public static void equipArmorTier(Player player, Team team, int tier) {
+        Color color = team != null ? team.getColor().getLeatherColor() : null;
+        ItemStack helmet = createArmor(Material.LEATHER_HELMET, color);
+        ItemStack chestplate = createArmor(Material.LEATHER_CHESTPLATE, color);
+
+        Material legMat;
+        Material bootMat;
+        switch (tier) {
+            case 1 -> {
+                legMat = Material.CHAINMAIL_LEGGINGS;
+                bootMat = Material.CHAINMAIL_BOOTS;
+            }
+            case 2 -> {
+                legMat = Material.IRON_LEGGINGS;
+                bootMat = Material.IRON_BOOTS;
+            }
+            case 3 -> {
+                legMat = Material.DIAMOND_LEGGINGS;
+                bootMat = Material.DIAMOND_BOOTS;
+            }
+            default -> {
+                legMat = Material.LEATHER_LEGGINGS;
+                bootMat = Material.LEATHER_BOOTS;
+            }
+        }
+
+        ItemStack leggings = createArmor(legMat, legMat.name().startsWith("LEATHER") ? color : null);
+        ItemStack boots = createArmor(bootMat, bootMat.name().startsWith("LEATHER") ? color : null);
+        player.getInventory().setArmorContents(new ItemStack[]{boots, leggings, chestplate, helmet});
+    }
+
     private static ItemStack createArmor(Material material, Color color) {
         ItemStack item = new ItemStack(material);
-        LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
-        meta.setColor(color);
+        ItemMeta meta = item.getItemMeta();
+        if (meta instanceof LeatherArmorMeta leather && color != null) {
+            leather.setColor(color);
+            meta = leather;
+        }
         meta.addEnchant(Enchantment.BINDING_CURSE, 1, true);
         meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
         meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
         item.setItemMeta(meta);
         return item;
-        }
+    }
 
     private static ItemStack createStarterSword() {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);

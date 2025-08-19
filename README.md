@@ -33,6 +33,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🧱 **Construction de Blocs** : Achetez, placez et cassez des blocs pour bâtir ponts et défenses.
 - 🛡️ **Kit de départ lié** : Vous réapparaissez avec une armure en cuir teintée aux couleurs de votre équipe et une épée en bois impossible à jeter.
 - 🌈 **Achats intelligents** : La laine achetée s'adapte automatiquement à la couleur de votre équipe et toute nouvelle épée remplace la précédente.
+- ⚒️ **Progression Hybride** : Achetez des paliers d'armure permanents pour la partie, mais perdez vos outils et épées améliorés à chaque mort.
 - 📊 **Tableau de Bord Dynamique** : Consultez en un coup d'œil l'état des équipes et le prochain événement.
 - 🛍️ **Marchand Mystérieux** : Un PNJ spécial apparaît au centre en milieu de partie pour vendre des objets uniques comme le Golem de Fer de Poche.
 - 🏆 **Conditions de Victoire** : La partie se termine automatiquement lorsque la dernière équipe en vie est déclarée vainqueur, et l'arène se réinitialise pour le prochain combat.
@@ -79,7 +80,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 
 ### Configuration de la Boutique d'Items
 
-La progression des outils et des armures se configure dans le fichier `shop.yml`. Chaque palier est un objet distinct possédant un bloc `upgrade_tier` indiquant son type (`PICKAXE`, `AXE`, `ARMOR`) et son niveau. Les objets partageant le même `slot` s'affichent progressivement au fur et à mesure des achats.
+La progression des outils et des armures se configure dans le fichier `shop.yml`. Chaque palier est un objet distinct possédant un bloc `upgrade_tier` indiquant son type (`PICKAXE`, `AXE`, `ARMOR`) et son niveau. Les objets partageant le même `slot` s'affichent progressivement au fur et à mesure des achats. Les armures achetées sont permanentes pour la durée de la partie alors que les outils et épées sont perdus à la mort.
 
 ```yaml
 tools_category:

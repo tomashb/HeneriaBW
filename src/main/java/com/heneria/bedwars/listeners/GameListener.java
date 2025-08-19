@@ -20,6 +20,8 @@ import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.entity.EntityType;
 import org.bukkit.scheduler.BukkitRunnable;
 import com.heneria.bedwars.utils.GameUtils;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 public class GameListener implements Listener {
 
@@ -106,6 +108,17 @@ public class GameListener implements Listener {
         }
 
         if (playerTeam.hasBed()) {
+            // Remove temporary tools and swords
+            ItemStack[] contents = player.getInventory().getContents();
+            for (int i = 0; i < contents.length; i++) {
+                ItemStack item = contents[i];
+                if (item == null) continue;
+                String name = item.getType().name();
+                if ((name.endsWith("_SWORD") && item.getType() != Material.WOODEN_SWORD)
+                        || name.endsWith("_PICKAXE") || name.endsWith("_AXE")) {
+                    player.getInventory().setItem(i, null);
+                }
+            }
             plugin.getPlayerProgressionManager().resetProgress(player.getUniqueId());
             player.setGameMode(GameMode.SPECTATOR);
             player.teleport(playerTeam.getSpawnLocation());
@@ -120,6 +133,7 @@ public class GameListener implements Listener {
                         player.setGameMode(GameMode.SURVIVAL);
                         player.teleport(playerTeam.getSpawnLocation());
                         GameUtils.giveDefaultKit(player, playerTeam);
+                        plugin.getUpgradeManager().applyTeamUpgrades(player);
                     }
                 }
             }.runTaskTimer(plugin, 0L, 20L);

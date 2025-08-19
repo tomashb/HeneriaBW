@@ -19,6 +19,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.enchantments.Enchantment;
 
 import java.util.*;
 
@@ -134,6 +135,9 @@ public class ShopItemsMenu extends Menu {
             ItemStack give = new ItemStack(material, item.amount());
             ItemMeta meta = give.getItemMeta();
             if (meta != null) {
+                if (material.name().endsWith("_PICKAXE") || material.name().endsWith("_AXE")) {
+                    meta.addEnchant(Enchantment.DIG_SPEED, 1, true);
+                }
                 if (isSword) {
                     meta.getPersistentDataContainer().set(GameUtils.STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
                 }
@@ -185,7 +189,9 @@ public class ShopItemsMenu extends Menu {
                 progressionManager.setAxeTier(uuid, item.upgradeLevel());
             }
             case "ARMOR" -> {
-                clicker.getInventory().setBoots(give);
+                Arena arena = HeneriaBedwars.getInstance().getArenaManager().getArena(clicker);
+                Team team = arena != null ? arena.getTeam(clicker) : null;
+                GameUtils.equipArmorTier(clicker, team, item.upgradeLevel());
                 progressionManager.setArmorTier(uuid, item.upgradeLevel());
             }
             default -> clicker.getInventory().addItem(give);
