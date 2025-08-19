@@ -90,10 +90,16 @@ public class SpecialShopMenu extends Menu {
             ResourceManager.takeResources(player, type, price);
             ItemStack give = new ItemStack(item.material(), 1);
             ItemMeta meta = give.getItemMeta();
-            if (meta != null && item.action() != null) {
-                meta.getPersistentDataContainer().set(HeneriaBedwars.getItemTypeKey(), PersistentDataType.STRING, item.action());
+            if (meta != null) {
+                if (item.action() != null) {
+                    meta.getPersistentDataContainer().set(HeneriaBedwars.getItemTypeKey(), PersistentDataType.STRING, item.action());
+                }
+                if (give.getType().getMaxDurability() > 0) {
+                    meta.setUnbreakable(true);
+                }
                 give.setItemMeta(meta);
             }
+            HeneriaBedwars.getInstance().getUpgradeManager().applyTeamUpgrades(player, give);
             player.getInventory().addItem(give);
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
         } else {

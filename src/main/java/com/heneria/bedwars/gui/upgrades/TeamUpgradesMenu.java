@@ -177,7 +177,7 @@ public class TeamUpgradesMenu extends Menu {
                     upgradeManager.applyHaste(p, level - 1, 20 * 60 * 60);
                 }
             }
-            case "forge" -> plugin.getGeneratorManager().upgradeTeamGenerators(arena, team, level + 1);
+            case "forge" -> plugin.getGeneratorManager().upgradeTeamGenerators(arena, team, level);
         }
     }
 }

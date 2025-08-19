@@ -28,16 +28,24 @@ haste:
     2:
       cost: 4
       description: "&7Les joueurs gagnent Hâte II."
+# L'amélioration Forge accélère les générateurs de Fer et d'Or de l'île.
+# Le dernier niveau génère également des Émeraudes directement sur la base.
 forge:
   name: "&aForge améliorée"
   item: FURNACE
   tiers:
     1:
-      cost: 4
-      description: "&7Augmente la vitesse des générateurs de l'équipe."
+      cost: 2
+      description: "&7+25% de vitesse pour le Fer et l'Or."
     2:
+      cost: 4
+      description: "&7+50% de vitesse pour le Fer et l'Or."
+    3:
+      cost: 6
+      description: "&7Vitesse maximale pour le Fer et l'Or."
+    4:
       cost: 8
-      description: "&7Générateurs encore plus rapides."
+      description: "&7Active un générateur d'Émeraudes lent."
 
 # Catégorie pour les pièges
 traps:

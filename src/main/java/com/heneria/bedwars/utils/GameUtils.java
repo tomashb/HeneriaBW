@@ -79,6 +79,7 @@ public final class GameUtils {
         meta.addEnchant(Enchantment.BINDING_CURSE, 1, true);
         meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
         meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
+        meta.setUnbreakable(true);
         item.setItemMeta(meta);
         return item;
         }
@@ -88,6 +89,7 @@ public final class GameUtils {
         ItemMeta meta = item.getItemMeta();
         meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
         meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
+        meta.setUnbreakable(true);
         item.setItemMeta(meta);
         return item;
     }
@@ -97,6 +99,7 @@ public final class GameUtils {
         ItemMeta meta = item.getItemMeta();
         meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
         meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
+        meta.setUnbreakable(true);
         item.setItemMeta(meta);
         return item;
     }
@@ -106,6 +109,7 @@ public final class GameUtils {
         ItemMeta meta = item.getItemMeta();
         meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
         meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
+        meta.setUnbreakable(true);
         item.setItemMeta(meta);
         return item;
     }
@@ -117,6 +121,7 @@ public final class GameUtils {
             meta.addEnchant(Enchantment.BINDING_CURSE, 1, true);
             meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
             meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
+            meta.setUnbreakable(true);
             item.setItemMeta(meta);
         }
         return item;

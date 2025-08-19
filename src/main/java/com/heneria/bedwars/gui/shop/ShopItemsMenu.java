@@ -142,8 +142,12 @@ public class ShopItemsMenu extends Menu {
                     meta.getPersistentDataContainer()
                             .set(HeneriaBedwars.getItemTypeKey(), PersistentDataType.STRING, item.action());
                 }
+                if (give.getType().getMaxDurability() > 0) {
+                    meta.setUnbreakable(true);
+                }
                 give.setItemMeta(meta);
             }
+            HeneriaBedwars.getInstance().getUpgradeManager().applyTeamUpgrades(clicker, give);
             handleUpgrade(clicker, item, give);
             clicker.playSound(clicker.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
             setupItems();
@@ -180,6 +184,7 @@ public class ShopItemsMenu extends Menu {
                 ItemMeta meta = give.getItemMeta();
                 if (meta != null) {
                     meta.addEnchant(Enchantment.EFFICIENCY, 1, true);
+                    meta.setUnbreakable(true);
                     give.setItemMeta(meta);
                 }
                 clicker.getInventory().addItem(give);
@@ -190,6 +195,7 @@ public class ShopItemsMenu extends Menu {
                 ItemMeta meta = give.getItemMeta();
                 if (meta != null) {
                     meta.addEnchant(Enchantment.EFFICIENCY, 1, true);
+                    meta.setUnbreakable(true);
                     give.setItemMeta(meta);
                 }
                 clicker.getInventory().addItem(give);
@@ -205,6 +211,10 @@ public class ShopItemsMenu extends Menu {
                     default -> Material.LEATHER_LEGGINGS;
                 };
                 clicker.getInventory().setLeggings(GameUtils.createBoundArmor(leggingsType));
+                HeneriaBedwars.getInstance().getUpgradeManager()
+                        .applyTeamUpgrades(clicker, clicker.getInventory().getBoots());
+                HeneriaBedwars.getInstance().getUpgradeManager()
+                        .applyTeamUpgrades(clicker, clicker.getInventory().getLeggings());
                 progressionManager.setArmorTier(uuid, item.upgradeLevel());
             }
             default -> clicker.getInventory().addItem(give);

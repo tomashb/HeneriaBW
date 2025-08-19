@@ -114,24 +114,41 @@ public class GeneratorManager {
     }
 
     /**
-     * Upgrades the tier of generators near a team's spawn point.
+     * Applies a Forge upgrade level to the generators near a team's spawn.
+     * The upgrade accelerates both iron and gold generators and, at the final
+     * level, spawns a slow emerald generator.
      *
      * @param arena the arena containing the generators
      * @param team  the team whose generators to upgrade
-     * @param tier  the new tier
+     * @param level the new forge level
      */
-    public void upgradeTeamGenerators(Arena arena, Team team, int tier) {
+    public void upgradeTeamGenerators(Arena arena, Team team, int level) {
         Location spawn = team.getSpawnLocation();
         if (spawn == null) {
             return;
         }
+        int ironTier = Math.min(1 + level, settings.getOrDefault(GeneratorType.IRON, Collections.emptyMap()).size());
+        int goldTier = Math.min(1 + level, settings.getOrDefault(GeneratorType.GOLD, Collections.emptyMap()).size());
         for (Generator gen : arena.getGenerators()) {
-            if (gen.getType() == GeneratorType.IRON || gen.getType() == GeneratorType.GOLD) {
-                if (gen.getLocation() != null && gen.getLocation().getWorld() == spawn.getWorld()
-                        && gen.getLocation().distance(spawn) < 10) {
-                    gen.setTier(tier);
+            if (gen.getLocation() != null && gen.getLocation().getWorld() == spawn.getWorld()
+                    && gen.getLocation().distance(spawn) < 10) {
+                if (gen.getType() == GeneratorType.IRON) {
+                    gen.setTier(ironTier);
+                    counters.put(gen, getDelayCycles(gen));
+                } else if (gen.getType() == GeneratorType.GOLD) {
+                    gen.setTier(goldTier);
                     counters.put(gen, getDelayCycles(gen));
                 }
+            }
+        }
+        if (level >= 4) {
+            boolean exists = arena.getGenerators().stream().anyMatch(g -> g.getType() == GeneratorType.EMERALD
+                    && g.getLocation() != null && g.getLocation().getWorld() == spawn.getWorld()
+                    && g.getLocation().distance(spawn) < 10);
+            if (!exists) {
+                Generator emerald = new Generator(spawn.clone(), GeneratorType.EMERALD, 1);
+                arena.getGenerators().add(emerald);
+                registerGenerator(emerald);
             }
         }
     }
