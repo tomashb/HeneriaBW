@@ -115,10 +115,15 @@ public class ShopItemsMenu extends Menu {
         }
         ResourceType type = item.costResource();
         int price = item.costAmount();
+        Arena arena = HeneriaBedwars.getInstance().getArenaManager().getArena(clicker);
+        if (arena != null && !arena.canPurchase(clicker.getUniqueId(), item.id(), item.purchaseLimit())) {
+            clicker.sendMessage("§cVous ne pouvez plus acheter cet objet.");
+            clicker.playSound(clicker.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
+            return;
+        }
         if (ResourceManager.hasResources(clicker, type, price)) {
             ResourceManager.takeResources(clicker, type, price);
             Material material = item.material();
-            Arena arena = HeneriaBedwars.getInstance().getArenaManager().getArena(clicker);
             Team team = arena != null ? arena.getTeam(clicker) : null;
             if (material.toString().endsWith("_WOOL") && team != null) {
                 material = team.getColor().getWoolMaterial();

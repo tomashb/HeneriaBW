@@ -69,11 +69,12 @@ public class ShopManager {
                             int cost = config.getInt(path + ".cost.amount", 1);
                             int slot = config.getInt(path + ".slot", 0);
                             String action = config.getString(path + ".action");
+                            int limit = config.getInt(path + ".limit-per-life", 0);
                             ConfigurationSection tierSec = config.getConfigurationSection(path + ".upgrade_tier");
                             String type = tierSec != null ? tierSec.getString("type") : null;
                             int level = tierSec != null ? tierSec.getInt("level", 0) : 0;
                             items.computeIfAbsent(slot, k -> new ArrayList<>())
-                                    .add(new ShopItem(material, name, amount, resource, cost, slot, action, type, level));
+                                    .add(new ShopItem(itemKey, material, name, amount, resource, cost, slot, action, type, level, limit));
                         } catch (IllegalArgumentException ex) {
                             plugin.getLogger().warning("Invalid item configuration for category " + id + ": " + itemKey);
                         }
@@ -103,8 +104,8 @@ public class ShopManager {
     public record MainMenuItem(Material material, String name, List<String> lore, int slot, String category) {
     }
 
-    public record ShopItem(Material material, String name, int amount, ResourceType costResource,
-                           int costAmount, int slot, String action, String upgradeType, int upgradeLevel) {
+    public record ShopItem(String id, Material material, String name, int amount, ResourceType costResource,
+                           int costAmount, int slot, String action, String upgradeType, int upgradeLevel, int purchaseLimit) {
     }
 
     public record ShopCategory(String id, String title, int rows, Map<Integer, List<ShopItem>> items) {

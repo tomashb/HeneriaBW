@@ -60,7 +60,30 @@ public class SpecialItemListener implements Listener {
         if (meta != null) {
             PersistentDataContainer container = meta.getPersistentDataContainer();
             String special = container.get(HeneriaBedwars.getItemTypeKey(), PersistentDataType.STRING);
-            if ("POPUP_TOWER".equals(special)) {
+            if ("SAFETY_PLATFORM".equals(special)) {
+                event.setCancelled(true);
+                if (player.isOnGround()) {
+                    player.sendMessage("§cCet objet ne peut être utilisé qu'en chute.");
+                    return;
+                }
+                Team team = arena.getTeam(player);
+                if (team == null) {
+                    return;
+                }
+                Material wool = team.getColor().getWoolMaterial();
+                Location base = player.getLocation().clone().subtract(0, 1, 0);
+                for (int dx = -1; dx <= 1; dx++) {
+                    for (int dz = -1; dz <= 1; dz++) {
+                        Block b = base.getWorld().getBlockAt(base.getBlockX() + dx, base.getBlockY(), base.getBlockZ() + dz);
+                        if (b.getType() == Material.AIR) {
+                            b.setType(wool);
+                            arena.getPlacedBlocks().add(b);
+                        }
+                    }
+                }
+                event.getItem().setAmount(event.getItem().getAmount() - 1);
+                return;
+            } else if ("POPUP_TOWER".equals(special)) {
                 System.out.println("SpecialItemListener: Pop-up Tower item detected for " + player.getName());
                 event.setCancelled(true);
                 int towerHeight = 4; // Hauteur de la tour en blocs
@@ -142,7 +165,25 @@ public class SpecialItemListener implements Listener {
             if (meta != null) {
                 PersistentDataContainer container = meta.getPersistentDataContainer();
                 String special = container.get(HeneriaBedwars.getItemTypeKey(), PersistentDataType.STRING);
-                if ("SPAWN_IRON_GOLEM".equals(special)) {
+                if ("MAGIC_SPONGE".equals(special)) {
+                    event.setCancelled(true);
+                    event.getBlock().setType(Material.AIR);
+                    arena.getPlacedBlocks().remove(event.getBlock());
+                    item.setAmount(item.getAmount() - 1);
+                    int radius = plugin.getConfig().getInt("magic-sponge.radius", 3);
+                    Location loc = event.getBlock().getLocation();
+                    for (int x = -radius; x <= radius; x++) {
+                        for (int y = -radius; y <= radius; y++) {
+                            for (int z = -radius; z <= radius; z++) {
+                                Block b = loc.getWorld().getBlockAt(loc.getBlockX() + x, loc.getBlockY() + y, loc.getBlockZ() + z);
+                                if (b.getType() == Material.WATER) {
+                                    b.setType(Material.AIR);
+                                }
+                            }
+                        }
+                    }
+                    return;
+                } else if ("SPAWN_IRON_GOLEM".equals(special)) {
                     Team team = arena.getTeam(player);
                     if (team != null) {
                         Location spawn = team.getSpawnLocation();

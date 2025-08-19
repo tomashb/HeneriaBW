@@ -7,6 +7,7 @@ import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.block.Block;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -46,5 +47,8 @@ public class BlockPlaceListener implements Listener {
             }
         }
         arena.getPlacedBlocks().add(block);
+        if (block.getType() == Material.BLACK_STAINED_GLASS) {
+            arena.getTemperedGlassBlocks().add(block);
+        }
     }
 }

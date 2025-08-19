@@ -60,6 +60,7 @@ public class Arena {
     private final Map<Block, Team> bedBlocks = new HashMap<>();
     private final Map<Block, BlockState> originalBedStates = new HashMap<>();
     private final List<Block> placedBlocks = new ArrayList<>();
+    private final Set<Block> temperedGlassBlocks = new HashSet<>();
     private final List<EnderDragon> dragons = new ArrayList<>();
     /** Tracks per-player purchase counts for limited special shop items. */
     private final Map<UUID, Map<String, Integer>> purchaseCounts = new HashMap<>();
@@ -309,6 +310,10 @@ public class Arena {
     // Player placed blocks
     public List<Block> getPlacedBlocks() {
         return placedBlocks;
+    }
+
+    public Set<Block> getTemperedGlassBlocks() {
+        return temperedGlassBlocks;
     }
 
     public List<EnderDragon> getDragons() {
@@ -776,6 +781,7 @@ public class Arena {
             block.setType(Material.AIR);
         }
         placedBlocks.clear();
+        temperedGlassBlocks.clear();
 
         for (BlockState state : originalBedStates.values()) {
             state.update(true, false);

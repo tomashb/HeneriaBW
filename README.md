@@ -39,6 +39,8 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🌈 **Achats intelligents** : La laine achetée s'adapte automatiquement à la couleur de votre équipe et toute nouvelle épée remplace la précédente.
 - 📊 **Tableau de Bord Dynamique** : Consultez en un coup d'œil l'état des équipes et le prochain événement.
 - 🛍️ **Marchand Mystérieux** : Un PNJ spécial apparaît au centre en milieu de partie pour vendre des objets uniques comme le Golem de Fer de Poche.
+- 🎯 **Système de Primes** : Les séries d'éliminations importantes affichent une récompense pour celui qui y met fin.
+- 🧭 **Objets Spéciaux Avancés** : Boussole Traqueuse, Verre Trempé, Éponge Magique, Plateforme de Secours et Lait du Guérisseur enrichissent les stratégies.
 - 🏆 **Conditions de Victoire** : La partie se termine automatiquement lorsque la dernière équipe en vie est déclarée vainqueur, et l'arène se réinitialise pour le prochain combat.
 
 ---
