@@ -771,6 +771,7 @@ public class Arena {
         dragons.forEach(Entity::remove);
         dragons.clear();
         purchaseCounts.clear();
+        HeneriaBedwars.getInstance().getGeneratorManager().resetGenerators(this);
         for (Block block : placedBlocks) {
             block.setType(Material.AIR);
         }

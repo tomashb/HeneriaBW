@@ -53,3 +53,9 @@ Ce document détaille les étapes de développement prévues pour le plugin Hene
 * [✔] Limites de construction configurables par arène.
 * [✔] Protections complètes du lobby d'attente.
 * [✔] Sélecteur d'équipe interactif pour les joueurs.
+* [✔] Polissage final : sélecteur amélioré, réinitialisation des forges, correction des émeraudes et faim désactivée.
+
+---
+
+## 🎉 **Version 1.0.0 Stable**
+Toutes les étapes de la roadmap initiale sont maintenant complétées. Le plugin est prêt pour une utilisation en production.

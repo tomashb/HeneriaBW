@@ -129,26 +129,54 @@ public class GeneratorManager {
         }
         int ironTier = Math.min(1 + level, settings.getOrDefault(GeneratorType.IRON, Collections.emptyMap()).size());
         int goldTier = Math.min(1 + level, settings.getOrDefault(GeneratorType.GOLD, Collections.emptyMap()).size());
+        Location genLocation = null;
         for (Generator gen : arena.getGenerators()) {
-            if (gen.getLocation() != null && gen.getLocation().getWorld() == spawn.getWorld()
-                    && gen.getLocation().distance(spawn) < 10) {
+            Location loc = gen.getLocation();
+            if (loc != null && loc.getWorld() == spawn.getWorld() && loc.distance(spawn) < 10) {
                 if (gen.getType() == GeneratorType.IRON) {
                     gen.setTier(ironTier);
                     counters.put(gen, getDelayCycles(gen));
+                    if (genLocation == null) {
+                        genLocation = loc;
+                    }
                 } else if (gen.getType() == GeneratorType.GOLD) {
                     gen.setTier(goldTier);
                     counters.put(gen, getDelayCycles(gen));
+                    if (genLocation == null) {
+                        genLocation = loc;
+                    }
                 }
             }
         }
-        if (level >= 4) {
+        if (level >= 4 && genLocation != null) {
             boolean exists = arena.getGenerators().stream().anyMatch(g -> g.getType() == GeneratorType.EMERALD
                     && g.getLocation() != null && g.getLocation().getWorld() == spawn.getWorld()
                     && g.getLocation().distance(spawn) < 10);
             if (!exists) {
-                Generator emerald = new Generator(spawn.clone(), GeneratorType.EMERALD, 1);
+                Generator emerald = new Generator(genLocation.clone(), GeneratorType.EMERALD, 1);
                 arena.getGenerators().add(emerald);
                 registerGenerator(emerald);
+            }
+        }
+    }
+
+    public void resetGenerators(Arena arena) {
+        Iterator<Generator> it = arena.getGenerators().iterator();
+        while (it.hasNext()) {
+            Generator gen = it.next();
+            counters.remove(gen);
+            gen.setTier(1);
+            if (gen.getType() == GeneratorType.EMERALD) {
+                Location loc = gen.getLocation();
+                if (loc != null) {
+                    for (Team team : arena.getTeams().values()) {
+                        Location spawn = team.getSpawnLocation();
+                        if (spawn != null && loc.getWorld() == spawn.getWorld() && loc.distance(spawn) < 10) {
+                            it.remove();
+                            break;
+                        }
+                    }
+                }
             }
         }
     }
