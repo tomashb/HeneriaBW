@@ -1,5 +1,17 @@
 # Changelog - HeneriaBedwars
 
+## [1.2.0] - 2024-05-03
+
+### Ajouté
+- Nouvelles catégories de boutique : Potions et Combat à Distance.
+- Potions de Vitesse, Saut et Invisibilité avec leurs effets configurables.
+- Flèches, Arc et Arc Puissant (Puissance I).
+- Pomme d'Or et Seau d'eau dans les Utilitaires.
+
+### Corrigé
+- Lecture robuste des listes `potion-effects` et `enchantments` dans `ShopManager`.
+- Remplacement de `PotionEffectType.valueOf` par `PotionEffectType.getByName`.
+
 ## [1.1.0] - 2024-05-01
 
 ### Ajouté

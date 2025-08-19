@@ -112,6 +112,22 @@ tools_category:
         level: 2
 ```
 
+Les objets peuvent aussi définir des enchantements (`enchantments`) ou des effets de potion (`potion-effects`) via des listes de mappages :
+
+```yaml
+power_bow:
+  material: BOW
+  enchantments:
+    - type: POWER
+      level: 1
+speed_potion:
+  material: POTION
+  potion-effects:
+    - type: SPEED
+      duration: 45
+      amplifier: 1
+```
+
 Seul le prochain palier disponible est proposé à l'achat. Après une mort, les joueurs réapparaissent avec leur meilleure armure débloquée mais uniquement les outils et armes en bois.
 
 ### Configuration des Pièges d'Équipe

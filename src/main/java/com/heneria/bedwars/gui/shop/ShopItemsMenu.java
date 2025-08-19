@@ -20,6 +20,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.potion.PotionEffect;
 
 import java.util.*;
 
@@ -135,12 +136,21 @@ public class ShopItemsMenu extends Menu {
             ItemStack give = new ItemStack(material, item.amount());
             ItemMeta meta = give.getItemMeta();
             if (meta != null) {
+                meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', item.name()));
                 if (isSword) {
                     meta.getPersistentDataContainer().set(GameUtils.STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
                 }
                 if (item.action() != null) {
                     meta.getPersistentDataContainer()
                             .set(HeneriaBedwars.getItemTypeKey(), PersistentDataType.STRING, item.action());
+                }
+                for (Map.Entry<Enchantment, Integer> entry : item.enchantments().entrySet()) {
+                    meta.addEnchant(entry.getKey(), entry.getValue(), true);
+                }
+                if (meta instanceof org.bukkit.inventory.meta.PotionMeta potionMeta) {
+                    for (PotionEffect effect : item.potionEffects()) {
+                        potionMeta.addCustomEffect(effect, true);
+                    }
                 }
                 if (give.getType().getMaxDurability() > 0) {
                     meta.setUnbreakable(true);
