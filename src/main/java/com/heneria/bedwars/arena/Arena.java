@@ -14,6 +14,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.GameMode;
+import com.heneria.bedwars.listeners.TeamSelectorListener;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.type.Bed;
@@ -65,6 +67,7 @@ public class Arena {
     private int countdownDuration = 10;
     private int countdownTime;
     private int maxBuildY = 256;
+    private int maxBuildDistance = 0;
 
     /**
      * Creates a new arena with the given name.
@@ -183,6 +186,14 @@ public class Arena {
         this.maxBuildY = maxBuildY;
     }
 
+    public int getMaxBuildDistance() {
+        return maxBuildDistance;
+    }
+
+    public void setMaxBuildDistance(int maxBuildDistance) {
+        this.maxBuildDistance = maxBuildDistance;
+    }
+
     public int getCountdownTime() {
         return countdownTime;
     }
@@ -229,6 +240,8 @@ public class Arena {
         player.teleport(lobbyLocation);
         player.setLevel(0);
         player.setExp(0f);
+        player.setGameMode(GameMode.ADVENTURE);
+        player.getInventory().setItem(0, TeamSelectorListener.createSelectorItem());
         Team team = getLeastPopulatedTeam();
         if (team != null) {
             team.addMember(player.getUniqueId());
@@ -589,6 +602,7 @@ public class Arena {
             if (team != null && team.getSpawnLocation() != null) {
                 p.teleport(team.getSpawnLocation());
             }
+            p.setGameMode(GameMode.SURVIVAL);
             GameUtils.giveDefaultKit(p, team);
         }
         System.out.println("[DEBUG-STARTGAME] Téléportation des joueurs terminée.");

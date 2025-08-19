@@ -6,6 +6,7 @@ import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.block.Block;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,6 +31,19 @@ public class BlockPlaceListener implements Listener {
             event.setCancelled(true);
             MessageManager.sendMessage(player, "errors.build-outside-boundaries");
             return;
+        }
+        if (arena.getMaxBuildDistance() > 0) {
+            Location center = arena.getCenterLocation();
+            if (center != null) {
+                double dx = block.getX() - center.getX();
+                double dz = block.getZ() - center.getZ();
+                double dist = Math.sqrt(dx * dx + dz * dz);
+                if (dist > arena.getMaxBuildDistance()) {
+                    event.setCancelled(true);
+                    MessageManager.sendMessage(player, "errors.build-outside-boundaries");
+                    return;
+                }
+            }
         }
         arena.getPlacedBlocks().add(block);
     }
