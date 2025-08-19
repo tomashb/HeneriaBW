@@ -106,7 +106,7 @@ public class GameListener implements Listener {
         }
 
         if (playerTeam.hasBed()) {
-            plugin.getPlayerProgressionManager().resetProgress(player.getUniqueId());
+            GameUtils.removeUpgradedToolsAndSwords(player);
             player.setGameMode(GameMode.SPECTATOR);
             player.teleport(playerTeam.getSpawnLocation());
             new BukkitRunnable() {

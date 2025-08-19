@@ -3,7 +3,7 @@
 ## [1.0.0-BETA] - En développement
 
 ### Modifié
-- Refonte majeure du système de progression de l'équipement et correction d'erreurs de compilation liées à l'API.
+- Refonte finale du système de progression de l'équipement : les armures sont des améliorations permanentes, les outils et épées sont des achats temporaires.
 
 ## [0.9.2] - En développement
 

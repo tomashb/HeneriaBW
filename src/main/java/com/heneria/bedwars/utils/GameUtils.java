@@ -2,6 +2,7 @@ package com.heneria.bedwars.utils;
 
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.elements.Team;
+import com.heneria.bedwars.managers.PlayerProgressionManager;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -44,7 +45,29 @@ public final class GameUtils {
                     createArmor(Material.LEATHER_HELMET, color)
             });
         }
+
+        PlayerProgressionManager progression = HeneriaBedwars.getInstance().getPlayerProgressionManager();
+        int armorTier = progression.getArmorTier(player.getUniqueId());
+        if (armorTier > 0) {
+            switch (armorTier) {
+                case 1 -> {
+                    player.getInventory().setBoots(createBoundArmor(Material.CHAINMAIL_BOOTS));
+                    player.getInventory().setLeggings(createBoundArmor(Material.CHAINMAIL_LEGGINGS));
+                }
+                case 2 -> {
+                    player.getInventory().setBoots(createBoundArmor(Material.IRON_BOOTS));
+                    player.getInventory().setLeggings(createBoundArmor(Material.IRON_LEGGINGS));
+                }
+                case 3 -> {
+                    player.getInventory().setBoots(createBoundArmor(Material.DIAMOND_BOOTS));
+                    player.getInventory().setLeggings(createBoundArmor(Material.DIAMOND_LEGGINGS));
+                }
+            }
+        }
+
         player.getInventory().addItem(createStarterSword());
+        player.getInventory().addItem(createStarterPickaxe());
+        player.getInventory().addItem(createStarterAxe());
         player.setLevel(0);
         player.setExp(0f);
     }
@@ -67,5 +90,49 @@ public final class GameUtils {
         meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
         item.setItemMeta(meta);
         return item;
+    }
+
+    private static ItemStack createStarterPickaxe() {
+        ItemStack item = new ItemStack(Material.WOODEN_PICKAXE);
+        ItemMeta meta = item.getItemMeta();
+        meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
+        meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    private static ItemStack createStarterAxe() {
+        ItemStack item = new ItemStack(Material.WOODEN_AXE);
+        ItemMeta meta = item.getItemMeta();
+        meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
+        meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    public static ItemStack createBoundArmor(Material material) {
+        ItemStack item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            meta.addEnchant(Enchantment.BINDING_CURSE, 1, true);
+            meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
+            meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
+            item.setItemMeta(meta);
+        }
+        return item;
+    }
+
+    public static void removeUpgradedToolsAndSwords(Player player) {
+        for (int i = 0; i < player.getInventory().getSize(); i++) {
+            ItemStack item = player.getInventory().getItem(i);
+            if (item == null) continue;
+            Material type = item.getType();
+            String name = type.name();
+            if ((name.endsWith("_SWORD") && type != Material.WOODEN_SWORD) ||
+                (name.endsWith("_PICKAXE") && type != Material.WOODEN_PICKAXE) ||
+                (name.endsWith("_AXE") && type != Material.WOODEN_AXE)) {
+                player.getInventory().setItem(i, null);
+            }
+        }
     }
 }
