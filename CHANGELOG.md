@@ -4,6 +4,7 @@
 
 ### Corrigé
 - Correction d'une `NullPointerException` en initialisant l'état par défaut des arènes à leur création.
+- Correction d'un bug où la Tour Instantanée ne fonctionnait pas et n'était pas consommée.
 
 ## [0.9.0] - En développement
 
