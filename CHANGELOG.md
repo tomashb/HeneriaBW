@@ -6,6 +6,7 @@
 - Réinitialisation complète des arènes avec restauration des lits et nettoyage des items.
 - Limites de construction configurables par arène via `boundaries.max-y`.
 - Mort instantanée dans le vide grâce à `void-kill-height`.
+- Ajout d'un scoreboard distinct et configurable pour le lobby d'attente.
 
 ### Corrigé
 - Mise à jour de l'API Spigot : remplacement de `EntityType.DROPPED_ITEM` par `EntityType.ITEM`.

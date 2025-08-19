@@ -17,7 +17,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `generators.yml` : Réglez la vitesse et la quantité de chaque générateur de ressources.
   - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
   - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
-  - `scoreboard.yml` : Personnalisez le titre et les lignes du tableau de bord en jeu.
+  - `scoreboard.yml` : Personnalisez les tableaux de bord du lobby d'attente et de la partie via les sections `lobby` et `game`.
   - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons) et définissez un `display-name` lisible pour l'affichage du prochain événement sur le scoreboard.
   - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`).
   - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie, avec l'option `purchase-limit` pour limiter le nombre d'achats par joueur.
@@ -200,6 +200,46 @@ items:
       amount: 4
     slot: 15
     purchase-limit: 3
+```
+
+### Configuration du Scoreboard
+
+Le fichier `scoreboard.yml` est divisé en deux sections : `lobby` pour le lobby d'attente et `game` pour la partie. Chaque section possède son propre `title` et sa liste de `lines`, avec des placeholders dédiés.
+
+- **Lobby :** `{date}`, `{map_name}`, `{current_players}`, `{max_players}`, `{status}`
+- **Jeu :** `{date}`, `{next_event_name}`, `{next_event_time}`, `{team_status}`
+
+Exemple complet :
+
+```yaml
+# Scoreboard pour le lobby d'attente
+lobby:
+  title: "&b&lHeneria BedWars"
+  lines:
+    - "&7{date}"
+    - "&1"
+    - "Carte: &a{map_name}"
+    - "&2"
+    - "Joueurs: &a{current_players}/{max_players}"
+    - "&3"
+    - "&e{status}"
+    - "&4"
+    - "&eheneria.com"
+
+# Scoreboard pour la partie en cours
+game:
+  title: "&b&lHeneria BedWars"
+  lines:
+    - "&7{date}"
+    - "&1"
+    - "Prochain événement:"
+    - "&a{next_event_name} &fen &a{next_event_time}"
+    - "&2"
+    - "{team_status}"
+    - "&3"
+    - "&eheneria.com"
+
+team-line-format: "{team_color_code}{team_icon} {team_bed_status} &f{team_players_alive} {you_marker}"
 ```
 
 ### Limites de Construction de l'Arène
