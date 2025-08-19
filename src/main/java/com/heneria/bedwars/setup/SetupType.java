@@ -9,5 +9,6 @@ public enum SetupType {
     TEAM_BED,
     GENERATOR,
     NPC_SHOP,
-    NPC_UPGRADE
+    NPC_UPGRADE,
+    SPECIAL_NPC
 }

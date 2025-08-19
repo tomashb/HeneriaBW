@@ -1,0 +1,21 @@
+title: "&5Marchand Mystérieux"
+rows: 3
+items:
+  'iron-golem':
+    material: IRON_BLOCK
+    name: "&fGolem de Fer de Poche"
+    lore:
+      - "&7Posez ce bloc pour faire apparaître"
+      - "&7un Golem de Fer qui défendra votre île."
+    cost:
+      resource: DIAMOND
+      amount: 8
+    slot: 11
+    action: 'SPAWN_IRON_GOLEM'
+  'diamond-pickaxe':
+    material: DIAMOND_PICKAXE
+    name: "&bPioche en Diamant"
+    cost:
+      resource: EMERALD
+      amount: 4
+    slot: 15

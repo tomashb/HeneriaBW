@@ -168,6 +168,10 @@ public class EventManager {
                         arena.getDragons().add(dragon);
                     }
                 }
+            } else if (event.getType() == GameEventType.SPAWN_SPECIAL_NPC) {
+                arena.spawnSpecialNpc();
+            } else if (event.getType() == GameEventType.DESPAWN_SPECIAL_NPC) {
+                arena.despawnSpecialNpc();
             }
             String msg = ChatColor.translateAlternateColorCodes('&', event.getMessage());
             for (UUID id : arena.getPlayers()) {

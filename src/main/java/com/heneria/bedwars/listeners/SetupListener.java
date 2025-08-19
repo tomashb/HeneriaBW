@@ -131,6 +131,20 @@ public class SetupListener implements Listener {
             Team team = arena.getTeams().computeIfAbsent(action.getTeamColor(), Team::new);
             team.setUpgradeShopNpcLocation(npcLocation);
             MessageManager.sendMessage(player, "setup.upgrade-npc-set", "team", action.getTeamColor().getDisplayName());
+        } else if (action.getType() == SetupType.SPECIAL_NPC) {
+            Block clickedBlock = event.getClickedBlock();
+            if (clickedBlock == null) {
+                MessageManager.sendMessage(player, "setup.npc-click-block");
+                return;
+            }
+            double x = clickedBlock.getX() + 0.5;
+            double y = clickedBlock.getY() + 1.0;
+            double z = clickedBlock.getZ() + 0.5;
+            float yaw = player.getLocation().getYaw();
+            float pitch = 0.0f;
+            Location npcLocation = new Location(player.getWorld(), x, y, z, yaw, pitch);
+            arena.setSpecialNpcLocation(npcLocation);
+            MessageManager.sendMessage(player, "setup.special-npc-set");
         }
 
         HeneriaBedwars.getInstance().getArenaManager().saveArena(arena);

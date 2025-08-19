@@ -17,6 +17,15 @@ public enum GameEventType {
     /**
      * Spawn one or more Ender Dragons to pressure players.
      */
-    SPAWN_DRAGONS
+    SPAWN_DRAGONS,
+    /**
+     * Spawn the special mid-game merchant NPC.
+     */
+    SPAWN_SPECIAL_NPC,
+
+    /**
+     * Remove the special mid-game merchant NPC.
+     */
+    DESPAWN_SPECIAL_NPC
 }
 
