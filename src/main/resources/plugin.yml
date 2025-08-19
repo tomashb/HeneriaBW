@@ -3,7 +3,6 @@ version: ${project.version}
 main: com.heneria.bedwars.HeneriaBedwars
 api-version: '1.21'
 author: tomashb
-softdepend: [Citizens]
 
 commands:
   bedwars:

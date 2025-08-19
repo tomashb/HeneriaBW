@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [2.1.2] - 2024-05-07
+
+### Modifié
+- Suppression de l'intégration de Citizens et retour à un système de PNJ Villageois pour améliorer la stabilité.
+
 ## [2.1.0] - 2024-05-06
 
 ### Corrigé
