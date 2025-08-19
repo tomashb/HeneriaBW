@@ -11,3 +11,14 @@ game-events:
     new-tier: 2
     broadcast-message: "&2Les générateurs d'Émeraudes ont été améliorés au Niveau II !"
 
+  - time: '30m'
+    type: 'SUDDEN_DEATH'
+    broadcast-message: "&c&lMORT SUBITE ! &fTous les lits restants ont été détruits !"
+
+  - time: '31m'
+    type: 'SPAWN_DRAGONS'
+    # Paramètres optionnels
+    # amount: 1 # Nombre de dragons
+    # location: 'CENTER' # ou des coordonnées spécifiques
+    broadcast-message: "&c&lLES DRAGONS ARRIVENT !"
+

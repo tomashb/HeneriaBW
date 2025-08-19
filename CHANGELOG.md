@@ -12,6 +12,7 @@
 
 ### Ajouté
 - Système d'événements temporisés améliorant automatiquement les générateurs de Diamants et d'Émeraudes avec annonces et intégration au scoreboard.
+- Ajout des événements de Mort Subite (destruction des lits) et d'apparition de Dragons.
 
 ## [0.8.0] - En développement
 

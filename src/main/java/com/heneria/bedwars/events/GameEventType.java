@@ -7,6 +7,16 @@ public enum GameEventType {
     /**
      * Upgrade the tier of specific generators in the arena.
      */
-    UPGRADE_GENERATORS
+    UPGRADE_GENERATORS,
+
+    /**
+     * Destroy all remaining beds to trigger sudden death.
+     */
+    SUDDEN_DEATH,
+
+    /**
+     * Spawn one or more Ender Dragons to pressure players.
+     */
+    SPAWN_DRAGONS
 }
 

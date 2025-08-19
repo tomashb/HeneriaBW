@@ -18,7 +18,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
   - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
   - `scoreboard.yml` : Personnalisez le titre et les lignes du tableau de bord en jeu.
-  - `events.yml` : Planifiez les événements automatiques (ex : amélioration des générateurs).
+  - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons).
   - `messages.yml` : Traduisez et personnalisez tous les messages du plugin.
 
 Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le plugin à n'importe quelle langue ou style.
@@ -108,6 +108,25 @@ game-events:
 ```
 
 Chaque entrée peut préciser un temps (`time`), le type d'événement (`type`), les cibles (`targets`), le nouveau niveau (`new-tier`) et le message diffusé aux joueurs.
+
+Les types disponibles incluent :
+
+- `UPGRADE_GENERATORS` : améliore le niveau de certains générateurs.
+- `SUDDEN_DEATH` : détruit tous les lits restants et empêche toute réapparition.
+- `SPAWN_DRAGONS` : fait apparaître un ou plusieurs dragons pour accélérer la fin de partie.
+
+Exemple incluant ces nouveaux événements :
+
+```yaml
+game-events:
+  - time: '30m'
+    type: 'SUDDEN_DEATH'
+    broadcast-message: "&c&lMORT SUBITE ! &fTous les lits restants ont été détruits !"
+
+  - time: '31m'
+    type: 'SPAWN_DRAGONS'
+    broadcast-message: "&c&lLES DRAGONS ARRIVENT !"
+```
 
 ### Configuration de la Base de Données
 

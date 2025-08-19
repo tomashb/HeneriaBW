@@ -20,6 +20,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.EnderDragon;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -51,6 +52,7 @@ public class Arena {
     // NEW CACHE SYSTEM: SIMPLE AND DIRECT
     private final Map<Block, Team> bedBlocks = new HashMap<>();
     private final List<Block> placedBlocks = new ArrayList<>();
+    private final List<EnderDragon> dragons = new ArrayList<>();
     private BukkitTask countdownTask;
     private int countdownDuration = 10;
 
@@ -272,6 +274,10 @@ public class Arena {
         return placedBlocks;
     }
 
+    public List<EnderDragon> getDragons() {
+        return dragons;
+    }
+
     public void registerBeds() {
         bedBlocks.clear();
         for (Team team : teams.values()) {
@@ -293,6 +299,50 @@ public class Arena {
                 }
             }
         }
+    }
+
+    public void destroyAllBeds() {
+        for (Team team : teams.values()) {
+            if (team.hasBed()) {
+                Location headLocation = team.getBedLocation();
+                if (headLocation != null) {
+                    Block headBlock = headLocation.getBlock();
+                    if (headBlock.getBlockData() instanceof Bed bedData) {
+                        Block footBlock = headBlock.getRelative(bedData.getFacing().getOppositeFace());
+                        headBlock.setType(Material.AIR);
+                        footBlock.setType(Material.AIR);
+                    } else {
+                        headBlock.setType(Material.AIR);
+                    }
+                }
+                team.setHasBed(false);
+            }
+        }
+        clearBeds();
+    }
+
+    public Location getCenterLocation() {
+        org.bukkit.World world = Bukkit.getWorld(worldName);
+        if (world == null) {
+            return null;
+        }
+        double x = 0;
+        double z = 0;
+        int count = 0;
+        for (Team team : teams.values()) {
+            Location bed = team.getBedLocation();
+            if (bed != null) {
+                x += bed.getX();
+                z += bed.getZ();
+                count++;
+            }
+        }
+        if (count > 0) {
+            x /= count;
+            z /= count;
+        }
+        double y = world.getHighestBlockYAt((int) Math.round(x), (int) Math.round(z)) + 10;
+        return new Location(world, x, y, z);
     }
 
     private Team getLeastPopulatedTeam() {
@@ -571,6 +621,8 @@ public class Arena {
         state = GameState.WAITING;
         liveNpcs.forEach(Entity::remove);
         liveNpcs.clear();
+        dragons.forEach(Entity::remove);
+        dragons.clear();
         for (Block block : placedBlocks) {
             block.setType(Material.AIR);
         }

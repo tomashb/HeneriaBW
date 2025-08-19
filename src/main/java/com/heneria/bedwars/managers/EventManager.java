@@ -8,7 +8,9 @@ import com.heneria.bedwars.events.GameEventType;
 import com.heneria.bedwars.events.TimedEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -50,7 +52,9 @@ public class EventManager {
                 }
                 int tier = map.get("new-tier") instanceof Number n ? n.intValue() : 1;
                 String message = map.get("broadcast-message") == null ? "" : String.valueOf(map.get("broadcast-message"));
-                templateEvents.add(new TimedEvent(time, type, targets, tier, message));
+                int amount = map.get("amount") instanceof Number a ? a.intValue() : (type == GameEventType.SPAWN_DRAGONS ? 1 : 0);
+                String location = map.get("location") == null ? null : String.valueOf(map.get("location"));
+                templateEvents.add(new TimedEvent(time, type, targets, tier, message, amount, location));
             }
             templateEvents.sort(Comparator.comparingInt(TimedEvent::getTime));
         }
@@ -151,6 +155,17 @@ public class EventManager {
                             gen.setTier(event.getNewTier());
                             plugin.getGeneratorManager().registerGenerator(gen);
                         }
+                    }
+                }
+            } else if (event.getType() == GameEventType.SUDDEN_DEATH) {
+                arena.destroyAllBeds();
+            } else if (event.getType() == GameEventType.SPAWN_DRAGONS) {
+                int amount = Math.max(1, event.getAmount());
+                Location center = arena.getCenterLocation();
+                if (center != null) {
+                    for (int i = 0; i < amount; i++) {
+                        EnderDragon dragon = center.getWorld().spawn(center, EnderDragon.class);
+                        arena.getDragons().add(dragon);
                     }
                 }
             }
