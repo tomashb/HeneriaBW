@@ -71,6 +71,8 @@ public class GeneratorManager {
                 remaining = getDelayCycles(entry.getKey());
             }
             entry.setValue(remaining);
+            int seconds = (int) Math.ceil(remaining * TICK_RATE / 20.0);
+            plugin.getHologramManager().updateGeneratorCountdown(entry.getKey(), seconds);
         }
     }
 
@@ -111,6 +113,14 @@ public class GeneratorManager {
 
     public void unregisterGenerator(Generator gen) {
         counters.remove(gen);
+    }
+
+    public int getRemainingSeconds(Generator gen) {
+        Integer cycles = counters.get(gen);
+        if (cycles == null) {
+            return -1;
+        }
+        return (int) Math.ceil(cycles * TICK_RATE / 20.0);
     }
 
     /**
