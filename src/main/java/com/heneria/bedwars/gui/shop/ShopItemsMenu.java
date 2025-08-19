@@ -99,12 +99,16 @@ public class ShopItemsMenu extends Menu {
                 }
             }
             ItemStack give = new ItemStack(material, item.amount());
-            if (isSword) {
-                ItemMeta meta = give.getItemMeta();
-                if (meta != null) {
+            ItemMeta meta = give.getItemMeta();
+            if (meta != null) {
+                if (isSword) {
                     meta.getPersistentDataContainer().set(GameUtils.STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
-                    give.setItemMeta(meta);
                 }
+                if ("POPUP_TOWER".equalsIgnoreCase(item.action())) {
+                    meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', item.name()));
+                    meta.getPersistentDataContainer().set(GameUtils.POPUP_TOWER_KEY, PersistentDataType.BYTE, (byte) 1);
+                }
+                give.setItemMeta(meta);
             }
             player.getInventory().addItem(give);
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);

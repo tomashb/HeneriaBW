@@ -5,6 +5,8 @@ import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.managers.ArenaManager;
+import com.heneria.bedwars.utils.GameUtils;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -20,12 +22,13 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Handles special gameplay items like fireballs, instant TNT and bridge eggs.
+ * Handles special gameplay items like fireballs, instant TNT, bridge eggs and pop-up towers.
  */
 public class SpecialItemListener implements Listener {
 
@@ -64,6 +67,29 @@ public class SpecialItemListener implements Listener {
             Egg egg = player.launchProjectile(Egg.class);
             egg.setVelocity(player.getLocation().getDirection().multiply(1.5));
             eggStarts.put(egg, player.getLocation());
+        } else if (type == Material.CHEST && item.hasItemMeta() &&
+                item.getItemMeta().getPersistentDataContainer().has(GameUtils.POPUP_TOWER_KEY, PersistentDataType.BYTE)) {
+            event.setCancelled(true);
+            Team team = arena.getTeam(player);
+            if (team == null) {
+                return;
+            }
+            Block base = player.getLocation().getBlock();
+            for (int i = 0; i <= 4; i++) {
+                Block check = base.getRelative(0, i);
+                if (check.getType() != Material.AIR) {
+                    MessageManager.sendMessage(player, "errors.popup-tower-no-space");
+                    return;
+                }
+            }
+            Material wool = team.getColor().getWoolMaterial();
+            player.teleport(base.getLocation().add(0.5, 4, 0.5));
+            for (int i = 0; i < 4; i++) {
+                Block place = base.getRelative(0, i);
+                place.setType(wool);
+                arena.getPlacedBlocks().add(place);
+            }
+            item.setAmount(item.getAmount() - 1);
         }
     }
 

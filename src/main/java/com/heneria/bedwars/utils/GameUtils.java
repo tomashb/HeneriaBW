@@ -27,6 +27,10 @@ public final class GameUtils {
     public static final NamespacedKey STARTER_KEY =
             new NamespacedKey(HeneriaBedwars.getInstance(), "starter-item");
 
+    /** Key used to identify Pop-up Tower items. */
+    public static final NamespacedKey POPUP_TOWER_KEY =
+            new NamespacedKey(HeneriaBedwars.getInstance(), "popup-tower");
+
     /**
      * Gives the default starting kit to the specified player.
      *
