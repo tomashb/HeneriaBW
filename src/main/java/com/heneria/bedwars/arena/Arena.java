@@ -573,8 +573,10 @@ public class Arena {
         World world = Bukkit.getWorld(this.worldName);
         if (world != null) {
             world.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
+            world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
             world.setStorm(false);
             world.setThundering(false);
+            world.setTime(6000L);
         }
         System.out.println("[DEBUG-STARTGAME] Préparation du monde terminée.");
 
@@ -746,6 +748,7 @@ public class Arena {
         for (Team team : teams.values()) {
             team.getMembers().clear();
             team.setHasBed(true);
+            team.resetUpgrades();
         }
         state = GameState.WAITING;
         liveNpcs.forEach(Entity::remove);

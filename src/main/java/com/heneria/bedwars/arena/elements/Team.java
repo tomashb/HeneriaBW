@@ -210,6 +210,14 @@ public class Team {
     }
 
     /**
+     * Resets all upgrades and traps for this team.
+     */
+     public void resetUpgrades() {
+         upgradeLevels.clear();
+         traps.clear();
+     }
+
+    /**
      * Gets all traps and their active state for this team.
      *
      * @return map of traps

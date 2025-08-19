@@ -8,6 +8,7 @@ import com.heneria.bedwars.arena.enums.TeamColor;
 import com.heneria.bedwars.arena.enums.GeneratorType;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameRule;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -53,6 +54,10 @@ public class ArenaManager {
             }
             if (config.contains("world")) {
                 arena.setWorldName(config.getString("world"));
+                World arenaWorld = Bukkit.getWorld(arena.getWorldName());
+                if (arenaWorld != null) {
+                    arenaWorld.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+                }
             }
             if (config.contains("minPlayers")) {
                 arena.setMinPlayers(config.getInt("minPlayers"));
@@ -288,6 +293,26 @@ public class ArenaManager {
      */
     public Collection<Arena> getAllArenas() {
         return arenas.values();
+    }
+
+    /**
+     * Deletes an arena from memory and disk.
+     *
+     * @param name the arena name
+     * @return {@code true} if the arena existed and was removed
+     */
+    public boolean deleteArena(String name) {
+        Arena removed = arenas.remove(name.toLowerCase());
+        if (removed == null) {
+            return false;
+        }
+        File dir = new File(plugin.getDataFolder(), "arenas");
+        File file = new File(dir, name.toLowerCase() + ".yml");
+        if (file.exists()) {
+            //noinspection ResultOfMethodCallIgnored
+            file.delete();
+        }
+        return true;
     }
 
     /**
