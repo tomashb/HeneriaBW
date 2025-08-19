@@ -86,7 +86,8 @@ public class GeneratorManager {
             case EMERALD -> material = Material.EMERALD;
             default -> material = Material.IRON_INGOT;
         }
-        gen.getLocation().getWorld().dropItemNaturally(gen.getLocation(), new ItemStack(material, gs.amount()));
+        Location dropLocation = gen.getLocation().clone().add(0.5, 0.5, 0.5);
+        dropLocation.getWorld().dropItem(dropLocation, new ItemStack(material, gs.amount()));
     }
 
     private GeneratorSettings getSettings(Generator gen) {

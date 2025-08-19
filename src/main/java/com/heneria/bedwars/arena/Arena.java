@@ -243,7 +243,7 @@ public class Arena {
         player.setExp(0f);
         player.setGameMode(GameMode.ADVENTURE);
         player.getInventory().setItem(0, TeamSelectorListener.createSelectorItem());
-        player.getInventory().setItem(7, LeaveItemListener.createLeaveItem());
+        player.getInventory().setItem(8, LeaveItemListener.createLeaveItem());
         Team team = getLeastPopulatedTeam();
         if (team != null) {
             team.addMember(player.getUniqueId());

@@ -22,6 +22,10 @@
 - Le sélecteur d'équipe fonctionne aussi lors d'un clic dans les airs et son menu affiche des bordures en verre ainsi que les équipes pleines.
 - La vitesse des générateurs est réinitialisée entre les parties et les émeraudes de forge apparaissent désormais sur les générateurs des îles.
 - Les joueurs ne perdent plus de faim dans une arène.
+- Détection du clic droit dans les items de lobby pour corriger l'erreur de compilation et le clic dans le vide.
+- Le Verre Trempé a été déplacé dans la catégorie "Blocs" et la génération d'or a été ralentie.
+- L'item "Quitter la partie" occupe désormais le 9ème slot et le titre du sélecteur d'équipe est correctement chargé.
+- Les minerais apparaissent maintenant au centre exact des générateurs.
 
 ## [1.0.0-RC4] - En développement
 
