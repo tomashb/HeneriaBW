@@ -38,6 +38,20 @@ main-menu:
         - "&7Pour creuser vite"
       slot: 14
       category: 'tools_category'
+    'potions':
+      material: BREWING_STAND
+      name: "&dPotions"
+      lore:
+        - "&7Effets temporaires"
+      slot: 15
+      category: 'potions_category'
+    'ranged':
+      material: BOW
+      name: "&6Combat à Distance"
+      lore:
+        - "&7Arcs et flèches"
+      slot: 16
+      category: 'ranged_category'
 
 # Définition d'une catégorie d'objets
 shop-categories:
@@ -213,6 +227,22 @@ shop-categories:
           amount: 6
         slot: 20
         action: 'HEALER_MILK'
+      'golden_apple':
+        material: GOLDEN_APPLE
+        name: "&6Pomme d'Or"
+        amount: 1
+        cost:
+          resource: GOLD
+          amount: 3
+        slot: 21
+      'water_bucket':
+        material: WATER_BUCKET
+        name: "&9Seau d'eau"
+        amount: 1
+        cost:
+          resource: GOLD
+          amount: 3
+        slot: 22
 
   'armors_category':
     title: "Armures"
@@ -330,4 +360,77 @@ shop-categories:
           resource: IRON
           amount: 20
         slot: 12
+
+  'potions_category':
+    title: "Potions"
+    rows: 3
+    items:
+      'speed_potion':
+        material: POTION
+        name: "&bPotion de Vitesse"
+        amount: 1
+        cost:
+          resource: EMERALD
+          amount: 1
+        slot: 10
+        potion-effects:
+          - type: SPEED
+            duration: 45
+            amplifier: 1
+      'jump_potion':
+        material: POTION
+        name: "&aPotion de Saut"
+        amount: 1
+        cost:
+          resource: EMERALD
+          amount: 1
+        slot: 11
+        potion-effects:
+          - type: JUMP
+            duration: 45
+            amplifier: 2
+      'invisibility_potion':
+        material: POTION
+        name: "&7Potion d'Invisibilité"
+        amount: 1
+        cost:
+          resource: EMERALD
+          amount: 2
+        slot: 12
+        potion-effects:
+          - type: INVISIBILITY
+            duration: 30
+            amplifier: 0
+
+  'ranged_category':
+    title: "Combat à Distance"
+    rows: 3
+    items:
+      'arrows':
+        material: ARROW
+        name: "&fFlèches"
+        amount: 8
+        cost:
+          resource: IRON
+          amount: 8
+        slot: 10
+      'bow':
+        material: BOW
+        name: "&fArc"
+        amount: 1
+        cost:
+          resource: GOLD
+          amount: 12
+        slot: 11
+      'power_bow':
+        material: BOW
+        name: "&6Arc Puissant"
+        amount: 1
+        cost:
+          resource: EMERALD
+          amount: 6
+        slot: 12
+        enchantments:
+          - type: POWER
+            level: 1
 

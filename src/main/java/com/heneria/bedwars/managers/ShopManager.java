@@ -3,8 +3,11 @@ package com.heneria.bedwars.managers;
 import com.heneria.bedwars.HeneriaBedwars;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.io.File;
 import java.util.*;
@@ -72,8 +75,28 @@ public class ShopManager {
                             ConfigurationSection tierSec = config.getConfigurationSection(path + ".upgrade_tier");
                             String type = tierSec != null ? tierSec.getString("type") : null;
                             int level = tierSec != null ? tierSec.getInt("level", 0) : 0;
+
+                            List<PotionEffect> potionEffects = new ArrayList<>();
+                            for (Map<?, ?> map : config.getMapList(path + ".potion-effects")) {
+                                PotionEffectType pet = PotionEffectType.getByName(String.valueOf(map.get("type")));
+                                if (pet != null) {
+                                    int duration = map.get("duration") instanceof Number d ? d.intValue() * 20 : 0;
+                                    int amplifier = map.get("amplifier") instanceof Number a ? a.intValue() : 0;
+                                    potionEffects.add(new PotionEffect(pet, duration, amplifier));
+                                }
+                            }
+
+                            Map<Enchantment, Integer> enchantments = new HashMap<>();
+                            for (Map<?, ?> map : config.getMapList(path + ".enchantments")) {
+                                Enchantment ench = Enchantment.getByName(String.valueOf(map.get("type")));
+                                if (ench != null) {
+                                    int lvl = map.get("level") instanceof Number n ? n.intValue() : 1;
+                                    enchantments.put(ench, lvl);
+                                }
+                            }
+
                             items.computeIfAbsent(slot, k -> new ArrayList<>())
-                                    .add(new ShopItem(material, name, amount, resource, cost, slot, action, type, level));
+                                    .add(new ShopItem(material, name, amount, resource, cost, slot, action, type, level, potionEffects, enchantments));
                         } catch (IllegalArgumentException ex) {
                             plugin.getLogger().warning("Invalid item configuration for category " + id + ": " + itemKey);
                         }
@@ -104,7 +127,8 @@ public class ShopManager {
     }
 
     public record ShopItem(Material material, String name, int amount, ResourceType costResource,
-                           int costAmount, int slot, String action, String upgradeType, int upgradeLevel) {
+                           int costAmount, int slot, String action, String upgradeType, int upgradeLevel,
+                           List<PotionEffect> potionEffects, Map<Enchantment, Integer> enchantments) {
     }
 
     public record ShopCategory(String id, String title, int rows, Map<Integer, List<ShopItem>> items) {
