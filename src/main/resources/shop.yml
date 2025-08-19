@@ -89,6 +89,15 @@ shop-categories:
           resource: IRON
           amount: 24
         slot: 12
+      'tempered_glass':
+        material: GLASS
+        name: "&fVerre Trempé"
+        amount: 4
+        cost:
+          resource: IRON
+          amount: 12
+        slot: 13
+        action: 'TEMPERED_GLASS'
   'utilities_category':
     title: "Utilitaires"
     rows: 5
@@ -143,15 +152,6 @@ shop-categories:
           amount: 2
         slot: 15
         action: 'ENEMY_TRACKER'
-      'tempered_glass':
-        material: GLASS
-        name: "&fVerre Trempé"
-        amount: 4
-        cost:
-          resource: IRON
-          amount: 12
-        slot: 16
-        action: 'TEMPERED_GLASS'
       'magic_sponge':
         material: SPONGE
         name: "&eÉponge Magique"
@@ -159,7 +159,7 @@ shop-categories:
         cost:
           resource: GOLD
           amount: 3
-        slot: 17
+        slot: 16
         action: 'MAGIC_SPONGE'
       'safety_platform':
         material: SLIME_BLOCK
@@ -168,7 +168,7 @@ shop-categories:
         cost:
           resource: IRON
           amount: 20
-        slot: 18
+        slot: 17
         action: 'SAFETY_PLATFORM'
       'healer_milk':
         material: MILK_BUCKET
@@ -177,7 +177,7 @@ shop-categories:
         cost:
           resource: GOLD
           amount: 6
-        slot: 19
+        slot: 18
         action: 'HEALER_MILK'
   'armors_category':
     title: "Armures"

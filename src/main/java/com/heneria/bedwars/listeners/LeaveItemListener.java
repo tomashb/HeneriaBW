@@ -46,7 +46,7 @@ public class LeaveItemListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
         Action action = event.getAction();
-        if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) {
+        if (!action.isRightClick()) {
             return;
         }
         ItemStack item = event.getItem();

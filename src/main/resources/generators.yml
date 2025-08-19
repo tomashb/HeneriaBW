@@ -10,10 +10,10 @@ IRON:
     amount: 2
 GOLD:
   tier-1:
-    delay: 6.0
+    delay: 8.0
     amount: 1
   tier-2:
-    delay: 4.0
+    delay: 6.0
     amount: 1
 DIAMOND:
   tier-1:

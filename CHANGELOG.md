@@ -18,10 +18,18 @@
 - Limites de construction configurables incluant une distance maximale au centre de l'arène.
 - Toutes les fonctionnalités prévues pour la version initiale sont désormais implémentées.
 
+### Modifié
+- Le Verre Trempé a été déplacé dans la catégorie « Blocs » de la boutique.
+- Les générateurs d'or produisent plus lentement pour améliorer l'équilibrage.
+
 ### Corrigé
 - Le sélecteur d'équipe fonctionne aussi lors d'un clic dans les airs et son menu affiche des bordures en verre ainsi que les équipes pleines.
 - La vitesse des générateurs est réinitialisée entre les parties et les émeraudes de forge apparaissent désormais sur les générateurs des îles.
 - Les joueurs ne perdent plus de faim dans une arène.
+- L'item « Quitter l'arène » est désormais placé dans le neuvième slot du lobby.
+- Les clics dans le vide déclenchent correctement les items de lobby.
+- Le titre du sélecteur d'équipe est correctement traduit via le fichier de messages.
+- Les ressources apparaissent maintenant au centre exact de leur bloc générateur.
 
 ## [1.0.0-RC4] - En développement
 

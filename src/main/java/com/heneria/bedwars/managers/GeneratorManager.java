@@ -8,8 +8,10 @@ import com.heneria.bedwars.arena.enums.GeneratorType;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import java.io.File;
 import java.util.*;
@@ -86,7 +88,9 @@ public class GeneratorManager {
             case EMERALD -> material = Material.EMERALD;
             default -> material = Material.IRON_INGOT;
         }
-        gen.getLocation().getWorld().dropItemNaturally(gen.getLocation(), new ItemStack(material, gs.amount()));
+        Location dropLoc = gen.getLocation().clone().add(0.5, 0.5, 0.5);
+        Item item = dropLoc.getWorld().dropItem(dropLoc, new ItemStack(material, gs.amount()));
+        item.setVelocity(new Vector(0, 0, 0));
     }
 
     private GeneratorSettings getSettings(Generator gen) {
