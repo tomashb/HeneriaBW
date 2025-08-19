@@ -113,7 +113,7 @@ shop-categories:
         slot: 13
       'popup_tower':
         material: CHEST
-        name: "&6Tour instantanée"
+        name: "&6Ascenseur de Laine"
         amount: 1
         cost:
           resource: IRON
