@@ -29,6 +29,7 @@ import com.heneria.bedwars.managers.DatabaseManager;
 import com.heneria.bedwars.managers.StatsManager;
 import com.heneria.bedwars.managers.EventManager;
 import com.heneria.bedwars.managers.PlayerProgressionManager;
+import com.heneria.bedwars.managers.HologramManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,6 +40,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private ArenaManager arenaManager;
     private SetupManager setupManager;
     private GeneratorManager generatorManager;
+    private HologramManager hologramManager;
     private ShopManager shopManager;
     private SpecialShopManager specialShopManager;
     private UpgradeManager upgradeManager;
@@ -61,6 +63,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.arenaManager = new ArenaManager(this);
         this.setupManager = new SetupManager();
         this.arenaManager.loadArenas();
+        this.hologramManager = new HologramManager(this);
         this.generatorManager = new GeneratorManager(this);
         this.shopManager = new ShopManager(this);
         this.specialShopManager = new SpecialShopManager(this);
@@ -85,6 +88,9 @@ public final class HeneriaBedwars extends JavaPlugin {
     public void onDisable() {
         if (statsManager != null) {
             statsManager.saveAll();
+        }
+        if (hologramManager != null) {
+            hologramManager.clear();
         }
         getLogger().info("HeneriaBedwars a été désactivé.");
     }
@@ -123,6 +129,10 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public GeneratorManager getGeneratorManager() {
         return generatorManager;
+    }
+
+    public HologramManager getHologramManager() {
+        return hologramManager;
     }
 
     public ShopManager getShopManager() {

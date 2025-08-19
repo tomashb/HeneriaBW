@@ -609,6 +609,7 @@ public class Arena {
 
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);
+            HeneriaBedwars.getInstance().getHologramManager().createGeneratorHologram(gen);
         }
         System.out.println("[DEBUG-STARTGAME] Démarrage des générateurs terminé.");
 
