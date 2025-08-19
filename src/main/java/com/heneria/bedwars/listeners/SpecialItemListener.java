@@ -59,32 +59,48 @@ public class SpecialItemListener implements Listener {
             if ("POPUP_TOWER".equals(special)) {
                 System.out.println("SpecialItemListener: Pop-up Tower item detected for " + player.getName());
                 event.setCancelled(true);
+                int towerHeight = 4; // Hauteur de la tour en blocs
+                Block baseBlock = player.getLocation().getBlock(); // Le bloc où sont les pieds du joueur
+
+                // --- 1. Vérification de l'espace ---
+                // Vérifier que l'espace pour la tour est libre
+                for (int i = 0; i < towerHeight; i++) {
+                    Block blockToCheck = baseBlock.getRelative(BlockFace.DOWN, i);
+                    // On autorise la construction sur de l'air ou des plantes, mais pas des blocs solides (sauf le premier)
+                    if (i > 0 && !blockToCheck.isPassable() && blockToCheck.getType() != Material.AIR) {
+                        player.sendMessage("§cEspace obstrué en dessous !");
+                        return; // On ne consomme pas l'item
+                    }
+                }
+                // Vérifier que le joueur a 2 blocs d'air au-dessus de lui pour être surélevé
+                if (baseBlock.getRelative(BlockFace.UP, 1).getType() != Material.AIR || baseBlock.getRelative(BlockFace.UP, 2).getType() != Material.AIR) {
+                    player.sendMessage("§cPas assez d'espace au-dessus de votre tête !");
+                    return; // On ne consomme pas l'item
+                }
+
+                // --- 2. Si l'espace est libre, on consomme l'item ---
+                event.getItem().setAmount(event.getItem().getAmount() - 1);
+
+                // --- 3. Construction de la tour ---
                 Team team = arena.getTeam(player);
                 if (team == null) {
                     return;
                 }
-                Block currentBlock = player.getLocation().getBlock();
-                boolean canPlace = true;
-                for (int i = 0; i < 4; i++) {
-                    Block blockToPlace = currentBlock.getRelative(BlockFace.DOWN, i);
-                    if (blockToPlace.getType() != Material.AIR) {
-                        canPlace = false;
-                        break;
-                    }
-                }
-                if (!canPlace) {
-                    player.sendMessage("§cVous ne pouvez pas construire une tour ici !");
-                    System.out.println("SpecialItemListener: Pop-up Tower placement failed for " + player.getName());
-                    return;
-                }
-                item.setAmount(item.getAmount() - 1);
-                Material teamWoolMaterial = team.getColor().getWoolMaterial();
-                for (int i = 0; i < 4; i++) {
-                    Block blockToPlace = currentBlock.getRelative(BlockFace.DOWN, i);
-                    blockToPlace.setType(teamWoolMaterial);
+                Material teamWool = team.getColor().getWoolMaterial();
+
+                // On construit de haut en bas, en partant du bloc sous les pieds du joueur
+                for (int i = 0; i < towerHeight; i++) {
+                    Block blockToPlace = baseBlock.getRelative(BlockFace.DOWN, i);
+                    blockToPlace.setType(teamWool);
                     arena.getPlacedBlocks().add(blockToPlace);
                 }
-                player.teleport(currentBlock.getRelative(BlockFace.UP, 1).getLocation().add(0.5, 0, 0.5));
+
+                // --- 4. Téléportation du joueur ---
+                // On téléporte le joueur 1 bloc au-dessus de la base de la tour qu'on vient de créer
+                Location topOfTower = baseBlock.getLocation().add(0.5, 1.0, 0.5);
+                topOfTower.setYaw(player.getLocation().getYaw());
+                topOfTower.setPitch(player.getLocation().getPitch());
+                player.teleport(topOfTower);
                 System.out.println("SpecialItemListener: Pop-up Tower built for " + player.getName());
                 return;
             }
