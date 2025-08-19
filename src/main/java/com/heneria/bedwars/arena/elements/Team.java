@@ -20,6 +20,8 @@ public class Team {
     private Location bedLocation;
     private Location itemShopNpcLocation;
     private Location upgradeShopNpcLocation;
+    private String itemShopSkin;
+    private String upgradeShopSkin;
     private boolean hasBed = true;
     private final Map<String, Integer> upgradeLevels = new HashMap<>();
     private final Map<String, Boolean> traps = new HashMap<>();
@@ -133,6 +135,14 @@ public class Team {
         this.itemShopNpcLocation = itemShopNpcLocation;
     }
 
+    public String getItemShopSkin() {
+        return itemShopSkin;
+    }
+
+    public void setItemShopSkin(String itemShopSkin) {
+        this.itemShopSkin = itemShopSkin;
+    }
+
     /**
      * Gets the location of the team's upgrade shop NPC.
      *
@@ -149,6 +159,14 @@ public class Team {
      */
     public void setUpgradeShopNpcLocation(Location upgradeShopNpcLocation) {
         this.upgradeShopNpcLocation = upgradeShopNpcLocation;
+    }
+
+    public String getUpgradeShopSkin() {
+        return upgradeShopSkin;
+    }
+
+    public void setUpgradeShopSkin(String upgradeShopSkin) {
+        this.upgradeShopSkin = upgradeShopSkin;
     }
 
     /**

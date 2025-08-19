@@ -4,6 +4,8 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.gui.admin.AdminMainMenu;
 import com.heneria.bedwars.utils.MessageManager;
+import com.heneria.bedwars.arena.elements.Team;
+import com.heneria.bedwars.arena.enums.TeamColor;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -64,14 +66,48 @@ public class AdminCommand implements SubCommand {
                 plugin.setMainLobby(player.getLocation());
                 player.sendMessage(ChatColor.GREEN + "Lobby principal défini.");
                 return;
-            } else if (sub.equals("setjoinnpc") && args.length >= 2) {
+            } else if (sub.equals("setjoinnpc") && args.length >= 3) {
                 if (!player.hasPermission("heneriabw.admin.setjoinnpc")) {
                     MessageManager.sendMessage(player, "errors.no-permission");
                     return;
                 }
                 String mode = args[1].toLowerCase();
-                plugin.getNpcManager().addNpc(player.getLocation(), mode);
+                String skin = args[2];
+                plugin.getNpcManager().addNpc(player.getLocation(), mode, skin);
                 player.sendMessage(ChatColor.GREEN + "PNJ de jonction " + mode + " placé.");
+                return;
+            } else if (sub.equals("setshopnpc") && args.length >= 4) {
+                if (!player.hasPermission("heneriabw.admin.setshopnpc")) {
+                    MessageManager.sendMessage(player, "errors.no-permission");
+                    return;
+                }
+                Arena arena = plugin.getArenaManager().getArena(player);
+                if (arena == null) {
+                    MessageManager.sendMessage(player, "errors.arena-not-found");
+                    return;
+                }
+                TeamColor color;
+                try {
+                    color = TeamColor.valueOf(args[1].toUpperCase());
+                } catch (IllegalArgumentException ex) {
+                    MessageManager.sendMessage(player, "errors.invalid-team");
+                    return;
+                }
+                String type = args[2].toLowerCase();
+                String skin = args[3];
+                Team team = arena.getTeams().computeIfAbsent(color, Team::new);
+                if (type.equals("item")) {
+                    team.setItemShopNpcLocation(player.getLocation());
+                    team.setItemShopSkin(skin);
+                } else if (type.equals("upgrade")) {
+                    team.setUpgradeShopNpcLocation(player.getLocation());
+                    team.setUpgradeShopSkin(skin);
+                } else {
+                    MessageManager.sendMessage(player, "errors.invalid-shop-type");
+                    return;
+                }
+                plugin.getArenaManager().saveArena(arena);
+                player.sendMessage(ChatColor.GREEN + "PNJ de boutique placé.");
                 return;
             }
         }
@@ -86,7 +122,7 @@ public class AdminCommand implements SubCommand {
     @Override
     public List<String> tabComplete(Player player, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("delete", "confirmdelete", "setmainlobby", "setjoinnpc");
+            return Arrays.asList("delete", "confirmdelete", "setmainlobby", "setjoinnpc", "setshopnpc");
         }
         if (args.length == 2 && (args[0].equalsIgnoreCase("delete") || args[0].equalsIgnoreCase("confirmdelete"))) {
             List<String> names = new ArrayList<>();
@@ -97,8 +133,19 @@ public class AdminCommand implements SubCommand {
             }
             return names;
         }
-        if (args.length == 2 && args[0].equalsIgnoreCase("setjoinnpc")) {
-            return Arrays.asList("solos", "duos", "trios", "quads");
+        if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("setjoinnpc")) {
+                return Arrays.asList("solos", "duos", "trios", "quads");
+            } else if (args[0].equalsIgnoreCase("setshopnpc")) {
+                List<String> list = new ArrayList<>();
+                for (TeamColor color : TeamColor.values()) {
+                    list.add(color.name().toLowerCase());
+                }
+                return list;
+            }
+        }
+        if (args.length == 3 && args[0].equalsIgnoreCase("setshopnpc")) {
+            return Arrays.asList("item", "upgrade");
         }
         return Collections.emptyList();
     }

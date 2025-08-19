@@ -135,6 +135,9 @@ public class ArenaManager {
                             team.setItemShopNpcLocation(loc);
                         }
                     }
+                    if (config.contains("teams." + key + ".npc.shop.skin")) {
+                        team.setItemShopSkin(config.getString("teams." + key + ".npc.shop.skin"));
+                    }
                     if (config.contains("teams." + key + ".npc.upgrade.world")) {
                         World w = Bukkit.getWorld(config.getString("teams." + key + ".npc.upgrade.world"));
                         if (w != null) {
@@ -146,6 +149,9 @@ public class ArenaManager {
                                     (float) config.getDouble("teams." + key + ".npc.upgrade.pitch"));
                             team.setUpgradeShopNpcLocation(loc);
                         }
+                    }
+                    if (config.contains("teams." + key + ".npc.upgrade.skin")) {
+                        team.setUpgradeShopSkin(config.getString("teams." + key + ".npc.upgrade.skin"));
                     }
                     arena.getTeams().put(color, team);
                 }
@@ -248,6 +254,9 @@ public class ArenaManager {
                     config.set(base + "npc.shop.yaw", loc.getYaw());
                     config.set(base + "npc.shop.pitch", loc.getPitch());
                 }
+                if (team.getItemShopSkin() != null) {
+                    config.set(base + "npc.shop.skin", team.getItemShopSkin());
+                }
                 if (team.getUpgradeShopNpcLocation() != null) {
                     Location loc = team.getUpgradeShopNpcLocation();
                     config.set(base + "npc.upgrade.world", Objects.requireNonNull(loc.getWorld()).getName());
@@ -256,6 +265,9 @@ public class ArenaManager {
                     config.set(base + "npc.upgrade.z", loc.getZ());
                     config.set(base + "npc.upgrade.yaw", loc.getYaw());
                     config.set(base + "npc.upgrade.pitch", loc.getPitch());
+                }
+                if (team.getUpgradeShopSkin() != null) {
+                    config.set(base + "npc.upgrade.skin", team.getUpgradeShopSkin());
                 }
             }
         }

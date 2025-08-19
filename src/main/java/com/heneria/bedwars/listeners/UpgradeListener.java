@@ -6,7 +6,9 @@ import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.gui.upgrades.TeamUpgradesMenu;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.NPC;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -18,10 +20,14 @@ public class UpgradeListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEntityEvent event) {
-        if (!(event.getRightClicked() instanceof Villager villager)) {
+        if (!Bukkit.getPluginManager().isPluginEnabled("Citizens")) {
             return;
         }
-        if (!villager.getScoreboardTags().contains("upgrade_npc")) {
+        if (!CitizensAPI.getNPCRegistry().isNPC(event.getRightClicked())) {
+            return;
+        }
+        NPC npc = CitizensAPI.getNPCRegistry().getNPC(event.getRightClicked());
+        if (!"upgrade".equals(npc.data().get("bw-type"))) {
             return;
         }
         event.setCancelled(true);
