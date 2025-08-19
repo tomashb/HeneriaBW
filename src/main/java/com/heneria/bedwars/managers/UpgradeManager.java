@@ -3,6 +3,8 @@ package com.heneria.bedwars.managers;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -11,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.util.*;
@@ -24,10 +27,14 @@ public class UpgradeManager {
     private YamlConfiguration config;
     private final Map<String, Upgrade> upgrades = new HashMap<>();
     private final Map<String, Trap> traps = new HashMap<>();
+    private double healPoolRadius = 8;
+    private int healPoolAmplifier = 0;
+    private String trapAlarmSound = "ENTITY_ENDER_DRAGON_GROWL";
 
     public UpgradeManager(HeneriaBedwars plugin) {
         this.plugin = plugin;
         loadConfiguration();
+        startHealPoolTask();
     }
 
     private void loadConfiguration() {
@@ -56,6 +63,19 @@ public class UpgradeManager {
                 }
             }
             upgrades.put(id, new Upgrade(id, name, item, tiers));
+
+            if (id.equals("heal-pool")) {
+                ConfigurationSection params = config.getConfigurationSection(base + "tiers.1.parameters");
+                if (params != null) {
+                    healPoolRadius = params.getDouble("radius", 8);
+                    healPoolAmplifier = params.getInt("amplifier", 0);
+                }
+            } else if (id.equals("trap-alarm")) {
+                ConfigurationSection params = config.getConfigurationSection(base + "tiers.1.parameters");
+                if (params != null) {
+                    trapAlarmSound = params.getString("sound", "ENTITY_ENDER_DRAGON_GROWL");
+                }
+            }
         }
 
         traps.clear();
@@ -90,6 +110,15 @@ public class UpgradeManager {
 
     public Trap getTrap(String id) {
         return traps.get(id);
+    }
+
+    /**
+     * Gets the configured sound name for the trap alarm.
+     *
+     * @return sound identifier
+     */
+    public String getTrapAlarmSound() {
+        return trapAlarmSound;
     }
 
     /**
@@ -131,6 +160,25 @@ public class UpgradeManager {
      */
     public void applyTrapEffect(Player player, Trap trap) {
         player.addPotionEffect(new PotionEffect(trap.effectType(), trap.duration() * 20, trap.amplifier(), true, true, true));
+    }
+
+    private void startHealPoolTask() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    Arena arena = plugin.getArenaManager().getArena(player);
+                    if (arena == null) continue;
+                    Team team = arena.getTeam(player);
+                    if (team == null || !team.hasHealPool()) continue;
+                    Location bed = team.getBedLocation();
+                    if (bed == null) continue;
+                    if (player.getLocation().distanceSquared(bed) <= healPoolRadius * healPoolRadius) {
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 5, healPoolAmplifier, true, true, true));
+                    }
+                }
+            }
+        }.runTaskTimer(plugin, 0L, 40L);
     }
 
     /**
