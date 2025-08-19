@@ -10,11 +10,11 @@ lines:
   - "&7{date}"
   - "&1"
   - "Prochain événement:"
-  - "&a{next_event_name} &fen &a{next_event_time}"
+  - "&a{next_event_name} &fdans &d{next_event_time}"
   - "&2"
   - "{team_status}"
   - "&3"
-  - "&eplay.votreserveur.com"
+  - "&eheneria.com"
 
 # Format pour chaque ligne d'équipe dans {team_status}
 # Placeholders:
