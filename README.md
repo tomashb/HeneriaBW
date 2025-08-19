@@ -19,7 +19,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
   - `scoreboard.yml` : Personnalisez les tableaux de bord du lobby d'attente et de la partie via les sections `lobby` et `game`.
   - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons) et définissez un `display-name` lisible pour l'affichage du prochain événement sur le scoreboard.
-  - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`).
+  - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`) et personnalisez les hologrammes des générateurs via `generator-holograms`.
   - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie, avec l'option `purchase-limit` pour limiter le nombre d'achats par joueur.
   - `messages.yml` : Traduisez et personnalisez tous les messages du plugin.
 
@@ -37,6 +37,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
  - 🛡️ **Progression Hybride** : Les armures achetées sont conservées après la mort, tandis que les outils et épées doivent être rachetés.
 - 🌈 **Achats intelligents** : La laine achetée s'adapte automatiquement à la couleur de votre équipe et toute nouvelle épée remplace la précédente.
 - 📊 **Tableau de Bord Dynamique** : Consultez en un coup d'œil l'état des équipes et le prochain événement.
+- 👁️ **Hologrammes de Générateur** : Affiche un compte à rebours au-dessus des générateurs de Diamants et Émeraudes grâce à [DecentHolograms](https://github.com/DecentSoftware-eu/DecentHolograms).
 - 🛍️ **Marchand Mystérieux** : Un PNJ spécial apparaît au centre en milieu de partie pour vendre des objets uniques comme le Golem de Fer de Poche.
 - 🏆 **Conditions de Victoire** : La partie se termine automatiquement lorsque la dernière équipe en vie est déclarée vainqueur, et l'arène se réinitialise pour le prochain combat.
 
@@ -288,6 +289,21 @@ mobs:
 
 Cette valeur contrôle les dégâts infligés par les Golems de Fer invoqués par les joueurs.
 
+### Hologrammes de Générateur
+
+Si le plugin [DecentHolograms](https://github.com/DecentSoftware-eu/DecentHolograms) est installé, HeneriaBedwars peut afficher un compte à rebours au-dessus des générateurs de Diamants et d'Émeraudes. Le texte et la hauteur sont configurables :
+
+```yaml
+generator-holograms:
+  diamond:
+    text: "&bDiamant dans &f{time}"
+    height: 2.5
+  emerald:
+    text: "&aÉmeraude dans &f{time}"
+    height: 2.5
+```
+
+Le placeholder `{time}` est remplacé par le nombre de secondes restantes avant la prochaine apparition de ressource.
 
 ---
 

@@ -6,9 +6,11 @@
 - Message de chat lors de la destruction d'un lit.
 - Commande `/bw admin delete` avec confirmation pour supprimer une arène.
 - Jour permanent dans les arènes (cycle jour/nuit désactivé).
+- Affichage d'hologrammes au-dessus des générateurs de Diamants et Émeraudes (DecentHolograms).
 
 ### Corrigé
 - Réinitialisation des améliorations d'équipe à la fin de chaque partie.
+- Correction du build en ajoutant le dépôt Maven de `tr7zw`.
 
 ## [1.0.0-RC3] - En développement
 

@@ -3,11 +3,12 @@ version: ${project.version}
 main: com.heneria.bedwars.HeneriaBedwars
 api-version: '1.21'
 author: tomashb
+softdepend: [DecentHolograms]
 
 commands:
-  bedwars:
-    description: Commande principale de HeneriaBedwars.
-    aliases: [bw, hbw]
+    bedwars:
+        description: Commande principale de HeneriaBedwars.
+        aliases: [bw, hbw]
 
 permissions:
   heneriabw.admin:
