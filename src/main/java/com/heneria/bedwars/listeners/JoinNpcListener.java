@@ -2,8 +2,8 @@ package com.heneria.bedwars.listeners;
 
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.gui.ArenaSelectorMenu;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -15,10 +15,8 @@ public class JoinNpcListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEntityEvent event) {
-        if (!(event.getRightClicked() instanceof Villager villager)) {
-            return;
-        }
-        String mode = HeneriaBedwars.getInstance().getNpcManager().getMode(villager);
+        Entity entity = event.getRightClicked();
+        String mode = HeneriaBedwars.getInstance().getNpcManager().getMode(entity);
         if (mode == null) {
             return;
         }

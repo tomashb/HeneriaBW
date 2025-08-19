@@ -1,5 +1,13 @@
 # Changelog - HeneriaBedwars
 
+## [2.1.0] - 2024-05-06
+
+### Corrigé
+- Correction d'une erreur de build en ajoutant le dépôt Maven officiel de Citizens.
+
+### Ajouté
+- Intégration de l'API Citizens pour créer des PNJ joueurs aux skins personnalisés.
+
 ## [2.0.0] - 2024-05-05
 
 ### Ajouté
