@@ -28,6 +28,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 ### Pour les Joueurs
 
 - 🕹️ **Cycle de Jeu Complet** : Rejoignez une arène, attendez dans le lobby avec un décompte, et lancez-vous dans la bataille.
+- 🎽 **Sélecteur d'équipe** : Choisissez votre camp grâce à un menu interactif avant le début de la partie.
 - 🛏️ **Mécaniques Classiques** : Protégez votre lit pour pouvoir réapparaître, et détruisez celui de vos ennemis pour les éliminer définitivement.
 - 💰 **Système Économique** : Collectez du Fer, de l'Or, des Diamants et des Émeraudes à des vitesses différentes pour acheter de l'équipement.
 - 🔥 **Forge évolutive** : Améliorez la Forge de votre équipe pour accélérer le Fer et l'Or, le dernier niveau produisant même des Émeraudes sur votre île.
@@ -249,14 +250,15 @@ team-line-format: "{team_color_code}{team_icon} {team_bed_status} &f{team_player
 
 ### Limites de Construction de l'Arène
 
-Chaque arène peut définir une hauteur maximale de construction pour éviter les abus. Dans le fichier `arenas/<nom>.yml`, ajoutez:
+Chaque arène peut définir des limites pour empêcher les constructions abusives. Dans le fichier `arenas/<nom>.yml`, ajoutez :
 
 ```yaml
 boundaries:
   max-y: 150
+  max-distance-from-center: 100
 ```
 
-Tout bloc placé au-dessus de cette limite sera automatiquement annulé côté serveur.
+Les blocs placés au‑dessus ou au‑delà de ces limites seront automatiquement annulés côté serveur.
 
 ### Configuration de la Base de Données
 

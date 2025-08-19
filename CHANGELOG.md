@@ -1,5 +1,13 @@
 # Changelog - HeneriaBedwars
 
+## [1.0.0] - 2024-04-XX
+
+### Ajouté
+- Sélecteur d'équipe interactif permettant aux joueurs de choisir leur camp avant le début de la partie.
+- Protections complètes du lobby d'attente (PvP désactivé, mode aventure).
+- Limites de construction configurables incluant une distance maximale au centre de l'arène.
+- Toutes les fonctionnalités prévues pour la version initiale sont désormais implémentées.
+
 ## [1.0.0-RC4] - En développement
 
 ### Ajouté
