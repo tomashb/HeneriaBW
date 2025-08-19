@@ -2,6 +2,12 @@
 
 ## [0.9.2] - En développement
 
+### Corrigé
+- Boutique spéciale : ajout des limites d'achat et remplacement de la Pioche en Diamant par la Super Boule de Feu.
+- Le Golem de Fer ne peut être posé que sur l'île de son propriétaire et cible maintenant les ennemis.
+- Correction de l'événement `SPAWN_DRAGONS` pour que les dragons apparaissent correctement.
+- Désactivation de la perte de faim pendant les parties.
+
 ### Ajouté
 - Ajout de l'achat d'outils et d'armures par paliers individuels dans la boutique d'objets.
 

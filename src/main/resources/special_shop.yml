@@ -12,10 +12,12 @@ items:
       amount: 8
     slot: 11
     action: 'SPAWN_IRON_GOLEM'
-  'diamond-pickaxe':
-    material: DIAMOND_PICKAXE
-    name: "&bPioche en Diamant"
+    purchase-limit: 1
+  'super-fireball':
+    material: FIRE_CHARGE
+    name: "&cSuper Boule de Feu"
     cost:
       resource: EMERALD
       amount: 4
     slot: 15
+    purchase-limit: 3

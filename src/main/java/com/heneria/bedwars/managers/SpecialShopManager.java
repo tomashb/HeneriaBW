@@ -47,7 +47,8 @@ public class SpecialShopManager {
                     int cost = config.getInt(base + "cost.amount", 1);
                     int slot = config.getInt(base + "slot", 0);
                     String action = config.getString(base + "action");
-                    items.put(slot, new SpecialItem(material, name, lore, resource, cost, slot, action));
+                    int limit = config.getInt(base + "purchase-limit", 0);
+                    items.put(slot, new SpecialItem(key, material, name, lore, resource, cost, slot, action, limit));
                 } catch (IllegalArgumentException ex) {
                     plugin.getLogger().warning("Invalid special shop item: " + key);
                 }
@@ -70,8 +71,8 @@ public class SpecialShopManager {
     /**
      * Represents an item sold in the special shop.
      */
-    public record SpecialItem(Material material, String name, List<String> lore,
-                              ResourceType costResource, int costAmount, int slot, String action) {
+    public record SpecialItem(String id, Material material, String name, List<String> lore,
+                              ResourceType costResource, int costAmount, int slot, String action, int purchaseLimit) {
     }
 }
 

@@ -55,6 +55,8 @@ public class Arena {
     private final Map<Block, Team> bedBlocks = new HashMap<>();
     private final List<Block> placedBlocks = new ArrayList<>();
     private final List<EnderDragon> dragons = new ArrayList<>();
+    /** Tracks per-player purchase counts for limited special shop items. */
+    private final Map<UUID, Map<String, Integer>> purchaseCounts = new HashMap<>();
     private BukkitTask countdownTask;
     private int countdownDuration = 10;
 
@@ -280,6 +282,41 @@ public class Arena {
 
     public List<EnderDragon> getDragons() {
         return dragons;
+    }
+
+    /**
+     * Spawns a dragon at the arena's center location.
+     */
+    public void spawnDragon() {
+        Location center = getCenterLocation();
+        if (center == null) {
+            HeneriaBedwars.getInstance().getLogger().warning("Cannot spawn dragon: center is null for arena " + name);
+            return;
+        }
+        EnderDragon dragon = center.getWorld().spawn(center, EnderDragon.class);
+        dragons.add(dragon);
+        HeneriaBedwars.getInstance().getLogger().info("Arena " + name + " spawned a dragon at " + center);
+    }
+
+    /**
+     * Checks and records a purchase for a limited special shop item.
+     *
+     * @param uuid    player unique id
+     * @param itemId  unique item identifier
+     * @param limit   maximum times the item may be purchased by this player
+     * @return {@code true} if the player can purchase, {@code false} otherwise
+     */
+    public boolean canPurchase(UUID uuid, String itemId, int limit) {
+        if (limit <= 0) {
+            return true;
+        }
+        Map<String, Integer> map = purchaseCounts.computeIfAbsent(uuid, k -> new HashMap<>());
+        int count = map.getOrDefault(itemId, 0);
+        if (count >= limit) {
+            return false;
+        }
+        map.put(itemId, count + 1);
+        return true;
     }
 
     public void addNpc(Entity entity) {
@@ -664,6 +701,7 @@ public class Arena {
         specialNpc = null;
         dragons.forEach(Entity::remove);
         dragons.clear();
+        purchaseCounts.clear();
         for (Block block : placedBlocks) {
             block.setType(Material.AIR);
         }
