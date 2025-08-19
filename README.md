@@ -36,6 +36,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
  - 🛡️ **Progression Hybride** : Les armures achetées sont conservées après la mort, tandis que les outils et épées doivent être rachetés.
 - 🌈 **Achats intelligents** : La laine achetée s'adapte automatiquement à la couleur de votre équipe et toute nouvelle épée remplace la précédente.
 - 📊 **Tableau de Bord Dynamique** : Consultez en un coup d'œil l'état des équipes et le prochain événement.
+- 📡 **Hologrammes de Générateur** : Des textes flottants indiquent le prochain spawn de Diamants et d'Émeraudes (avec le plugin optionnel **DecentHolograms**).
 - 🛍️ **Marchand Mystérieux** : Un PNJ spécial apparaît au centre en milieu de partie pour vendre des objets uniques comme le Golem de Fer de Poche.
 - 🏆 **Conditions de Victoire** : La partie se termine automatiquement lorsque la dernière équipe en vie est déclarée vainqueur, et l'arène se réinitialise pour le prochain combat.
 
@@ -44,9 +45,10 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 ## 🚀 Installation
 
 1.  Téléchargez la dernière version du plugin depuis la page [Releases](https://github.com/tomashb/HeneriaBW/releases).
-2.  Placez le fichier `.jar` téléchargé dans le dossier `plugins` de votre serveur Spigot 1.21.
-3.  Redémarrez votre serveur.
-4.  Les fichiers de configuration par défaut seront générés dans le dossier `plugins/HeneriaBedwars/`.
+2.  *(Optionnel mais recommandé)* Téléchargez et installez également le plugin **DecentHolograms** pour afficher les hologrammes des générateurs.
+3.  Placez le(s) fichier(s) `.jar` dans le dossier `plugins` de votre serveur Spigot 1.21.
+4.  Redémarrez votre serveur.
+5.  Les fichiers de configuration par défaut seront générés dans le dossier `plugins/HeneriaBedwars/`.
 
 ---
 
@@ -281,8 +283,24 @@ mobs:
     damage: 4.0
 ```
 
-Cette valeur contrôle les dégâts infligés par les Golems de Fer invoqués par les joueurs.
+ Cette valeur contrôle les dégâts infligés par les Golems de Fer invoqués par les joueurs.
 
+### Configuration des Hologrammes de Générateur
+
+La section `generator-holograms` de `config.yml` permet de personnaliser le texte et la hauteur des hologrammes des générateurs. Le placeholder `{time}` est remplacé par le temps restant avant la prochaine apparition.
+
+```yaml
+generator-holograms:
+  enabled: true
+  offset-y: 2.5 # Hauteur de l'hologramme au-dessus du générateur
+  formats:
+    DIAMOND:
+      - "&b&lDiamants"
+      - "&fApparaît dans &a{time}s"
+    EMERALD:
+      - "&2&lÉmeraudes"
+      - "&fApparaît dans &a{time}s"
+```
 
 ---
 

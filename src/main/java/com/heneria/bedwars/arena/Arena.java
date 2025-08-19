@@ -4,6 +4,7 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.elements.Generator;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.GameState;
+import com.heneria.bedwars.arena.enums.GeneratorType;
 import com.heneria.bedwars.arena.enums.TeamColor;
 import com.heneria.bedwars.events.GameStateChangeEvent;
 import com.heneria.bedwars.utils.GameUtils;
@@ -577,6 +578,9 @@ public class Arena {
         }
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);
+            if (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD) {
+                HeneriaBedwars.getInstance().getHologramManager().createGeneratorHologram(gen);
+            }
         }
         HeneriaBedwars.getInstance().getEventManager().startTimeline(this);
         for (Team team : this.getTeams().values()) {
@@ -706,6 +710,7 @@ public class Arena {
 
     public void reset() {
         HeneriaBedwars.getInstance().getEventManager().stopTimeline(this);
+        HeneriaBedwars.getInstance().getHologramManager().removeArenaHolograms(this);
         for (UUID id : new ArrayList<>(players)) {
             Player p = Bukkit.getPlayer(id);
             if (p != null) {
