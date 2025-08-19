@@ -18,6 +18,10 @@ import com.heneria.bedwars.listeners.HungerListener;
 import com.heneria.bedwars.listeners.VoidKillListener;
 import com.heneria.bedwars.listeners.LobbyProtectionListener;
 import com.heneria.bedwars.listeners.TeamSelectorListener;
+import com.heneria.bedwars.listeners.BountyListener;
+import com.heneria.bedwars.listeners.TrackerListener;
+import com.heneria.bedwars.listeners.TemperedGlassListener;
+import com.heneria.bedwars.listeners.HealerMilkListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
@@ -107,6 +111,10 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new VoidKillListener(), this);
         getServer().getPluginManager().registerEvents(new LobbyProtectionListener(), this);
         getServer().getPluginManager().registerEvents(new TeamSelectorListener(), this);
+        getServer().getPluginManager().registerEvents(new BountyListener(), this);
+        getServer().getPluginManager().registerEvents(new TrackerListener(), this);
+        getServer().getPluginManager().registerEvents(new TemperedGlassListener(), this);
+        getServer().getPluginManager().registerEvents(new HealerMilkListener(), this);
     }
 
     public static HeneriaBedwars getInstance() {

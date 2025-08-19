@@ -1,6 +1,22 @@
 void-kill-height: 0
 trap-radius: 10
 
+bounty:
+  killstreak-threshold: 5
+  reward:
+    material: DIAMOND
+    amount: 2
+
+tracker:
+  search-radius: 200
+  update-interval: 20
+
+magic-sponge:
+  radius: 3
+
+healer-milk:
+  radius: 10
+
 database:
     type: sqlite # sqlite or mysql
     save-interval: 5 # minutes between automatic saves

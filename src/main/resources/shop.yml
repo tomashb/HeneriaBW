@@ -89,6 +89,14 @@ shop-categories:
           resource: IRON
           amount: 24
         slot: 12
+      'tempered_glass':
+        material: BLACK_STAINED_GLASS
+        name: "&bVerre Trempé"
+        amount: 4
+        cost:
+          resource: IRON
+          amount: 12
+        slot: 13
   'utilities_category':
     title: "Utilitaires"
     rows: 5
@@ -134,6 +142,43 @@ shop-categories:
           amount: 24
         slot: 14
         action: 'POPUP_TOWER'
+      'tracker_compass':
+        material: COMPASS
+        name: "&6Boussole Traqueuse"
+        amount: 1
+        cost:
+          resource: EMERALD
+          amount: 1
+        slot: 15
+        action: 'ENEMY_TRACKER'
+      'magic_sponge':
+        material: SPONGE
+        name: "&eÉponge Magique"
+        amount: 1
+        cost:
+          resource: GOLD
+          amount: 3
+        slot: 16
+        action: 'MAGIC_SPONGE'
+      'safety_platform':
+        material: FEATHER
+        name: "&fPlateforme de Secours"
+        amount: 1
+        cost:
+          resource: IRON
+          amount: 40
+        slot: 22
+        action: 'SAFETY_PLATFORM'
+        limit-per-life: 1
+      'healer_milk':
+        material: MILK_BUCKET
+        name: "&fLait du Guérisseur"
+        amount: 1
+        cost:
+          resource: GOLD
+          amount: 4
+        slot: 23
+        action: 'HEALER_MILK'
   'armors_category':
     title: "Armures"
     rows: 3
