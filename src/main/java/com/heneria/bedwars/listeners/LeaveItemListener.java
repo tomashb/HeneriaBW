@@ -2,8 +2,6 @@ package com.heneria.bedwars.listeners;
 
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
-import com.heneria.bedwars.arena.enums.GameState;
-import com.heneria.bedwars.gui.TeamSelectorMenu;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.utils.GameUtils;
 import com.heneria.bedwars.utils.ItemBuilder;
@@ -20,21 +18,25 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 /**
- * Listener to handle the team selector item interactions.
+ * Listener for the lobby leave item allowing players to exit an arena.
  */
-public class TeamSelectorListener implements Listener {
+public class LeaveItemListener implements Listener {
 
-    private final HeneriaBedwars plugin = HeneriaBedwars.getInstance();
-    private final ArenaManager arenaManager = plugin.getArenaManager();
-    public static final NamespacedKey TEAM_SELECTOR_KEY = new NamespacedKey(HeneriaBedwars.getInstance(), "team-selector");
+    public static final NamespacedKey LEAVE_ITEM_KEY = new NamespacedKey(HeneriaBedwars.getInstance(), "leave-item");
+    private final ArenaManager arenaManager = HeneriaBedwars.getInstance().getArenaManager();
 
-    public static ItemStack createSelectorItem() {
-        ItemStack item = new ItemBuilder(Material.WHITE_BANNER)
-                .setName(MessageManager.get("items.team-selector-name"))
+    /**
+     * Creates the special bed item used to leave the arena lobby.
+     *
+     * @return the configured ItemStack
+     */
+    public static ItemStack createLeaveItem() {
+        ItemStack item = new ItemBuilder(Material.RED_BED)
+                .setName(MessageManager.get("items.leave-item-name"))
                 .build();
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.getPersistentDataContainer().set(TEAM_SELECTOR_KEY, PersistentDataType.BYTE, (byte) 1);
+            meta.getPersistentDataContainer().set(LEAVE_ITEM_KEY, PersistentDataType.BYTE, (byte) 1);
             meta.getPersistentDataContainer().set(GameUtils.STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
             item.setItemMeta(meta);
         }
@@ -52,15 +54,15 @@ public class TeamSelectorListener implements Listener {
             return;
         }
         ItemMeta meta = item.getItemMeta();
-        if (meta == null || !meta.getPersistentDataContainer().has(TEAM_SELECTOR_KEY, PersistentDataType.BYTE)) {
+        if (meta == null || !meta.getPersistentDataContainer().has(LEAVE_ITEM_KEY, PersistentDataType.BYTE)) {
             return;
         }
         Player player = event.getPlayer();
         Arena arena = arenaManager.getArena(player);
-        if (arena == null || (arena.getState() != GameState.WAITING && arena.getState() != GameState.STARTING)) {
+        if (arena == null) {
             return;
         }
         event.setCancelled(true);
-        new TeamSelectorMenu(arena).open(player);
+        arena.removePlayer(player);
     }
 }

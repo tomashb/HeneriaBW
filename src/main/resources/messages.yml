@@ -93,6 +93,8 @@ menus:
 
 items:
   starter-lore: "&7Objet de départ"
+  team-selector-name: "&eSélecteur d'équipe"
+  leave-item-name: "&cQuitter la partie"
 
 scoreboard:
   bed-alive: "&a✔"
