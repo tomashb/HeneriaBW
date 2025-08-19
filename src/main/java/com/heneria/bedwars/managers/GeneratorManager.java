@@ -65,12 +65,18 @@ public class GeneratorManager {
 
     private void tick() {
         for (Map.Entry<Generator, Integer> entry : counters.entrySet()) {
+            Generator gen = entry.getKey();
             int remaining = entry.getValue() - 1;
             if (remaining <= 0) {
-                spawn(entry.getKey());
-                remaining = getDelayCycles(entry.getKey());
+                spawn(gen);
+                remaining = getDelayCycles(gen);
             }
             entry.setValue(remaining);
+            int updateInterval = 20 / TICK_RATE;
+            if (remaining % updateInterval == 0) {
+                int seconds = (int) Math.ceil(remaining / (double) updateInterval);
+                plugin.getHologramManager().updateGeneratorHologram(gen, seconds);
+            }
         }
     }
 
@@ -111,6 +117,15 @@ public class GeneratorManager {
 
     public void unregisterGenerator(Generator gen) {
         counters.remove(gen);
+    }
+
+    public int getRemainingSeconds(Generator gen) {
+        Integer remaining = counters.get(gen);
+        if (remaining == null) {
+            return 0;
+        }
+        int updateInterval = 20 / TICK_RATE;
+        return (int) Math.ceil(remaining / (double) updateInterval);
     }
 
     /**

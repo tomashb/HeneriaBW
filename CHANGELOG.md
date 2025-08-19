@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [1.0.0-RC3] - En développement
+
+### Ajouté
+- Ajout d'hologrammes informatifs au-dessus des générateurs de Diamants et d'Émeraudes grâce à l'intégration optionnelle avec DecentHolograms.
+
 ## [1.0.0-RC2] - En développement
 
 ### Ajouté

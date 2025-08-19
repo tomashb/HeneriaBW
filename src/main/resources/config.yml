@@ -15,3 +15,14 @@ database:
 mobs:
   iron-golem:
     damage: 4.0
+
+generator-holograms:
+  enabled: true
+  offset-y: 2.5 # Hauteur de l'hologramme au-dessus du générateur
+  formats:
+    DIAMOND:
+      - "&b&lDiamants"
+      - "&fApparaît dans &a{time}s"
+    EMERALD:
+      - "&2&lÉmeraudes"
+      - "&fApparaît dans &a{time}s"

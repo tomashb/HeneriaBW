@@ -48,16 +48,20 @@
         </resources>
     </build>
 
-    <repositories>
-        <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
-            <id>placeholderapi</id>
-            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-        </repository>
-    </repositories>
+      <repositories>
+          <repository>
+              <id>spigot-repo</id>
+              <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+          </repository>
+          <repository>
+              <id>placeholderapi</id>
+              <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+          </repository>
+          <repository>
+              <id>decentholograms</id>
+              <url>https://repo.decentholograms.eu/repository/maven-releases/</url>
+          </repository>
+      </repositories>
 
     <dependencies>
         <dependency>
@@ -76,11 +80,17 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>8.3.0</version>
         </dependency>
-        <dependency>
-            <groupId>me.clip</groupId>
-            <artifactId>placeholderapi</artifactId>
-            <version>2.11.5</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-</project>
+          <dependency>
+              <groupId>me.clip</groupId>
+              <artifactId>placeholderapi</artifactId>
+              <version>2.11.5</version>
+              <scope>provided</scope>
+          </dependency>
+          <dependency>
+              <groupId>eu.decentsoftware.holograms</groupId>
+              <artifactId>DecentHolograms</artifactId>
+              <version>2.8.3</version>
+              <scope>provided</scope>
+          </dependency>
+      </dependencies>
+  </project>
