@@ -7,6 +7,7 @@
 - Potions de Vitesse, Saut et Invisibilité avec leurs effets configurables.
 - Flèches, Arc et Arc Puissant (Puissance I).
 - Pomme d'Or et Seau d'eau dans les Utilitaires.
+- Ajout de la catégorie Mêlée à la boutique avec 4 nouvelles armes.
 
 ### Corrigé
 - Lecture robuste des listes `potion-effects` et `enchantments` dans `ShopManager`.

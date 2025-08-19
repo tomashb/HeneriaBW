@@ -17,13 +17,13 @@ main-menu:
         - "&7Pour construire et défendre"
       slot: 11
       category: 'blocks_category'
-    'utilities':
-      material: FIRE_CHARGE
-      name: "&6Utilitaires"
+    'melee':
+      material: DIAMOND_SWORD
+      name: "&cMêlée"
       lore:
-        - "&7Objets spéciaux"
+        - "&7Armes pour le combat rapproché"
       slot: 12
-      category: 'utilities_category'
+      category: 'melee_category'
     'armors':
       material: CHAINMAIL_BOOTS
       name: "&aArmures"
@@ -38,20 +38,27 @@ main-menu:
         - "&7Pour creuser vite"
       slot: 14
       category: 'tools_category'
-    'potions':
-      material: BREWING_STAND
-      name: "&dPotions"
-      lore:
-        - "&7Effets temporaires"
-      slot: 15
-      category: 'potions_category'
     'ranged':
       material: BOW
       name: "&6Combat à Distance"
       lore:
         - "&7Arcs et flèches"
-      slot: 16
+      slot: 15
       category: 'ranged_category'
+    'potions':
+      material: BREWING_STAND
+      name: "&dPotions"
+      lore:
+        - "&7Effets temporaires"
+      slot: 16
+      category: 'potions_category'
+    'utilities':
+      material: FIRE_CHARGE
+      name: "&6Utilitaires"
+      lore:
+        - "&7Objets spéciaux"
+      slot: 17
+      category: 'utilities_category'
 
 # Définition d'une catégorie d'objets
 shop-categories:
@@ -145,6 +152,46 @@ shop-categories:
           resource: IRON
           amount: 20
         slot: 20 # À côté des échelles
+
+  'melee_category':
+    title: "Mêlée"
+    rows: 4
+    items:
+      'knockback-stick':
+        material: STICK
+        name: "&aBâton de Répulsion"
+        amount: 1
+        cost:
+          resource: IRON
+          amount: 10
+        enchantments:
+          - type: KNOCKBACK
+            level: 1
+        slot: 10
+      'stone-sword':
+        material: STONE_SWORD
+        name: "&7Épée en Pierre"
+        amount: 1
+        cost:
+          resource: IRON
+          amount: 10
+        slot: 11
+      'iron-sword':
+        material: IRON_SWORD
+        name: "&fÉpée en Fer"
+        amount: 1
+        cost:
+          resource: GOLD
+          amount: 7
+        slot: 12
+      'diamond-sword':
+        material: DIAMOND_SWORD
+        name: "&bÉpée en Diamant"
+        amount: 1
+        cost:
+          resource: EMERALD
+          amount: 4
+        slot: 13
 
   'utilities_category':
     title: "Utilitaires"
