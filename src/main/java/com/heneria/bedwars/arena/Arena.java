@@ -21,6 +21,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.EnderDragon;
+import org.bukkit.World;
+import org.bukkit.GameRule;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -534,6 +536,12 @@ public class Arena {
         if (countdownTask != null) {
             countdownTask.cancel();
             countdownTask = null;
+        }
+        World world = Bukkit.getWorld(worldName);
+        if (world != null) {
+            world.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
+            world.setStorm(false);
+            world.setThundering(false);
         }
         for (UUID id : players) {
             Player p = Bukkit.getPlayer(id);

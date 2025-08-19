@@ -18,7 +18,8 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
   - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
   - `scoreboard.yml` : Personnalisez le titre et les lignes du tableau de bord en jeu.
-  - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons).
+  - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons) et définissez un `display-name` lisible pour l'affichage du prochain événement sur le scoreboard.
+  - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`).
   - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie, avec l'option `purchase-limit` pour limiter le nombre d'achats par joueur.
   - `messages.yml` : Traduisez et personnalisez tous les messages du plugin.
 
@@ -136,10 +137,11 @@ game-events:
     type: 'UPGRADE_GENERATORS'
     targets: [DIAMOND]
     new-tier: 2
+    display-name: "&bDiamants II"
     broadcast-message: "&bLes générateurs de Diamants ont été améliorés au Niveau II !"
 ```
 
-Chaque entrée peut préciser un temps (`time`), le type d'événement (`type`), les cibles (`targets`), le nouveau niveau (`new-tier`) et le message diffusé aux joueurs.
+Chaque entrée peut préciser un temps (`time`), le type d'événement (`type`), les cibles (`targets`), le nouveau niveau (`new-tier`), un nom d'affichage (`display-name`) utilisé par le scoreboard, et le message diffusé aux joueurs.
 
 Les types disponibles incluent :
 
@@ -216,6 +218,19 @@ database:
     password: ""
     useSSL: false
 ```
+
+
+### Configuration des Mobs
+
+Le fichier `config.yml` permet aussi d'ajuster certains paramètres d'équilibrage :
+
+```yaml
+mobs:
+  iron-golem:
+    damage: 4.0
+```
+
+Cette valeur contrôle les dégâts infligés par les Golems de Fer invoqués par les joueurs.
 
 
 ---

@@ -1,5 +1,13 @@
 # Changelog - HeneriaBedwars
 
+## [1.0.0-RC] - En développement
+
+### Corrigé
+- Le scoreboard affiche désormais un nom d'événement lisible grâce au champ `display-name`.
+- La météo est forcée sur un temps clair et le cycle de pluie est désactivé dans les arènes.
+- Les dégâts du Golem de Fer sont maintenant configurables via `mobs.iron-golem.damage`.
+- Les joueurs ne peuvent plus interagir avec les lits pour dormir pendant une partie.
+
 ## [1.0.0-BETA] - En développement
 
 ### Modifié
