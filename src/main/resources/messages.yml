@@ -19,6 +19,7 @@ errors:
   lobby-not-set: "&cLe lobby n'est pas défini."
   team-incomplete: "&cToutes les équipes n'ont pas leur spawn et leur lit définis."
   no-teams-configured: "&cAucune équipe configurée."
+  popup-tower-no-space: "&cVous n'avez pas assez d'espace pour construire une Tour Instantanée !"
 
 commands:
   main-usage: "&eUsage: /{label} <admin|join|leave>"

@@ -111,3 +111,12 @@ shop-categories:
           resource: EMERALD
           amount: 1
         slot: 13
+      'popup_tower':
+        material: CHEST
+        name: "&6Tour Instantanée"
+        amount: 1
+        cost:
+          resource: IRON
+          amount: 24
+        slot: 21
+        action: 'POPUP_TOWER'

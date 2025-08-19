@@ -15,7 +15,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
 - 📍 **Configuration Précise** : Utilisez un outil de positionnement en jeu pour définir avec précision l'emplacement du lobby, des lits, des points de spawn, des générateurs et des PNJ pour chaque équipe.
 - ⚙️ **Haute Personnalisation** : Prenez le contrôle total du gameplay en modifiant les fichiers de configuration dédiés :
   - `generators.yml` : Réglez la vitesse et la quantité de chaque générateur de ressources.
-  - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
+  - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items, dont les objets spéciaux comme la Tour Instantanée.
   - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
   - `scoreboard.yml` : Personnalisez le titre et les lignes du tableau de bord en jeu.
   - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons).
@@ -30,6 +30,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 💰 **Système Économique** : Collectez du Fer, de l'Or, des Diamants et des Émeraudes à des vitesses différentes pour acheter de l'équipement.
 - 🛒 **Boutiques Fonctionnelles** : Interagissez avec les PNJ pour acheter des objets dans la boutique d'items ou des améliorations permanentes pour votre équipe.
 - 🧱 **Construction de Blocs** : Achetez, placez et cassez des blocs pour bâtir ponts et défenses.
+- 🗼 **Tour Instantanée (Pop-up Tower)** : Construisez instantanément une petite tour de laine pour gagner de la hauteur ou vous mettre à couvert.
 - 🛡️ **Kit de départ lié** : Vous réapparaissez avec une armure en cuir teintée aux couleurs de votre équipe et une épée en bois impossible à jeter.
 - 🌈 **Achats intelligents** : La laine achetée s'adapte automatiquement à la couleur de votre équipe et toute nouvelle épée remplace la précédente.
 - 📊 **Tableau de Bord Dynamique** : Consultez en un coup d'œil l'état des équipes et le prochain événement.
