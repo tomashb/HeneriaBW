@@ -3,28 +3,34 @@ game-events:
     type: 'UPGRADE_GENERATORS'
     targets: [DIAMOND]
     new-tier: 2
+    display-name: "&bDiamants II"
     broadcast-message: "&bLes générateurs de Diamants ont été améliorés au Niveau II !"
 
   - time: '12m'
     type: 'UPGRADE_GENERATORS'
     targets: [EMERALD]
     new-tier: 2
+    display-name: "&2Émeraudes II"
     broadcast-message: "&2Les générateurs d'Émeraudes ont été améliorés au Niveau II !"
 
   - time: '15m'
     type: 'SPAWN_SPECIAL_NPC'
+    display-name: "&dMarchand Spécial"
     broadcast-message: "&d&lUn Marchand Mystérieux est apparu au centre !"
 
   - time: '18m'
     type: 'DESPAWN_SPECIAL_NPC'
+    display-name: "&dMarchand Parti"
     broadcast-message: "&dLe Marchand Mystérieux est parti !"
 
   - time: '30m'
     type: 'SUDDEN_DEATH'
+    display-name: "&cMort Subite"
     broadcast-message: "&c&lMORT SUBITE ! &fTous les lits restants ont été détruits !"
 
   - time: '31m'
     type: 'SPAWN_DRAGONS'
+    display-name: "&cDragons"
     # Paramètres optionnels
     # amount: 1 # Nombre de dragons
     # location: 'CENTER' # ou des coordonnées spécifiques

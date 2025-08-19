@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 /**
  * Prevents team-owned golems from targeting their owners.
@@ -34,6 +35,20 @@ public class GolemListener implements Listener {
         String tag = "team_" + team.getColor().name();
         if (golem.getScoreboardTags().contains(tag)) {
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof IronGolem golem)) {
+            return;
+        }
+        for (String tag : golem.getScoreboardTags()) {
+            if (tag.startsWith("team_")) {
+                double damage = HeneriaBedwars.getInstance().getConfig().getDouble("mobs.iron-golem.damage", 4.0);
+                event.setDamage(damage);
+                break;
+            }
         }
     }
 }

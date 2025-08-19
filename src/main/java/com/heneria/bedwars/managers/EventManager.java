@@ -50,9 +50,10 @@ public class EventManager {
                 }
                 int tier = map.get("new-tier") instanceof Number n ? n.intValue() : 1;
                 String message = map.get("broadcast-message") == null ? "" : String.valueOf(map.get("broadcast-message"));
+                String displayName = map.get("display-name") == null ? null : String.valueOf(map.get("display-name"));
                 int amount = map.get("amount") instanceof Number a ? a.intValue() : (type == GameEventType.SPAWN_DRAGONS ? 1 : 0);
                 String location = map.get("location") == null ? null : String.valueOf(map.get("location"));
-                templateEvents.add(new TimedEvent(time, type, targets, tier, message, amount, location));
+                templateEvents.add(new TimedEvent(time, type, targets, tier, message, displayName, amount, location));
             }
             templateEvents.sort(Comparator.comparingInt(TimedEvent::getTime));
         }
@@ -90,6 +91,9 @@ public class EventManager {
         TimedEvent ev = task.next;
         if (ev == null) {
             return "N/A";
+        }
+        if (ev.getDisplayName() != null && !ev.getDisplayName().isEmpty()) {
+            return ev.getDisplayName();
         }
         if (ev.getType() == GameEventType.UPGRADE_GENERATORS && !ev.getTargets().isEmpty()) {
             GeneratorType type = ev.getTargets().get(0);

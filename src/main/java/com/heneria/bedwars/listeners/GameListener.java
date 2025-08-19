@@ -11,6 +11,7 @@ import com.heneria.bedwars.stats.PlayerStats;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.GameMode;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +19,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.entity.EntityType;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.block.Action;
 import org.bukkit.scheduler.BukkitRunnable;
 import com.heneria.bedwars.utils.GameUtils;
 
@@ -35,6 +38,23 @@ public class GameListener implements Listener {
             Arena arena = event.getArena();
             arena.registerBeds();
         }
+    }
+
+    @EventHandler
+    public void onBedInteract(PlayerInteractEvent event) {
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+            return;
+        }
+        Block block = event.getClickedBlock();
+        if (block == null || !(block.getBlockData() instanceof Bed)) {
+            return;
+        }
+        Player player = event.getPlayer();
+        Arena arena = arenaManager.getArena(player);
+        if (arena == null || arena.getState() != GameState.PLAYING) {
+            return;
+        }
+        event.setCancelled(true);
     }
 
     @EventHandler

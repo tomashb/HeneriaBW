@@ -13,19 +13,21 @@ public class TimedEvent {
     private final GameEventType type;
     private final List<GeneratorType> targets;
     private final int newTier;
+    private final String displayName;
     private final String message;
     private final int amount;
     private final String location;
 
-    public TimedEvent(int time, GameEventType type, List<GeneratorType> targets, int newTier, String message) {
-        this(time, type, targets, newTier, message, 0, null);
+    public TimedEvent(int time, GameEventType type, List<GeneratorType> targets, int newTier, String message, String displayName) {
+        this(time, type, targets, newTier, message, displayName, 0, null);
     }
 
-    public TimedEvent(int time, GameEventType type, List<GeneratorType> targets, int newTier, String message, int amount, String location) {
+    public TimedEvent(int time, GameEventType type, List<GeneratorType> targets, int newTier, String message, String displayName, int amount, String location) {
         this.time = time;
         this.type = type;
         this.targets = targets;
         this.newTier = newTier;
+        this.displayName = displayName;
         this.message = message;
         this.amount = amount;
         this.location = location;
@@ -45,6 +47,10 @@ public class TimedEvent {
 
     public int getNewTier() {
         return newTier;
+    }
+
+    public String getDisplayName() {
+        return displayName;
     }
 
     public String getMessage() {
