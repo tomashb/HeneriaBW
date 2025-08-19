@@ -1,6 +1,8 @@
 package com.heneria.bedwars.managers;
 
 import com.heneria.bedwars.HeneriaBedwars;
+import com.heneria.bedwars.arena.Arena;
+import com.heneria.bedwars.arena.elements.Team;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -129,6 +131,41 @@ public class UpgradeManager {
      */
     public void applyTrapEffect(Player player, Trap trap) {
         player.addPotionEffect(new PotionEffect(trap.effectType(), trap.duration() * 20, trap.amplifier(), true, true, true));
+    }
+
+    /**
+     * Reapplies all team upgrades to a player's equipment after respawn.
+     *
+     * @param player the player to update
+     */
+    public void applyTeamUpgrades(Player player) {
+        Arena arena = plugin.getArenaManager().getArena(player);
+        if (arena == null) return;
+        Team team = arena.getTeam(player);
+        if (team == null) return;
+
+        int sharpness = team.getUpgradeLevel("sharpness");
+        if (sharpness > 0) {
+            for (ItemStack item : player.getInventory().getContents()) {
+                if (item != null && item.getType().name().endsWith("SWORD")) {
+                    applySharpness(item, sharpness);
+                }
+            }
+        }
+
+        int protection = team.getUpgradeLevel("protection");
+        if (protection > 0) {
+            for (ItemStack armor : player.getInventory().getArmorContents()) {
+                if (armor != null) {
+                    applyProtection(armor, protection);
+                }
+            }
+        }
+
+        int haste = team.getUpgradeLevel("haste");
+        if (haste > 0) {
+            applyHaste(player, haste - 1, 20 * 60 * 60);
+        }
     }
 
     public record Upgrade(String id, String name, Material item, Map<Integer, UpgradeTier> tiers) {
