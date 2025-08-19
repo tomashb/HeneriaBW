@@ -120,6 +120,7 @@ public class GameListener implements Listener {
             if (killerStats != null) {
                 killerStats.incrementKills();
             }
+            plugin.getBountyManager().handleKill(killer, player, arena);
         }
         PlayerStats victimStats = statsManager.getStats(player);
         if (victimStats != null) {

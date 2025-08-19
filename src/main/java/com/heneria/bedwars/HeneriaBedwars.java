@@ -18,6 +18,8 @@ import com.heneria.bedwars.listeners.HungerListener;
 import com.heneria.bedwars.listeners.VoidKillListener;
 import com.heneria.bedwars.listeners.LobbyProtectionListener;
 import com.heneria.bedwars.listeners.TeamSelectorListener;
+import com.heneria.bedwars.listeners.HealerMilkListener;
+import com.heneria.bedwars.listeners.TemperedGlassListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
@@ -29,6 +31,7 @@ import com.heneria.bedwars.managers.DatabaseManager;
 import com.heneria.bedwars.managers.StatsManager;
 import com.heneria.bedwars.managers.EventManager;
 import com.heneria.bedwars.managers.PlayerProgressionManager;
+import com.heneria.bedwars.managers.BountyManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -47,6 +50,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private DatabaseManager databaseManager;
     private StatsManager statsManager;
     private PlayerProgressionManager playerProgressionManager;
+    private BountyManager bountyManager;
     private static NamespacedKey itemTypeKey;
 
     @Override
@@ -70,6 +74,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.databaseManager = new DatabaseManager(this);
         this.statsManager = new StatsManager(this, this.databaseManager);
         this.playerProgressionManager = new PlayerProgressionManager();
+        this.bountyManager = new BountyManager(3, 5);
 
         // Enregistrement des commandes
         CommandManager commandManager = new CommandManager(this);
@@ -107,6 +112,8 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new VoidKillListener(), this);
         getServer().getPluginManager().registerEvents(new LobbyProtectionListener(), this);
         getServer().getPluginManager().registerEvents(new TeamSelectorListener(), this);
+        getServer().getPluginManager().registerEvents(new HealerMilkListener(), this);
+        getServer().getPluginManager().registerEvents(new TemperedGlassListener(), this);
     }
 
     public static HeneriaBedwars getInstance() {
@@ -159,5 +166,9 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public PlayerProgressionManager getPlayerProgressionManager() {
         return playerProgressionManager;
+    }
+
+    public BountyManager getBountyManager() {
+        return bountyManager;
     }
 }
