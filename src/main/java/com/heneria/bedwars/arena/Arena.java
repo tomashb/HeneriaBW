@@ -22,7 +22,11 @@ import org.bukkit.block.BlockState;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.trait.trait.SkinTrait;
 import org.bukkit.entity.Villager;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.World;
@@ -52,10 +56,13 @@ public class Arena {
     private Location specialNpcLocation;
     private Entity specialNpc;
     /**
-     * Stores all NPC entities spawned for this arena so they can be removed
-     * without affecting NPCs of other arenas.
+     * Stores all Citizens NPCs spawned for this arena.
      */
-    private final List<Entity> liveNpcs = new ArrayList<>();
+    private final List<NPC> liveNpcs = new ArrayList<>();
+    /**
+     * Stores non-Citizens entities spawned by the arena (like special merchants or golems).
+     */
+    private final List<Entity> liveEntities = new ArrayList<>();
     private final Map<UUID, PlayerData> savedStates = new HashMap<>();
     // NEW CACHE SYSTEM: SIMPLE AND DIRECT
     private final Map<Block, Team> bedBlocks = new HashMap<>();
@@ -359,7 +366,7 @@ public class Arena {
     }
 
     public void addNpc(Entity entity) {
-        liveNpcs.add(entity);
+        liveEntities.add(entity);
     }
 
     public Location getSpecialNpcLocation() {
@@ -382,14 +389,14 @@ public class Arena {
         npc.addScoreboardTag("special_npc");
         npc.setCustomName(ChatColor.translateAlternateColorCodes('&', "&5Marchand Mystérieux"));
         npc.setCustomNameVisible(true);
-        liveNpcs.add(npc);
+        liveEntities.add(npc);
         specialNpc = npc;
     }
 
     public void despawnSpecialNpc() {
         if (specialNpc != null) {
             specialNpc.remove();
-            liveNpcs.remove(specialNpc);
+            liveEntities.remove(specialNpc);
             specialNpc = null;
         }
     }
@@ -625,25 +632,25 @@ public class Arena {
 
         for (Team team : this.getTeams().values()) {
             if (team.getItemShopNpcLocation() != null) {
-                Villager npc = (Villager) team.getItemShopNpcLocation().getWorld().spawnEntity(team.getItemShopNpcLocation(), EntityType.VILLAGER);
-                npc.setAI(false);
-                npc.setInvulnerable(true);
-                npc.setSilent(true);
-                npc.setCollidable(false);
-                npc.addScoreboardTag("shop_npc");
-                npc.setCustomName(MessageManager.get("game.shop-npc-name"));
-                npc.setCustomNameVisible(true);
+                NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, MessageManager.get("game.shop-npc-name"));
+                npc.setProtected(true);
+                SkinTrait trait = npc.getOrAddTrait(SkinTrait.class);
+                if (team.getItemShopSkin() != null) {
+                    trait.setSkinName(team.getItemShopSkin());
+                }
+                npc.data().set("bw-type", "shop");
+                npc.spawn(team.getItemShopNpcLocation());
                 liveNpcs.add(npc);
             }
             if (team.getUpgradeShopNpcLocation() != null) {
-                Villager npc = (Villager) team.getUpgradeShopNpcLocation().getWorld().spawnEntity(team.getUpgradeShopNpcLocation(), EntityType.VILLAGER);
-                npc.setAI(false);
-                npc.setInvulnerable(true);
-                npc.setSilent(true);
-                npc.setCollidable(false);
-                npc.addScoreboardTag("upgrade_npc");
-                npc.setCustomName(MessageManager.get("game.upgrade-npc-name"));
-                npc.setCustomNameVisible(true);
+                NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, MessageManager.get("game.upgrade-npc-name"));
+                npc.setProtected(true);
+                SkinTrait trait = npc.getOrAddTrait(SkinTrait.class);
+                if (team.getUpgradeShopSkin() != null) {
+                    trait.setSkinName(team.getUpgradeShopSkin());
+                }
+                npc.data().set("bw-type", "upgrade");
+                npc.spawn(team.getUpgradeShopNpcLocation());
                 liveNpcs.add(npc);
             }
         }
@@ -773,8 +780,10 @@ public class Arena {
             team.resetUpgrades();
         }
         state = GameState.WAITING;
-        liveNpcs.forEach(Entity::remove);
+        liveNpcs.forEach(NPC::destroy);
         liveNpcs.clear();
+        liveEntities.forEach(Entity::remove);
+        liveEntities.clear();
         specialNpc = null;
         dragons.forEach(Entity::remove);
         dragons.clear();

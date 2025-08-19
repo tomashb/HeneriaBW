@@ -1,23 +1,23 @@
 package com.heneria.bedwars.managers;
 
 import com.heneria.bedwars.HeneriaBedwars;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.npc.NPCRegistry;
+import net.citizensnpcs.api.trait.trait.SkinTrait;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Villager;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
- * Manages persistent join NPCs for the main lobby.
+ * Manages persistent join NPCs for the main lobby using Citizens.
  */
 public class NpcManager {
 
@@ -25,6 +25,7 @@ public class NpcManager {
     private final File file;
     private final YamlConfiguration config;
     private final List<NpcInfo> npcs = new ArrayList<>();
+    private final Map<Integer, String> npcModes = new HashMap<>();
 
     public NpcManager(HeneriaBedwars plugin) {
         this.plugin = plugin;
@@ -41,6 +42,35 @@ public class NpcManager {
         loadNpcs();
     }
 
+    private boolean citizensAvailable() {
+        return Bukkit.getPluginManager().isPluginEnabled("Citizens");
+    }
+
+    public void loadNpcs() {
+        npcs.clear();
+        npcModes.clear();
+        if (!citizensAvailable()) {
+            return;
+        }
+        List<Map<?, ?>> list = config.getMapList("npcs");
+        for (Map<?, ?> map : list) {
+            String world = (String) map.get("world");
+            String mode = (String) map.get("mode");
+            String skin = (String) map.get("skin");
+            if (world == null || mode == null) continue;
+            Location loc = new Location(
+                    Bukkit.getWorld(world),
+                    getDouble(map, "x"),
+                    getDouble(map, "y"),
+                    getDouble(map, "z"),
+                    (float) getDouble(map, "yaw"),
+                    (float) getDouble(map, "pitch"));
+            int id = spawnNpc(loc, mode, skin);
+            npcs.add(new NpcInfo(loc, mode, skin, id));
+        }
+        saveNpcs();
+    }
+
     private double getDouble(Map<?, ?> map, String key) {
         Object obj = map.get(key);
         if (obj instanceof Number n) {
@@ -49,35 +79,20 @@ public class NpcManager {
         return 0;
     }
 
-    public void loadNpcs() {
-        npcs.clear();
-        List<Map<?, ?>> list = config.getMapList("npcs");
-        for (Map<?, ?> map : list) {
-            String world = (String) map.get("world");
-            if (world == null) continue;
-            Location loc = new Location(
-                    Bukkit.getWorld(world),
-                    getDouble(map, "x"),
-                    getDouble(map, "y"),
-                    getDouble(map, "z"),
-                    (float) getDouble(map, "yaw"),
-                    (float) getDouble(map, "pitch"));
-            String mode = (String) map.get("mode");
-            spawnNpc(loc, mode);
-            npcs.add(new NpcInfo(loc, mode));
+    private int spawnNpc(Location location, String mode, String skin) {
+        if (location == null || mode == null || !citizensAvailable()) {
+            return -1;
         }
-    }
-
-    public void spawnNpc(Location location, String mode) {
-        if (location == null || mode == null) return;
-        Villager npc = (Villager) location.getWorld().spawnEntity(location, EntityType.VILLAGER);
-        npc.setAI(false);
-        npc.setInvulnerable(true);
-        npc.setSilent(true);
-        npc.setCollidable(false);
-        npc.addScoreboardTag("joinnpc_" + mode.toLowerCase());
-        npc.setCustomName(ChatColor.translateAlternateColorCodes('&', "&a" + capitalize(mode)));
-        npc.setCustomNameVisible(true);
+        NPCRegistry registry = CitizensAPI.getNPCRegistry();
+        NPC npc = registry.createNPC(EntityType.PLAYER, ChatColor.translateAlternateColorCodes('&', "&a" + capitalize(mode)));
+        npc.setProtected(true);
+        SkinTrait trait = npc.getOrAddTrait(SkinTrait.class);
+        if (skin != null && !skin.isEmpty()) {
+            trait.setSkinName(skin);
+        }
+        npc.spawn(location);
+        npcModes.put(npc.getId(), mode);
+        return npc.getId();
     }
 
     private String capitalize(String input) {
@@ -85,10 +100,23 @@ public class NpcManager {
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 
-    public void addNpc(Location location, String mode) {
-        npcs.add(new NpcInfo(location, mode));
-        spawnNpc(location, mode);
-        saveNpcs();
+    public void addNpc(Location location, String mode, String skin) {
+        int id = spawnNpc(location, mode, skin);
+        if (id != -1) {
+            npcs.add(new NpcInfo(location, mode, skin, id));
+            saveNpcs();
+        }
+    }
+
+    public String getMode(Entity entity) {
+        if (!citizensAvailable() || entity == null) {
+            return null;
+        }
+        if (!CitizensAPI.getNPCRegistry().isNPC(entity)) {
+            return null;
+        }
+        NPC npc = CitizensAPI.getNPCRegistry().getNPC(entity);
+        return npcModes.get(npc.getId());
     }
 
     public void saveNpcs() {
@@ -103,6 +131,8 @@ public class NpcManager {
             map.put("yaw", loc.getYaw());
             map.put("pitch", loc.getPitch());
             map.put("mode", info.mode);
+            map.put("skin", info.skin);
+            map.put("id", info.id);
             list.add(map);
         }
         config.set("npcs", list);
@@ -113,27 +143,17 @@ public class NpcManager {
         }
     }
 
-    /**
-     * Gets the mode associated with the given entity if it is a join NPC.
-     *
-     * @param entity the entity clicked
-     * @return mode string or {@code null}
-     */
-    public String getMode(Entity entity) {
-        for (String tag : entity.getScoreboardTags()) {
-            if (tag.startsWith("joinnpc_")) {
-                return tag.substring("joinnpc_".length());
-            }
-        }
-        return null;
-    }
-
     private static class NpcInfo {
         final Location location;
         final String mode;
-        NpcInfo(Location location, String mode) {
+        final String skin;
+        final int id;
+
+        NpcInfo(Location location, String mode, String skin, int id) {
             this.location = location;
             this.mode = mode;
+            this.skin = skin;
+            this.id = id;
         }
     }
 }

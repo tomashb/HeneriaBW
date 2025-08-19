@@ -3,7 +3,9 @@ package com.heneria.bedwars.listeners;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.gui.shop.ShopCategoryMenu;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.NPC;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -15,10 +17,14 @@ public class ShopListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEntityEvent event) {
-        if (!(event.getRightClicked() instanceof Villager villager)) {
+        if (!Bukkit.getPluginManager().isPluginEnabled("Citizens")) {
             return;
         }
-        if (!villager.getScoreboardTags().contains("shop_npc")) {
+        if (!CitizensAPI.getNPCRegistry().isNPC(event.getRightClicked())) {
+            return;
+        }
+        NPC npc = CitizensAPI.getNPCRegistry().getNPC(event.getRightClicked());
+        if (!"shop".equals(npc.data().get("bw-type"))) {
             return;
         }
         event.setCancelled(true);

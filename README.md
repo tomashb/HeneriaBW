@@ -51,8 +51,9 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 
 1.  Téléchargez la dernière version du plugin depuis la page [Releases](https://github.com/tomashb/HeneriaBW/releases).
 2.  Placez le fichier `.jar` téléchargé dans le dossier `plugins` de votre serveur Spigot 1.21.
-3.  Redémarrez votre serveur.
-4.  Les fichiers de configuration par défaut seront générés dans le dossier `plugins/HeneriaBedwars/`.
+3.  (Optionnel) Installez également le plugin [Citizens](https://github.com/CitizensDev/Citizens2) pour activer les PNJ joueurs avec skin.
+4.  Redémarrez votre serveur.
+5.  Les fichiers de configuration par défaut seront générés dans le dossier `plugins/HeneriaBedwars/`.
 
 ---
 
@@ -70,9 +71,12 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - `/bw admin setmainlobby`
   - Définit la position du lobby principal BedWars.
   - **Permission :** `heneriabw.admin.setmainlobby`
-- `/bw admin setjoinnpc <mode>`
-  - Fait apparaître un PNJ de sélection d'arène pour le mode donné (ex: `solos`, `duos`).
+- `/bw admin setjoinnpc <mode> <nom_du_skin>`
+  - Fait apparaître un PNJ de sélection d'arène pour le mode donné avec le skin spécifié.
   - **Permission :** `heneriabw.admin.setjoinnpc`
+- `/bw admin setshopnpc <équipe> <type_boutique> <nom_du_skin>`
+  - Définit la position et le skin d'un PNJ de boutique (`item` ou `upgrade`) pour l'équipe ciblée.
+  - **Permission :** `heneriabw.admin.setshopnpc`
 
 ### Commandes Joueurs
 
