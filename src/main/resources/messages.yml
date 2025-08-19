@@ -94,6 +94,8 @@ scoreboard:
   bed-alive: "&a✔"
   bed-destroyed: "&c❌"
   you-marker: "&e(VOUS)"
+  lobby-waiting: "En attente de joueurs..."
+  lobby-starting: "Démarrage dans {time} seconde(s)..."
 
 stats:
   format:

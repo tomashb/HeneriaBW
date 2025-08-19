@@ -3,6 +3,7 @@ package com.heneria.bedwars.managers;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
+import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.arena.enums.TeamColor;
 import com.heneria.bedwars.managers.EventManager;
 import org.bukkit.Bukkit;
@@ -27,8 +28,10 @@ public class ScoreboardManager {
 
     private final HeneriaBedwars plugin;
     private final Map<UUID, Scoreboard> boards = new HashMap<>();
-    private String title;
-    private List<String> lines;
+    private String lobbyTitle;
+    private List<String> lobbyLines;
+    private String gameTitle;
+    private List<String> gameLines;
     private String teamLineFormat;
 
     public ScoreboardManager(HeneriaBedwars plugin) {
@@ -43,8 +46,10 @@ public class ScoreboardManager {
             plugin.saveResource("scoreboard.yml", false);
         }
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-        this.title = config.getString("title", "BedWars");
-        this.lines = config.getStringList("lines");
+        this.lobbyTitle = config.getString("lobby.title");
+        this.lobbyLines = config.getStringList("lobby.lines");
+        this.gameTitle = config.getString("game.title");
+        this.gameLines = config.getStringList("game.lines");
         this.teamLineFormat = config.getString("team-line-format", "{team_color_code}{team_icon} {team_bed_status} &f{team_players_alive} {you_marker}");
     }
 
@@ -59,7 +64,8 @@ public class ScoreboardManager {
 
     public void setScoreboard(Player player) {
         Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
-        Objective obj = board.registerNewObjective("hbw", "dummy", ChatColor.translateAlternateColorCodes('&', title));
+        String initialTitle = gameTitle != null ? gameTitle : (lobbyTitle != null ? lobbyTitle : "BedWars");
+        Objective obj = board.registerNewObjective("hbw", "dummy", ChatColor.translateAlternateColorCodes('&', initialTitle));
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         boards.put(player.getUniqueId(), board);
         player.setScoreboard(board);
@@ -97,8 +103,23 @@ public class ScoreboardManager {
         if (arena == null) return;
         Objective obj = board.getObjective(DisplaySlot.SIDEBAR);
         if (obj == null) {
-            obj = board.registerNewObjective("hbw", "dummy", ChatColor.translateAlternateColorCodes('&', title));
+            String defaultTitle = gameTitle != null ? gameTitle : (lobbyTitle != null ? lobbyTitle : "BedWars");
+            obj = board.registerNewObjective("hbw", "dummy", ChatColor.translateAlternateColorCodes('&', defaultTitle));
             obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+        }
+
+        GameState state = arena.getState();
+        String title;
+        List<String> lines;
+        if (state == GameState.WAITING || state == GameState.STARTING) {
+            title = lobbyTitle != null ? lobbyTitle : gameTitle;
+            lines = (lobbyLines != null && !lobbyLines.isEmpty()) ? lobbyLines : gameLines;
+        } else {
+            title = gameTitle != null ? gameTitle : lobbyTitle;
+            lines = (gameLines != null && !gameLines.isEmpty()) ? gameLines : lobbyLines;
+        }
+        if (title == null || lines == null) {
+            return;
         }
         obj.setDisplayName(ChatColor.translateAlternateColorCodes('&', replacePlaceholders(title, player, arena)));
 
@@ -106,7 +127,7 @@ public class ScoreboardManager {
             board.resetScores(entry);
         }
 
-        List<String> finalLines = buildLines(player, arena);
+        List<String> finalLines = buildLines(lines, player, arena);
         int score = finalLines.size();
         for (String line : finalLines) {
             line = ChatColor.translateAlternateColorCodes('&', line);
@@ -114,9 +135,9 @@ public class ScoreboardManager {
         }
     }
 
-    private List<String> buildLines(Player player, Arena arena) {
+    private List<String> buildLines(List<String> baseLines, Player player, Arena arena) {
         List<String> result = new ArrayList<>();
-        for (String line : lines) {
+        for (String line : baseLines) {
             if (line.contains("{team_status}")) {
                 for (String teamLine : buildTeamLines(player, arena)) {
                     result.add(line.replace("{team_status}", teamLine));
@@ -153,7 +174,22 @@ public class ScoreboardManager {
         return text
                 .replace("{date}", LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
                 .replace("{next_event_name}", getNextEventName(arena))
-                .replace("{next_event_time}", getNextEventTime(arena));
+                .replace("{next_event_time}", getNextEventTime(arena))
+                .replace("{map_name}", arena.getName())
+                .replace("{current_players}", String.valueOf(arena.getPlayers().size()))
+                .replace("{max_players}", String.valueOf(arena.getMaxPlayers()))
+                .replace("{status}", getLobbyStatus(arena));
+    }
+
+    private String getLobbyStatus(Arena arena) {
+        GameState state = arena.getState();
+        if (state == GameState.STARTING) {
+            return MessageManager.get("scoreboard.lobby-starting", "time", String.valueOf(arena.getCountdownTime()));
+        }
+        if (state == GameState.WAITING) {
+            return MessageManager.get("scoreboard.lobby-waiting");
+        }
+        return "";
     }
 
     private String getNextEventName(Arena arena) {

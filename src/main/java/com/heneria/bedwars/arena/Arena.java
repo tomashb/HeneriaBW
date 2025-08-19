@@ -63,6 +63,7 @@ public class Arena {
     private final Map<UUID, Map<String, Integer>> purchaseCounts = new HashMap<>();
     private BukkitTask countdownTask;
     private int countdownDuration = 10;
+    private int countdownTime;
     private int maxBuildY = 256;
 
     /**
@@ -180,6 +181,10 @@ public class Arena {
 
     public void setMaxBuildY(int maxBuildY) {
         this.maxBuildY = maxBuildY;
+    }
+
+    public int getCountdownTime() {
+        return countdownTime;
     }
 
     /**
@@ -500,27 +505,27 @@ public class Arena {
 
     private void startCountdown() {
         state = GameState.STARTING;
+        countdownTime = countdownDuration;
         final int total = countdownDuration;
         countdownTask = new BukkitRunnable() {
-            int time = total;
 
             @Override
             public void run() {
-                if (time <= 0) {
+                if (countdownTime <= 0) {
                     cancel();
                     startGame();
                     return;
                 }
-                broadcast("game.countdown", "time", String.valueOf(time));
+                broadcast("game.countdown", "time", String.valueOf(countdownTime));
                 for (UUID id : players) {
                     Player p = Bukkit.getPlayer(id);
                     if (p != null) {
-                        p.setLevel(time);
-                        p.setExp((float) time / total);
-                        MessageManager.sendTitle(p, "game.countdown-title", "game.countdown-subtitle", 0, 20, 0, "time", String.valueOf(time));
+                        p.setLevel(countdownTime);
+                        p.setExp((float) countdownTime / total);
+                        MessageManager.sendTitle(p, "game.countdown-title", "game.countdown-subtitle", 0, 20, 0, "time", String.valueOf(countdownTime));
                     }
                 }
-                time--;
+                countdownTime--;
             }
         }.runTaskTimer(HeneriaBedwars.getInstance(), 0L, 20L);
     }
@@ -531,6 +536,7 @@ public class Arena {
             countdownTask = null;
         }
         state = GameState.WAITING;
+        countdownTime = 0;
         for (UUID id : players) {
             Player p = Bukkit.getPlayer(id);
             if (p != null) {
@@ -546,6 +552,7 @@ public class Arena {
      */
     public void startGame() {
         state = GameState.PLAYING;
+        countdownTime = 0;
         Bukkit.getPluginManager().callEvent(new GameStateChangeEvent(this, GameState.PLAYING));
         if (countdownTask != null) {
             countdownTask.cancel();

@@ -1,26 +1,29 @@
-title: "&b&lHeneria BedWars"
+# Scoreboard pour le lobby d'attente
+lobby:
+  title: "&b&lHeneria BedWars"
+  lines:
+    - "&7{date}"
+    - "&1"
+    - "Carte: &a{map_name}"
+    - "&2"
+    - "Joueurs: &a{current_players}/{max_players}"
+    - "&3"
+    - "&e{status}"
+    - "&4"
+    - "&eheneria.com"
 
-# Placeholders disponibles:
-# {date} -> Date actuelle
-# {next_event_name} -> Nom du prochain événement (ex: Diamond II)
-# {next_event_time} -> Temps avant le prochain événement
-# {team_status} -> Bloc de lignes pour chaque équipe
+# Scoreboard pour la partie en cours
+game:
+  title: "&b&lHeneria BedWars"
+  lines:
+    - "&7{date}"
+    - "&1"
+    - "Prochain événement:"
+    - "&a{next_event_name} &fen &a{next_event_time}"
+    - "&2"
+    - "{team_status}"
+    - "&3"
+    - "&eheneria.com"
 
-lines:
-  - "&7{date}"
-  - "&1"
-  - "Prochain événement:"
-  - "&a{next_event_name} &fdans &d{next_event_time}"
-  - "&2"
-  - "{team_status}"
-  - "&3"
-  - "&eheneria.com"
-
-# Format pour chaque ligne d'équipe dans {team_status}
-# Placeholders:
-# {team_color_code} -> Code couleur (ex: §c)
-# {team_icon} -> Icône de l'équipe (ex: R)
-# {team_bed_status} -> Statut du lit (✔ ou ❌)
-# {team_players_alive} -> Nombre de joueurs en vie
-# {you_marker} -> Affiche '(VOUS)' si c'est l'équipe du joueur
+# (La section team-line-format reste la même)
 team-line-format: "{team_color_code}{team_icon} {team_bed_status} &f{team_players_alive} {you_marker}"
