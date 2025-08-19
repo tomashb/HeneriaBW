@@ -511,21 +511,27 @@ public class Arena {
 
             @Override
             public void run() {
-                if (countdownTime <= 0) {
-                    cancel();
-                    startGame();
-                    return;
-                }
-                broadcast("game.countdown", "time", String.valueOf(countdownTime));
-                for (UUID id : players) {
-                    Player p = Bukkit.getPlayer(id);
-                    if (p != null) {
-                        p.setLevel(countdownTime);
-                        p.setExp((float) countdownTime / total);
-                        MessageManager.sendTitle(p, "game.countdown-title", "game.countdown-subtitle", 0, 20, 0, "time", String.valueOf(countdownTime));
+                System.out.println("[DEBUG-COMPTEUR] Tick ! Temps restant: " + countdownTime);
+
+                if (countdownTime > 0) {
+                    broadcast("game.countdown", "time", String.valueOf(countdownTime));
+                    for (UUID id : players) {
+                        Player p = Bukkit.getPlayer(id);
+                        if (p != null) {
+                            p.setLevel(countdownTime);
+                            p.setExp((float) countdownTime / total);
+                            MessageManager.sendTitle(p, "game.countdown-title", "game.countdown-subtitle", 0, 20, 0, "time", String.valueOf(countdownTime));
+                        }
                     }
+                    countdownTime--;
+                } else {
+                    System.out.println("[DEBUG-COMPTEUR] Temps écoulé. Annulation du compteur.");
+                    this.cancel();
+
+                    System.out.println("[DEBUG-COMPTEUR] APPEL DE ARENA.STARTGAME().");
+                    startGame();
+                    System.out.println("[DEBUG-COMPTEUR] APPEL DE ARENA.STARTGAME() TERMINÉ.");
                 }
-                countdownTime--;
             }
         }.runTaskTimer(HeneriaBedwars.getInstance(), 0L, 20L);
     }
@@ -551,19 +557,27 @@ public class Arena {
      * Starts the game for all players currently in the arena.
      */
     public void startGame() {
+        System.out.println("[DEBUG-STARTGAME] La méthode startGame a été appelée pour l'arène " + this.name);
+
         state = GameState.PLAYING;
         countdownTime = 0;
+        System.out.println("[DEBUG-STARTGAME] État passé à PLAYING.");
         Bukkit.getPluginManager().callEvent(new GameStateChangeEvent(this, GameState.PLAYING));
+
         if (countdownTask != null) {
             countdownTask.cancel();
             countdownTask = null;
+            System.out.println("[DEBUG-STARTGAME] Compte à rebours annulé.");
         }
+
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
             world.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
             world.setStorm(false);
             world.setThundering(false);
         }
+        System.out.println("[DEBUG-STARTGAME] Préparation du monde terminée.");
+
         for (UUID id : players) {
             Player p = Bukkit.getPlayer(id);
             if (p == null) {
@@ -575,10 +589,16 @@ public class Arena {
             }
             GameUtils.giveDefaultKit(p, team);
         }
+        System.out.println("[DEBUG-STARTGAME] Téléportation des joueurs terminée.");
+
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);
         }
+        System.out.println("[DEBUG-STARTGAME] Démarrage des générateurs terminé.");
+
         HeneriaBedwars.getInstance().getEventManager().startTimeline(this);
+        System.out.println("[DEBUG-STARTGAME] Démarrage du GameTimer terminé.");
+
         for (Team team : this.getTeams().values()) {
             if (team.getItemShopNpcLocation() != null) {
                 Villager npc = (Villager) team.getItemShopNpcLocation().getWorld().spawnEntity(team.getItemShopNpcLocation(), EntityType.VILLAGER);
@@ -603,6 +623,9 @@ public class Arena {
                 liveNpcs.add(npc);
             }
         }
+        System.out.println("[DEBUG-STARTGAME] Apparition des PNJ terminée.");
+
+        System.out.println("[DEBUG-STARTGAME] La méthode startGame a terminé son exécution SANS ERREUR.");
     }
 
     /**

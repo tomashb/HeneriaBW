@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [1.0.0-RC3] - En développement
+
+### Corrigé
+- Correction d'un bug de blocage du décompte de démarrage de partie.
+
 ## [1.0.0-RC2] - En développement
 
 ### Ajouté
