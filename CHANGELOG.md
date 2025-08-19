@@ -4,6 +4,7 @@
 
 ### Corrigé
 - Correction d'un bug de blocage du décompte de démarrage de partie.
+- Correction d'un bug critique qui empêchait le démarrage des parties (monde non défini).
 
 ## [1.0.0-RC2] - En développement
 

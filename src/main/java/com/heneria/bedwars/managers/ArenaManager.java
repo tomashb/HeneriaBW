@@ -51,6 +51,9 @@ public class ArenaManager {
             if (config.contains("enabled")) {
                 arena.setEnabled(config.getBoolean("enabled"));
             }
+            if (config.contains("world")) {
+                arena.setWorldName(config.getString("world"));
+            }
             if (config.contains("minPlayers")) {
                 arena.setMinPlayers(config.getInt("minPlayers"));
             }
@@ -184,6 +187,9 @@ public class ArenaManager {
         config.set("minPlayers", arena.getMinPlayers());
         config.set("maxPlayers", arena.getMaxPlayers());
         config.set("boundaries.max-y", arena.getMaxBuildY());
+        if (arena.getWorldName() != null) {
+            config.set("world", arena.getWorldName());
+        }
         if (arena.getLobbyLocation() != null) {
             Location loc = arena.getLobbyLocation();
             config.set("lobby.world", Objects.requireNonNull(loc.getWorld()).getName());
@@ -321,15 +327,34 @@ public class ArenaManager {
      *
      * @param name the arena name
      */
-    public void createArena(String name) {
-        arenas.put(name.toLowerCase(), new Arena(name));
+    public void createArena(String name, String worldName) {
+        Arena arena = new Arena(name);
+        arena.setWorldName(worldName);
+        arenas.put(name.toLowerCase(), arena);
     }
 
-    public void createAndSaveArena(String name, int playersPerTeam, int teamCount) {
+    public void createArena(String name) {
+        createArena(name, null);
+    }
+
+    /**
+     * Creates a new arena with the given parameters and saves it to disk.
+     *
+     * @param name           the arena name
+     * @param playersPerTeam number of players per team
+     * @param teamCount      number of teams
+     * @param worldName      name of the world where the arena resides
+     */
+    public void createAndSaveArena(String name, int playersPerTeam, int teamCount, String worldName) {
         Arena arena = new Arena(name);
+        arena.setWorldName(worldName);
         arena.setMinPlayers(teamCount);
         arena.setMaxPlayers(playersPerTeam * teamCount);
         arenas.put(name.toLowerCase(), arena);
         saveArena(arena);
+    }
+
+    public void createAndSaveArena(String name, int playersPerTeam, int teamCount) {
+        createAndSaveArena(name, playersPerTeam, teamCount, null);
     }
 }

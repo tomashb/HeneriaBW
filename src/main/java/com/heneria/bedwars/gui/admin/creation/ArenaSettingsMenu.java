@@ -74,7 +74,7 @@ public class ArenaSettingsMenu extends Menu {
         } else if (slot == 15) {
             Player player = (Player) event.getWhoClicked();
             player.closeInventory();
-            HeneriaBedwars.getInstance().getArenaManager().createAndSaveArena(arenaName, playersPerTeam, teamCount);
+            HeneriaBedwars.getInstance().getArenaManager().createAndSaveArena(arenaName, playersPerTeam, teamCount, player.getWorld().getName());
             MessageManager.sendMessage(player, "admin.arena-created", "arena", arenaName);
         }
     }
