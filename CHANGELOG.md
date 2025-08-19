@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [1.0.0-BETA] - En développement
+
+### Ajouté
+- Refonte majeure du système de progression de l'équipement : les armures sont des améliorations permanentes, les outils/épées sont temporaires.
+
 ## [0.9.2] - En développement
 
 ### Corrigé

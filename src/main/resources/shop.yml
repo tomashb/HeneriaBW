@@ -138,9 +138,9 @@ shop-categories:
     title: "Armures"
     rows: 3
     items:
-      'chainmail-boots':
-        material: CHAINMAIL_BOOTS
-        name: "&7Bottes en Mailles"
+      'chainmail-armor':
+        material: CHAINMAIL_CHESTPLATE
+        name: "&7Armure en Mailles"
         amount: 1
         cost:
           resource: IRON
@@ -149,9 +149,9 @@ shop-categories:
         upgrade_tier:
           type: 'ARMOR'
           level: 1
-      'iron-boots':
-        material: IRON_BOOTS
-        name: "&fBottes en Fer"
+      'iron-armor':
+        material: IRON_CHESTPLATE
+        name: "&fArmure en Fer"
         amount: 1
         cost:
           resource: GOLD
@@ -160,9 +160,9 @@ shop-categories:
         upgrade_tier:
           type: 'ARMOR'
           level: 2
-      'diamond-boots':
-        material: DIAMOND_BOOTS
-        name: "&bBottes en Diamant"
+      'diamond-armor':
+        material: DIAMOND_CHESTPLATE
+        name: "&bArmure en Diamant"
         amount: 1
         cost:
           resource: EMERALD

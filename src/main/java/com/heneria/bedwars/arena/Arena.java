@@ -545,6 +545,7 @@ public class Arena {
                 p.teleport(team.getSpawnLocation());
             }
             GameUtils.giveDefaultKit(p, team);
+            HeneriaBedwars.getInstance().getUpgradeManager().applyTeamUpgrades(p);
         }
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);

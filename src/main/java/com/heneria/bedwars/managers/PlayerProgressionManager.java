@@ -36,14 +36,14 @@ public class PlayerProgressionManager {
     }
 
     /**
-     * Resets progression tiers for a player.
+     * Resets temporary progression tiers (tools) for a player while preserving
+     * permanent upgrades like armor.
      *
      * @param uuid player's unique identifier
      */
     public void resetProgress(UUID uuid) {
         pickaxeTier.put(uuid, 0);
         axeTier.put(uuid, 0);
-        armorTier.put(uuid, 0);
     }
 
     public int getPickaxeTier(UUID uuid) {
