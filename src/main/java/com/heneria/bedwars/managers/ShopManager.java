@@ -5,6 +5,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.potion.PotionEffectType;
 
 import java.io.File;
 import java.util.*;
@@ -72,8 +74,34 @@ public class ShopManager {
                             ConfigurationSection tierSec = config.getConfigurationSection(path + ".upgrade_tier");
                             String type = tierSec != null ? tierSec.getString("type") : null;
                             int level = tierSec != null ? tierSec.getInt("level", 0) : 0;
+
+                            List<PotionEffectData> effects = new ArrayList<>();
+                            for (Map<String, Object> map : config.getMapList(path + ".potion-effects")) {
+                                try {
+                                    PotionEffectType potion = PotionEffectType.valueOf(((String) map.get("type")).toUpperCase());
+                                    int duration = ((Number) map.getOrDefault("duration", 1)).intValue();
+                                    int amplifier = ((Number) map.getOrDefault("amplifier", 0)).intValue();
+                                    effects.add(new PotionEffectData(potion, duration, amplifier));
+                                } catch (Exception e) {
+                                    plugin.getLogger().warning("Invalid potion effect for item " + itemKey + " in category " + id);
+                                }
+                            }
+
+                            Map<Enchantment, Integer> enchants = new HashMap<>();
+                            for (Map<String, Object> map : config.getMapList(path + ".enchantments")) {
+                                try {
+                                    Enchantment enchantment = Enchantment.getByName(((String) map.get("type")).toUpperCase());
+                                    int lvl = ((Number) map.getOrDefault("level", 1)).intValue();
+                                    if (enchantment != null) {
+                                        enchants.put(enchantment, lvl);
+                                    }
+                                } catch (Exception e) {
+                                    plugin.getLogger().warning("Invalid enchantment for item " + itemKey + " in category " + id);
+                                }
+                            }
+
                             items.computeIfAbsent(slot, k -> new ArrayList<>())
-                                    .add(new ShopItem(material, name, amount, resource, cost, slot, action, type, level));
+                                    .add(new ShopItem(material, name, amount, resource, cost, slot, action, type, level, effects, enchants));
                         } catch (IllegalArgumentException ex) {
                             plugin.getLogger().warning("Invalid item configuration for category " + id + ": " + itemKey);
                         }
@@ -104,7 +132,11 @@ public class ShopManager {
     }
 
     public record ShopItem(Material material, String name, int amount, ResourceType costResource,
-                           int costAmount, int slot, String action, String upgradeType, int upgradeLevel) {
+                           int costAmount, int slot, String action, String upgradeType, int upgradeLevel,
+                           List<PotionEffectData> potionEffects, Map<Enchantment, Integer> enchantments) {
+    }
+
+    public record PotionEffectData(PotionEffectType type, int duration, int amplifier) {
     }
 
     public record ShopCategory(String id, String title, int rows, Map<Integer, List<ShopItem>> items) {

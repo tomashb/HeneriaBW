@@ -19,6 +19,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
@@ -88,6 +90,7 @@ public class ShopItemsMenu extends Menu {
                     .addLore("&7Quantité: &f" + display.amount())
                     .addLore("&7Coût: &f" + display.costAmount() + " " + display.costResource().getDisplayName());
             ItemStack stack = builder.build();
+            applyCustomMeta(stack, display);
             stack.setAmount(display.amount());
             inventory.setItem(slot, stack);
             slotItems.put(slot, display);
@@ -147,6 +150,7 @@ public class ShopItemsMenu extends Menu {
                 }
                 give.setItemMeta(meta);
             }
+            applyCustomMeta(give, item);
             HeneriaBedwars.getInstance().getUpgradeManager().applyTeamUpgrades(clicker, give);
             handleUpgrade(clicker, item, give);
             clicker.playSound(clicker.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
@@ -159,6 +163,24 @@ public class ShopItemsMenu extends Menu {
             MessageManager.sendMessage(clicker, "errors.not-enough-resource", "resource", type.getDisplayName().toLowerCase());
             clicker.playSound(clicker.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
         }
+    }
+
+    private void applyCustomMeta(ItemStack item, ShopManager.ShopItem data) {
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) {
+            return;
+        }
+        if (meta instanceof PotionMeta potionMeta) {
+            for (ShopManager.PotionEffectData effect : data.potionEffects()) {
+                potionMeta.addCustomEffect(new PotionEffect(effect.type(), effect.duration() * 20, effect.amplifier()), true);
+            }
+            item.setItemMeta(potionMeta);
+            meta = item.getItemMeta();
+        }
+        for (Map.Entry<Enchantment, Integer> enchant : data.enchantments().entrySet()) {
+            meta.addEnchant(enchant.getKey(), enchant.getValue(), true);
+        }
+        item.setItemMeta(meta);
     }
 
     private int getTier(String type) {
