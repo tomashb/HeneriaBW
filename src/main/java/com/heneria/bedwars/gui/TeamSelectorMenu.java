@@ -44,9 +44,14 @@ public class TeamSelectorMenu extends Menu {
     public void setupItems() {
         slotTeam.clear();
         int maxPerTeam = arena.getMaxPlayers() / arena.getTeams().size();
-        ItemStack filler = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
-        for (int i = 0; i < getSize(); i++) {
-            inventory.setItem(i, filler);
+        ItemStack border = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
+        int rows = getSize() / 9;
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < 9; c++) {
+                if (r == 0 || r == rows - 1 || c == 0 || c == 8) {
+                    inventory.setItem(r * 9 + c, border);
+                }
+            }
         }
         int index = 0;
         for (Map.Entry<TeamColor, Team> entry : arena.getTeams().entrySet()) {
@@ -55,18 +60,19 @@ public class TeamSelectorMenu extends Menu {
             int row = index / 7;
             int col = index % 7;
             int slot = 10 + row * 9 + col;
+            int size = team.getMembers().size();
+            boolean full = size >= maxPerTeam;
             ItemBuilder builder = new ItemBuilder(color.getWoolMaterial())
-                    .setName(color.getChatColor() + team.getColor().getDisplayName()
-                            + (team.getMembers().size() >= maxPerTeam ? " &c(PLEIN)" : ""))
-                    .addLore(team.getMembers().size() + "/" + maxPerTeam + " Joueurs");
+                    .setName(color.getChatColor() + team.getColor().getDisplayName());
+            builder.addLore((full ? "&c" : "&a") + (full ? "Équipe pleine" : "Clique pour rejoindre"));
+            builder.addLore("&7" + size + "/" + maxPerTeam + " Joueurs");
             for (UUID id : team.getMembers()) {
                 Player p = Bukkit.getPlayer(id);
                 if (p != null) {
                     builder.addLore(" &7- " + p.getName());
                 }
             }
-            ItemStack item = builder.build();
-            inventory.setItem(slot, item);
+            inventory.setItem(slot, builder.build());
             slotTeam.put(slot, color);
             index++;
         }

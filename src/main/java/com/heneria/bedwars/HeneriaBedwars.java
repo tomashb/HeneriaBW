@@ -20,6 +20,7 @@ import com.heneria.bedwars.listeners.LobbyProtectionListener;
 import com.heneria.bedwars.listeners.TeamSelectorListener;
 import com.heneria.bedwars.listeners.HealerMilkListener;
 import com.heneria.bedwars.listeners.TemperedGlassListener;
+import com.heneria.bedwars.listeners.LeaveItemListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
@@ -112,6 +113,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new VoidKillListener(), this);
         getServer().getPluginManager().registerEvents(new LobbyProtectionListener(), this);
         getServer().getPluginManager().registerEvents(new TeamSelectorListener(), this);
+        getServer().getPluginManager().registerEvents(new LeaveItemListener(), this);
         getServer().getPluginManager().registerEvents(new HealerMilkListener(), this);
         getServer().getPluginManager().registerEvents(new TemperedGlassListener(), this);
     }

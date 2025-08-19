@@ -29,9 +29,11 @@
 - Message de chat lors de la destruction d'un lit.
 - Commande `/bw admin delete` avec confirmation pour supprimer une arène.
 - Jour permanent dans les arènes (cycle jour/nuit désactivé).
+- Item de lobby pour quitter rapidement une arène.
 
 ### Corrigé
 - Réinitialisation des améliorations d'équipe à la fin de chaque partie.
+- Sélecteur d'équipe : clic dans l'air, nom coloré et menu avec bordure repensé.
 
 ## [1.0.0-RC3] - En développement
 
