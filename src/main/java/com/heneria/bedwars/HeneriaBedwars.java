@@ -22,6 +22,7 @@ import com.heneria.bedwars.managers.DatabaseManager;
 import com.heneria.bedwars.managers.StatsManager;
 import com.heneria.bedwars.managers.EventManager;
 import com.heneria.bedwars.utils.MessageManager;
+import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class HeneriaBedwars extends JavaPlugin {
@@ -36,10 +37,12 @@ public final class HeneriaBedwars extends JavaPlugin {
     private EventManager eventManager;
     private DatabaseManager databaseManager;
     private StatsManager statsManager;
+    private static NamespacedKey itemTypeKey;
 
     @Override
     public void onEnable() {
         instance = this;
+        itemTypeKey = new NamespacedKey(this, "heneria_item_type");
         saveDefaultConfig();
         MessageManager.init(this);
         getLogger().info("HeneriaBedwars v" + getDescription().getVersion() + " est en cours de chargement...");
@@ -126,5 +129,9 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public DatabaseManager getDatabaseManager() {
         return databaseManager;
+    }
+
+    public static NamespacedKey getItemTypeKey() {
+        return itemTypeKey;
     }
 }

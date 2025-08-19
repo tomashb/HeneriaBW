@@ -20,6 +20,9 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
 
 import java.util.HashMap;
@@ -49,6 +52,43 @@ public class SpecialItemListener implements Listener {
         if (arena == null || arena.getState() != GameState.PLAYING) {
             return;
         }
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            PersistentDataContainer container = meta.getPersistentDataContainer();
+            String special = container.get(HeneriaBedwars.getItemTypeKey(), PersistentDataType.STRING);
+            if ("POPUP_TOWER".equals(special)) {
+                System.out.println("SpecialItemListener: Pop-up Tower item detected for " + player.getName());
+                event.setCancelled(true);
+                Team team = arena.getTeam(player);
+                if (team == null) {
+                    return;
+                }
+                Block currentBlock = player.getLocation().getBlock();
+                boolean canPlace = true;
+                for (int i = 0; i < 4; i++) {
+                    Block blockToPlace = currentBlock.getRelative(BlockFace.DOWN, i);
+                    if (blockToPlace.getType() != Material.AIR) {
+                        canPlace = false;
+                        break;
+                    }
+                }
+                if (!canPlace) {
+                    player.sendMessage("§cVous ne pouvez pas construire une tour ici !");
+                    System.out.println("SpecialItemListener: Pop-up Tower placement failed for " + player.getName());
+                    return;
+                }
+                item.setAmount(item.getAmount() - 1);
+                Material teamWoolMaterial = team.getColor().getWoolMaterial();
+                for (int i = 0; i < 4; i++) {
+                    Block blockToPlace = currentBlock.getRelative(BlockFace.DOWN, i);
+                    blockToPlace.setType(teamWoolMaterial);
+                    arena.getPlacedBlocks().add(blockToPlace);
+                }
+                player.teleport(currentBlock.getRelative(BlockFace.UP, 1).getLocation().add(0.5, 0, 0.5));
+                System.out.println("SpecialItemListener: Pop-up Tower built for " + player.getName());
+                return;
+            }
+        }
         Material type = item.getType();
         if (type == Material.FIRE_CHARGE) {
             event.setCancelled(true);
@@ -65,27 +105,6 @@ public class SpecialItemListener implements Listener {
             Egg egg = player.launchProjectile(Egg.class);
             egg.setVelocity(player.getLocation().getDirection().multiply(1.5));
             eggStarts.put(egg, player.getLocation());
-        } else if (type == Material.CHEST) {
-            event.setCancelled(true);
-            Team team = arena.getTeam(player);
-            if (team == null) {
-                return;
-            }
-            Block currentBlock = player.getLocation().getBlock();
-            for (int i = 0; i < 4; i++) {
-                Block blockToPlace = currentBlock.getRelative(BlockFace.DOWN, i);
-                if (blockToPlace.getType() != Material.AIR) {
-                    return;
-                }
-            }
-            item.setAmount(item.getAmount() - 1);
-            Material teamWoolMaterial = team.getColor().getWoolMaterial();
-            for (int i = 0; i < 4; i++) {
-                Block blockToPlace = currentBlock.getRelative(BlockFace.DOWN, i);
-                blockToPlace.setType(teamWoolMaterial);
-                arena.getPlacedBlocks().add(blockToPlace);
-            }
-            player.teleport(currentBlock.getRelative(BlockFace.UP, 1).getLocation().add(0.5, 0, 0.5));
         }
     }
 
