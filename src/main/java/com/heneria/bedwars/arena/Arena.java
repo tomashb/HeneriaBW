@@ -420,7 +420,7 @@ public class Arena {
     }
 
     public Location getCenterLocation() {
-        org.bukkit.World world = Bukkit.getWorld(worldName);
+        org.bukkit.World world = Bukkit.getWorld(this.worldName);
         if (world == null) {
             return null;
         }
@@ -570,7 +570,7 @@ public class Arena {
             System.out.println("[DEBUG-STARTGAME] Compte à rebours annulé.");
         }
 
-        World world = Bukkit.getWorld(worldName);
+        World world = Bukkit.getWorld(this.worldName);
         if (world != null) {
             world.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
             world.setStorm(false);
@@ -765,7 +765,7 @@ public class Arena {
         bedBlocks.clear();
         originalBedStates.clear();
 
-        World world = Bukkit.getWorld(worldName);
+        World world = Bukkit.getWorld(this.worldName);
         if (world != null) {
             for (Entity entity : new ArrayList<>(world.getEntities())) {
                 if (entity.getType() == EntityType.ITEM) {
