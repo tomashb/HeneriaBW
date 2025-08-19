@@ -65,7 +65,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
   - Permet de quitter l'arène actuelle.
   - **Permission :** `heneriabw.player.leave`
 - `/bw stats [joueur]`
-  - Affiche vos statistiques ou celles d'un autre joueur.
+ - Affiche vos statistiques ou celles d'un autre joueur.
   - **Permission :** `heneriabw.admin.stats` pour consulter celles d'un autre joueur.
 
 ### Créer et Configurer une Arène (Flux de travail)
@@ -76,6 +76,35 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 4.  Cliquez sur votre nouvelle arène pour ouvrir son menu de configuration.
 5.  Utilisez les différentes options et l'outil de positionnement pour définir le lobby, les équipes (lits, spawns, PNJ) et les générateurs.
 6.  Quand tout est prêt, cliquez sur **"Activer l'Arène"** pour la rendre accessible aux joueurs.
+
+### Configuration de la Boutique d'Items
+
+La progression des outils et des armures se configure dans le fichier `shop.yml`. Chaque palier est un objet distinct possédant un bloc `upgrade_tier` indiquant son type (`PICKAXE`, `AXE`, `ARMOR`) et son niveau. Les objets partageant le même `slot` s'affichent progressivement au fur et à mesure des achats.
+
+```yaml
+tools_category:
+  items:
+    stone-pickaxe:
+      material: STONE_PICKAXE
+      cost:
+        resource: IRON
+        amount: 10
+      slot: 10
+      upgrade_tier:
+        type: 'PICKAXE'
+        level: 1
+    iron-pickaxe:
+      material: IRON_PICKAXE
+      cost:
+        resource: GOLD
+        amount: 4
+      slot: 10
+      upgrade_tier:
+        type: 'PICKAXE'
+        level: 2
+```
+
+Seul le prochain palier disponible est proposé à l'achat.
 
 ### Configuration des Pièges d'Équipe
 

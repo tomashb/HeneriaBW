@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [0.9.2] - En développement
+
+### Ajouté
+- Ajout de l'achat d'outils et d'armures par paliers individuels dans la boutique d'objets.
+
 ## [0.9.1] - En développement
 
 ### Corrigé

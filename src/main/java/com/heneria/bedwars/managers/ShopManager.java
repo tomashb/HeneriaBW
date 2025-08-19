@@ -56,7 +56,7 @@ public class ShopManager {
                 String base = "shop-categories." + id;
                 String title = config.getString(base + ".title", id);
                 int rows = config.getInt(base + ".rows", 3);
-                Map<Integer, ShopItem> items = new HashMap<>();
+                Map<Integer, List<ShopItem>> items = new HashMap<>();
                 ConfigurationSection itemsSec = config.getConfigurationSection(base + ".items");
                 if (itemsSec != null) {
                     for (String itemKey : itemsSec.getKeys(false)) {
@@ -69,7 +69,11 @@ public class ShopManager {
                             int cost = config.getInt(path + ".cost.amount", 1);
                             int slot = config.getInt(path + ".slot", 0);
                             String action = config.getString(path + ".action");
-                            items.put(slot, new ShopItem(material, name, amount, resource, cost, slot, action));
+                            ConfigurationSection tierSec = config.getConfigurationSection(path + ".upgrade_tier");
+                            String type = tierSec != null ? tierSec.getString("type") : null;
+                            int level = tierSec != null ? tierSec.getInt("level", 0) : 0;
+                            items.computeIfAbsent(slot, k -> new ArrayList<>())
+                                    .add(new ShopItem(material, name, amount, resource, cost, slot, action, type, level));
                         } catch (IllegalArgumentException ex) {
                             plugin.getLogger().warning("Invalid item configuration for category " + id + ": " + itemKey);
                         }
@@ -99,9 +103,10 @@ public class ShopManager {
     public record MainMenuItem(Material material, String name, List<String> lore, int slot, String category) {
     }
 
-    public record ShopItem(Material material, String name, int amount, ResourceType costResource, int costAmount, int slot, String action) {
+    public record ShopItem(Material material, String name, int amount, ResourceType costResource,
+                           int costAmount, int slot, String action, String upgradeType, int upgradeLevel) {
     }
 
-    public record ShopCategory(String id, String title, int rows, Map<Integer, ShopItem> items) {
+    public record ShopCategory(String id, String title, int rows, Map<Integer, List<ShopItem>> items) {
     }
 }
