@@ -36,6 +36,7 @@ game:
   countdown-cancelled: "&cDécompte annulé : pas assez de joueurs."
   bed-destroyed-title: "&c&lDESTRUCTION DE LIT !"
   bed-destroyed-subtitle: "Lit de l'équipe {team} détruit par {player}"
+  bed-destroyed-chat: "&cLe lit de l'équipe {team} a été détruit par {player}!"
   respawn-title: "&cVOUS ÊTES MORT !"
   respawn-subtitle: "Réapparition dans &e{seconds}s"
   elimination-title: "&c&lÉLIMINATION !"
@@ -81,6 +82,9 @@ admin:
   generator-removed: "&cGénérateur supprimé."
   arena-activated: "&aArène activée."
   arena-deactivated: "&cArène désactivée."
+  delete-pending: "&eTapez /bw admin confirmdelete {arena} dans 30s pour confirmer la suppression."
+  delete-confirmed: "&aL'arène {arena} a été supprimée."
+  delete-expired: "&cConfirmation expirée pour l'arène {arena}."
 
 menus:
   admin-main-title: "&8HeneriaBedwars - Administration"

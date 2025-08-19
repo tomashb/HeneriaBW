@@ -59,6 +59,10 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
   - Ouvre le menu principal de gestion des arènes.
   - **Permission :** `heneriabw.admin`
 
+- `/bw admin delete <nom_de_l_arene>`
+  - Supprime une arène (confirmation requise via `/bw admin confirmdelete <nom_de_l_arene>`).
+  - **Permission :** `heneriabw.admin.delete`
+
 ### Commandes Joueurs
 
 - `/bw join <nom_de_l_arene>`

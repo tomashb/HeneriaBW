@@ -77,6 +77,7 @@ public class GameListener implements Listener {
                     event.setDropItems(false);
                     bedTeam.setHasBed(false);
                     arena.broadcastTitle("game.bed-destroyed-title", "game.bed-destroyed-subtitle", 10, 70, 20, "team", bedTeam.getColor().getDisplayName(), "player", player.getName());
+                    arena.broadcast("game.bed-destroyed-chat", "team", bedTeam.getColor().getDisplayName(), "player", player.getName());
                     PlayerStats stats = statsManager.getStats(player);
                     if (stats != null) {
                         stats.incrementBedsBroken();
