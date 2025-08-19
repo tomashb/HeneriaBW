@@ -64,14 +64,34 @@ public class AdminCommand implements SubCommand {
                 plugin.setMainLobby(player.getLocation());
                 player.sendMessage(ChatColor.GREEN + "Lobby principal défini.");
                 return;
-            } else if (sub.equals("setjoinnpc") && args.length >= 2) {
+            } else if (sub.equals("setjoinnpc") && args.length >= 3) {
                 if (!player.hasPermission("heneriabw.admin.setjoinnpc")) {
                     MessageManager.sendMessage(player, "errors.no-permission");
                     return;
                 }
+                if (!plugin.getNpcManager().isCitizensEnabled()) {
+                    player.sendMessage(ChatColor.RED + "Citizens n'est pas disponible.");
+                    return;
+                }
                 String mode = args[1].toLowerCase();
-                plugin.getNpcManager().addNpc(player.getLocation(), mode);
+                String skin = args[2];
+                plugin.getNpcManager().addJoinNpc(player.getLocation(), mode, skin);
                 player.sendMessage(ChatColor.GREEN + "PNJ de jonction " + mode + " placé.");
+                return;
+            } else if (sub.equals("setshopnpc") && args.length >= 4) {
+                if (!player.hasPermission("heneriabw.admin.setshopnpc")) {
+                    MessageManager.sendMessage(player, "errors.no-permission");
+                    return;
+                }
+                if (!plugin.getNpcManager().isCitizensEnabled()) {
+                    player.sendMessage(ChatColor.RED + "Citizens n'est pas disponible.");
+                    return;
+                }
+                String team = args[1];
+                String type = args[2];
+                String skin = args[3];
+                plugin.getNpcManager().addShopNpc(player.getLocation(), team, type, skin);
+                player.sendMessage(ChatColor.GREEN + "PNJ de boutique " + type + " pour l'équipe " + team + " placé.");
                 return;
             }
         }
@@ -86,7 +106,7 @@ public class AdminCommand implements SubCommand {
     @Override
     public List<String> tabComplete(Player player, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("delete", "confirmdelete", "setmainlobby", "setjoinnpc");
+            return Arrays.asList("delete", "confirmdelete", "setmainlobby", "setjoinnpc", "setshopnpc");
         }
         if (args.length == 2 && (args[0].equalsIgnoreCase("delete") || args[0].equalsIgnoreCase("confirmdelete"))) {
             List<String> names = new ArrayList<>();
@@ -99,6 +119,9 @@ public class AdminCommand implements SubCommand {
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("setjoinnpc")) {
             return Arrays.asList("solos", "duos", "trios", "quads");
+        }
+        if (args.length == 3 && args[0].equalsIgnoreCase("setshopnpc")) {
+            return Arrays.asList("item", "upgrade");
         }
         return Collections.emptyList();
     }

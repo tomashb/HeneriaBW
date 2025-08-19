@@ -3,6 +3,7 @@ version: ${project.version}
 main: com.heneria.bedwars.HeneriaBedwars
 api-version: '1.21'
 author: tomashb
+softdepend: [Citizens]
 
 commands:
   bedwars:
@@ -21,4 +22,7 @@ permissions:
     default: op
   heneriabw.admin.setjoinnpc:
     description: Place un PNJ de sélection d'arène.
+    default: op
+  heneriabw.admin.setshopnpc:
+    description: Place un PNJ de boutique.
     default: op

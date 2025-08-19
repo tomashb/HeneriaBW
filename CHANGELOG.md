@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [2.1.0] - 2024-05-06
+
+### Ajouté
+- Intégration optionnelle de l'API Citizens pour des PNJ de jonction et de boutique avec skins personnalisés.
+
 ## [2.0.0] - 2024-05-05
 
 ### Ajouté
