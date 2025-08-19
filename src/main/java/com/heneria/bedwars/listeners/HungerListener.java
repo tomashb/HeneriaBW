@@ -19,7 +19,7 @@ public class HungerListener implements Listener {
             return;
         }
         Arena arena = HeneriaBedwars.getInstance().getArenaManager().getArena(player);
-        if (arena != null && arena.getState() == GameState.PLAYING) {
+        if (arena != null) {
             event.setCancelled(true);
             player.setFoodLevel(20);
         }

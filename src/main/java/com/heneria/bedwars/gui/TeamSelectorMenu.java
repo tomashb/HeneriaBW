@@ -5,6 +5,7 @@ import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.TeamColor;
 import com.heneria.bedwars.utils.MessageManager;
 import com.heneria.bedwars.utils.ItemBuilder;
+import org.bukkit.Material;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -34,20 +35,29 @@ public class TeamSelectorMenu extends Menu {
     @Override
     public int getSize() {
         int teams = arena.getTeams().size();
-        int rows = (int) Math.ceil(teams / 9.0);
-        return Math.max(9, rows * 9);
+        int innerRows = (int) Math.ceil(teams / 7.0);
+        int rows = Math.max(3, innerRows + 2);
+        return rows * 9;
     }
 
     @Override
     public void setupItems() {
         slotTeam.clear();
         int maxPerTeam = arena.getMaxPlayers() / arena.getTeams().size();
-        int slot = 0;
+        ItemStack filler = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
+        for (int i = 0; i < getSize(); i++) {
+            inventory.setItem(i, filler);
+        }
+        int index = 0;
         for (Map.Entry<TeamColor, Team> entry : arena.getTeams().entrySet()) {
             TeamColor color = entry.getKey();
             Team team = entry.getValue();
+            int row = index / 7;
+            int col = index % 7;
+            int slot = 10 + row * 9 + col;
             ItemBuilder builder = new ItemBuilder(color.getWoolMaterial())
-                    .setName(color.getChatColor() + team.getColor().getDisplayName())
+                    .setName(color.getChatColor() + team.getColor().getDisplayName()
+                            + (team.getMembers().size() >= maxPerTeam ? " &c(PLEIN)" : ""))
                     .addLore(team.getMembers().size() + "/" + maxPerTeam + " Joueurs");
             for (UUID id : team.getMembers()) {
                 Player p = Bukkit.getPlayer(id);
@@ -58,7 +68,7 @@ public class TeamSelectorMenu extends Menu {
             ItemStack item = builder.build();
             inventory.setItem(slot, item);
             slotTeam.put(slot, color);
-            slot++;
+            index++;
         }
     }
 

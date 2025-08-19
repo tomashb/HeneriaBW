@@ -1,12 +1,17 @@
 # Changelog - HeneriaBedwars
 
-## [1.0.0] - 2024-04-XX
+## [1.0.0] - 2024-04-30
 
 ### Ajouté
 - Sélecteur d'équipe interactif permettant aux joueurs de choisir leur camp avant le début de la partie.
 - Protections complètes du lobby d'attente (PvP désactivé, mode aventure).
 - Limites de construction configurables incluant une distance maximale au centre de l'arène.
 - Toutes les fonctionnalités prévues pour la version initiale sont désormais implémentées.
+
+### Corrigé
+- Le sélecteur d'équipe fonctionne aussi lors d'un clic dans les airs et son menu affiche des bordures en verre ainsi que les équipes pleines.
+- La vitesse des générateurs est réinitialisée entre les parties et les émeraudes de forge apparaissent désormais sur les générateurs des îles.
+- Les joueurs ne perdent plus de faim dans une arène.
 
 ## [1.0.0-RC4] - En développement
 
