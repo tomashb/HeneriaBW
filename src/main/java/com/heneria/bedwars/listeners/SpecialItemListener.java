@@ -22,6 +22,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.EventPriority;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -40,6 +41,7 @@ public class SpecialItemListener implements Listener {
     private final HeneriaBedwars plugin = HeneriaBedwars.getInstance();
     private final ArenaManager arenaManager = plugin.getArenaManager();
     private final Map<Egg, Location> eggStarts = new HashMap<>();
+    private final Map<UUID, BukkitRunnable> trackers = new HashMap<>();
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
@@ -107,6 +109,61 @@ public class SpecialItemListener implements Listener {
                 player.teleport(topOfTower);
                 System.out.println("SpecialItemListener: Pop-up Tower built for " + player.getName());
                 return;
+            } else if ("ENEMY_TRACKER".equals(special)) {
+                event.setCancelled(true);
+                if (!trackers.containsKey(player.getUniqueId())) {
+                    BukkitRunnable task = new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            Arena ar = arenaManager.getArena(player);
+                            if (ar == null || ar.getState() != GameState.PLAYING ||
+                                    !player.getInventory().contains(Material.COMPASS)) {
+                                cancel();
+                                trackers.remove(player.getUniqueId());
+                                return;
+                            }
+                            Player target = null;
+                            double best = Double.MAX_VALUE;
+                            Team team = ar.getTeam(player);
+                            for (UUID id : ar.getAlivePlayers()) {
+                                Player p = Bukkit.getPlayer(id);
+                                if (p == null || p.equals(player)) {
+                                    continue;
+                                }
+                                if (team != null && team.isMember(id)) {
+                                    continue;
+                                }
+                                double dist = p.getLocation().distanceSquared(player.getLocation());
+                                if (dist < best) {
+                                    best = dist;
+                                    target = p;
+                                }
+                            }
+                            if (target != null) {
+                                player.setCompassTarget(target.getLocation());
+                            }
+                        }
+                    };
+                    task.runTaskTimer(plugin, 0L, 40L);
+                    trackers.put(player.getUniqueId(), task);
+                }
+                return;
+            } else if ("SAFETY_PLATFORM".equals(special)) {
+                event.setCancelled(true);
+                if (player.getVelocity().getY() < -0.1) {
+                    item.setAmount(item.getAmount() - 1);
+                    Team team = arena.getTeam(player);
+                    Material wool = team != null ? team.getColor().getWoolMaterial() : Material.WHITE_WOOL;
+                    Location loc = player.getLocation().subtract(0, 1, 0);
+                    for (int x = -1; x <= 1; x++) {
+                        for (int z = -1; z <= 1; z++) {
+                            Block b = loc.clone().add(x, 0, z).getBlock();
+                            b.setType(wool);
+                            arena.getPlacedBlocks().add(b);
+                        }
+                    }
+                }
+                return;
             }
         }
         Material type = item.getType();
@@ -128,7 +185,7 @@ public class SpecialItemListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         ItemStack item = event.getItemInHand();
@@ -193,6 +250,22 @@ public class SpecialItemListener implements Listener {
                             }
                         }
                     }.runTaskTimer(plugin, 20L, 20L);
+                    return;
+                } else if ("MAGIC_SPONGE".equals(special)) {
+                    event.setCancelled(true);
+                    event.getBlock().setType(Material.AIR);
+                    item.setAmount(item.getAmount() - 1);
+                    Location loc = event.getBlock().getLocation();
+                    for (int x = -2; x <= 2; x++) {
+                        for (int y = -2; y <= 2; y++) {
+                            for (int z = -2; z <= 2; z++) {
+                                Block b = loc.clone().add(x, y, z).getBlock();
+                                if (b.getType() == Material.WATER) {
+                                    b.setType(Material.AIR);
+                                }
+                            }
+                        }
+                    }
                     return;
                 }
             }

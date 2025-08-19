@@ -1,5 +1,15 @@
 # Changelog - HeneriaBedwars
 
+## [1.1.0] - 2024-05-01
+
+### Ajouté
+- Système de primes récompensant les joueurs mettant fin aux séries d'éliminations.
+- Nouveaux objets spéciaux : Boussole Traqueuse, Verre Trempé, Éponge Magique, Plateforme de Secours et Lait du Guérisseur.
+- Protection contre les explosions pour le Verre Trempé.
+
+### Corrigé
+- Utilisation de `Bukkit.getPlayer` pour la logique du Lait du Guérisseur afin d'éviter l'erreur de compilation.
+
 ## [1.0.0] - 2024-04-30
 
 ### Ajouté
