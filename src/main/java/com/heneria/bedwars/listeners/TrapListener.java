@@ -7,6 +7,7 @@ import com.heneria.bedwars.managers.UpgradeManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -62,10 +63,14 @@ public class TrapListener implements Listener {
                     upgradeManager.applyTrapEffect(player, trap);
                     team.setTrapActive(entry.getKey(), false);
                     MessageManager.sendMessage(player, "game.trap-triggered-attacker", "trap", trap.name());
+                    Sound alarm = team.hasTrapAlarm() ? Sound.valueOf(upgradeManager.getTrapAlarmSound()) : null;
                     for (UUID uuid : team.getMembers()) {
                         Player p = Bukkit.getPlayer(uuid);
                         if (p != null) {
                             MessageManager.sendMessage(p, "game.trap-triggered-defender", "player", player.getName(), "trap", trap.name());
+                            if (alarm != null) {
+                                p.playSound(p.getLocation(), alarm, 1f, 1f);
+                            }
                         }
                     }
                     triggered = true;

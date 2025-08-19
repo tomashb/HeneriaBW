@@ -190,6 +190,24 @@ public class Team {
     }
 
     /**
+     * Checks whether the team has purchased the Heal Pool upgrade.
+     *
+     * @return {@code true} if the team owns a Heal Pool
+     */
+    public boolean hasHealPool() {
+        return getUpgradeLevel("heal-pool") > 0;
+    }
+
+    /**
+     * Checks whether the team has purchased the Trap Alarm upgrade.
+     *
+     * @return {@code true} if the team owns a Trap Alarm
+     */
+    public boolean hasTrapAlarm() {
+        return getUpgradeLevel("trap-alarm") > 0;
+    }
+
+    /**
      * Checks whether the specified trap is active for this team.
      *
      * @param id trap identifier

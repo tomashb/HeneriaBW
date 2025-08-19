@@ -1,5 +1,11 @@
 # Changelog - HeneriaBedwars
 
+## [1.3.0] - 2024-05-04
+
+### Ajouté
+- Nouvelle amélioration d'équipe : Soin de Base créant une aura de régénération autour du lit.
+- Nouvelle amélioration d'équipe : Alarme Anti-Intrusion jouant un son lorsque vos pièges se déclenchent.
+
 ## [1.2.0] - 2024-05-03
 
 ### Ajouté

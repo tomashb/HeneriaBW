@@ -28,6 +28,27 @@ haste:
     2:
       cost: 4
       description: "&7Les joueurs gagnent Hâte II."
+# Crée une zone de régénération autour du lit de l'équipe.
+heal-pool:
+  name: "&aSoin de Base"
+  item: GOLDEN_APPLE
+  tiers:
+    1:
+      cost: 5
+      description: "&7Crée une aura de régénération"
+      parameters:
+        radius: 8 # Rayon en blocs
+        amplifier: 0 # Régénération I
+# Joue un son puissant à l'équipe lorsqu'un piège se déclenche.
+trap-alarm:
+  name: "&cAlarme Anti-Intrusion"
+  item: BELL
+  tiers:
+    1:
+      cost: 2
+      description: "&7Vous alerte avec un son strident"
+      parameters:
+        sound: ENTITY_ENDER_DRAGON_GROWL
 # L'amélioration Forge accélère les générateurs de Fer et d'Or de l'île.
 # Le dernier niveau génère également des Émeraudes directement sur la base.
 forge:
