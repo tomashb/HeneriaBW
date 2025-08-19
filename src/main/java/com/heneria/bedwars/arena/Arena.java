@@ -609,6 +609,7 @@ public class Arena {
 
         for (Generator gen : generators) {
             HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);
+            HeneriaBedwars.getInstance().getHologramManager().createGeneratorHologram(gen);
         }
         System.out.println("[DEBUG-STARTGAME] Démarrage des générateurs terminé.");
 
@@ -744,6 +745,7 @@ public class Arena {
     }
 
     public void reset() {
+        HeneriaBedwars.getInstance().getHologramManager().removeGeneratorHolograms(this);
         HeneriaBedwars.getInstance().getEventManager().stopTimeline(this);
         for (UUID id : new ArrayList<>(players)) {
             Player p = Bukkit.getPlayer(id);

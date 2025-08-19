@@ -20,6 +20,9 @@
 
 ## [1.0.0-RC3] - En développement
 
+### Ajouté
+- Hologrammes dynamiques au-dessus des générateurs de Diamants et d'Émeraudes (support optionnel de DecentHolograms).
+
 ### Corrigé
 - Correction d'un bug de blocage du décompte de démarrage de partie.
 - Correction d'un bug critique qui empêchait le démarrage des parties (monde non défini).

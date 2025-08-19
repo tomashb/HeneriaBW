@@ -14,14 +14,14 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
 - 🧙‍♂️ **Assistant de Création Intuitif** : Un système de création d'arène simple via le chat vous guide pour définir les paramètres de base.
 - 📍 **Configuration Précise** : Utilisez un outil de positionnement en jeu pour définir avec précision l'emplacement du lobby, des lits, des points de spawn, des générateurs et des PNJ pour chaque équipe.
 - ⚙️ **Haute Personnalisation** : Prenez le contrôle total du gameplay en modifiant les fichiers de configuration dédiés :
-  - `generators.yml` : Réglez la vitesse et la quantité de chaque générateur de ressources.
-  - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
-  - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
-  - `scoreboard.yml` : Personnalisez les tableaux de bord du lobby d'attente et de la partie via les sections `lobby` et `game`.
-  - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons) et définissez un `display-name` lisible pour l'affichage du prochain événement sur le scoreboard.
-  - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`).
-  - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie, avec l'option `purchase-limit` pour limiter le nombre d'achats par joueur.
-  - `messages.yml` : Traduisez et personnalisez tous les messages du plugin.
+    - `generators.yml` : Réglez la vitesse et la quantité de chaque générateur de ressources.
+    - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
+    - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
+    - `scoreboard.yml` : Personnalisez les tableaux de bord du lobby d'attente et de la partie via les sections `lobby` et `game`.
+    - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons) et définissez un `display-name` lisible pour l'affichage du prochain événement sur le scoreboard.
+    - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`) et le texte des hologrammes des générateurs via `generator-holograms`.
+    - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie, avec l'option `purchase-limit` pour limiter le nombre d'achats par joueur.
+    - `messages.yml` : Traduisez et personnalisez tous les messages du plugin.
 
 Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le plugin à n'importe quelle langue ou style.
 
@@ -38,6 +38,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
  - 🛡️ **Progression Hybride** : Les armures achetées sont conservées après la mort, tandis que les outils et épées doivent être rachetés.
 - 🌈 **Achats intelligents** : La laine achetée s'adapte automatiquement à la couleur de votre équipe et toute nouvelle épée remplace la précédente.
 - 📊 **Tableau de Bord Dynamique** : Consultez en un coup d'œil l'état des équipes et le prochain événement.
+- 🪩 **Hologrammes de Générateur** : Des hologrammes indiquent le temps avant le prochain drop de Diamants ou d'Émeraudes (plugin optionnel DecentHolograms).
 - 🛍️ **Marchand Mystérieux** : Un PNJ spécial apparaît au centre en milieu de partie pour vendre des objets uniques comme le Golem de Fer de Poche.
 - 🏆 **Conditions de Victoire** : La partie se termine automatiquement lorsque la dernière équipe en vie est déclarée vainqueur, et l'arène se réinitialise pour le prochain combat.
 
@@ -47,8 +48,9 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 
 1.  Téléchargez la dernière version du plugin depuis la page [Releases](https://github.com/tomashb/HeneriaBW/releases).
 2.  Placez le fichier `.jar` téléchargé dans le dossier `plugins` de votre serveur Spigot 1.21.
-3.  Redémarrez votre serveur.
-4.  Les fichiers de configuration par défaut seront générés dans le dossier `plugins/HeneriaBedwars/`.
+3.  *(Optionnel mais recommandé)* Téléchargez et installez [DecentHolograms](https://www.spigotmc.org/resources/decent-holograms.96927/) pour activer les hologrammes des générateurs.
+4.  Redémarrez votre serveur.
+5.  Les fichiers de configuration par défaut seront générés dans le dossier `plugins/HeneriaBedwars/`.
 
 ---
 
@@ -289,6 +291,16 @@ mobs:
 ```
 
 Cette valeur contrôle les dégâts infligés par les Golems de Fer invoqués par les joueurs.
+
+### Hologrammes de Générateur
+
+La section `generator-holograms` du `config.yml` permet de personnaliser le texte affiché au-dessus des générateurs de Diamants et d'Émeraudes. Le placeholder `{time}` sera remplacé par le compte à rebours en secondes.
+
+```yaml
+generator-holograms:
+  diamond: "&bDiamant dans &f{time}s"
+  emerald: "&aÉmeraude dans &f{time}s"
+```
 
 
 ---

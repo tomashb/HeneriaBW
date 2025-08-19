@@ -15,3 +15,7 @@ database:
 mobs:
   iron-golem:
     damage: 4.0
+
+generator-holograms:
+  diamond: "&bDiamant dans &f{time}s"
+  emerald: "&aÉmeraude dans &f{time}s"
