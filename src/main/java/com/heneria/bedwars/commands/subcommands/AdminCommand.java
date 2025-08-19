@@ -4,10 +4,6 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.gui.admin.AdminMainMenu;
 import com.heneria.bedwars.utils.MessageManager;
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.api.trait.traits.SkinTrait;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -70,45 +66,34 @@ public class AdminCommand implements SubCommand {
                 plugin.setMainLobby(player.getLocation());
                 player.sendMessage(ChatColor.GREEN + "Lobby principal défini.");
                 return;
-            } else if (sub.equals("setjoinnpc") && args.length >= 3) {
+            } else if (sub.equals("setjoinnpc") && args.length >= 2) {
                 if (!player.hasPermission("heneriabw.admin.setjoinnpc")) {
                     MessageManager.sendMessage(player, "errors.no-permission");
                     return;
                 }
                 String mode = args[1].toLowerCase();
-                String skin = args[2];
-                plugin.getNpcManager().addNpc(player.getLocation(), mode, skin);
-                player.sendMessage(ChatColor.GREEN + "PNJ de jonction " + mode + " placé avec le skin " + skin + ".");
+                plugin.getNpcManager().addNpc(player.getLocation(), mode);
+                player.sendMessage(ChatColor.GREEN + "PNJ de jonction " + mode + " placé.");
                 return;
-            } else if (sub.equals("setshopnpc") && args.length >= 4) {
+            } else if (sub.equals("setshopnpc") && args.length >= 3) {
                 if (!player.hasPermission("heneriabw.admin.setshopnpc")) {
                     MessageManager.sendMessage(player, "errors.no-permission");
                     return;
                 }
                 String team = args[1];
                 String type = args[2].toLowerCase();
-                String skin = args[3];
-                if (Bukkit.getPluginManager().isPluginEnabled("Citizens")) {
-                    String name = type.equals("upgrade") ? ChatColor.translateAlternateColorCodes('&', MessageManager.get("game.upgrade-npc-name")) : ChatColor.translateAlternateColorCodes('&', MessageManager.get("game.shop-npc-name"));
-                    NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, name);
-                    npc.setProtected(true);
-                    npc.getOrAddTrait(SkinTrait.class).setSkinName(skin);
-                    npc.spawn(player.getLocation());
-                    npc.getEntity().addScoreboardTag(type.equals("upgrade") ? "upgrade_npc" : "shop_npc");
+                Villager npc = (Villager) player.getWorld().spawnEntity(player.getLocation(), EntityType.VILLAGER);
+                npc.setAI(false);
+                npc.setInvulnerable(true);
+                npc.setSilent(true);
+                npc.setCollidable(false);
+                npc.addScoreboardTag(type.equals("upgrade") ? "upgrade_npc" : "shop_npc");
+                if (type.equals("upgrade")) {
+                    npc.setCustomName(MessageManager.get("game.upgrade-npc-name"));
                 } else {
-                    Villager npc = (Villager) player.getWorld().spawnEntity(player.getLocation(), EntityType.VILLAGER);
-                    npc.setAI(false);
-                    npc.setInvulnerable(true);
-                    npc.setSilent(true);
-                    npc.setCollidable(false);
-                    npc.addScoreboardTag(type.equals("upgrade") ? "upgrade_npc" : "shop_npc");
-                    if (type.equals("upgrade")) {
-                        npc.setCustomName(MessageManager.get("game.upgrade-npc-name"));
-                    } else {
-                        npc.setCustomName(MessageManager.get("game.shop-npc-name"));
-                    }
-                    npc.setCustomNameVisible(true);
+                    npc.setCustomName(MessageManager.get("game.shop-npc-name"));
                 }
+                npc.setCustomNameVisible(true);
                 player.sendMessage(ChatColor.GREEN + "PNJ de boutique " + type + " pour l'équipe " + team + " placé.");
                 return;
             }
@@ -138,17 +123,11 @@ public class AdminCommand implements SubCommand {
         if (args.length == 2 && args[0].equalsIgnoreCase("setjoinnpc")) {
             return Arrays.asList("solos", "duos", "trios", "quads");
         }
-        if (args.length == 3 && args[0].equalsIgnoreCase("setjoinnpc")) {
-            return Collections.singletonList("<skin>");
-        }
         if (args.length == 2 && args[0].equalsIgnoreCase("setshopnpc")) {
             return Collections.singletonList("<team>");
         }
         if (args.length == 3 && args[0].equalsIgnoreCase("setshopnpc")) {
             return Arrays.asList("item", "upgrade");
-        }
-        if (args.length == 4 && args[0].equalsIgnoreCase("setshopnpc")) {
-            return Collections.singletonList("<skin>");
         }
         return Collections.emptyList();
     }
