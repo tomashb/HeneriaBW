@@ -13,6 +13,8 @@ import org.bukkit.entity.Egg;
 import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
+import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -28,6 +30,7 @@ import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Handles special gameplay items like fireballs, instant TNT and bridge eggs.
@@ -140,17 +143,56 @@ public class SpecialItemListener implements Listener {
                 PersistentDataContainer container = meta.getPersistentDataContainer();
                 String special = container.get(HeneriaBedwars.getItemTypeKey(), PersistentDataType.STRING);
                 if ("SPAWN_IRON_GOLEM".equals(special)) {
+                    Team team = arena.getTeam(player);
+                    if (team != null) {
+                        Location spawn = team.getSpawnLocation();
+                        if (spawn != null && event.getBlock().getLocation().distance(spawn) > 20) {
+                            player.sendMessage("§cVous ne pouvez poser ce golem que sur votre île !");
+                            event.setCancelled(true);
+                            return;
+                        }
+                    }
                     event.setCancelled(true);
                     event.getBlock().setType(Material.AIR);
                     item.setAmount(item.getAmount() - 1);
                     Location loc = event.getBlock().getLocation().add(0.5, 0, 0.5);
                     IronGolem golem = loc.getWorld().spawn(loc, IronGolem.class);
                     golem.setPlayerCreated(true);
-                    Team team = arena.getTeam(player);
                     if (team != null) {
                         golem.addScoreboardTag("team_" + team.getColor().name());
                     }
                     arena.addNpc(golem);
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            if (golem.isDead() || !golem.isValid()) {
+                                cancel();
+                                return;
+                            }
+                            Player target = null;
+                            double best = Double.MAX_VALUE;
+                            for (UUID id : arena.getPlayers()) {
+                                Player p = Bukkit.getPlayer(id);
+                                if (p == null) {
+                                    continue;
+                                }
+                                if (team != null && team.isMember(p.getUniqueId())) {
+                                    continue;
+                                }
+                                if (p.getWorld() != golem.getWorld()) {
+                                    continue;
+                                }
+                                double dist = p.getLocation().distanceSquared(golem.getLocation());
+                                if (dist < 100 && dist < best) {
+                                    best = dist;
+                                    target = p;
+                                }
+                            }
+                            if (target != null) {
+                                golem.setTarget(target);
+                            }
+                        }
+                    }.runTaskTimer(plugin, 20L, 20L);
                     return;
                 }
             }

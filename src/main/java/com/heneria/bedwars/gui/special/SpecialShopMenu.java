@@ -6,6 +6,7 @@ import com.heneria.bedwars.managers.ResourceType;
 import com.heneria.bedwars.managers.SpecialShopManager;
 import com.heneria.bedwars.utils.ItemBuilder;
 import com.heneria.bedwars.HeneriaBedwars;
+import com.heneria.bedwars.arena.Arena;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -48,6 +49,9 @@ public class SpecialShopMenu extends Menu {
                 builder.addLore(line);
             }
             builder.addLore("&7Coût: &f" + item.costAmount() + " " + item.costResource().getDisplayName());
+            if (item.purchaseLimit() > 0) {
+                builder.addLore("&7Limite: &f" + item.purchaseLimit());
+            }
             ItemStack stack = builder.build();
             inventory.setItem(item.slot(), stack);
             slotItems.put(item.slot(), item);
@@ -72,6 +76,13 @@ public class SpecialShopMenu extends Menu {
         SpecialShopManager.SpecialItem item = slotItems.get(event.getRawSlot());
         if (item == null) {
             return;
+        }
+        Arena arena = HeneriaBedwars.getInstance().getArenaManager().getArena(player);
+        if (arena != null && item.purchaseLimit() > 0) {
+            if (!arena.canPurchase(player.getUniqueId(), item.id(), item.purchaseLimit())) {
+                player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
+                return;
+            }
         }
         ResourceType type = item.costResource();
         int price = item.costAmount();

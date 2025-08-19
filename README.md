@@ -19,7 +19,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
   - `scoreboard.yml` : Personnalisez le titre et les lignes du tableau de bord en jeu.
   - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons).
-  - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie.
+  - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie, avec l'option `purchase-limit` pour limiter le nombre d'achats par joueur.
   - `messages.yml` : Traduisez et personnalisez tous les messages du plugin.
 
 Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le plugin à n'importe quelle langue ou style.
@@ -171,7 +171,7 @@ game-events:
 
 ### Configuration du Marchand Mystérieux
 
-Le contenu de la boutique du PNJ spécial est défini dans le fichier `special_shop.yml` :
+Le contenu de la boutique du PNJ spécial est défini dans le fichier `special_shop.yml`. Chaque objet peut inclure un champ `purchase-limit` pour limiter le nombre d'achats par joueur :
 
 ```yaml
 title: "&5Marchand Mystérieux"
@@ -188,6 +188,15 @@ items:
       amount: 8
     slot: 11
     action: 'SPAWN_IRON_GOLEM'
+    purchase-limit: 1
+  super-fireball:
+    material: FIRE_CHARGE
+    name: "&cSuper Boule de Feu"
+    cost:
+      resource: EMERALD
+      amount: 4
+    slot: 15
+    purchase-limit: 3
 ```
 
 ### Configuration de la Base de Données

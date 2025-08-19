@@ -8,9 +8,7 @@ import com.heneria.bedwars.events.GameEventType;
 import com.heneria.bedwars.events.TimedEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -160,13 +158,10 @@ public class EventManager {
             } else if (event.getType() == GameEventType.SUDDEN_DEATH) {
                 arena.destroyAllBeds();
             } else if (event.getType() == GameEventType.SPAWN_DRAGONS) {
+                plugin.getLogger().info("EventManager: SPAWN_DRAGONS triggered for arena " + arena.getName());
                 int amount = Math.max(1, event.getAmount());
-                Location center = arena.getCenterLocation();
-                if (center != null) {
-                    for (int i = 0; i < amount; i++) {
-                        EnderDragon dragon = center.getWorld().spawn(center, EnderDragon.class);
-                        arena.getDragons().add(dragon);
-                    }
+                for (int i = 0; i < amount; i++) {
+                    arena.spawnDragon();
                 }
             } else if (event.getType() == GameEventType.SPAWN_SPECIAL_NPC) {
                 arena.spawnSpecialNpc();
