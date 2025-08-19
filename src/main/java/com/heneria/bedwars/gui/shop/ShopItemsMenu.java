@@ -14,6 +14,7 @@ import com.heneria.bedwars.arena.elements.Team;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -176,11 +177,21 @@ public class ShopItemsMenu extends Menu {
         switch (type.toUpperCase()) {
             case "PICKAXE" -> {
                 removeTool(clicker, "_PICKAXE");
+                ItemMeta meta = give.getItemMeta();
+                if (meta != null) {
+                    meta.addEnchant(Enchantment.EFFICIENCY, 1, true);
+                    give.setItemMeta(meta);
+                }
                 clicker.getInventory().addItem(give);
                 progressionManager.setPickaxeTier(uuid, item.upgradeLevel());
             }
             case "AXE" -> {
                 removeTool(clicker, "_AXE");
+                ItemMeta meta = give.getItemMeta();
+                if (meta != null) {
+                    meta.addEnchant(Enchantment.EFFICIENCY, 1, true);
+                    give.setItemMeta(meta);
+                }
                 clicker.getInventory().addItem(give);
                 progressionManager.setAxeTier(uuid, item.upgradeLevel());
             }

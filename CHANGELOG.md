@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [1.0.0-BETA] - En développement
+
+### Modifié
+- Refonte majeure du système de progression de l'équipement et correction d'erreurs de compilation liées à l'API.
+
 ## [0.9.2] - En développement
 
 ### Corrigé

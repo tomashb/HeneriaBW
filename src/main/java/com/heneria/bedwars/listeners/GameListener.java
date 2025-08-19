@@ -120,6 +120,7 @@ public class GameListener implements Listener {
                         player.setGameMode(GameMode.SURVIVAL);
                         player.teleport(playerTeam.getSpawnLocation());
                         GameUtils.giveDefaultKit(player, playerTeam);
+                        plugin.getUpgradeManager().applyTeamUpgrades(player);
                     }
                 }
             }.runTaskTimer(plugin, 0L, 20L);
