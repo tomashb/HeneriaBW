@@ -16,3 +16,9 @@ permissions:
   heneriabw.admin.stats:
     description: Permet de voir les statistiques des autres joueurs.
     default: op
+  heneriabw.admin.setmainlobby:
+    description: Définit le lobby principal BedWars.
+    default: op
+  heneriabw.admin.setjoinnpc:
+    description: Place un PNJ de sélection d'arène.
+    default: op

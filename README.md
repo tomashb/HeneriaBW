@@ -27,6 +27,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 
 ### Pour les Joueurs
 
+- 🎡 **Lobby Principal Immersif** : Les joueurs apparaissent dans un lobby central et choisissent leur mode via des PNJ interactifs.
 - 🕹️ **Cycle de Jeu Complet** : Rejoignez une arène, attendez dans le lobby avec un décompte, et lancez-vous dans la bataille.
 - 🎽 **Sélecteur d'équipe** : Choisissez votre camp grâce à un menu interactif avant le début de la partie.
 - 🛏️ **Mécaniques Classiques** : Protégez votre lit pour pouvoir réapparaître, et détruisez celui de vos ennemis pour les éliminer définitivement.
@@ -66,11 +67,17 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - `/bw admin delete <nom_de_l_arene>`
   - Supprime une arène (confirmation requise via `/bw admin confirmdelete <nom_de_l_arene>`).
   - **Permission :** `heneriabw.admin.delete`
+- `/bw admin setmainlobby`
+  - Définit la position du lobby principal BedWars.
+  - **Permission :** `heneriabw.admin.setmainlobby`
+- `/bw admin setjoinnpc <mode>`
+  - Fait apparaître un PNJ de sélection d'arène pour le mode donné (ex: `solos`, `duos`).
+  - **Permission :** `heneriabw.admin.setjoinnpc`
 
 ### Commandes Joueurs
 
 - `/bw join <nom_de_l_arene>`
-  - Permet de rejoindre une arène en attente.
+  - Rejoint une arène en attente (principalement pour les tests, l'accès se fait désormais via les PNJ du lobby).
   - **Permission :** `heneriabw.player.join`
 - `/bw leave`
   - Permet de quitter l'arène actuelle.
