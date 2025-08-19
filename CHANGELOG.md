@@ -1,5 +1,18 @@
 # Changelog - HeneriaBedwars
 
+## [1.1.0] - 2024-??-??
+
+### Ajouté
+- Système de primes sur les séries d'éliminations avec récompense pour le joueur qui la brise.
+- Boussole Traqueuse permettant de localiser l'ennemi le plus proche.
+- Verre Trempé résistant aux explosions.
+- Éponge Magique supprimant l'eau dans une zone.
+- Plateforme de Secours pour éviter les chutes dans le vide.
+- Lait du Guérisseur retirant les effets négatifs pour soi et ses alliés proches.
+
+### Corrigé
+- Remplacement de l'appel à `isBad()` par une liste d'effets négatifs pour la gestion des potions.
+
 ## [1.0.0] - 2024-04-30
 
 ### Ajouté
