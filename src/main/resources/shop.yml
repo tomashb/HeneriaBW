@@ -170,7 +170,7 @@ shop-categories:
         cost:
           resource: IRON
           amount: 20
-        slot: 17
+        slot: 19
         action: 'SAFETY_PLATFORM'
       'healer_milk':
         material: MILK_BUCKET
@@ -179,7 +179,7 @@ shop-categories:
         cost:
           resource: GOLD
           amount: 6
-        slot: 18
+        slot: 20
         action: 'HEALER_MILK'
 
   'armors_category':
