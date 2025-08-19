@@ -8,6 +8,7 @@ import com.heneria.bedwars.managers.ArenaManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Egg;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
@@ -64,6 +65,27 @@ public class SpecialItemListener implements Listener {
             Egg egg = player.launchProjectile(Egg.class);
             egg.setVelocity(player.getLocation().getDirection().multiply(1.5));
             eggStarts.put(egg, player.getLocation());
+        } else if (type == Material.CHEST) {
+            event.setCancelled(true);
+            Team team = arena.getTeam(player);
+            if (team == null) {
+                return;
+            }
+            Block currentBlock = player.getLocation().getBlock();
+            for (int i = 0; i < 4; i++) {
+                Block blockToPlace = currentBlock.getRelative(BlockFace.DOWN, i);
+                if (blockToPlace.getType() != Material.AIR) {
+                    return;
+                }
+            }
+            item.setAmount(item.getAmount() - 1);
+            Material teamWoolMaterial = team.getColor().getWoolMaterial();
+            for (int i = 0; i < 4; i++) {
+                Block blockToPlace = currentBlock.getRelative(BlockFace.DOWN, i);
+                blockToPlace.setType(teamWoolMaterial);
+                arena.getPlacedBlocks().add(blockToPlace);
+            }
+            player.teleport(currentBlock.getRelative(BlockFace.UP, 1).getLocation().add(0.5, 0, 0.5));
         }
     }
 
