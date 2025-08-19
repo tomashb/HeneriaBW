@@ -61,43 +61,45 @@ shop-categories:
           resource: IRON
           amount: 10
         slot: 11
-    'blocks_category':
-      title: "Blocs"
-      rows: 5
-      items:
-        'wool':
-          material: WHITE_WOOL
-          name: "&fLaine"
-          amount: 16
-          cost:
-            resource: IRON
-            amount: 4
-          slot: 10
-        'oak-planks':
-          material: OAK_PLANKS
-          name: "&6Planches de Chêne"
-          amount: 16
-          cost:
-            resource: IRON
-            amount: 12
-          slot: 11
-        'end-stone':
-          material: END_STONE
-          name: "&ePierre de l'End"
-          amount: 12
-          cost:
-            resource: IRON
-            amount: 24
-          slot: 12
-        'tempered_glass':
-          material: GLASS
-          name: "&fVerre Trempé"
+
+  'blocks_category':
+    title: "Blocs"
+    rows: 5
+    items:
+      'wool':
+        material: WHITE_WOOL
+        name: "&fLaine"
+        amount: 16
+        cost:
+          resource: IRON
           amount: 4
-          cost:
-            resource: IRON
-            amount: 12
-          slot: 13
-          action: 'TEMPERED_GLASS'
+        slot: 10
+      'oak-planks':
+        material: OAK_PLANKS
+        name: "&6Planches de Chêne"
+        amount: 16
+        cost:
+          resource: IRON
+          amount: 12
+        slot: 11
+      'end-stone':
+        material: END_STONE
+        name: "&ePierre de l'End"
+        amount: 12
+        cost:
+          resource: IRON
+          amount: 24
+        slot: 12
+      'tempered_glass':
+        material: GLASS
+        name: "&fVerre Trempé"
+        amount: 4
+        cost:
+          resource: IRON
+          amount: 12
+        slot: 13
+        action: 'TEMPERED_GLASS'
+
   'utilities_category':
     title: "Utilitaires"
     rows: 5
@@ -143,23 +145,23 @@ shop-categories:
           amount: 24
         slot: 14
         action: 'POPUP_TOWER'
-        'enemy_tracker':
-          material: COMPASS
-          name: "&eBoussole Traqueuse"
-          amount: 1
-          cost:
-            resource: EMERALD
-            amount: 2
-          slot: 15
-          action: 'ENEMY_TRACKER'
-        'magic_sponge':
-          material: SPONGE
-          name: "&eÉponge Magique"
-          amount: 1
-          cost:
+      'enemy_tracker':
+        material: COMPASS
+        name: "&eBoussole Traqueuse"
+        amount: 1
+        cost:
+          resource: EMERALD
+          amount: 2
+        slot: 15
+        action: 'ENEMY_TRACKER'
+      'magic_sponge':
+        material: SPONGE
+        name: "&eÉponge Magique"
+        amount: 1
+        cost:
           resource: GOLD
           amount: 3
-        slot: 17
+        slot: 16
         action: 'MAGIC_SPONGE'
       'safety_platform':
         material: SLIME_BLOCK
@@ -168,7 +170,7 @@ shop-categories:
         cost:
           resource: IRON
           amount: 20
-        slot: 18
+        slot: 17
         action: 'SAFETY_PLATFORM'
       'healer_milk':
         material: MILK_BUCKET
@@ -177,8 +179,9 @@ shop-categories:
         cost:
           resource: GOLD
           amount: 6
-        slot: 19
+        slot: 18
         action: 'HEALER_MILK'
+
   'armors_category':
     title: "Armures"
     rows: 3
@@ -216,6 +219,7 @@ shop-categories:
         upgrade_tier:
           type: 'ARMOR'
           level: 3
+
   'tools_category':
     title: "Outils"
     rows: 3
@@ -294,3 +298,4 @@ shop-categories:
           resource: IRON
           amount: 20
         slot: 12
+
