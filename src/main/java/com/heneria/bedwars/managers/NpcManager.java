@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -172,6 +173,44 @@ public class NpcManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Removes the nearest join NPC around the given player within the specified radius.
+     *
+     * @param player the player executing the removal
+     * @param radius the search radius in blocks
+     * @return {@code true} if an NPC was found and removed
+     */
+    public boolean removeNearestNpc(Player player, double radius) {
+        Location loc = player.getLocation();
+        NpcInfo target = null;
+        double closest = radius * radius;
+        for (NpcInfo info : npcs) {
+            if (info.location.getWorld() != loc.getWorld()) continue;
+            double dist = info.location.distanceSquared(loc);
+            if (dist < closest) {
+                closest = dist;
+                target = info;
+            }
+        }
+        if (target == null) {
+            return false;
+        }
+
+        for (Entity entity : target.location.getWorld().getNearbyEntities(target.location, 1, 1, 1)) {
+            if (entity.getType() == EntityType.ARMOR_STAND) {
+                String mode = entity.getPersistentDataContainer().get(npcKey, PersistentDataType.STRING);
+                if (mode != null && mode.equals(target.mode)) {
+                    entity.remove();
+                    break;
+                }
+            }
+        }
+
+        npcs.remove(target);
+        saveNpcs();
+        return true;
     }
 
     /**

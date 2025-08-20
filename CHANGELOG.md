@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [2.2.1] - 2024-05-09
+
+### Ajouté
+- Ajout de la commande /bw admin removenpc pour supprimer les PNJ du lobby.
+
 ## [2.2.0] - 2024-05-08
 
 ### Modifié

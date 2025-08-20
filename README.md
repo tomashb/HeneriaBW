@@ -76,6 +76,9 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
   - `/bw admin setshopnpc <équipe> <type_boutique>`
     - Place un PNJ de boutique (`item` ou `upgrade`) sous forme de support d'armure pour l'équipe spécifiée.
     - **Permission :** `heneriabw.admin.setshopnpc`
+  - `/bw admin removenpc`
+    - Supprime le PNJ HeneriaBedwars le plus proche de vous dans le lobby.
+    - **Permission :** `heneriabw.admin.removenpc`
 
 ### Commandes Joueurs
 

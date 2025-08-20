@@ -112,6 +112,18 @@ public class AdminCommand implements SubCommand {
                 npc.setCustomNameVisible(true);
                 player.sendMessage(ChatColor.GREEN + "PNJ de boutique " + type + " pour l'équipe " + team + " placé.");
                 return;
+            } else if (sub.equals("removenpc")) {
+                if (!player.hasPermission("heneriabw.admin.removenpc")) {
+                    MessageManager.sendMessage(player, "errors.no-permission");
+                    return;
+                }
+                boolean removed = plugin.getNpcManager().removeNearestNpc(player, 10);
+                if (removed) {
+                    player.sendMessage(ChatColor.GREEN + "Le PNJ le plus proche a été supprimé.");
+                } else {
+                    player.sendMessage(ChatColor.RED + "Aucun PNJ HeneriaBedwars trouvé à proximité.");
+                }
+                return;
             }
         }
 
@@ -125,7 +137,7 @@ public class AdminCommand implements SubCommand {
     @Override
     public List<String> tabComplete(Player player, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("delete", "confirmdelete", "setmainlobby", "setjoinnpc", "setshopnpc");
+            return Arrays.asList("delete", "confirmdelete", "setmainlobby", "setjoinnpc", "setshopnpc", "removenpc");
         }
         if (args.length == 2 && (args[0].equalsIgnoreCase("delete") || args[0].equalsIgnoreCase("confirmdelete"))) {
             List<String> names = new ArrayList<>();
