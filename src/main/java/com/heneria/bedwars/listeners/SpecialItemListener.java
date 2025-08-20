@@ -301,6 +301,23 @@ public class SpecialItemListener implements Listener {
     }
 
     @EventHandler
+    public void onFireballExplode(EntityExplodeEvent event) {
+        if (!(event.getEntity() instanceof org.bukkit.entity.Fireball fireball)) {
+            return;
+        }
+        if (!(fireball.getShooter() instanceof Player player)) {
+            return;
+        }
+        Arena arena = arenaManager.getArena(player);
+        if (arena == null) {
+            return;
+        }
+        event.blockList().removeIf(block ->
+                !(arena.getPlacedBlocks().contains(block) && block.getType().name().endsWith("_WOOL")));
+        arena.getPlacedBlocks().removeAll(event.blockList());
+    }
+
+    @EventHandler
     public void onEggHit(ProjectileHitEvent event) {
         if (!(event.getEntity() instanceof Egg egg)) {
             return;

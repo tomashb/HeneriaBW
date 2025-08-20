@@ -150,24 +150,45 @@ speed_potion:
 
 Seul le prochain palier disponible est proposé à l'achat. Après une mort, les joueurs réapparaissent avec leur meilleure armure débloquée mais uniquement les outils et armes en bois.
 
-### Configuration des Pièges d'Équipe
+### Configuration des Améliorations et Pièges d'Équipe
 
-Les pièges sont définis dans le fichier `upgrades.yml` sous la section `traps`. Chaque piège possède un nom, un item de menu, un coût en diamants et un effet de potion appliqué à l'intrus.
+Le fichier `upgrades.yml` fonctionne désormais comme `shop.yml` avec un menu principal listant des catégories. Chaque entrée du menu pointe vers une catégorie contenant soit des améliorations permanentes, soit des pièges.
 
 ```yaml
-traps:
-  miner-fatigue-trap:
-    name: "&cPiège de Fatigue"
-    item: PRISMARINE_SHARD
-    cost: 1
-    description:
-      - "&7Le prochain ennemi qui entre"
-      - "&7dans votre base recevra Fatigue de Minage."
-    effect:
-      type: SLOW_DIGGING
-      duration: 10
-      amplifier: 1
+main-menu:
+  title: "Améliorations d'équipe"
+  rows: 3
+  items:
+    general:
+      material: DIAMOND_SWORD
+      name: "&aAméliorations Générales"
+      slot: 11
+      category: general
+    traps:
+      material: TRIPWIRE_HOOK
+      name: "&cPièges"
+      slot: 15
+      category: traps
+
+upgrade-categories:
+  traps:
+    title: "Pièges"
+    rows: 3
+    traps:
+      miner-fatigue-trap:
+        name: "&cPiège de Fatigue"
+        item: PRISMARINE_SHARD
+        cost: 1
+        description:
+          - "&7Le prochain ennemi qui entre"
+          - "&7dans votre base recevra Fatigue de Minage."
+        effect:
+          type: SLOW_DIGGING
+          duration: 10
+          amplifier: 1
 ```
+
+Les améliorations d'équipe suivent la même structure dans la catégorie `general` avec une section `upgrades` listant chaque amélioration et ses paliers.
 
 ### Configuration des Événements de Jeu
 

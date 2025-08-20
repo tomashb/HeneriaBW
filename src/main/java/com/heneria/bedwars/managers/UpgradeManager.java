@@ -27,6 +27,10 @@ public class UpgradeManager {
     private YamlConfiguration config;
     private final Map<String, Upgrade> upgrades = new HashMap<>();
     private final Map<String, Trap> traps = new HashMap<>();
+    private final Map<String, UpgradeCategory> categories = new HashMap<>();
+    private String mainMenuTitle = "Upgrades";
+    private int mainMenuRows = 3;
+    private final java.util.List<MainMenuItem> mainMenuItems = new java.util.ArrayList<>();
     private double healPoolRadius = 8;
     private int healPoolAmplifier = 0;
     private String trapAlarmSound = "ENTITY_ENDER_DRAGON_GROWL";
@@ -44,54 +48,93 @@ public class UpgradeManager {
         }
         this.config = YamlConfiguration.loadConfiguration(file);
         upgrades.clear();
-        for (String id : config.getKeys(false)) {
-            if (id.equalsIgnoreCase("traps")) continue;
-            String base = id + ".";
-            String name = config.getString(base + "name", id);
-            Material item = Material.valueOf(config.getString(base + "item", "STONE"));
-            Map<Integer, UpgradeTier> tiers = new HashMap<>();
-            ConfigurationSection sec = config.getConfigurationSection(base + "tiers");
-            if (sec != null) {
-                for (String tierKey : sec.getKeys(false)) {
-                    try {
-                        int tier = Integer.parseInt(tierKey);
-                        int cost = sec.getInt(tierKey + ".cost", 1);
-                        String desc = sec.getString(tierKey + ".description", "");
-                        tiers.put(tier, new UpgradeTier(cost, desc));
-                    } catch (NumberFormatException ignored) {
-                    }
-                }
-            }
-            upgrades.put(id, new Upgrade(id, name, item, tiers));
+        traps.clear();
+        categories.clear();
+        mainMenuItems.clear();
 
-            if (id.equals("heal-pool")) {
-                ConfigurationSection params = config.getConfigurationSection(base + "tiers.1.parameters");
-                if (params != null) {
-                    healPoolRadius = params.getDouble("radius", 8);
-                    healPoolAmplifier = params.getInt("amplifier", 0);
-                }
-            } else if (id.equals("trap-alarm")) {
-                ConfigurationSection params = config.getConfigurationSection(base + "tiers.1.parameters");
-                if (params != null) {
-                    trapAlarmSound = params.getString("sound", "ENTITY_ENDER_DRAGON_GROWL");
+        ConfigurationSection main = config.getConfigurationSection("main-menu");
+        if (main != null) {
+            mainMenuTitle = main.getString("title", mainMenuTitle);
+            mainMenuRows = main.getInt("rows", mainMenuRows);
+            ConfigurationSection items = main.getConfigurationSection("items");
+            if (items != null) {
+                for (String key : items.getKeys(false)) {
+                    ConfigurationSection itemSec = items.getConfigurationSection(key);
+                    Material mat = Material.valueOf(itemSec.getString("material", "STONE"));
+                    String name = itemSec.getString("name", key);
+                    java.util.List<String> lore = itemSec.getStringList("lore");
+                    int slot = itemSec.getInt("slot", 0);
+                    String category = itemSec.getString("category");
+                    mainMenuItems.add(new MainMenuItem(mat, name, lore, slot, category));
                 }
             }
         }
 
-        traps.clear();
-        ConfigurationSection trapSection = config.getConfigurationSection("traps");
-        if (trapSection != null) {
-            for (String id : trapSection.getKeys(false)) {
-                String base = id + ".";
-                String name = trapSection.getString(base + "name", id);
-                Material item = Material.valueOf(trapSection.getString(base + "item", "STONE"));
-                int cost = trapSection.getInt(base + "cost", 1);
-                List<String> description = trapSection.getStringList(base + "description");
-                ConfigurationSection effectSec = trapSection.getConfigurationSection(base + "effect");
-                PotionEffectType type = PotionEffectType.getByName(effectSec.getString("type", "BLINDNESS"));
-                int duration = effectSec.getInt("duration", 5);
-                int amplifier = effectSec.getInt("amplifier", 0);
-                traps.put(id, new Trap(id, name, item, cost, description, type, duration, amplifier));
+        ConfigurationSection catSec = config.getConfigurationSection("upgrade-categories");
+        if (catSec != null) {
+            for (String catId : catSec.getKeys(false)) {
+                ConfigurationSection c = catSec.getConfigurationSection(catId);
+                String title = c.getString("title", catId);
+                int rows = c.getInt("rows", 3);
+                Map<String, Upgrade> catUpgrades = new LinkedHashMap<>();
+                ConfigurationSection ups = c.getConfigurationSection("upgrades");
+                if (ups != null) {
+                    for (String id : ups.getKeys(false)) {
+                        String base = id + ".";
+                        String name = ups.getString(base + "name", id);
+                        Material item = Material.valueOf(ups.getString(base + "item", "STONE"));
+                        Map<Integer, UpgradeTier> tiers = new HashMap<>();
+                        ConfigurationSection sec = ups.getConfigurationSection(base + "tiers");
+                        if (sec != null) {
+                            for (String tierKey : sec.getKeys(false)) {
+                                try {
+                                    int tier = Integer.parseInt(tierKey);
+                                    int cost = sec.getInt(tierKey + ".cost", 1);
+                                    String desc = sec.getString(tierKey + ".description", "");
+                                    tiers.put(tier, new UpgradeTier(cost, desc));
+                                } catch (NumberFormatException ignored) {
+                                }
+                            }
+                        }
+                        Upgrade up = new Upgrade(id, name, item, tiers);
+                        catUpgrades.put(id, up);
+                        upgrades.put(id, up);
+
+                        if (id.equals("heal-pool")) {
+                            ConfigurationSection params = ups.getConfigurationSection(base + "tiers.1.parameters");
+                            if (params != null) {
+                                healPoolRadius = params.getDouble("radius", 8);
+                                healPoolAmplifier = params.getInt("amplifier", 0);
+                            }
+                        } else if (id.equals("trap-alarm")) {
+                            ConfigurationSection params = ups.getConfigurationSection(base + "tiers.1.parameters");
+                            if (params != null) {
+                                trapAlarmSound = params.getString("sound", "ENTITY_ENDER_DRAGON_GROWL");
+                            }
+                        }
+                    }
+                }
+
+                Map<String, Trap> catTraps = new LinkedHashMap<>();
+                ConfigurationSection trs = c.getConfigurationSection("traps");
+                if (trs != null) {
+                    for (String id : trs.getKeys(false)) {
+                        String base = id + ".";
+                        String name = trs.getString(base + "name", id);
+                        Material item = Material.valueOf(trs.getString(base + "item", "STONE"));
+                        int cost = trs.getInt(base + "cost", 1);
+                        List<String> description = trs.getStringList(base + "description");
+                        ConfigurationSection effectSec = trs.getConfigurationSection(base + "effect");
+                        PotionEffectType type = PotionEffectType.getByName(effectSec.getString("type", "BLINDNESS"));
+                        int duration = effectSec.getInt("duration", 5);
+                        int amplifier = effectSec.getInt("amplifier", 0);
+                        Trap trap = new Trap(id, name, item, cost, description, type, duration, amplifier);
+                        catTraps.put(id, trap);
+                        traps.put(id, trap);
+                    }
+                }
+
+                categories.put(catId, new UpgradeCategory(catId, title, rows, catUpgrades, catTraps));
             }
         }
     }
@@ -110,6 +153,22 @@ public class UpgradeManager {
 
     public Trap getTrap(String id) {
         return traps.get(id);
+    }
+
+    public String getMainMenuTitle() {
+        return mainMenuTitle;
+    }
+
+    public int getMainMenuRows() {
+        return mainMenuRows;
+    }
+
+    public java.util.List<MainMenuItem> getMainMenuItems() {
+        return mainMenuItems;
+    }
+
+    public UpgradeCategory getCategory(String id) {
+        return categories.get(id);
     }
 
     /**
@@ -251,5 +310,11 @@ public class UpgradeManager {
 
     public record Trap(String id, String name, Material item, int cost, List<String> description,
                         PotionEffectType effectType, int duration, int amplifier) {
+    }
+
+    public record MainMenuItem(Material material, String name, java.util.List<String> lore, int slot, String category) {
+    }
+
+    public record UpgradeCategory(String id, String title, int rows, Map<String, Upgrade> upgrades, Map<String, Trap> traps) {
     }
 }
