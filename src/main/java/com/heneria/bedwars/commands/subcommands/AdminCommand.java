@@ -104,7 +104,8 @@ public class AdminCommand implements SubCommand {
                 meta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_Villager"));
                 head.setItemMeta(meta);
                 npc.getEquipment().setHelmet(head);
-                npc.getPersistentDataContainer().set(HeneriaBedwars.getNpcKey(), PersistentDataType.STRING, type.equals("upgrade") ? "upgrade" : "shop");
+                String pdcValue = (type.equals("upgrade") ? "UPGRADE_SHOP" : "ITEM_SHOP") + ":" + team.toUpperCase();
+                npc.getPersistentDataContainer().set(HeneriaBedwars.getNpcKey(), PersistentDataType.STRING, pdcValue);
                 if (type.equals("upgrade")) {
                     npc.setCustomName(MessageManager.get("game.upgrade-npc-name"));
                     npc.getEquipment().setItemInMainHand(new ItemStack(Material.NETHER_STAR));

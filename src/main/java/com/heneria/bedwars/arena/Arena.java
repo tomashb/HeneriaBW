@@ -650,7 +650,8 @@ public class Arena {
                 npc.getEquipment().setItemInMainHand(new ItemStack(Material.EMERALD));
                 npc.setCustomName(MessageManager.get("game.shop-npc-name"));
                 npc.setCustomNameVisible(true);
-                npc.getPersistentDataContainer().set(HeneriaBedwars.getNpcKey(), PersistentDataType.STRING, "shop");
+                npc.getPersistentDataContainer().set(HeneriaBedwars.getNpcKey(), PersistentDataType.STRING,
+                        "ITEM_SHOP:" + team.getColor().name());
                 equipNpcArmor(npc, team.getItemShopChestplate(), team.getItemShopLeggings(), team.getItemShopBoots(), team.getColor());
                 liveNpcs.add(npc);
             }
@@ -669,7 +670,8 @@ public class Arena {
                 npc.getEquipment().setItemInMainHand(new ItemStack(Material.NETHER_STAR));
                 npc.setCustomName(MessageManager.get("game.upgrade-npc-name"));
                 npc.setCustomNameVisible(true);
-                npc.getPersistentDataContainer().set(HeneriaBedwars.getNpcKey(), PersistentDataType.STRING, "upgrade");
+                npc.getPersistentDataContainer().set(HeneriaBedwars.getNpcKey(), PersistentDataType.STRING,
+                        "UPGRADE_SHOP:" + team.getColor().name());
                 equipNpcArmor(npc, team.getUpgradeShopChestplate(), team.getUpgradeShopLeggings(), team.getUpgradeShopBoots(), team.getColor());
                 liveNpcs.add(npc);
             }
