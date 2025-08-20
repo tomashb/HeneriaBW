@@ -4,6 +4,7 @@
 
 ### Ajouté
 - Ajout d'une interface graphique complète pour la gestion des PNJ du lobby via `/bw admin lobby`.
+- Finalisation de l'assistant de création de PNJ par conversation chat.
 
 ### Corrigé
 - Correction d'une erreur de compilation liée à un accès protégé dans les menus.

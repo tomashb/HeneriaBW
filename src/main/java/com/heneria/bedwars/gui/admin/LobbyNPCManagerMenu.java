@@ -91,7 +91,7 @@ public class LobbyNPCManagerMenu extends PaginatedMenu {
         int slot = event.getRawSlot();
         if (slot == getSize() - 5) {
             player.closeInventory();
-            player.sendMessage(ChatColor.YELLOW + "Assistant de création de PNJ non implémenté.");
+            HeneriaBedwars.getInstance().getSetupManager().startNpcCreation(player);
             return;
         }
         NpcManager.NpcInfo info = npcSlots.get(slot);
