@@ -1,5 +1,11 @@
 # Changelog - HeneriaBedwars
 
+## [2.4.0] - 2024-??-??
+
+### Ajouté
+- Nouveau **Hub de Jeu** remplaçant la liste d'arènes avec accès rapide au jeu, aux statistiques et à la reconnexion.
+- Système expérimental de reconnexion permettant aux joueurs de revenir en partie pendant une courte durée.
+
 ## [2.3.1] - 2024-??-??
 
 ### Corrigé
