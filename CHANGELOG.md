@@ -10,6 +10,9 @@
 ### Modifié
 - Suppression de l'intégration de Citizens et retour à un système de PNJ Villageois pour améliorer la stabilité.
 
+### Corrigé
+- Correction d'une erreur de compilation dans le `NpcManager` liée au typage des données de configuration.
+
 ## [2.1.0] - 2024-05-06
 
 ### Corrigé
