@@ -81,10 +81,22 @@ public class AdminCommand implements SubCommand {
                 String mode = args[1].toLowerCase();
                 String skin = args[2];
                 Material item = Material.matchMaterial(args[3].toUpperCase());
-                String name = ChatColor.translateAlternateColorCodes('&', args[4]);
-                Material chestplate = args.length > 5 ? Material.matchMaterial(args[5].toUpperCase()) : null;
-                Material leggings = args.length > 6 ? Material.matchMaterial(args[6].toUpperCase()) : null;
-                Material boots = args.length > 7 ? Material.matchMaterial(args[7].toUpperCase()) : null;
+
+                int end = args.length;
+                List<Material> armor = new ArrayList<>();
+                while (armor.size() < 3 && end > 5) {
+                    Material m = Material.matchMaterial(args[end - 1].toUpperCase());
+                    if (m == null) {
+                        break;
+                    }
+                    armor.add(0, m);
+                    end--;
+                }
+                String name = ChatColor.translateAlternateColorCodes('&', String.join(" ", Arrays.copyOfRange(args, 4, end)));
+                Material chestplate = armor.size() > 0 ? armor.get(0) : null;
+                Material leggings = armor.size() > 1 ? armor.get(1) : null;
+                Material boots = armor.size() > 2 ? armor.get(2) : null;
+
                 plugin.getNpcManager().addNpc(player.getLocation(), mode, skin, item, name, chestplate, leggings, boots);
                 player.sendMessage(ChatColor.GREEN + "PNJ de jonction " + mode + " placé.");
                 return;
