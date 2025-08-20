@@ -59,11 +59,13 @@ public final class HeneriaBedwars extends JavaPlugin {
     private NpcManager npcManager;
     private Location mainLobby;
     private static NamespacedKey itemTypeKey;
+    private static NamespacedKey npcKey;
 
     @Override
     public void onEnable() {
         instance = this;
         itemTypeKey = new NamespacedKey(this, "heneria_item_type");
+        npcKey = new NamespacedKey(this, "heneria_npc");
         saveDefaultConfig();
         mainLobby = getConfig().getLocation("main-lobby");
         MessageManager.init(this);
@@ -174,6 +176,10 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public static NamespacedKey getItemTypeKey() {
         return itemTypeKey;
+    }
+
+    public static NamespacedKey getNpcKey() {
+        return npcKey;
     }
 
     public PlayerProgressionManager getPlayerProgressionManager() {

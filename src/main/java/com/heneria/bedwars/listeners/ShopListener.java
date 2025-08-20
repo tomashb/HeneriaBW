@@ -6,7 +6,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.persistence.PersistentDataType;
 
 /**
  * Handles player interaction with shop NPCs.
@@ -14,9 +15,10 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 public class ShopListener implements Listener {
 
     @EventHandler
-    public void onInteract(PlayerInteractEntityEvent event) {
+    public void onInteract(PlayerInteractAtEntityEvent event) {
         Entity entity = event.getRightClicked();
-        if (!entity.getScoreboardTags().contains("shop_npc")) {
+        String type = entity.getPersistentDataContainer().get(HeneriaBedwars.getNpcKey(), PersistentDataType.STRING);
+        if (!"shop".equals(type)) {
             return;
         }
         event.setCancelled(true);

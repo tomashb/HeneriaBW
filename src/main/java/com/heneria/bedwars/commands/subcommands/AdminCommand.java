@@ -4,10 +4,15 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.gui.admin.AdminMainMenu;
 import com.heneria.bedwars.utils.MessageManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 
@@ -66,13 +71,16 @@ public class AdminCommand implements SubCommand {
                 plugin.setMainLobby(player.getLocation());
                 player.sendMessage(ChatColor.GREEN + "Lobby principal défini.");
                 return;
-            } else if (sub.equals("setjoinnpc") && args.length >= 2) {
+            } else if (sub.equals("setjoinnpc") && args.length >= 5) {
                 if (!player.hasPermission("heneriabw.admin.setjoinnpc")) {
                     MessageManager.sendMessage(player, "errors.no-permission");
                     return;
                 }
                 String mode = args[1].toLowerCase();
-                plugin.getNpcManager().addNpc(player.getLocation(), mode);
+                String skin = args[2];
+                Material item = Material.matchMaterial(args[3].toUpperCase());
+                String name = ChatColor.translateAlternateColorCodes('&', String.join(" ", Arrays.copyOfRange(args, 4, args.length)));
+                plugin.getNpcManager().addNpc(player.getLocation(), mode, skin, item, name, new ArrayList<>());
                 player.sendMessage(ChatColor.GREEN + "PNJ de jonction " + mode + " placé.");
                 return;
             } else if (sub.equals("setshopnpc") && args.length >= 3) {
@@ -82,16 +90,24 @@ public class AdminCommand implements SubCommand {
                 }
                 String team = args[1];
                 String type = args[2].toLowerCase();
-                Villager npc = (Villager) player.getWorld().spawnEntity(player.getLocation(), EntityType.VILLAGER);
-                npc.setAI(false);
+                ArmorStand npc = (ArmorStand) player.getWorld().spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
+                npc.setInvisible(true);
                 npc.setInvulnerable(true);
-                npc.setSilent(true);
-                npc.setCollidable(false);
-                npc.addScoreboardTag(type.equals("upgrade") ? "upgrade_npc" : "shop_npc");
+                npc.setGravity(false);
+                npc.setBasePlate(false);
+                npc.setArms(true);
+                ItemStack head = new ItemStack(Material.PLAYER_HEAD);
+                SkullMeta meta = (SkullMeta) head.getItemMeta();
+                meta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_Villager"));
+                head.setItemMeta(meta);
+                npc.getEquipment().setHelmet(head);
+                npc.getPersistentDataContainer().set(HeneriaBedwars.getNpcKey(), PersistentDataType.STRING, type.equals("upgrade") ? "upgrade" : "shop");
                 if (type.equals("upgrade")) {
                     npc.setCustomName(MessageManager.get("game.upgrade-npc-name"));
+                    npc.getEquipment().setItemInMainHand(new ItemStack(Material.NETHER_STAR));
                 } else {
                     npc.setCustomName(MessageManager.get("game.shop-npc-name"));
+                    npc.getEquipment().setItemInMainHand(new ItemStack(Material.EMERALD));
                 }
                 npc.setCustomNameVisible(true);
                 player.sendMessage(ChatColor.GREEN + "PNJ de boutique " + type + " pour l'équipe " + team + " placé.");
