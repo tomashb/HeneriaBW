@@ -6,7 +6,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
 /**
  * Opens the arena selector menu when clicking a join NPC.
@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 public class JoinNpcListener implements Listener {
 
     @EventHandler
-    public void onInteract(PlayerInteractEntityEvent event) {
+    public void onInteract(PlayerInteractAtEntityEvent event) {
         Entity entity = event.getRightClicked();
         String mode = HeneriaBedwars.getInstance().getNpcManager().getMode(entity);
         if (mode == null) {

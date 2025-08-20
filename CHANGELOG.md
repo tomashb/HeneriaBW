@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [2.2.0] - 2024-05-08
+
+### Modifié
+- Remplacement des PNJ Villageois par un système de Supports d'Armure personnalisables.
+
 ## [2.1.2] - 2024-05-07
 
 ### Modifié

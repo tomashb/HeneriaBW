@@ -22,11 +22,14 @@ import org.bukkit.block.BlockState;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.World;
 import org.bukkit.GameRule;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -374,14 +377,21 @@ public class Arena {
         if (specialNpcLocation == null || specialNpc != null) {
             return;
         }
-        Villager npc = (Villager) specialNpcLocation.getWorld().spawnEntity(specialNpcLocation, EntityType.VILLAGER);
-        npc.setAI(false);
+        ArmorStand npc = (ArmorStand) specialNpcLocation.getWorld().spawnEntity(specialNpcLocation, EntityType.ARMOR_STAND);
+        npc.setInvisible(true);
         npc.setInvulnerable(true);
-        npc.setSilent(true);
-        npc.setCollidable(false);
-        npc.addScoreboardTag("special_npc");
+        npc.setGravity(false);
+        npc.setBasePlate(false);
+        npc.setArms(true);
+        ItemStack head = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta meta = (SkullMeta) head.getItemMeta();
+        meta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_Villager"));
+        head.setItemMeta(meta);
+        npc.getEquipment().setHelmet(head);
+        npc.getEquipment().setItemInMainHand(new ItemStack(Material.BLAZE_ROD));
         npc.setCustomName(ChatColor.translateAlternateColorCodes('&', "&5Marchand Mystérieux"));
         npc.setCustomNameVisible(true);
+        npc.getPersistentDataContainer().set(HeneriaBedwars.getNpcKey(), PersistentDataType.STRING, "special");
         liveNpcs.add(npc);
         specialNpc = npc;
     }
@@ -625,25 +635,39 @@ public class Arena {
 
         for (Team team : this.getTeams().values()) {
             if (team.getItemShopNpcLocation() != null) {
-                Villager npc = (Villager) team.getItemShopNpcLocation().getWorld().spawnEntity(team.getItemShopNpcLocation(), EntityType.VILLAGER);
-                npc.setAI(false);
+                ArmorStand npc = (ArmorStand) team.getItemShopNpcLocation().getWorld().spawnEntity(team.getItemShopNpcLocation(), EntityType.ARMOR_STAND);
+                npc.setInvisible(true);
                 npc.setInvulnerable(true);
-                npc.setSilent(true);
-                npc.setCollidable(false);
-                npc.addScoreboardTag("shop_npc");
+                npc.setGravity(false);
+                npc.setBasePlate(false);
+                npc.setArms(true);
+                ItemStack head = new ItemStack(Material.PLAYER_HEAD);
+                SkullMeta meta = (SkullMeta) head.getItemMeta();
+                meta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_Villager"));
+                head.setItemMeta(meta);
+                npc.getEquipment().setHelmet(head);
+                npc.getEquipment().setItemInMainHand(new ItemStack(Material.EMERALD));
                 npc.setCustomName(MessageManager.get("game.shop-npc-name"));
                 npc.setCustomNameVisible(true);
+                npc.getPersistentDataContainer().set(HeneriaBedwars.getNpcKey(), PersistentDataType.STRING, "shop");
                 liveNpcs.add(npc);
             }
             if (team.getUpgradeShopNpcLocation() != null) {
-                Villager npc = (Villager) team.getUpgradeShopNpcLocation().getWorld().spawnEntity(team.getUpgradeShopNpcLocation(), EntityType.VILLAGER);
-                npc.setAI(false);
+                ArmorStand npc = (ArmorStand) team.getUpgradeShopNpcLocation().getWorld().spawnEntity(team.getUpgradeShopNpcLocation(), EntityType.ARMOR_STAND);
+                npc.setInvisible(true);
                 npc.setInvulnerable(true);
-                npc.setSilent(true);
-                npc.setCollidable(false);
-                npc.addScoreboardTag("upgrade_npc");
+                npc.setGravity(false);
+                npc.setBasePlate(false);
+                npc.setArms(true);
+                ItemStack head = new ItemStack(Material.PLAYER_HEAD);
+                SkullMeta meta = (SkullMeta) head.getItemMeta();
+                meta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_Villager"));
+                head.setItemMeta(meta);
+                npc.getEquipment().setHelmet(head);
+                npc.getEquipment().setItemInMainHand(new ItemStack(Material.NETHER_STAR));
                 npc.setCustomName(MessageManager.get("game.upgrade-npc-name"));
                 npc.setCustomNameVisible(true);
+                npc.getPersistentDataContainer().set(HeneriaBedwars.getNpcKey(), PersistentDataType.STRING, "upgrade");
                 liveNpcs.add(npc);
             }
         }
