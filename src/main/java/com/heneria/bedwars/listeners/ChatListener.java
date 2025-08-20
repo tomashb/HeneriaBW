@@ -31,6 +31,14 @@ public class ChatListener implements Listener {
             }
             switch (process.getStep()) {
                 case SKIN -> {
+                    // Player heads rely on the underlying game profile name
+                    // which is limited to 16 characters. Reject longer skin
+                    // names to avoid packet encoding errors during NPC
+                    // creation.
+                    if (msg.length() > 16) {
+                        player.sendMessage(ChatColor.RED + "Nom de skin trop long (16 caractères max).");
+                        return;
+                    }
                     process.setSkin(msg);
                     process.setStep(NpcCreationProcess.Step.MODE);
                     player.sendMessage(ChatColor.YELLOW + "Pour quel mode ce PNJ doit-il servir ?");
