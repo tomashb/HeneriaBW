@@ -6,8 +6,7 @@ import com.heneria.bedwars.listeners.GUIListener;
 import com.heneria.bedwars.listeners.GameListener;
 import com.heneria.bedwars.listeners.BlockPlaceListener;
 import com.heneria.bedwars.listeners.SetupListener;
-import com.heneria.bedwars.listeners.ShopListener;
-import com.heneria.bedwars.listeners.UpgradeListener;
+import com.heneria.bedwars.listeners.NpcListener;
 import com.heneria.bedwars.listeners.StarterItemListener;
 import com.heneria.bedwars.listeners.SpecialItemListener;
 import com.heneria.bedwars.listeners.SpecialNpcListener;
@@ -67,7 +66,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     public void onEnable() {
         instance = this;
         itemTypeKey = new NamespacedKey(this, "heneria_item_type");
-        npcKey = new NamespacedKey(this, "heneria_npc");
+        npcKey = new NamespacedKey(this, "heneria_npc_type");
         saveDefaultConfig();
         mainLobby = getConfig().getLocation("main-lobby");
         MessageManager.init(this);
@@ -118,8 +117,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GameListener(), this);
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
         getServer().getPluginManager().registerEvents(new SetupListener(this.setupManager), this);
-        getServer().getPluginManager().registerEvents(new ShopListener(), this);
-        getServer().getPluginManager().registerEvents(new UpgradeListener(), this);
+        getServer().getPluginManager().registerEvents(new NpcListener(), this);
         getServer().getPluginManager().registerEvents(new StarterItemListener(), this);
         getServer().getPluginManager().registerEvents(new SpecialItemListener(), this);
         getServer().getPluginManager().registerEvents(new SpecialNpcListener(), this);

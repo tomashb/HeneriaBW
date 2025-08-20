@@ -19,6 +19,9 @@
 ### Ajouté
 - Ajout d'animations (pose statique et respiration) pour les PNJ.
 
+### Corrigé
+- Correction d'un bug critique qui empêchait l'ouverture des menus de boutique via les PNJ.
+
 ## [2.2.1] - 2024-05-09
 
 ### Ajouté
