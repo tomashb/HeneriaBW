@@ -815,6 +815,10 @@ public class Arena {
                 if (data != null) {
                     data.restore(p);
                 }
+                Location mainLobby = HeneriaBedwars.getInstance().getMainLobby();
+                if (mainLobby != null) {
+                    p.teleport(mainLobby);
+                }
                 HeneriaBedwars.getInstance().getScoreboardManager().removeScoreboard(p);
             }
         }

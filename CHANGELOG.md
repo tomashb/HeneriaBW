@@ -15,6 +15,9 @@
 
 ### Corrigé
 - Correction d'un crash lors de la création de PNJ avec un nom ou un skin trop long.
+- Téléportation de fin de partie redirige désormais les joueurs vers le lobby principal.
+- Les items de lobby fonctionnent correctement lors d'un clic dans le vide.
+- La victoire est déclarée si un joueur se déconnecte et qu'il ne reste qu'une équipe.
 
 ## [2.3.0] - 2024-??-??
 
