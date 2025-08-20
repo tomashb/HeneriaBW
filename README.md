@@ -70,8 +70,8 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - `/bw admin setmainlobby`
   - Définit la position du lobby principal BedWars.
   - **Permission :** `heneriabw.admin.setmainlobby`
-  - `/bw admin setjoinnpc <mode> <nom_du_skin> <item_en_main> <nom_du_pnj>`
-    - Crée un PNJ de sélection d'arène (support d'armure) pour le mode donné avec le skin, l'item et le nom spécifiés.
+  - `/bw admin setjoinnpc <mode> <nom_du_skin> <item_en_main> <nom_du_pnj> [<plastron> <jambieres> <bottes>]`
+    - Crée un PNJ de sélection d'arène (support d'armure) pour le mode donné avec le skin, l'item, le nom et éventuellement un set d'armure personnalisée.
     - **Permission :** `heneriabw.admin.setjoinnpc`
   - `/bw admin setshopnpc <équipe> <type_boutique>`
     - Place un PNJ de boutique (`item` ou `upgrade`) sous forme de support d'armure pour l'équipe spécifiée.
