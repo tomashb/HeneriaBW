@@ -70,8 +70,10 @@ public class NpcManager {
                     (float) getDouble(map, "yaw"),
                     (float) getDouble(map, "pitch"));
             String mode = (String) map.get("mode");
-            String skin = (String) map.getOrDefault("skin", "Steve");
-            String name = (String) map.getOrDefault("name", "&a" + capitalize(mode));
+            Object skinObj = map.get("skin");
+            String skin = skinObj != null ? String.valueOf(skinObj) : "Steve";
+            Object nameObj = map.get("name");
+            String name = nameObj != null ? String.valueOf(nameObj) : "&a" + capitalize(mode);
             String itemStr = (String) map.get("item");
             Material item = itemStr != null ? Material.matchMaterial(itemStr) : null;
             List<String> armorList = (List<String>) map.get("armor");
