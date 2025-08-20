@@ -169,6 +169,7 @@ public class GameListener implements Listener {
         } else {
             arena.eliminatePlayer(player);
             player.setGameMode(GameMode.SPECTATOR);
+            player.getInventory().clear();
             player.teleport(playerTeam.getSpawnLocation());
             arena.broadcastTitle("game.elimination-title", "game.elimination-subtitle", 10, 70, 20, "player", player.getName());
             plugin.getPlayerProgressionManager().removePlayer(player.getUniqueId());
