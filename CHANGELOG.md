@@ -52,6 +52,9 @@
 ### Corrigé
 - Correction d'un bug critique qui empêchait l'ouverture des menus de boutique via les PNJ.
 
+### Modifié
+- Remplacement du système d'hologrammes par une solution interne pour une meilleure stabilité.
+
 ## [2.2.1] - 2024-05-09
 
 ### Ajouté

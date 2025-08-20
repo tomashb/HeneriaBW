@@ -5,11 +5,14 @@ import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Generator;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.GeneratorType;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.Arrays;
 
 import java.io.File;
 import java.util.*;
@@ -68,12 +71,22 @@ public class GeneratorManager {
 
     private void tick() {
         for (Map.Entry<Generator, Integer> entry : counters.entrySet()) {
+            Generator gen = entry.getKey();
             int remaining = entry.getValue() - 1;
             if (remaining <= 0) {
-                spawn(entry.getKey());
-                remaining = getDelayCycles(entry.getKey());
+                spawn(gen);
+                remaining = getDelayCycles(gen);
             }
             entry.setValue(remaining);
+            if (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD) {
+                Location loc = gen.getLocation();
+                if (loc != null) {
+                    int seconds = (int) Math.ceil(remaining * TICK_RATE / 20.0);
+                    String title = gen.getType() == GeneratorType.DIAMOND ? ChatColor.AQUA + "Diamant" : ChatColor.GREEN + "Émeraude";
+                    Location holoLoc = loc.clone().add(0.5, 2.0, 0.5);
+                    plugin.getHologramManager().updateHologram(holoLoc, Arrays.asList(title, seconds + "s"));
+                }
+            }
         }
     }
 
@@ -112,8 +125,23 @@ public class GeneratorManager {
         return (int) Math.round(gs.delay() * 20.0 / TICK_RATE);
     }
 
+    public int getDelaySeconds(Generator gen) {
+        return (int) Math.ceil(getDelayCycles(gen) * TICK_RATE / 20.0);
+    }
+
     public void registerGenerator(Generator gen) {
         counters.put(gen, getDelayCycles(gen));
+        if (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD) {
+            Location loc = gen.getLocation();
+            if (loc != null) {
+                Location holoLoc = loc.clone().add(0.5, 2.0, 0.5);
+                if (!plugin.getHologramManager().hasHologram(holoLoc)) {
+                    int seconds = (int) Math.ceil(getDelayCycles(gen) * TICK_RATE / 20.0);
+                    String title = gen.getType() == GeneratorType.DIAMOND ? ChatColor.AQUA + "Diamant" : ChatColor.GREEN + "Émeraude";
+                    plugin.getHologramManager().createHologram(holoLoc, Arrays.asList(title, seconds + "s"));
+                }
+            }
+        }
         if (gen.getType() == GeneratorType.GOLD) {
             plugin.getLogger().info("[DEBUG] Registered gold generator at " + gen.getLocation());
         }
@@ -121,6 +149,13 @@ public class GeneratorManager {
 
     public void unregisterGenerator(Generator gen) {
         counters.remove(gen);
+        if (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD) {
+            Location loc = gen.getLocation();
+            if (loc != null) {
+                Location holoLoc = loc.clone().add(0.5, 2.0, 0.5);
+                plugin.getHologramManager().removeHologram(holoLoc);
+            }
+        }
     }
 
     /**
@@ -175,6 +210,13 @@ public class GeneratorManager {
         while (it.hasNext()) {
             Generator gen = it.next();
             counters.remove(gen);
+            if (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD) {
+                Location loc = gen.getLocation();
+                if (loc != null) {
+                    Location holoLoc = loc.clone().add(0.5, 2.0, 0.5);
+                    plugin.getHologramManager().removeHologram(holoLoc);
+                }
+            }
             gen.setTier(1);
             if (gen.getType() == GeneratorType.EMERALD) {
                 Location loc = gen.getLocation();

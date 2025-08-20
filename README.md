@@ -35,6 +35,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 💬 **Chat et Tablist isolés** : Les messages et la liste des joueurs sont limités à votre partie pour éviter le spam entre arènes.
 - 🛏️ **Mécaniques Classiques** : Protégez votre lit pour pouvoir réapparaître, et détruisez celui de vos ennemis pour les éliminer définitivement.
 - 💰 **Système Économique** : Collectez du Fer, de l'Or, des Diamants et des Émeraudes à des vitesses différentes pour acheter de l'équipement.
+- 📡 **Hologrammes Intégrés** : Compte à rebours dynamique au-dessus des générateurs de Diamants et d'Émeraudes sans dépendance externe.
 - 🔥 **Forge évolutive** : Améliorez la Forge de votre équipe pour accélérer le Fer et l'Or, le dernier niveau produisant même des Émeraudes sur votre île.
 - 🛒 **Boutiques Fonctionnelles** : Interagissez avec les PNJ pour acheter des objets dans la boutique d'items ou des améliorations permanentes pour votre équipe.
 - 🏥 **Soin de Base** : Achetez une aura de régénération autour de votre lit pour soigner vos défenseurs.
