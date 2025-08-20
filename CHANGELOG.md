@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [2.5.0] - 2024-??-??
+
+### Ajouté
+- Ajout de l'isolation du chat et de la tablist par arène.
+
 ## [2.4.2] - 2024-??-??
 
 ### Corrigé
