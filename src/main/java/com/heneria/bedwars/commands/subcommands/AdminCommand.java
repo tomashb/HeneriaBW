@@ -3,6 +3,7 @@ package com.heneria.bedwars.commands.subcommands;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.gui.admin.AdminMainMenu;
+import com.heneria.bedwars.gui.admin.LobbyNPCManagerMenu;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -65,6 +66,13 @@ public class AdminCommand implements SubCommand {
                     MessageManager.sendMessage(player, "errors.arena-not-found");
                 }
                 return;
+            } else if (sub.equals("lobby")) {
+                if (!player.hasPermission("heneriabw.admin.lobby")) {
+                    MessageManager.sendMessage(player, "errors.no-permission");
+                    return;
+                }
+                new LobbyNPCManagerMenu().open(player);
+                return;
             } else if (sub.equals("setmainlobby")) {
                 if (!player.hasPermission("heneriabw.admin.setmainlobby")) {
                     MessageManager.sendMessage(player, "errors.no-permission");
@@ -72,33 +80,6 @@ public class AdminCommand implements SubCommand {
                 }
                 plugin.setMainLobby(player.getLocation());
                 player.sendMessage(ChatColor.GREEN + "Lobby principal défini.");
-                return;
-            } else if (sub.equals("setjoinnpc") && args.length >= 5) {
-                if (!player.hasPermission("heneriabw.admin.setjoinnpc")) {
-                    MessageManager.sendMessage(player, "errors.no-permission");
-                    return;
-                }
-                String mode = args[1].toLowerCase();
-                String skin = args[2];
-                Material item = Material.matchMaterial(args[3].toUpperCase());
-
-                int end = args.length;
-                List<Material> armor = new ArrayList<>();
-                while (armor.size() < 3 && end > 5) {
-                    Material m = Material.matchMaterial(args[end - 1].toUpperCase());
-                    if (m == null) {
-                        break;
-                    }
-                    armor.add(0, m);
-                    end--;
-                }
-                String name = ChatColor.translateAlternateColorCodes('&', String.join(" ", Arrays.copyOfRange(args, 4, end)));
-                Material chestplate = armor.size() > 0 ? armor.get(0) : null;
-                Material leggings = armor.size() > 1 ? armor.get(1) : null;
-                Material boots = armor.size() > 2 ? armor.get(2) : null;
-
-                plugin.getNpcManager().addNpc(player.getLocation(), mode, skin, item, name, chestplate, leggings, boots);
-                player.sendMessage(ChatColor.GREEN + "PNJ de jonction " + mode + " placé.");
                 return;
             } else if (sub.equals("setshopnpc") && args.length >= 3) {
                 if (!player.hasPermission("heneriabw.admin.setshopnpc")) {
@@ -164,18 +145,6 @@ public class AdminCommand implements SubCommand {
                 npc.setCustomNameVisible(true);
                 player.sendMessage(ChatColor.GREEN + "PNJ de boutique " + type + " pour l'équipe " + team + " placé.");
                 return;
-            } else if (sub.equals("removenpc")) {
-                if (!player.hasPermission("heneriabw.admin.removenpc")) {
-                    MessageManager.sendMessage(player, "errors.no-permission");
-                    return;
-                }
-                boolean removed = plugin.getNpcManager().removeNearestNpc(player, 10);
-                if (removed) {
-                    player.sendMessage(ChatColor.GREEN + "Le PNJ le plus proche a été supprimé.");
-                } else {
-                    player.sendMessage(ChatColor.RED + "Aucun PNJ HeneriaBedwars trouvé à proximité.");
-                }
-                return;
             }
         }
 
@@ -189,7 +158,7 @@ public class AdminCommand implements SubCommand {
     @Override
     public List<String> tabComplete(Player player, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("delete", "confirmdelete", "setmainlobby", "setjoinnpc", "setshopnpc", "removenpc");
+            return Arrays.asList("delete", "confirmdelete", "setmainlobby", "setshopnpc", "lobby");
         }
         if (args.length == 2 && (args[0].equalsIgnoreCase("delete") || args[0].equalsIgnoreCase("confirmdelete"))) {
             List<String> names = new ArrayList<>();
@@ -199,9 +168,6 @@ public class AdminCommand implements SubCommand {
                 }
             }
             return names;
-        }
-        if (args.length == 2 && args[0].equalsIgnoreCase("setjoinnpc")) {
-            return Arrays.asList("solos", "duos", "trios", "quads");
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("setshopnpc")) {
             return Collections.singletonList("<team>");

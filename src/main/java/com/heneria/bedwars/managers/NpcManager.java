@@ -17,10 +17,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Manages persistent join NPCs for the main lobby.
@@ -144,6 +141,34 @@ public class NpcManager {
         saveNpcs();
     }
 
+    /**
+     * Returns an immutable view of the configured lobby NPCs.
+     *
+     * @return list of NPC information
+     */
+    public List<NpcInfo> getNpcs() {
+        return Collections.unmodifiableList(npcs);
+    }
+
+    /**
+     * Removes the provided NPC from the world and configuration.
+     *
+     * @param info the NPC to remove
+     */
+    public void removeNpc(NpcInfo info) {
+        for (Entity entity : info.location.getWorld().getNearbyEntities(info.location, 1, 1, 1)) {
+            if (entity.getType() == EntityType.ARMOR_STAND) {
+                String mode = entity.getPersistentDataContainer().get(npcKey, PersistentDataType.STRING);
+                if (mode != null && mode.equals(info.mode)) {
+                    entity.remove();
+                    break;
+                }
+            }
+        }
+        npcs.remove(info);
+        saveNpcs();
+    }
+
     public void saveNpcs() {
         List<Map<String, Object>> list = new ArrayList<>();
         for (NpcInfo info : npcs) {
@@ -232,15 +257,18 @@ public class NpcManager {
         return mode;
     }
 
-    private static class NpcInfo {
-        final Location location;
-        final String mode;
-        final String skin;
-        final String name;
-        final Material item;
-        final Material chestplate;
-        final Material leggings;
-        final Material boots;
+    /**
+     * Represents a lobby NPC and its configuration.
+     */
+    public static class NpcInfo {
+        public final Location location;
+        public final String mode;
+        public final String skin;
+        public final String name;
+        public final Material item;
+        public final Material chestplate;
+        public final Material leggings;
+        public final Material boots;
 
         NpcInfo(Location location, String mode, String skin, String name, Material item,
                 Material chestplate, Material leggings, Material boots) {

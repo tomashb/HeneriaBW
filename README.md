@@ -70,15 +70,12 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - `/bw admin setmainlobby`
   - Définit la position du lobby principal BedWars.
   - **Permission :** `heneriabw.admin.setmainlobby`
-  - `/bw admin setjoinnpc <mode> <nom_du_skin> <item_en_main> <nom_du_pnj> [<plastron> <jambieres> <bottes>]`
-    - Crée un PNJ de sélection d'arène (support d'armure) pour le mode donné avec le skin, l'item, le nom et éventuellement un set d'armure personnalisée.
-    - **Permission :** `heneriabw.admin.setjoinnpc`
-  - `/bw admin setshopnpc <équipe> <type_boutique> [<plastron> <jambieres> <bottes>]`
-    - Place un PNJ de boutique (`item` ou `upgrade`) sous forme de support d'armure pour l'équipe spécifiée. L'armure en cuir est automatiquement teinte à la couleur de l'équipe.
-    - **Permission :** `heneriabw.admin.setshopnpc`
-  - `/bw admin removenpc`
-    - Supprime le PNJ HeneriaBedwars le plus proche de vous dans le lobby.
-    - **Permission :** `heneriabw.admin.removenpc`
+- `/bw admin lobby`
+  - Ouvre le panneau de contrôle pour gérer les PNJ du lobby (création, édition, suppression).
+  - **Permission :** `heneriabw.admin.lobby`
+- `/bw admin setshopnpc <équipe> <type_boutique> [<plastron> <jambieres> <bottes>]`
+  - Place un PNJ de boutique (`item` ou `upgrade`) sous forme de support d'armure pour l'équipe spécifiée. L'armure en cuir est automatiquement teinte à la couleur de l'équipe.
+  - **Permission :** `heneriabw.admin.setshopnpc`
 
 ### Commandes Joueurs
 

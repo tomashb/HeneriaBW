@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [2.3.0] - 2024-??-??
+
+### Ajouté
+- Ajout d'une interface graphique complète pour la gestion des PNJ du lobby via `/bw admin lobby`.
+
 ## [2.2.1] - 2024-05-09
 
 ### Ajouté
