@@ -20,6 +20,7 @@ errors:
   team-incomplete: "&cToutes les équipes n'ont pas leur spawn et leur lit définis."
   no-teams-configured: "&cAucune équipe configurée."
   build-outside-boundaries: "&cVous ne pouvez pas construire en dehors de la zone autorisée."
+  arena-full-or-started: "&cCette arène est pleine ou déjà en cours."
 
 commands:
   main-usage: "&eUsage: /{label} <admin|join|leave>"

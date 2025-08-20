@@ -184,6 +184,15 @@ public class Arena {
         this.maxPlayers = maxPlayers;
     }
 
+    /**
+     * Determines whether a new player can join the arena.
+     *
+     * @return true if the arena is waiting and not full
+     */
+    public boolean canJoin() {
+        return state == GameState.WAITING && players.size() < maxPlayers;
+    }
+
     public int getMaxBuildY() {
         return maxBuildY;
     }
@@ -865,6 +874,14 @@ public class Arena {
                     p.teleport(mainLobby);
                 }
                 HeneriaBedwars.getInstance().getScoreboardManager().removeScoreboard(p);
+                // Restore visibility with all other players
+                for (Player other : Bukkit.getOnlinePlayers()) {
+                    if (other.equals(p)) {
+                        continue;
+                    }
+                    p.showPlayer(HeneriaBedwars.getInstance(), other);
+                    other.showPlayer(HeneriaBedwars.getInstance(), p);
+                }
             }
         }
         players.clear();
@@ -884,10 +901,15 @@ public class Arena {
         dragons.clear();
         purchaseCounts.clear();
         HeneriaBedwars.getInstance().getGeneratorManager().resetGenerators(this);
-        for (Block block : placedBlocks) {
-            block.setType(Material.AIR);
+        if (!placedBlocks.isEmpty()) {
+            HeneriaBedwars.getInstance().getLogger().info("[DEBUG] Clearing " + placedBlocks.size() + " placed blocks in arena " + name);
+            for (Block block : placedBlocks) {
+                HeneriaBedwars.getInstance().getLogger().info("[DEBUG] Reset block at " + block.getLocation());
+                block.setType(Material.AIR);
+            }
+            placedBlocks.clear();
+            HeneriaBedwars.getInstance().getLogger().info("[DEBUG] Placed blocks list cleared for arena " + name);
         }
-        placedBlocks.clear();
 
         for (BlockState state : originalBedStates.values()) {
             state.update(true, false);
