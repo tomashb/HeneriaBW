@@ -22,6 +22,7 @@ import com.heneria.bedwars.listeners.TemperedGlassListener;
 import com.heneria.bedwars.listeners.LeaveItemListener;
 import com.heneria.bedwars.listeners.JoinNpcListener;
 import com.heneria.bedwars.listeners.MainLobbyListener;
+import com.heneria.bedwars.listeners.ReconnectListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
@@ -36,6 +37,7 @@ import com.heneria.bedwars.managers.PlayerProgressionManager;
 import com.heneria.bedwars.managers.BountyManager;
 import com.heneria.bedwars.managers.NpcManager;
 import com.heneria.bedwars.managers.NpcAnimationManager;
+import com.heneria.bedwars.managers.ReconnectManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -58,6 +60,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private BountyManager bountyManager;
     private NpcManager npcManager;
     private NpcAnimationManager npcAnimationManager;
+    private ReconnectManager reconnectManager;
     private Location mainLobby;
     private static NamespacedKey itemTypeKey;
     private static NamespacedKey npcKey;
@@ -89,6 +92,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.npcManager = new NpcManager(this);
         this.npcAnimationManager = new NpcAnimationManager(this, this.npcManager);
         this.npcAnimationManager.start();
+        this.reconnectManager = new ReconnectManager(this);
 
         // Enregistrement des commandes
         CommandManager commandManager = new CommandManager(this);
@@ -133,6 +137,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new TemperedGlassListener(), this);
         getServer().getPluginManager().registerEvents(new JoinNpcListener(), this);
         getServer().getPluginManager().registerEvents(new MainLobbyListener(), this);
+        getServer().getPluginManager().registerEvents(new ReconnectListener(), this);
     }
 
     public static HeneriaBedwars getInstance() {
@@ -197,6 +202,10 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public NpcManager getNpcManager() {
         return npcManager;
+    }
+
+    public ReconnectManager getReconnectManager() {
+        return reconnectManager;
     }
 
     public NpcAnimationManager getNpcAnimationManager() {

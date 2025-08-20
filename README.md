@@ -29,6 +29,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 ### Pour les Joueurs
 
 - 🎡 **Lobby Principal Immersif** : Les joueurs apparaissent dans un lobby central et choisissent leur mode via des PNJ interactifs.
+- 🎮 **Hub de Jeu Intuitif** : En cliquant sur un PNJ de mode, un menu propose de lancer une partie, consulter ses statistiques ou se reconnecter.
 - 🕹️ **Cycle de Jeu Complet** : Rejoignez une arène, attendez dans le lobby avec un décompte, et lancez-vous dans la bataille.
 - 🎽 **Sélecteur d'équipe** : Choisissez votre camp grâce à un menu interactif avant le début de la partie.
 - 🛏️ **Mécaniques Classiques** : Protégez votre lit pour pouvoir réapparaître, et détruisez celui de vos ennemis pour les éliminer définitivement.

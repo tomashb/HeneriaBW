@@ -1,7 +1,7 @@
 package com.heneria.bedwars.listeners;
 
 import com.heneria.bedwars.HeneriaBedwars;
-import com.heneria.bedwars.gui.ArenaSelectorMenu;
+import com.heneria.bedwars.gui.GameHubMenu;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,12 +16,11 @@ public class JoinNpcListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractAtEntityEvent event) {
         Entity entity = event.getRightClicked();
-        String mode = HeneriaBedwars.getInstance().getNpcManager().getMode(entity);
-        if (mode == null) {
+        if (HeneriaBedwars.getInstance().getNpcManager().getMode(entity) == null) {
             return;
         }
         event.setCancelled(true);
         Player player = event.getPlayer();
-        new ArenaSelectorMenu(mode).open(player);
+        new GameHubMenu().open(player);
     }
 }
