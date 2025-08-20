@@ -68,6 +68,15 @@ public abstract class Menu implements InventoryHolder {
         open(player, null);
     }
 
+    /**
+     * Gets the previous menu.
+     *
+     * @return previous menu, or {@code null} if none
+     */
+    public Menu getPreviousMenu() {
+        return this.previousMenu;
+    }
+
     protected int getBackButtonSlot() {
         return getSize() - 9;
     }

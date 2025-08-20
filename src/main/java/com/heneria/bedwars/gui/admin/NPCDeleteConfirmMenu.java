@@ -51,7 +51,7 @@ public class NPCDeleteConfirmMenu extends Menu {
             HeneriaBedwars.getInstance().getNpcManager().removeNpc(info);
             player.sendMessage(ChatColor.GREEN + "PNJ supprimé.");
         } else if (slot == 15) {
-            previousMenu.open(player, previousMenu.previousMenu);
+            previousMenu.open(player, previousMenu.getPreviousMenu());
         }
     }
 }

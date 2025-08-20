@@ -5,6 +5,9 @@
 ### Ajouté
 - Ajout d'une interface graphique complète pour la gestion des PNJ du lobby via `/bw admin lobby`.
 
+### Corrigé
+- Correction d'une erreur de compilation liée à un accès protégé dans les menus.
+
 ## [2.2.1] - 2024-05-09
 
 ### Ajouté
