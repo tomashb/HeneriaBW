@@ -12,6 +12,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
 
 - ⚔️ **Gestion 100% en Jeu** : Créez, gérez et configurez vos arènes sans jamais avoir à éditer de fichiers manuellement grâce à une interface graphique complète (`/bw admin`).
 - 🧙‍♂️ **Assistant de Création Intuitif** : Un système de création d'arène simple via le chat vous guide pour définir les paramètres de base.
+- 🧍 **Assistant PNJ Guidé** : Créez des PNJ du lobby via une conversation étape par étape dans le chat.
 - 📍 **Configuration Précise** : Utilisez un outil de positionnement en jeu pour définir avec précision l'emplacement du lobby, des lits, des points de spawn, des générateurs et des PNJ pour chaque équipe.
 - ⚙️ **Haute Personnalisation** : Prenez le contrôle total du gameplay en modifiant les fichiers de configuration dédiés :
   - `generators.yml` : Réglez la vitesse et la quantité de chaque générateur de ressources.
@@ -73,9 +74,14 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - `/bw admin lobby`
   - Ouvre le panneau de contrôle pour gérer les PNJ du lobby (création, édition, suppression).
   - **Permission :** `heneriabw.admin.lobby`
+- `/bw admin confirmnpc`
+  - Finalise la création d'un PNJ du lobby à votre position actuelle.
+  - **Permission :** `heneriabw.admin.lobby`
 - `/bw admin setshopnpc <équipe> <type_boutique> [<plastron> <jambieres> <bottes>]`
   - Place un PNJ de boutique (`item` ou `upgrade`) sous forme de support d'armure pour l'équipe spécifiée. L'armure en cuir est automatiquement teinte à la couleur de l'équipe.
   - **Permission :** `heneriabw.admin.setshopnpc`
+
+Pour créer un PNJ de sélection d'arène, ouvrez le menu `/bw admin lobby`, cliquez sur « Créer un PNJ » puis répondez aux questions dans le chat (skin, mode, nom, équipement...). Placez-vous à l'endroit souhaité et validez avec `/bw admin confirmnpc`.
 
 ### Commandes Joueurs
 

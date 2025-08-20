@@ -4,6 +4,8 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.gui.admin.AdminMainMenu;
 import com.heneria.bedwars.gui.admin.LobbyNPCManagerMenu;
+import com.heneria.bedwars.managers.SetupManager;
+import com.heneria.bedwars.setup.NpcCreationProcess;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -145,6 +147,21 @@ public class AdminCommand implements SubCommand {
                 npc.setCustomNameVisible(true);
                 player.sendMessage(ChatColor.GREEN + "PNJ de boutique " + type + " pour l'équipe " + team + " placé.");
                 return;
+            } else if (sub.equals("confirmnpc")) {
+                if (!player.hasPermission("heneriabw.admin.lobby")) {
+                    MessageManager.sendMessage(player, "errors.no-permission");
+                    return;
+                }
+                SetupManager setupManager = plugin.getSetupManager();
+                NpcCreationProcess process = setupManager.getNpcCreation(player.getUniqueId());
+                if (process == null || process.getStep() != NpcCreationProcess.Step.WAITING_CONFIRM) {
+                    player.sendMessage(ChatColor.RED + "Aucune création de PNJ en cours.");
+                    return;
+                }
+                plugin.getNpcManager().addNpc(player.getLocation(), process.getMode(), process.getSkin(), process.getItem(), process.getName(), process.getChestplate(), process.getLeggings(), process.getBoots());
+                setupManager.clearNpcCreation(player);
+                player.sendMessage(ChatColor.GREEN + "PNJ créé.");
+                return;
             }
         }
 
@@ -158,7 +175,7 @@ public class AdminCommand implements SubCommand {
     @Override
     public List<String> tabComplete(Player player, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("delete", "confirmdelete", "setmainlobby", "setshopnpc", "lobby");
+            return Arrays.asList("delete", "confirmdelete", "setmainlobby", "setshopnpc", "lobby", "confirmnpc");
         }
         if (args.length == 2 && (args[0].equalsIgnoreCase("delete") || args[0].equalsIgnoreCase("confirmdelete"))) {
             List<String> names = new ArrayList<>();

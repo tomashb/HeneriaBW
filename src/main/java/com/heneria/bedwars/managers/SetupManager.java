@@ -1,6 +1,8 @@
 package com.heneria.bedwars.managers;
 
 import com.heneria.bedwars.setup.SetupAction;
+import com.heneria.bedwars.setup.NpcCreationProcess;
+import org.bukkit.ChatColor;
 import com.heneria.bedwars.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,6 +17,7 @@ import java.util.UUID;
 public class SetupManager {
 
     private final Map<UUID, SetupAction> setups = new HashMap<>();
+    private final Map<UUID, NpcCreationProcess> npcCreations = new HashMap<>();
 
     /**
      * Puts a player in setup mode with the given action and gives them the setup tool.
@@ -39,6 +42,10 @@ public class SetupManager {
         return setups.get(uuid);
     }
 
+    public NpcCreationProcess getNpcCreation(UUID uuid) {
+        return npcCreations.get(uuid);
+    }
+
     /**
      * Removes a player from setup mode.
      *
@@ -46,5 +53,14 @@ public class SetupManager {
      */
     public void clear(Player player) {
         setups.remove(player.getUniqueId());
+    }
+
+    public void clearNpcCreation(Player player) {
+        npcCreations.remove(player.getUniqueId());
+    }
+
+    public void startNpcCreation(Player player) {
+        npcCreations.put(player.getUniqueId(), new NpcCreationProcess());
+        player.sendMessage(ChatColor.YELLOW + "Quel skin voulez-vous lui donner ?");
     }
 }
