@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [2.4.1] - 2024-??-??
+
+### Corrigé
+- Correction d'un bug critique où tous les PNJ ouvraient le mauvais menu.
+
 ## [2.4.0] - 2024-??-??
 
 ### Ajouté

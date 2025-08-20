@@ -69,6 +69,9 @@ public class NpcManager {
                     (float) getDouble(map, "yaw"),
                     (float) getDouble(map, "pitch"));
             String mode = (String) map.get("mode");
+            if (mode != null) {
+                mode = mode.toUpperCase();
+            }
             Object skinObj = map.get("skin");
             String skin = skinObj != null ? String.valueOf(skinObj) : "Steve";
             Object nameObj = map.get("name");
@@ -105,7 +108,7 @@ public class NpcManager {
         npc.setArms(true);
         npc.setCustomName(ChatColor.translateAlternateColorCodes('&', info.name));
         npc.setCustomNameVisible(true);
-        npc.getPersistentDataContainer().set(npcKey, PersistentDataType.STRING, info.mode);
+        npc.getPersistentDataContainer().set(npcKey, PersistentDataType.STRING, "JOIN_NPC:" + info.mode);
 
         // Head with skin
         ItemStack head = new ItemStack(Material.PLAYER_HEAD);
@@ -152,7 +155,8 @@ public class NpcManager {
 
     public void addNpc(Location location, String mode, String skin, Material item, String name,
                        Material chestplate, Material leggings, Material boots) {
-        NpcInfo info = new NpcInfo(location, mode, skin, name, item, chestplate, leggings, boots);
+        String upperMode = mode != null ? mode.toUpperCase() : null;
+        NpcInfo info = new NpcInfo(location, upperMode, skin, name, item, chestplate, leggings, boots);
         npcs.add(info);
         spawnNpc(info);
         saveNpcs();
@@ -175,8 +179,8 @@ public class NpcManager {
     public void removeNpc(NpcInfo info) {
         for (Entity entity : info.location.getWorld().getNearbyEntities(info.location, 1, 1, 1)) {
             if (entity.getType() == EntityType.ARMOR_STAND) {
-                String mode = entity.getPersistentDataContainer().get(npcKey, PersistentDataType.STRING);
-                if (mode != null && mode.equals(info.mode)) {
+                String tag = entity.getPersistentDataContainer().get(npcKey, PersistentDataType.STRING);
+                if (tag != null && tag.equals("JOIN_NPC:" + info.mode)) {
                     entity.remove();
                     break;
                 }
@@ -247,8 +251,8 @@ public class NpcManager {
 
         for (Entity entity : target.location.getWorld().getNearbyEntities(target.location, 1, 1, 1)) {
             if (entity.getType() == EntityType.ARMOR_STAND) {
-                String mode = entity.getPersistentDataContainer().get(npcKey, PersistentDataType.STRING);
-                if (mode != null && mode.equals(target.mode)) {
+                String tag = entity.getPersistentDataContainer().get(npcKey, PersistentDataType.STRING);
+                if (tag != null && tag.equals("JOIN_NPC:" + target.mode)) {
                     entity.remove();
                     break;
                 }
@@ -270,8 +274,11 @@ public class NpcManager {
         if (entity.getType() != EntityType.ARMOR_STAND) {
             return null;
         }
-        String mode = entity.getPersistentDataContainer().get(npcKey, PersistentDataType.STRING);
-        return mode;
+        String tag = entity.getPersistentDataContainer().get(npcKey, PersistentDataType.STRING);
+        if (tag != null && tag.startsWith("JOIN_NPC:")) {
+            return tag.substring("JOIN_NPC:".length());
+        }
+        return null;
     }
 
     /**
