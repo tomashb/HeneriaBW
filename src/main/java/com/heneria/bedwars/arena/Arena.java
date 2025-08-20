@@ -29,6 +29,7 @@ import org.bukkit.World;
 import org.bukkit.GameRule;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -650,6 +651,7 @@ public class Arena {
                 npc.setCustomName(MessageManager.get("game.shop-npc-name"));
                 npc.setCustomNameVisible(true);
                 npc.getPersistentDataContainer().set(HeneriaBedwars.getNpcKey(), PersistentDataType.STRING, "shop");
+                equipNpcArmor(npc, team.getItemShopChestplate(), team.getItemShopLeggings(), team.getItemShopBoots(), team.getColor());
                 liveNpcs.add(npc);
             }
             if (team.getUpgradeShopNpcLocation() != null) {
@@ -668,12 +670,39 @@ public class Arena {
                 npc.setCustomName(MessageManager.get("game.upgrade-npc-name"));
                 npc.setCustomNameVisible(true);
                 npc.getPersistentDataContainer().set(HeneriaBedwars.getNpcKey(), PersistentDataType.STRING, "upgrade");
+                equipNpcArmor(npc, team.getUpgradeShopChestplate(), team.getUpgradeShopLeggings(), team.getUpgradeShopBoots(), team.getColor());
                 liveNpcs.add(npc);
             }
         }
         System.out.println("[DEBUG-STARTGAME] Apparition des PNJ terminée.");
 
         System.out.println("[DEBUG-STARTGAME] La méthode startGame a terminé son exécution SANS ERREUR.");
+    }
+
+    private void equipNpcArmor(ArmorStand npc, Material chestplate, Material leggings, Material boots, TeamColor color) {
+        if (chestplate != null) {
+            ItemStack item = new ItemStack(chestplate);
+            tintLeather(item, color);
+            npc.getEquipment().setChestplate(item);
+        }
+        if (leggings != null) {
+            ItemStack item = new ItemStack(leggings);
+            tintLeather(item, color);
+            npc.getEquipment().setLeggings(item);
+        }
+        if (boots != null) {
+            ItemStack item = new ItemStack(boots);
+            tintLeather(item, color);
+            npc.getEquipment().setBoots(item);
+        }
+    }
+
+    private void tintLeather(ItemStack item, TeamColor color) {
+        if (item.getType().name().startsWith("LEATHER_")) {
+            LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
+            meta.setColor(color.getLeatherColor());
+            item.setItemMeta(meta);
+        }
     }
 
     /**

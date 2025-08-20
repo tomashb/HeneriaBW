@@ -2,6 +2,7 @@ package com.heneria.bedwars.arena.elements;
 
 import com.heneria.bedwars.arena.enums.TeamColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,13 @@ public class Team {
     private Location spawnLocation;
     private Location bedLocation;
     private Location itemShopNpcLocation;
+    private Material itemShopChestplate;
+    private Material itemShopLeggings;
+    private Material itemShopBoots;
     private Location upgradeShopNpcLocation;
+    private Material upgradeShopChestplate;
+    private Material upgradeShopLeggings;
+    private Material upgradeShopBoots;
     private boolean hasBed = true;
     private final Map<String, Integer> upgradeLevels = new HashMap<>();
     private final Map<String, Boolean> traps = new HashMap<>();
@@ -133,6 +140,30 @@ public class Team {
         this.itemShopNpcLocation = itemShopNpcLocation;
     }
 
+    public Material getItemShopChestplate() {
+        return itemShopChestplate;
+    }
+
+    public void setItemShopChestplate(Material itemShopChestplate) {
+        this.itemShopChestplate = itemShopChestplate;
+    }
+
+    public Material getItemShopLeggings() {
+        return itemShopLeggings;
+    }
+
+    public void setItemShopLeggings(Material itemShopLeggings) {
+        this.itemShopLeggings = itemShopLeggings;
+    }
+
+    public Material getItemShopBoots() {
+        return itemShopBoots;
+    }
+
+    public void setItemShopBoots(Material itemShopBoots) {
+        this.itemShopBoots = itemShopBoots;
+    }
+
     /**
      * Gets the location of the team's upgrade shop NPC.
      *
@@ -149,6 +180,30 @@ public class Team {
      */
     public void setUpgradeShopNpcLocation(Location upgradeShopNpcLocation) {
         this.upgradeShopNpcLocation = upgradeShopNpcLocation;
+    }
+
+    public Material getUpgradeShopChestplate() {
+        return upgradeShopChestplate;
+    }
+
+    public void setUpgradeShopChestplate(Material upgradeShopChestplate) {
+        this.upgradeShopChestplate = upgradeShopChestplate;
+    }
+
+    public Material getUpgradeShopLeggings() {
+        return upgradeShopLeggings;
+    }
+
+    public void setUpgradeShopLeggings(Material upgradeShopLeggings) {
+        this.upgradeShopLeggings = upgradeShopLeggings;
+    }
+
+    public Material getUpgradeShopBoots() {
+        return upgradeShopBoots;
+    }
+
+    public void setUpgradeShopBoots(Material upgradeShopBoots) {
+        this.upgradeShopBoots = upgradeShopBoots;
     }
 
     /**

@@ -4,6 +4,7 @@
 
 ### Ajouté
 - Ajout de la commande /bw admin removenpc pour supprimer les PNJ du lobby.
+- Ajout de la possibilité d'équiper les PNJ avec une armure.
 
 ## [2.2.0] - 2024-05-08
 
