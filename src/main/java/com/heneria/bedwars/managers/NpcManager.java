@@ -77,17 +77,21 @@ public class NpcManager {
             String name = nameObj != null ? String.valueOf(nameObj) : "&a" + capitalize(mode);
             String itemStr = (String) map.get("item");
             Material item = itemStr != null ? Material.matchMaterial(itemStr) : null;
-            List<String> armorList = (List<String>) map.get("armor");
-            List<Material> armor = new ArrayList<>();
-            if (armorList != null) {
-                for (String s : armorList) {
-                    Material m = Material.matchMaterial(s);
-                    if (m != null) {
-                        armor.add(m);
-                    }
+            String chest = (String) map.get("chestplate");
+            Material chestplate = chest != null ? Material.matchMaterial(chest) : null;
+            String legs = (String) map.get("leggings");
+            Material leggings = legs != null ? Material.matchMaterial(legs) : null;
+            String bootsStr = (String) map.get("boots");
+            Material boots = bootsStr != null ? Material.matchMaterial(bootsStr) : null;
+            if (chestplate == null && leggings == null && boots == null) {
+                List<String> armorList = (List<String>) map.get("armor");
+                if (armorList != null) {
+                    if (armorList.size() > 0) chestplate = Material.matchMaterial(armorList.get(0));
+                    if (armorList.size() > 1) leggings = Material.matchMaterial(armorList.get(1));
+                    if (armorList.size() > 2) boots = Material.matchMaterial(armorList.get(2));
                 }
             }
-            NpcInfo info = new NpcInfo(loc, mode, skin, name, item, armor);
+            NpcInfo info = new NpcInfo(loc, mode, skin, name, item, chestplate, leggings, boots);
             spawnNpc(info);
             npcs.add(info);
         }
@@ -116,16 +120,14 @@ public class NpcManager {
             npc.getEquipment().setItemInMainHand(new ItemStack(info.item));
         }
         // Equip armor pieces if provided
-        if (!info.armor.isEmpty()) {
-            if (info.armor.size() > 0 && info.armor.get(0) != null) {
-                npc.getEquipment().setChestplate(new ItemStack(info.armor.get(0)));
-            }
-            if (info.armor.size() > 1 && info.armor.get(1) != null) {
-                npc.getEquipment().setLeggings(new ItemStack(info.armor.get(1)));
-            }
-            if (info.armor.size() > 2 && info.armor.get(2) != null) {
-                npc.getEquipment().setBoots(new ItemStack(info.armor.get(2)));
-            }
+        if (info.chestplate != null) {
+            npc.getEquipment().setChestplate(new ItemStack(info.chestplate));
+        }
+        if (info.leggings != null) {
+            npc.getEquipment().setLeggings(new ItemStack(info.leggings));
+        }
+        if (info.boots != null) {
+            npc.getEquipment().setBoots(new ItemStack(info.boots));
         }
     }
 
@@ -134,8 +136,9 @@ public class NpcManager {
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 
-    public void addNpc(Location location, String mode, String skin, Material item, String name, List<Material> armor) {
-        NpcInfo info = new NpcInfo(location, mode, skin, name, item, armor);
+    public void addNpc(Location location, String mode, String skin, Material item, String name,
+                       Material chestplate, Material leggings, Material boots) {
+        NpcInfo info = new NpcInfo(location, mode, skin, name, item, chestplate, leggings, boots);
         npcs.add(info);
         spawnNpc(info);
         saveNpcs();
@@ -158,12 +161,14 @@ public class NpcManager {
             if (info.item != null) {
                 map.put("item", info.item.name());
             }
-            if (!info.armor.isEmpty()) {
-                List<String> armor = new ArrayList<>();
-                for (Material m : info.armor) {
-                    armor.add(m.name());
-                }
-                map.put("armor", armor);
+            if (info.chestplate != null) {
+                map.put("chestplate", info.chestplate.name());
+            }
+            if (info.leggings != null) {
+                map.put("leggings", info.leggings.name());
+            }
+            if (info.boots != null) {
+                map.put("boots", info.boots.name());
             }
             list.add(map);
         }
@@ -233,15 +238,20 @@ public class NpcManager {
         final String skin;
         final String name;
         final Material item;
-        final List<Material> armor;
+        final Material chestplate;
+        final Material leggings;
+        final Material boots;
 
-        NpcInfo(Location location, String mode, String skin, String name, Material item, List<Material> armor) {
+        NpcInfo(Location location, String mode, String skin, String name, Material item,
+                Material chestplate, Material leggings, Material boots) {
             this.location = location;
             this.mode = mode;
             this.skin = skin;
             this.name = name;
             this.item = item;
-            this.armor = armor;
+            this.chestplate = chestplate;
+            this.leggings = leggings;
+            this.boots = boots;
         }
     }
 }

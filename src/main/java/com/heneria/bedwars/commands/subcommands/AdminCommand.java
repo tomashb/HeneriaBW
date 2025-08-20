@@ -11,8 +11,10 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
+import com.heneria.bedwars.arena.enums.TeamColor;
 
 import java.util.*;
 
@@ -80,14 +82,10 @@ public class AdminCommand implements SubCommand {
                 String skin = args[2];
                 Material item = Material.matchMaterial(args[3].toUpperCase());
                 String name = ChatColor.translateAlternateColorCodes('&', args[4]);
-                List<Material> armor = new ArrayList<>();
-                for (int i = 5; i < args.length; i++) {
-                    Material m = Material.matchMaterial(args[i].toUpperCase());
-                    if (m != null) {
-                        armor.add(m);
-                    }
-                }
-                plugin.getNpcManager().addNpc(player.getLocation(), mode, skin, item, name, armor);
+                Material chestplate = args.length > 5 ? Material.matchMaterial(args[5].toUpperCase()) : null;
+                Material leggings = args.length > 6 ? Material.matchMaterial(args[6].toUpperCase()) : null;
+                Material boots = args.length > 7 ? Material.matchMaterial(args[7].toUpperCase()) : null;
+                plugin.getNpcManager().addNpc(player.getLocation(), mode, skin, item, name, chestplate, leggings, boots);
                 player.sendMessage(ChatColor.GREEN + "PNJ de jonction " + mode + " placé.");
                 return;
             } else if (sub.equals("setshopnpc") && args.length >= 3) {
@@ -97,6 +95,9 @@ public class AdminCommand implements SubCommand {
                 }
                 String team = args[1];
                 String type = args[2].toLowerCase();
+                Material chestplate = args.length > 3 ? Material.matchMaterial(args[3].toUpperCase()) : null;
+                Material leggings = args.length > 4 ? Material.matchMaterial(args[4].toUpperCase()) : null;
+                Material boots = args.length > 5 ? Material.matchMaterial(args[5].toUpperCase()) : null;
                 ArmorStand npc = (ArmorStand) player.getWorld().spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
                 npc.setInvisible(true);
                 npc.setInvulnerable(true);
@@ -115,6 +116,38 @@ public class AdminCommand implements SubCommand {
                 } else {
                     npc.setCustomName(MessageManager.get("game.shop-npc-name"));
                     npc.getEquipment().setItemInMainHand(new ItemStack(Material.EMERALD));
+                }
+                TeamColor teamColor = null;
+                try {
+                    teamColor = TeamColor.valueOf(team.toUpperCase());
+                } catch (IllegalArgumentException ignored) {
+                }
+                if (chestplate != null) {
+                    ItemStack item = new ItemStack(chestplate);
+                    if (teamColor != null && item.getType().name().startsWith("LEATHER_")) {
+                        LeatherArmorMeta am = (LeatherArmorMeta) item.getItemMeta();
+                        am.setColor(teamColor.getLeatherColor());
+                        item.setItemMeta(am);
+                    }
+                    npc.getEquipment().setChestplate(item);
+                }
+                if (leggings != null) {
+                    ItemStack item = new ItemStack(leggings);
+                    if (teamColor != null && item.getType().name().startsWith("LEATHER_")) {
+                        LeatherArmorMeta am = (LeatherArmorMeta) item.getItemMeta();
+                        am.setColor(teamColor.getLeatherColor());
+                        item.setItemMeta(am);
+                    }
+                    npc.getEquipment().setLeggings(item);
+                }
+                if (boots != null) {
+                    ItemStack item = new ItemStack(boots);
+                    if (teamColor != null && item.getType().name().startsWith("LEATHER_")) {
+                        LeatherArmorMeta am = (LeatherArmorMeta) item.getItemMeta();
+                        am.setColor(teamColor.getLeatherColor());
+                        item.setItemMeta(am);
+                    }
+                    npc.getEquipment().setBoots(item);
                 }
                 npc.setCustomNameVisible(true);
                 player.sendMessage(ChatColor.GREEN + "PNJ de boutique " + type + " pour l'équipe " + team + " placé.");

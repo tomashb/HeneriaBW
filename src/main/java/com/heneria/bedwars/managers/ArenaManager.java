@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -135,6 +136,15 @@ public class ArenaManager {
                             team.setItemShopNpcLocation(loc);
                         }
                     }
+                    if (config.contains("teams." + key + ".npc.shop.chestplate")) {
+                        team.setItemShopChestplate(Material.matchMaterial(config.getString("teams." + key + ".npc.shop.chestplate")));
+                    }
+                    if (config.contains("teams." + key + ".npc.shop.leggings")) {
+                        team.setItemShopLeggings(Material.matchMaterial(config.getString("teams." + key + ".npc.shop.leggings")));
+                    }
+                    if (config.contains("teams." + key + ".npc.shop.boots")) {
+                        team.setItemShopBoots(Material.matchMaterial(config.getString("teams." + key + ".npc.shop.boots")));
+                    }
                     if (config.contains("teams." + key + ".npc.upgrade.world")) {
                         World w = Bukkit.getWorld(config.getString("teams." + key + ".npc.upgrade.world"));
                         if (w != null) {
@@ -146,6 +156,15 @@ public class ArenaManager {
                                     (float) config.getDouble("teams." + key + ".npc.upgrade.pitch"));
                             team.setUpgradeShopNpcLocation(loc);
                         }
+                    }
+                    if (config.contains("teams." + key + ".npc.upgrade.chestplate")) {
+                        team.setUpgradeShopChestplate(Material.matchMaterial(config.getString("teams." + key + ".npc.upgrade.chestplate")));
+                    }
+                    if (config.contains("teams." + key + ".npc.upgrade.leggings")) {
+                        team.setUpgradeShopLeggings(Material.matchMaterial(config.getString("teams." + key + ".npc.upgrade.leggings")));
+                    }
+                    if (config.contains("teams." + key + ".npc.upgrade.boots")) {
+                        team.setUpgradeShopBoots(Material.matchMaterial(config.getString("teams." + key + ".npc.upgrade.boots")));
                     }
                     arena.getTeams().put(color, team);
                 }
@@ -248,6 +267,15 @@ public class ArenaManager {
                     config.set(base + "npc.shop.yaw", loc.getYaw());
                     config.set(base + "npc.shop.pitch", loc.getPitch());
                 }
+                if (team.getItemShopChestplate() != null) {
+                    config.set(base + "npc.shop.chestplate", team.getItemShopChestplate().name());
+                }
+                if (team.getItemShopLeggings() != null) {
+                    config.set(base + "npc.shop.leggings", team.getItemShopLeggings().name());
+                }
+                if (team.getItemShopBoots() != null) {
+                    config.set(base + "npc.shop.boots", team.getItemShopBoots().name());
+                }
                 if (team.getUpgradeShopNpcLocation() != null) {
                     Location loc = team.getUpgradeShopNpcLocation();
                     config.set(base + "npc.upgrade.world", Objects.requireNonNull(loc.getWorld()).getName());
@@ -256,6 +284,15 @@ public class ArenaManager {
                     config.set(base + "npc.upgrade.z", loc.getZ());
                     config.set(base + "npc.upgrade.yaw", loc.getYaw());
                     config.set(base + "npc.upgrade.pitch", loc.getPitch());
+                }
+                if (team.getUpgradeShopChestplate() != null) {
+                    config.set(base + "npc.upgrade.chestplate", team.getUpgradeShopChestplate().name());
+                }
+                if (team.getUpgradeShopLeggings() != null) {
+                    config.set(base + "npc.upgrade.leggings", team.getUpgradeShopLeggings().name());
+                }
+                if (team.getUpgradeShopBoots() != null) {
+                    config.set(base + "npc.upgrade.boots", team.getUpgradeShopBoots().name());
                 }
             }
         }
