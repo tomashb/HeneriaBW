@@ -2,7 +2,6 @@ package com.heneria.bedwars.commands.subcommands;
 
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
-import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.entity.Player;
@@ -37,8 +36,12 @@ public class JoinCommand implements SubCommand {
             MessageManager.sendMessage(player, "errors.arena-not-found");
             return;
         }
-        if (!arena.isEnabled() || arena.getState() != GameState.WAITING) {
+        if (!arena.isEnabled()) {
             MessageManager.sendMessage(player, "errors.arena-not-available");
+            return;
+        }
+        if (!arena.canJoin()) {
+            MessageManager.sendMessage(player, "errors.arena-full-or-started");
             return;
         }
         if (manager.getArenaByPlayer(player.getUniqueId()) != null) {

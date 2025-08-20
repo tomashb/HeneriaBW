@@ -1,5 +1,12 @@
 # Changelog - HeneriaBedwars
 
+## [3.0.1] - 2024-??-??
+
+### Corrigé
+- Rétablissement de la visibilité des joueurs après les parties.
+- Suppression des blocs placés lors du reset d'arène.
+- Empêchement de rejoindre une arène pleine ou déjà en cours.
+
 ## [2.5.0] - 2024-??-??
 
 ### Ajouté

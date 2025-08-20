@@ -4,6 +4,7 @@ import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.utils.ItemBuilder;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -91,9 +92,11 @@ public class ArenaSelectorMenu extends Menu {
         if (arena == null) {
             return;
         }
-        if (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING) {
+        if (arena.canJoin()) {
             player.closeInventory();
             arena.addPlayer(player);
+        } else {
+            MessageManager.sendMessage(player, "errors.arena-full-or-started");
         }
     }
 }

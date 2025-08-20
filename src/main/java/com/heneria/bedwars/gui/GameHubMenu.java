@@ -2,9 +2,9 @@ package com.heneria.bedwars.gui;
 
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
-import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.managers.ReconnectManager;
 import com.heneria.bedwars.utils.ItemBuilder;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -82,7 +82,7 @@ public class GameHubMenu extends Menu {
     private void quickJoin(Player player) {
         Arena best = null;
         for (Arena arena : plugin.getArenaManager().getAllArenas()) {
-            if (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING) {
+            if (arena.canJoin()) {
                 if (best == null || arena.getPlayers().size() > best.getPlayers().size()) {
                     best = arena;
                 }
@@ -91,7 +91,7 @@ public class GameHubMenu extends Menu {
         if (best != null) {
             best.addPlayer(player);
         } else {
-            player.sendMessage("Aucune partie disponible pour le moment");
+            MessageManager.sendMessage(player, "errors.arena-full-or-started");
         }
     }
 }
