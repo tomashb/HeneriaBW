@@ -25,6 +25,7 @@ public class ReconnectListener implements Listener {
         if (arena != null && arena.getState() == GameState.PLAYING) {
             reconnectManager.markDisconnected(player, arena);
             arena.removePlayer(player);
+            arena.checkForWinner();
         }
     }
 }
