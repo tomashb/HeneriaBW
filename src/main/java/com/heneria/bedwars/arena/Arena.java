@@ -259,6 +259,19 @@ public class Arena {
         if (players.size() >= minPlayers && state == GameState.WAITING) {
             startCountdown();
         }
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            if (online.equals(player)) {
+                continue;
+            }
+            Arena other = HeneriaBedwars.getInstance().getArenaManager().getArena(online);
+            if (other != this) {
+                online.hidePlayer(HeneriaBedwars.getInstance(), player);
+                player.hidePlayer(HeneriaBedwars.getInstance(), online);
+            } else {
+                online.showPlayer(HeneriaBedwars.getInstance(), player);
+                player.showPlayer(HeneriaBedwars.getInstance(), online);
+            }
+        }
     }
 
     /**
@@ -289,6 +302,19 @@ public class Arena {
         if (lobby != null) {
             player.teleport(lobby);
             player.setGameMode(GameMode.ADVENTURE);
+        }
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            if (online.equals(player)) {
+                continue;
+            }
+            Arena other = HeneriaBedwars.getInstance().getArenaManager().getArena(online);
+            if (other == null) {
+                online.showPlayer(HeneriaBedwars.getInstance(), player);
+                player.showPlayer(HeneriaBedwars.getInstance(), online);
+            } else {
+                online.hidePlayer(HeneriaBedwars.getInstance(), player);
+                player.hidePlayer(HeneriaBedwars.getInstance(), online);
+            }
         }
     }
 

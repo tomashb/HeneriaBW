@@ -2,6 +2,7 @@ package com.heneria.bedwars.listeners;
 
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.managers.ArenaManager;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -23,12 +24,24 @@ public class MainLobbyListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
+        Player joining = event.getPlayer();
         Location lobby = plugin.getMainLobby();
         if (lobby != null) {
-            Player player = event.getPlayer();
-            player.teleport(lobby);
-            player.setGameMode(GameMode.ADVENTURE);
-            player.setFoodLevel(20);
+            joining.teleport(lobby);
+            joining.setGameMode(GameMode.ADVENTURE);
+            joining.setFoodLevel(20);
+        }
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            if (online.equals(joining)) {
+                continue;
+            }
+            if (arenaManager.getArena(online) != null) {
+                online.hidePlayer(plugin, joining);
+                joining.hidePlayer(plugin, online);
+            } else {
+                online.showPlayer(plugin, joining);
+                joining.showPlayer(plugin, online);
+            }
         }
     }
 

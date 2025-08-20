@@ -2,6 +2,8 @@ package com.heneria.bedwars.listeners;
 
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.gui.admin.creation.ArenaSettingsMenu;
+import com.heneria.bedwars.arena.Arena;
+import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.setup.NpcCreationProcess;
@@ -13,6 +15,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+
+import java.util.UUID;
 
 public class ChatListener implements Listener {
 
@@ -134,5 +138,41 @@ public class ChatListener implements Listener {
                 new ArenaSettingsMenu(arenaName).open(player);
             });
         }
+
+        Arena arena = arenaManager.getArena(player);
+        if (arena != null) {
+            event.getRecipients().clear();
+            for (UUID id : arena.getPlayers()) {
+                Player p = Bukkit.getPlayer(id);
+                if (p != null) {
+                    event.getRecipients().add(p);
+                }
+            }
+            Team team = arena.getTeam(player);
+            String format = HeneriaBedwars.getInstance().getConfig().getString("chat-format", "[{team_color}{team_name}] {player_name}: {message}");
+            ChatColor color = team != null ? team.getColor().getChatColor() : ChatColor.WHITE;
+            String teamName = team != null ? team.getColor().getDisplayName() : "";
+            format = ChatColor.translateAlternateColorCodes('&', format
+                    .replace("{team_color}", color.toString())
+                    .replace("{team_name}", teamName)
+                    .replace("{player_name}", "%1$s")
+                    .replace("{message}", "%2$s"));
+            event.setFormat(format);
+            return;
+        }
+
+        event.getRecipients().clear();
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (arenaManager.getArena(p) == null) {
+                event.getRecipients().add(p);
+            }
+        }
+        String format = HeneriaBedwars.getInstance().getConfig().getString("chat-format", "{player_name}: {message}");
+        format = ChatColor.translateAlternateColorCodes('&', format
+                .replace("{team_color}", "")
+                .replace("{team_name}", "")
+                .replace("{player_name}", "%1$s")
+                .replace("{message}", "%2$s"));
+        event.setFormat(format);
     }
 }
