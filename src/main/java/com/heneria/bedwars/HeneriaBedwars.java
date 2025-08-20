@@ -36,6 +36,7 @@ import com.heneria.bedwars.managers.EventManager;
 import com.heneria.bedwars.managers.PlayerProgressionManager;
 import com.heneria.bedwars.managers.BountyManager;
 import com.heneria.bedwars.managers.NpcManager;
+import com.heneria.bedwars.managers.NpcAnimationManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -57,6 +58,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private PlayerProgressionManager playerProgressionManager;
     private BountyManager bountyManager;
     private NpcManager npcManager;
+    private NpcAnimationManager npcAnimationManager;
     private Location mainLobby;
     private static NamespacedKey itemTypeKey;
     private static NamespacedKey npcKey;
@@ -86,6 +88,8 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.playerProgressionManager = new PlayerProgressionManager();
         this.bountyManager = new BountyManager(3, 5);
         this.npcManager = new NpcManager(this);
+        this.npcAnimationManager = new NpcAnimationManager(this, this.npcManager);
+        this.npcAnimationManager.start();
 
         // Enregistrement des commandes
         CommandManager commandManager = new CommandManager(this);
@@ -101,6 +105,9 @@ public final class HeneriaBedwars extends JavaPlugin {
     public void onDisable() {
         if (statsManager != null) {
             statsManager.saveAll();
+        }
+        if (npcAnimationManager != null) {
+            npcAnimationManager.stop();
         }
         getLogger().info("HeneriaBedwars a été désactivé.");
     }
@@ -192,6 +199,10 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public NpcManager getNpcManager() {
         return npcManager;
+    }
+
+    public NpcAnimationManager getNpcAnimationManager() {
+        return npcAnimationManager;
     }
 
     public Location getMainLobby() {

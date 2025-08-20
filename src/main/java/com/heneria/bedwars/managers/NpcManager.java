@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.util.EulerAngle;
 
 import java.io.File;
 import java.io.IOException;
@@ -135,6 +136,13 @@ public class NpcManager {
         if (info.boots != null) {
             npc.getEquipment().setBoots(new ItemStack(info.boots));
         }
+
+        // Apply a more natural default pose
+        npc.setHeadPose(new EulerAngle(Math.toRadians(-5), 0, 0));
+        npc.setRightArmPose(new EulerAngle(Math.toRadians(-10), 0, 0));
+        npc.setLeftArmPose(new EulerAngle(Math.toRadians(-15), 0, 0));
+        npc.setRightLegPose(new EulerAngle(Math.toRadians(-2), 0, 0));
+        npc.setLeftLegPose(new EulerAngle(Math.toRadians(2), 0, 0));
     }
 
     private String capitalize(String input) {

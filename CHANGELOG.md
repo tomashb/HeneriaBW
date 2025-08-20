@@ -14,6 +14,11 @@
 ### Corrigé
 - Correction d'une erreur de compilation liée à un accès protégé dans les menus.
 
+## [2.2.2] - 2024-??-??
+
+### Ajouté
+- Ajout d'animations (pose statique et respiration) pour les PNJ.
+
 ## [2.2.1] - 2024-05-09
 
 ### Ajouté
