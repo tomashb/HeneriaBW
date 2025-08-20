@@ -3,6 +3,7 @@ package com.heneria.bedwars.listeners;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
+import com.heneria.bedwars.gui.GameHubMenu;
 import com.heneria.bedwars.gui.shop.ShopCategoryMenu;
 import com.heneria.bedwars.gui.upgrades.TeamUpgradesMenu;
 import com.heneria.bedwars.utils.MessageManager;
@@ -29,7 +30,10 @@ public class NpcListener implements Listener {
         }
         event.setCancelled(true);
         Player player = event.getPlayer();
-        if (tag.startsWith("ITEM_SHOP")) {
+        if (tag.startsWith("JOIN_NPC")) {
+            System.out.println("[DEBUG-NPC] Clic sur PNJ. Tag trouvé : " + tag + ". Ouverture du hub.");
+            new GameHubMenu().open(player);
+        } else if (tag.startsWith("ITEM_SHOP")) {
             System.out.println("[DEBUG-NPC] Clic sur PNJ. Tag trouvé : " + tag + ". Ouverture du menu boutique.");
             new ShopCategoryMenu(HeneriaBedwars.getInstance().getShopManager()).open(player);
         } else if (tag.startsWith("UPGRADE_SHOP")) {
