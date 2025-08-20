@@ -37,6 +37,7 @@ import com.heneria.bedwars.managers.BountyManager;
 import com.heneria.bedwars.managers.NpcManager;
 import com.heneria.bedwars.managers.NpcAnimationManager;
 import com.heneria.bedwars.managers.ReconnectManager;
+import com.heneria.bedwars.managers.HologramManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -48,6 +49,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private ArenaManager arenaManager;
     private SetupManager setupManager;
     private GeneratorManager generatorManager;
+    private HologramManager hologramManager;
     private ShopManager shopManager;
     private SpecialShopManager specialShopManager;
     private UpgradeManager upgradeManager;
@@ -79,6 +81,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.setupManager = new SetupManager();
         this.arenaManager.loadArenas();
         this.generatorManager = new GeneratorManager(this);
+        this.hologramManager = new HologramManager();
         this.shopManager = new ShopManager(this);
         this.specialShopManager = new SpecialShopManager(this);
         this.upgradeManager = new UpgradeManager(this);
@@ -152,6 +155,10 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public GeneratorManager getGeneratorManager() {
         return generatorManager;
+    }
+
+    public HologramManager getHologramManager() {
+        return hologramManager;
     }
 
     public ShopManager getShopManager() {

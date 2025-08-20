@@ -5,6 +5,7 @@ import com.heneria.bedwars.arena.elements.Generator;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.arena.enums.TeamColor;
+import com.heneria.bedwars.arena.enums.GeneratorType;
 import com.heneria.bedwars.events.GameStateChangeEvent;
 import com.heneria.bedwars.utils.GameUtils;
 import com.heneria.bedwars.utils.MessageManager;
@@ -653,6 +654,15 @@ public class Arena {
         System.out.println("[DEBUG-STARTGAME] Téléportation des joueurs terminée.");
 
         for (Generator gen : generators) {
+            if (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD) {
+                Location loc = gen.getLocation();
+                if (loc != null) {
+                    Location holoLoc = loc.clone().add(0.5, 2.0, 0.5);
+                    String title = gen.getType() == GeneratorType.DIAMOND ? ChatColor.AQUA + "Diamant" : ChatColor.GREEN + "Émeraude";
+                    int seconds = HeneriaBedwars.getInstance().getGeneratorManager().getDelaySeconds(gen);
+                    HeneriaBedwars.getInstance().getHologramManager().createHologram(holoLoc, Arrays.asList(title, seconds + "s"));
+                }
+            }
             HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);
         }
         System.out.println("[DEBUG-STARTGAME] Démarrage des générateurs terminé.");
@@ -834,6 +844,15 @@ public class Arena {
 
     public void reset() {
         HeneriaBedwars.getInstance().getEventManager().stopTimeline(this);
+        for (Generator gen : generators) {
+            if (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD) {
+                Location loc = gen.getLocation();
+                if (loc != null) {
+                    Location holoLoc = loc.clone().add(0.5, 2.0, 0.5);
+                    HeneriaBedwars.getInstance().getHologramManager().removeHologram(holoLoc);
+                }
+            }
+        }
         for (UUID id : new ArrayList<>(players)) {
             Player p = Bukkit.getPlayer(id);
             if (p != null) {
