@@ -44,23 +44,24 @@ public class TeamSelectorListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
         Action action = event.getAction();
-        // Handle both right-clicking in air and on blocks
-        if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
-            ItemStack item = event.getItem();
-            if (item == null) {
-                return;
-            }
-            ItemMeta meta = item.getItemMeta();
-            if (meta == null || !meta.getPersistentDataContainer().has(TEAM_SELECTOR_KEY, PersistentDataType.BYTE)) {
-                return;
-            }
-            Player player = event.getPlayer();
-            Arena arena = arenaManager.getArena(player);
-            if (arena == null || (arena.getState() != GameState.WAITING && arena.getState() != GameState.STARTING)) {
-                return;
-            }
-            event.setCancelled(true);
-            new TeamSelectorMenu(arena).open(player);
+        // Trigger on both right-click in air and on block
+        if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) {
+            return;
         }
+        ItemStack item = event.getItem();
+        if (item == null) {
+            return;
+        }
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null || !meta.getPersistentDataContainer().has(TEAM_SELECTOR_KEY, PersistentDataType.BYTE)) {
+            return;
+        }
+        Player player = event.getPlayer();
+        Arena arena = arenaManager.getArena(player);
+        if (arena == null || (arena.getState() != GameState.WAITING && arena.getState() != GameState.STARTING)) {
+            return;
+        }
+        event.setCancelled(true);
+        new TeamSelectorMenu(arena).open(player);
     }
 }

@@ -125,6 +125,8 @@ public class ShopItemsMenu extends Menu {
                 material = team.getColor().getWoolMaterial();
             }
             boolean isSword = material.name().endsWith("_SWORD");
+            boolean isPickaxe = material.name().endsWith("_PICKAXE");
+            boolean isAxe = material.name().endsWith("_AXE");
             if (isSword) {
                 for (int i = 0; i < clicker.getInventory().getSize(); i++) {
                     ItemStack invItem = clicker.getInventory().getItem(i);
@@ -137,7 +139,7 @@ public class ShopItemsMenu extends Menu {
             ItemMeta meta = give.getItemMeta();
             if (meta != null) {
                 meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', item.name()));
-                if (isSword) {
+                if (isSword || isPickaxe || isAxe) {
                     meta.getPersistentDataContainer().set(GameUtils.STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
                 }
                 if (item.action() != null) {

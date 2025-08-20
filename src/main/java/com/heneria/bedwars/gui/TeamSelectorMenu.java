@@ -29,7 +29,8 @@ public class TeamSelectorMenu extends Menu {
 
     @Override
     public String getTitle() {
-        return MessageManager.get("menus.team-selector-title");
+        // Use localized title from the message manager
+        return MessageManager.getFormattedMessage("menus.team-selector-title");
     }
 
     @Override

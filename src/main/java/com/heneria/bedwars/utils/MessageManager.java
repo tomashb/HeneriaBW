@@ -54,6 +54,17 @@ public final class MessageManager {
     }
 
     /**
+     * Convenience alias for {@link #get(String, String...)} to mirror plugin API usage.
+     *
+     * @param path the config path
+     * @param placeholders placeholder replacements
+     * @return formatted message
+     */
+    public static String getFormattedMessage(String path, String... placeholders) {
+        return get(path, placeholders);
+    }
+
+    /**
      * Sends a message with the configured prefix.
      *
      * @param sender the receiver
