@@ -109,7 +109,16 @@ public class NpcManager {
         // Head with skin
         ItemStack head = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) head.getItemMeta();
-        meta.setOwningPlayer(Bukkit.getOfflinePlayer(info.skin));
+        // Only apply a skin owner if the provided name fits within the
+        // legacy 16 character limit used by player profiles. This prevents
+        // the server from sending an oversized string through the equipment
+        // packet which would otherwise result in an EncoderException.
+        if (info.skin != null && info.skin.length() <= 16) {
+            meta.setOwningPlayer(Bukkit.getOfflinePlayer(info.skin));
+        }
+        // Ensure the item itself carries no custom display name; the visible
+        // name for the NPC is handled via the ArmorStand's custom name.
+        meta.setDisplayName(null);
         head.setItemMeta(meta);
         npc.getEquipment().setHelmet(head);
 

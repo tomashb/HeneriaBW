@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [2.3.1] - 2024-??-??
+
+### Corrigé
+- Correction d'un crash lors de la création de PNJ avec un nom ou un skin trop long.
+
 ## [2.3.0] - 2024-??-??
 
 ### Ajouté
