@@ -8,6 +8,7 @@ import com.heneria.bedwars.managers.ResourceManager;
 import com.heneria.bedwars.managers.ResourceType;
 import com.heneria.bedwars.managers.UpgradeManager;
 import com.heneria.bedwars.managers.UpgradeManager.Trap;
+import com.heneria.bedwars.managers.UpgradeManager.UpgradeCategory;
 import com.heneria.bedwars.utils.ItemBuilder;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Bukkit;
@@ -30,24 +31,26 @@ public class TeamUpgradesMenu extends Menu {
     private final Arena arena;
     private final Team team;
     private final UpgradeManager upgradeManager;
+    private final UpgradeCategory category;
     private final Map<Integer, UpgradeManager.Upgrade> slotUpgrades = new HashMap<>();
     private final Map<Integer, Trap> slotTraps = new HashMap<>();
 
-    public TeamUpgradesMenu(HeneriaBedwars plugin, Arena arena, Team team) {
+    public TeamUpgradesMenu(HeneriaBedwars plugin, Arena arena, Team team, UpgradeCategory category) {
         this.plugin = plugin;
         this.arena = arena;
         this.team = team;
+        this.category = category;
         this.upgradeManager = plugin.getUpgradeManager();
     }
 
     @Override
     public String getTitle() {
-        return MessageManager.get("menus.upgrades-title");
+        return category.title();
     }
 
     @Override
     public int getSize() {
-        return 27;
+        return category.rows() * 9;
     }
 
     @Override
@@ -55,7 +58,7 @@ public class TeamUpgradesMenu extends Menu {
         slotUpgrades.clear();
         slotTraps.clear();
         int slot = 10;
-        for (UpgradeManager.Upgrade upgrade : upgradeManager.getUpgrades()) {
+        for (UpgradeManager.Upgrade upgrade : category.upgrades().values()) {
             int current = team.getUpgradeLevel(upgrade.id());
             UpgradeManager.UpgradeTier tier = upgrade.tiers().get(current + 1);
             ItemBuilder builder = new ItemBuilder(upgrade.item()).setName(upgrade.name());
@@ -70,7 +73,7 @@ public class TeamUpgradesMenu extends Menu {
             slot++;
         }
 
-        for (Trap trap : upgradeManager.getTraps()) {
+        for (Trap trap : category.traps().values()) {
             ItemBuilder builder = new ItemBuilder(trap.item()).setName(trap.name()).setLore(trap.description());
             if (!team.isTrapActive(trap.id())) {
                 builder.addLore("&7Coût: &b" + trap.cost() + " Diamants");
@@ -116,7 +119,7 @@ public class TeamUpgradesMenu extends Menu {
             team.setUpgradeLevel(upgrade.id(), current + 1);
             applyUpgradeEffect(upgrade.id(), current + 1);
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
-            new TeamUpgradesMenu(plugin, arena, team).open(player, previousMenu);
+            new TeamUpgradesMenu(plugin, arena, team, category).open(player, previousMenu);
             return;
         }
 
@@ -143,7 +146,7 @@ public class TeamUpgradesMenu extends Menu {
             }
         }
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
-        new TeamUpgradesMenu(plugin, arena, team).open(player, previousMenu);
+        new TeamUpgradesMenu(plugin, arena, team, category).open(player, previousMenu);
     }
 
     private void applyUpgradeEffect(String id, int level) {

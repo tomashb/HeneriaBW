@@ -235,7 +235,7 @@ shop-categories:
         amount: 1
         cost:
           resource: IRON
-          amount: 24
+          amount: 25
         slot: 14
         action: 'POPUP_TOWER'
       'enemy_tracker':
@@ -261,8 +261,8 @@ shop-categories:
         name: "&aPlateforme de Secours"
         amount: 1
         cost:
-          resource: IRON
-          amount: 20
+          resource: EMERALD
+          amount: 1
         slot: 19
         action: 'SAFETY_PLATFORM'
       'healer_milk':

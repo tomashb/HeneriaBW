@@ -1,95 +1,111 @@
-sharpness:
-  name: "&aTranchant d'équipe"
-  item: DIAMOND_SWORD
-  tiers:
-    1:
-      cost: 4
-      description: "&7Les épées de l'équipe obtiennent Tranchant I."
-protection:
-  name: "&aProtection d'équipe"
-  item: DIAMOND_CHESTPLATE
-  tiers:
-    1:
-      cost: 2
-      description: "&7Les armures de l'équipe obtiennent Protection I."
-    2:
-      cost: 4
-      description: "&7Les armures de l'équipe obtiennent Protection II."
-    3:
-      cost: 8
-      description: "&7Les armures de l'équipe obtiennent Protection III."
-haste:
-  name: "&aHâte d'équipe"
-  item: GOLDEN_PICKAXE
-  tiers:
-    1:
-      cost: 2
-      description: "&7Les joueurs gagnent Hâte I."
-    2:
-      cost: 4
-      description: "&7Les joueurs gagnent Hâte II."
-# Crée une zone de régénération autour du lit de l'équipe.
-heal-pool:
-  name: "&aSoin de Base"
-  item: GOLDEN_APPLE
-  tiers:
-    1:
-      cost: 5
-      description: "&7Crée une aura de régénération"
-      parameters:
-        radius: 8 # Rayon en blocs
-        amplifier: 0 # Régénération I
-# Joue un son puissant à l'équipe lorsqu'un piège se déclenche.
-trap-alarm:
-  name: "&cAlarme Anti-Intrusion"
-  item: BELL
-  tiers:
-    1:
-      cost: 2
-      description: "&7Vous alerte avec un son strident"
-      parameters:
-        sound: ENTITY_ENDER_DRAGON_GROWL
-# L'amélioration Forge accélère les générateurs de Fer et d'Or de l'île.
-# Le dernier niveau génère également des Émeraudes directement sur la base.
-forge:
-  name: "&aForge améliorée"
-  item: FURNACE
-  tiers:
-    1:
-      cost: 2
-      description: "&7+25% de vitesse pour le Fer et l'Or."
-    2:
-      cost: 4
-      description: "&7+50% de vitesse pour le Fer et l'Or."
-    3:
-      cost: 6
-      description: "&7Vitesse maximale pour le Fer et l'Or."
-    4:
-      cost: 8
-      description: "&7Active un générateur d'Émeraudes lent."
+main-menu:
+  title: "Améliorations d'équipe"
+  rows: 3
+  items:
+    'general':
+      material: DIAMOND_SWORD
+      name: "&aAméliorations Générales"
+      slot: 11
+      category: 'general'
+    'traps':
+      material: TRIPWIRE_HOOK
+      name: "&cPièges"
+      slot: 15
+      category: 'traps'
 
-# Catégorie pour les pièges
-traps:
-  miner-fatigue-trap:
-    name: "&cPiège de Fatigue"
-    item: PRISMARINE_SHARD
-    cost: 1
-    description:
-      - "&7Le prochain ennemi qui entre"
-      - "&7dans votre base recevra Fatigue de Minage."
-    effect:
-      type: SLOW_DIGGING
-      duration: 10
-      amplifier: 1
-
-  blindness-trap:
-    name: "&8Piège d'Aveuglement"
-    item: INK_SAC
-    cost: 1
-    description:
-      - "&7Le prochain ennemi qui entre"
-      - "&7dans votre base deviendra aveugle."
-    effect:
-      type: BLINDNESS
-      duration: 8
-      amplifier: 0
+upgrade-categories:
+  general:
+    title: "Améliorations Générales"
+    rows: 3
+    upgrades:
+      sharpness:
+        name: "&aTranchant d'équipe"
+        item: DIAMOND_SWORD
+        tiers:
+          1:
+            cost: 4
+            description: "&7Les épées de l'équipe obtiennent Tranchant I."
+      protection:
+        name: "&aProtection d'équipe"
+        item: DIAMOND_CHESTPLATE
+        tiers:
+          1:
+            cost: 2
+            description: "&7Les armures de l'équipe obtiennent Protection I."
+          2:
+            cost: 4
+            description: "&7Les armures de l'équipe obtiennent Protection II."
+          3:
+            cost: 8
+            description: "&7Les armures de l'équipe obtiennent Protection III."
+      haste:
+        name: "&aHâte d'équipe"
+        item: GOLDEN_PICKAXE
+        tiers:
+          1:
+            cost: 2
+            description: "&7Les joueurs gagnent Hâte I."
+          2:
+            cost: 4
+            description: "&7Les joueurs gagnent Hâte II."
+      heal-pool:
+        name: "&aSoin de Base"
+        item: GOLDEN_APPLE
+        tiers:
+          1:
+            cost: 5
+            description: "&7Crée une aura de régénération"
+            parameters:
+              radius: 8
+              amplifier: 0
+      trap-alarm:
+        name: "&cAlarme Anti-Intrusion"
+        item: BELL
+        tiers:
+          1:
+            cost: 2
+            description: "&7Vous alerte avec un son strident"
+            parameters:
+              sound: ENTITY_ENDER_DRAGON_GROWL
+      forge:
+        name: "&aForge améliorée"
+        item: FURNACE
+        tiers:
+          1:
+            cost: 2
+            description: "&7+25% de vitesse pour le Fer et l'Or."
+          2:
+            cost: 4
+            description: "&7+50% de vitesse pour le Fer et l'Or."
+          3:
+            cost: 6
+            description: "&7Vitesse maximale pour le Fer et l'Or."
+          4:
+            cost: 8
+            description: "&7Active un générateur d'Émeraudes lent."
+  traps:
+    title: "Pièges"
+    rows: 3
+    traps:
+      miner-fatigue-trap:
+        name: "&cPiège de Fatigue"
+        item: PRISMARINE_SHARD
+        cost: 1
+        description:
+          - "&7Le prochain ennemi qui entre"
+          - "&7dans votre base recevra Fatigue de Minage."
+        effect:
+          type: SLOW_DIGGING
+          duration: 10
+          amplifier: 1
+      blindness-trap:
+        name: "&8Piège d'Aveuglement"
+        item: INK_SAC
+        cost: 1
+        description:
+          - "&7Le prochain ennemi qui entre"
+          - "&7dans votre base deviendra aveugle."
+        effect:
+          type: BLINDNESS
+          duration: 8
+          amplifier: 0

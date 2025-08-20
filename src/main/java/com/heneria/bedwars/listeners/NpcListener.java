@@ -5,7 +5,7 @@ import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.gui.GameHubMenu;
 import com.heneria.bedwars.gui.shop.ShopCategoryMenu;
-import com.heneria.bedwars.gui.upgrades.TeamUpgradesMenu;
+import com.heneria.bedwars.gui.upgrades.TeamUpgradeCategoryMenu;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -50,7 +50,7 @@ public class NpcListener implements Listener {
                 MessageManager.sendMessage(player, "errors.no-team");
                 return;
             }
-            new TeamUpgradesMenu(plugin, arena, team).open(player);
+            new TeamUpgradeCategoryMenu(plugin, arena, team).open(player);
         } else {
             System.out.println("[DEBUG-NPC] Tag inconnu : " + tag + ". Interaction ignorée.");
         }

@@ -1,5 +1,16 @@
 # Changelog - HeneriaBedwars
 
+## [2.4.2] - 2024-??-??
+
+### Corrigé
+- Déclaration correcte du vainqueur si un joueur se déconnecte.
+- Le menu des améliorations utilise désormais un titre localisé et est divisé en catégories.
+- Les explosions de boules de feu ne détruisent que la laine placée par les joueurs.
+
+### Modifié
+- Coût de la Tour Instantanée ajusté à 25 Fer.
+- Coût de la Plateforme de Secours ajusté à 1 Émeraude.
+
 ## [2.4.1] - 2024-??-??
 
 ### Corrigé
