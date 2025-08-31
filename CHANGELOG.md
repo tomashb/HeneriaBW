@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [3.1.1] - 2024-??-??
+
+### Modifié
+- Amélioration du scoreboard du lobby principal avec de nouveaux placeholders.
+
 ## [3.1.0] - 2024-??-??
 
 ### Ajouté
