@@ -18,7 +18,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `generators.yml` : Réglez la vitesse et la quantité de chaque générateur de ressources.
   - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
   - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
-  - `scoreboard.yml` : Personnalisez les tableaux de bord du lobby d'attente et de la partie via les sections `lobby` et `game`.
+  - `scoreboard.yml` : Personnalisez les tableaux de bord du lobby principal, du lobby d'attente et de la partie via les sections `main-lobby`, `lobby` et `game`.
   - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons) et définissez un `display-name` lisible pour l'affichage du prochain événement sur le scoreboard.
   - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`) et personnalisez le format du chat via `chat-format`.
   - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie, avec l'option `purchase-limit` pour limiter le nombre d'achats par joueur.
@@ -28,7 +28,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 
 ### Pour les Joueurs
 
-- 🎡 **Lobby Principal Immersif** : Les joueurs apparaissent dans un lobby central et choisissent leur mode via des PNJ interactifs.
+- 🎡 **Lobby Principal Immersif** : Les joueurs apparaissent dans un lobby central et choisissent leur mode via des PNJ interactifs. Un message de bienvenue personnalisé et un scoreboard de statistiques les accueillent.
 - 🎮 **Hub de Jeu Intuitif** : En cliquant sur un PNJ de mode, un menu propose de lancer une partie, consulter ses statistiques ou se reconnecter.
 - 🕹️ **Cycle de Jeu Complet** : Rejoignez une arène, attendez dans le lobby avec un décompte, et lancez-vous dans la bataille.
 - 🎽 **Sélecteur d'équipe** : Choisissez votre camp grâce à un menu interactif avant le début de la partie.
@@ -269,14 +269,28 @@ items:
 
 ### Configuration du Scoreboard
 
-Le fichier `scoreboard.yml` est divisé en deux sections : `lobby` pour le lobby d'attente et `game` pour la partie. Chaque section possède son propre `title` et sa liste de `lines`, avec des placeholders dédiés.
+Le fichier `scoreboard.yml` est divisé en trois sections : `main-lobby` pour le lobby principal, `lobby` pour le lobby d'attente et `game` pour la partie. Chaque section possède son propre `title` et sa liste de `lines`, avec des placeholders dédiés.
 
-- **Lobby :** `{date}`, `{map_name}`, `{current_players}`, `{max_players}`, `{status}`
-- **Jeu :** `{date}`, `{next_event_name}`, `{next_event_time}`, `{team_status}`
+- **Lobby principal :** `{player}`, `{wins}`, `{kills}`, `{beds_broken}`
+- **Lobby d'attente :** `{date}`, `{map_name}`, `{current_players}`, `{max_players}`, `{status}`
+- **En jeu :** `{date}`, `{next_event_name}`, `{next_event_time}`, `{team_status}`
 
 Exemple complet :
 
 ```yaml
+# Scoreboard pour le lobby principal
+main-lobby:
+  title: "&b&lHeneria Network"
+  lines:
+    - "&7Joueur: &f{player}"
+    - "&1"
+    - "&f&lStatistiques"
+    - " &fVictoires: &a{wins}"
+    - " &fKills: &a{kills}"
+    - " &fLits détruits: &a{beds_broken}"
+    - "&2"
+    - "&eplay.votreserveur.com"
+
 # Scoreboard pour le lobby d'attente
 lobby:
   title: "&b&lHeneria BedWars"
@@ -298,7 +312,7 @@ game:
     - "&7{date}"
     - "&1"
     - "Prochain événement:"
-    - "&a{next_event_name} &fen &a{next_event_time}"
+    - "&a{next_event_name} &fdans &a{next_event_time}"
     - "&2"
     - "{team_status}"
     - "&3"

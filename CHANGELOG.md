@@ -1,5 +1,11 @@
 # Changelog - HeneriaBedwars
 
+## [3.1.0] - 2024-??-??
+
+### Ajouté
+- Message de bienvenue configurable à la connexion.
+- Scoreboard du lobby principal affichant les statistiques des joueurs.
+
 ## [3.0.1] - 2024-??-??
 
 ### Corrigé

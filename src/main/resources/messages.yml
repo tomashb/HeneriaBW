@@ -26,6 +26,13 @@ commands:
   main-usage: "&eUsage: /{label} <admin|join|leave>"
   join-usage: "&eUsage: /bw join <arène>"
 
+on-join:
+  welcome-message:
+    - "&1"
+    - "&b&lHeneria &7» &fBienvenue, &e{player}&f !"
+    - "&7Utilisez les PNJ pour rejoindre une partie."
+    - "&2"
+
 game:
   team-joined: "&aVous avez rejoint l'équipe {team}"
   player-join-arena: "&e{player} a rejoint l'arène. (&b{current_players}&e/{max_players})"
