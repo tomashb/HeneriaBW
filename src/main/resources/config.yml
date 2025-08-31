@@ -22,3 +22,9 @@ bungeecord:
 mobs:
   iron-golem:
     damage: 4.0
+
+animations:
+  lobby-npc:
+    enable: true
+    levitation-strength: 0.1
+    presentation-speed: 1.0

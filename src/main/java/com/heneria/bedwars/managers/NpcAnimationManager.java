@@ -1,6 +1,7 @@
 package com.heneria.bedwars.managers;
 
 import com.heneria.bedwars.HeneriaBedwars;
+import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -17,6 +18,9 @@ public class NpcAnimationManager {
     private final NpcManager npcManager;
     private BukkitRunnable task;
     private int tick;
+    private boolean enabled;
+    private double levitationStrength;
+    private double presentationSpeed;
 
     public NpcAnimationManager(HeneriaBedwars plugin, NpcManager npcManager) {
         this.plugin = plugin;
@@ -24,21 +28,39 @@ public class NpcAnimationManager {
     }
 
     /**
-     * Starts the breathing animation task.
+     * Starts the animation task.
      */
     public void start() {
         if (task != null) return;
+
+        enabled = plugin.getConfig().getBoolean("animations.lobby-npc.enable", true);
+        if (!enabled) {
+            return;
+        }
+
+        levitationStrength = plugin.getConfig().getDouble("animations.lobby-npc.levitation-strength", 0.1);
+        presentationSpeed = plugin.getConfig().getDouble("animations.lobby-npc.presentation-speed", 1.0);
+
         task = new BukkitRunnable() {
             @Override
             public void run() {
                 tick++;
-                double offset = Math.sin(tick / 20.0) * Math.toRadians(1.5);
+                double phase = tick / 20.0 * presentationSpeed;
+                double bodyOffset = Math.sin(phase) * Math.toRadians(1.5);
+                double armOffset = Math.sin(phase) * Math.toRadians(20);
+                double yOffset = Math.sin(phase) * levitationStrength;
                 NamespacedKey npcKey = HeneriaBedwars.getNpcKey();
                 for (NpcManager.NpcInfo info : npcManager.getNpcs()) {
                     ArmorStand stand = findStand(info, npcKey);
                     if (stand == null) continue;
                     EulerAngle body = stand.getBodyPose();
-                    stand.setBodyPose(new EulerAngle(offset, body.getY(), body.getZ()));
+                    stand.setBodyPose(new EulerAngle(bodyOffset, body.getY(), body.getZ()));
+
+                    stand.setRightArmPose(new EulerAngle(Math.toRadians(-10) + armOffset, 0, 0));
+
+                    Location base = info.location.clone();
+                    base.add(0, yOffset, 0);
+                    stand.teleport(base);
                 }
             }
         };
