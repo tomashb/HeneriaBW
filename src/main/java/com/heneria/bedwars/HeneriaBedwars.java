@@ -22,6 +22,7 @@ import com.heneria.bedwars.listeners.TemperedGlassListener;
 import com.heneria.bedwars.listeners.LeaveItemListener;
 import com.heneria.bedwars.listeners.MainLobbyListener;
 import com.heneria.bedwars.listeners.ReconnectListener;
+import com.heneria.bedwars.listeners.LobbyVoidListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
@@ -38,6 +39,7 @@ import com.heneria.bedwars.managers.NpcManager;
 import com.heneria.bedwars.managers.NpcAnimationManager;
 import com.heneria.bedwars.managers.ReconnectManager;
 import com.heneria.bedwars.managers.HologramManager;
+import com.heneria.bedwars.managers.TablistManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -54,6 +56,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private SpecialShopManager specialShopManager;
     private UpgradeManager upgradeManager;
     private ScoreboardManager scoreboardManager;
+    private TablistManager tablistManager;
     private EventManager eventManager;
     private DatabaseManager databaseManager;
     private StatsManager statsManager;
@@ -87,6 +90,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.upgradeManager = new UpgradeManager(this);
         this.eventManager = new EventManager(this);
         this.scoreboardManager = new ScoreboardManager(this);
+        this.tablistManager = new TablistManager(this);
         this.databaseManager = new DatabaseManager(this);
         this.statsManager = new StatsManager(this, this.databaseManager);
         this.playerProgressionManager = new PlayerProgressionManager();
@@ -133,6 +137,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new HungerListener(), this);
         getServer().getPluginManager().registerEvents(new VoidKillListener(), this);
         getServer().getPluginManager().registerEvents(new LobbyProtectionListener(), this);
+        getServer().getPluginManager().registerEvents(new LobbyVoidListener(), this);
         getServer().getPluginManager().registerEvents(new TeamSelectorListener(), this);
         getServer().getPluginManager().registerEvents(new LeaveItemListener(), this);
         getServer().getPluginManager().registerEvents(new HealerMilkListener(), this);
@@ -175,6 +180,10 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public ScoreboardManager getScoreboardManager() {
         return scoreboardManager;
+    }
+
+    public TablistManager getTablistManager() {
+        return tablistManager;
     }
 
     public EventManager getEventManager() {

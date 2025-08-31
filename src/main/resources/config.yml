@@ -1,5 +1,6 @@
 main-lobby: {}
 void-kill-height: 0
+void-teleport-height: 0
 trap-radius: 10
 chat-format: "[{team_color}{team_name}] {player_name}: {message}"
 
