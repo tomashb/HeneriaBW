@@ -2,9 +2,11 @@
 
 ## [3.1.2] - 2024-??-??
 
-### Ajouté
-- Tablist personnalisée pour le lobby principal avec support de PlaceholderAPI.
-- Protection contre le vide téléportant les joueurs au spawn du lobby.
+### Modifié
+- Pied de page de la tablist du lobby principal avec message promotionnel et affichage du nombre de joueurs connectés.
+
+### Corrigé
+- Protection contre le vide du lobby téléportant correctement les joueurs au spawn.
 
 ## [3.1.1] - 2024-??-??
 
