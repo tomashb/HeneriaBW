@@ -8,6 +8,10 @@ commands:
   bedwars:
     description: Commande principale de HeneriaBedwars.
     aliases: [bw, hbw]
+  spawn:
+    description: Téléporte au lobby BedWars.
+  hub:
+    description: Rejoint le serveur lobby principal.
 
 permissions:
   heneriabw.admin:

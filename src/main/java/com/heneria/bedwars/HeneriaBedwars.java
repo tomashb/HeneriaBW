@@ -101,9 +101,13 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.reconnectManager = new ReconnectManager(this);
 
         // Enregistrement des commandes
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+
         CommandManager commandManager = new CommandManager(this);
         getCommand("bedwars").setExecutor(commandManager);
         getCommand("bedwars").setTabCompleter(commandManager);
+        getCommand("spawn").setExecutor(commandManager);
+        getCommand("hub").setExecutor(commandManager);
 
         registerListeners();
 
