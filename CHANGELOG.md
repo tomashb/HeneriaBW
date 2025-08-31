@@ -1,5 +1,11 @@
 # Changelog - HeneriaBedwars
 
+## [3.1.2] - 2024-??-??
+
+### Ajouté
+- Tablist personnalisée pour le lobby principal avec support de PlaceholderAPI.
+- Protection contre le vide téléportant les joueurs au spawn du lobby.
+
 ## [3.1.1] - 2024-??-??
 
 ### Modifié

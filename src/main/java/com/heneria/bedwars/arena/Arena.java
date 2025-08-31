@@ -265,6 +265,7 @@ public class Arena {
         }
         broadcast("game.player-join-arena", "player", player.getName(), "current_players", String.valueOf(players.size()), "max_players", String.valueOf(maxPlayers));
         HeneriaBedwars.getInstance().getScoreboardManager().setScoreboard(player);
+        HeneriaBedwars.getInstance().getTablistManager().updatePlayer(player);
         HeneriaBedwars.getInstance().getPlayerProgressionManager().initPlayer(player.getUniqueId());
         if (players.size() >= minPlayers && state == GameState.WAITING) {
             startCountdown();
@@ -303,6 +304,7 @@ public class Arena {
         player.setExp(0f);
         broadcast("game.player-leave-arena", "player", player.getName());
         HeneriaBedwars.getInstance().getScoreboardManager().setScoreboard(player);
+        HeneriaBedwars.getInstance().getTablistManager().updatePlayer(player);
         HeneriaBedwars.getInstance().getPlayerProgressionManager().removePlayer(player.getUniqueId());
         if (state == GameState.STARTING && players.size() < minPlayers) {
             cancelCountdown();

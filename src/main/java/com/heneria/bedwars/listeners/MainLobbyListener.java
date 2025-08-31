@@ -33,6 +33,7 @@ public class MainLobbyListener implements Listener {
             joining.setFoodLevel(20);
         }
         plugin.getScoreboardManager().setScoreboard(joining);
+        plugin.getTablistManager().updatePlayer(joining);
         for (String line : MessageManager.getList("on-join.welcome-message")) {
             joining.sendMessage(line.replace("{player}", joining.getName()));
         }

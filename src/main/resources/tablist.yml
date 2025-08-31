@@ -1,0 +1,6 @@
+header: |
+  &b&lHENERIA BEDWARS
+  &7Vous êtes sur le serveur &eBedWars-1
+footer: |
+  &7Joueurs en ligne: &a%server_online%/%server_max_players%
+  &bheneria.com
