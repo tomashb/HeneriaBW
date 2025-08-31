@@ -87,7 +87,7 @@ public class ShopItemsMenu extends Menu {
             ItemBuilder builder = new ItemBuilder(display.material())
                     .setName(display.name())
                     .addLore("&7Quantité: &f" + display.amount())
-                    .addLore("&7Coût: &f" + display.costAmount() + " " + display.costResource().getDisplayName());
+                    .addLore("&7Coût: " + display.costResource().getColor() + display.costAmount() + " " + display.costResource().getDisplayName());
             ItemStack stack = builder.build();
             stack.setAmount(display.amount());
             inventory.setItem(slot, stack);

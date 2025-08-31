@@ -64,7 +64,7 @@ public class TeamUpgradesMenu extends Menu {
             ItemBuilder builder = new ItemBuilder(upgrade.item()).setName(upgrade.name());
             if (tier != null) {
                 builder.addLore(tier.description())
-                        .addLore("&7Coût: &b" + tier.cost() + " Diamants");
+                        .addLore("&7Coût: " + ResourceType.DIAMOND.getColor() + tier.cost() + " Diamants");
             } else {
                 builder.addLore("&7Amélioration maximale atteinte");
             }
@@ -76,7 +76,7 @@ public class TeamUpgradesMenu extends Menu {
         for (Trap trap : category.traps().values()) {
             ItemBuilder builder = new ItemBuilder(trap.item()).setName(trap.name()).setLore(trap.description());
             if (!team.isTrapActive(trap.id())) {
-                builder.addLore("&7Coût: &b" + trap.cost() + " Diamants");
+                builder.addLore("&7Coût: " + ResourceType.DIAMOND.getColor() + trap.cost() + " Diamants");
             } else {
                 builder.addLore("&7Piège acheté");
             }

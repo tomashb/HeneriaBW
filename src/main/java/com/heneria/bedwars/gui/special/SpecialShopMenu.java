@@ -48,7 +48,7 @@ public class SpecialShopMenu extends Menu {
             for (String line : item.lore()) {
                 builder.addLore(line);
             }
-            builder.addLore("&7Coût: &f" + item.costAmount() + " " + item.costResource().getDisplayName());
+            builder.addLore("&7Coût: " + item.costResource().getColor() + item.costAmount() + " " + item.costResource().getDisplayName());
             if (item.purchaseLimit() > 0) {
                 builder.addLore("&7Limite: &f" + item.purchaseLimit());
             }

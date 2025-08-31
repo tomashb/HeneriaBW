@@ -23,7 +23,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons) et définissez un `display-name` lisible pour l'affichage du prochain événement sur le scoreboard.
   - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`), la hauteur de téléportation anti-vide (`void-teleport-height`), personnalisez le format du chat via `chat-format` et contrôlez les animations du lobby via `animations.lobby-npc` (`enable`, `levitation-strength`, `presentation-speed`).
   - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie, avec l'option `purchase-limit` pour limiter le nombre d'achats par joueur.
-  - `messages.yml` : Traduisez et personnalisez tous les messages du plugin.
+  - `messages.yml` : Traduisez et personnalisez tous les messages du plugin, y compris `server.join-message` et `server.leave-message` (préfixe vide par défaut).
 
 Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le plugin à n'importe quelle langue ou style.
 
@@ -32,6 +32,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🎡 **Lobby Principal Immersif** : Les joueurs apparaissent dans un lobby central et choisissent leur mode via des PNJ interactifs. Un message de bienvenue personnalisé et un scoreboard de statistiques les accueillent.
 - 🎮 **Hub de Jeu Intuitif** : En cliquant sur un PNJ de mode, un menu propose de lancer une partie, consulter ses statistiques ou se reconnecter.
 - 🕹️ **Cycle de Jeu Complet** : Rejoignez une arène, attendez dans le lobby avec un décompte, et lancez-vous dans la bataille.
+- ⚔️ **PvP 1.8** : Combat sans délai de recharge pour des affrontements plus dynamiques.
 - 🎽 **Sélecteur d'équipe** : Choisissez votre camp grâce à un menu interactif avant le début de la partie.
 - 💬 **Chat et Tablist isolés** : Les messages et la liste des joueurs sont limités à votre partie pour éviter le spam entre arènes.
 - 🛏️ **Mécaniques Classiques** : Protégez votre lit pour pouvoir réapparaître, et détruisez celui de vos ennemis pour les éliminer définitivement.

@@ -1,4 +1,8 @@
-prefix: "&8[&bHeneriaBedwars&8] &r"
+prefix: ""
+
+server:
+  join-message: "&a+ &7{player}"
+  leave-message: "&c- &7{player}"
 
 errors:
   no-permission: "&cVous n'avez pas la permission d'exécuter cette commande."
