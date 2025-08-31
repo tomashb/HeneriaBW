@@ -2,6 +2,8 @@ package com.heneria.bedwars.arena;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -16,6 +18,7 @@ public class PlayerData {
     private final float exp;
     private final int level;
     private final GameMode gameMode;
+    private final double attackSpeed;
 
     /**
      * Captures the current state of the given player.
@@ -29,6 +32,8 @@ public class PlayerData {
         this.exp = player.getExp();
         this.level = player.getLevel();
         this.gameMode = player.getGameMode();
+        AttributeInstance attr = player.getAttribute(Attribute.GENERIC_ATTACK_SPEED);
+        this.attackSpeed = attr != null ? attr.getBaseValue() : 4.0D;
     }
 
     /**
@@ -43,6 +48,10 @@ public class PlayerData {
         player.setExp(exp);
         player.setLevel(level);
         player.setGameMode(gameMode);
+        AttributeInstance attr = player.getAttribute(Attribute.GENERIC_ATTACK_SPEED);
+        if (attr != null) {
+            attr.setBaseValue(attackSpeed);
+        }
     }
 }
 

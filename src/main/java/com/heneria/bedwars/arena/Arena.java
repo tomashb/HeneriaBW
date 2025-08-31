@@ -18,6 +18,8 @@ import org.bukkit.Material;
 import org.bukkit.GameMode;
 import com.heneria.bedwars.listeners.TeamSelectorListener;
 import com.heneria.bedwars.listeners.LeaveItemListener;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.type.Bed;
@@ -251,6 +253,10 @@ public class Arena {
     public void addPlayer(Player player) {
         addPlayer(player.getUniqueId());
         savedStates.put(player.getUniqueId(), new PlayerData(player));
+        AttributeInstance speed = player.getAttribute(Attribute.GENERIC_ATTACK_SPEED);
+        if (speed != null) {
+            speed.setBaseValue(1024.0D);
+        }
         player.getInventory().clear();
         player.teleport(lobbyLocation);
         player.setLevel(0);

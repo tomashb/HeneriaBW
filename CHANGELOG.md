@@ -1,5 +1,15 @@
 # Changelog - HeneriaBedwars
 
+## [3.2.0] - 2024-??-??
+
+### Ajouté
+- Messages personnalisés de connexion (`server.join-message`) et de déconnexion (`server.leave-message`).
+
+### Modifié
+- Coûts des objets dans la boutique affichés avec la couleur du minerai correspondant.
+- Système de combat sans délai de recharge (PvP 1.8) via l'ajustement de la vitesse d'attaque.
+- Préfixe du plugin vide par défaut dans `messages.yml`.
+
 ## [3.1.2] - 2024-??-??
 
 ### Modifié
