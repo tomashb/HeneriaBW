@@ -15,6 +15,10 @@ database:
       password: ""
       useSSL: false
 
+bungeecord:
+  enabled: false
+  lobby-server-name: "lobby"
+
 mobs:
   iron-golem:
     damage: 4.0

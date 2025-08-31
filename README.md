@@ -104,8 +104,12 @@ Pour créer un PNJ de sélection d'arène, ouvrez le menu `/bw admin lobby`, cli
   - Permet de quitter l'arène actuelle.
   - **Permission :** `heneriabw.player.leave`
 - `/bw stats [joueur]`
- - Affiche vos statistiques ou celles d'un autre joueur.
+  - Affiche vos statistiques ou celles d'un autre joueur.
   - **Permission :** `heneriabw.admin.stats` pour consulter celles d'un autre joueur.
+- `/spawn`
+  - Téléporte le joueur au lobby principal BedWars.
+- `/hub`
+  - Envoie le joueur vers le serveur lobby principal si BungeeCord est activé, sinon fonctionne comme `/spawn`.
 
 ### Créer et Configurer une Arène (Flux de travail)
 
@@ -358,6 +362,16 @@ database:
     password: ""
     useSSL: false
 ```
+
+### Configuration BungeeCord
+
+```yaml
+bungeecord:
+  enabled: false
+  lobby-server-name: "lobby"
+```
+
+Activez `bungeecord.enabled` pour que la commande `/hub` connecte les joueurs au serveur défini. Sinon, `/hub` se comporte comme `/spawn`.
 
 
 ### Configuration des Mobs

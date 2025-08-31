@@ -26,6 +26,11 @@
 - Suppression des blocs placés lors du reset d'arène.
 - Empêchement de rejoindre une arène pleine ou déjà en cours.
 
+## [2.6.0] - 2024-??-??
+
+### Ajouté
+- Commandes `/spawn` et `/hub` pour faciliter la navigation des joueurs.
+
 ## [2.5.0] - 2024-??-??
 
 ### Ajouté

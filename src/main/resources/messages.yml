@@ -21,6 +21,7 @@ errors:
   no-teams-configured: "&cAucune équipe configurée."
   build-outside-boundaries: "&cVous ne pouvez pas construire en dehors de la zone autorisée."
   arena-full-or-started: "&cCette arène est pleine ou déjà en cours."
+  command-disabled-in-game: "&cVous ne pouvez pas utiliser cette commande en pleine partie."
 
 commands:
   main-usage: "&eUsage: /{label} <admin|join|leave>"
