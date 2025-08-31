@@ -15,6 +15,8 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import com.heneria.bedwars.utils.MessageManager;
+import com.heneria.bedwars.stats.PlayerStats;
+import me.clip.placeholderapi.PlaceholderAPI;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -28,6 +30,8 @@ public class ScoreboardManager {
 
     private final HeneriaBedwars plugin;
     private final Map<UUID, Scoreboard> boards = new HashMap<>();
+    private String mainLobbyTitle;
+    private List<String> mainLobbyLines;
     private String lobbyTitle;
     private List<String> lobbyLines;
     private String gameTitle;
@@ -46,6 +50,8 @@ public class ScoreboardManager {
             plugin.saveResource("scoreboard.yml", false);
         }
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+        this.mainLobbyTitle = config.getString("main-lobby.title");
+        this.mainLobbyLines = config.getStringList("main-lobby.lines");
         this.lobbyTitle = config.getString("lobby.title");
         this.lobbyLines = config.getStringList("lobby.lines");
         this.gameTitle = config.getString("game.title");
@@ -64,7 +70,7 @@ public class ScoreboardManager {
 
     public void setScoreboard(Player player) {
         Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
-        String initialTitle = gameTitle != null ? gameTitle : (lobbyTitle != null ? lobbyTitle : "BedWars");
+        String initialTitle = mainLobbyTitle != null ? mainLobbyTitle : (lobbyTitle != null ? lobbyTitle : (gameTitle != null ? gameTitle : "BedWars"));
         Objective obj = board.registerNewObjective("hbw", "dummy", ChatColor.translateAlternateColorCodes('&', initialTitle));
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         boards.put(player.getUniqueId(), board);
@@ -86,12 +92,6 @@ public class ScoreboardManager {
                 it.remove();
                 continue;
             }
-            Arena arena = plugin.getArenaManager().getArena(p);
-            if (arena == null) {
-                removeScoreboard(p);
-                it.remove();
-                continue;
-            }
             updatePlayer(p);
         }
     }
@@ -100,18 +100,19 @@ public class ScoreboardManager {
         Scoreboard board = boards.get(player.getUniqueId());
         if (board == null) return;
         Arena arena = plugin.getArenaManager().getArena(player);
-        if (arena == null) return;
         Objective obj = board.getObjective(DisplaySlot.SIDEBAR);
         if (obj == null) {
-            String defaultTitle = gameTitle != null ? gameTitle : (lobbyTitle != null ? lobbyTitle : "BedWars");
+            String defaultTitle = mainLobbyTitle != null ? mainLobbyTitle : (lobbyTitle != null ? lobbyTitle : (gameTitle != null ? gameTitle : "BedWars"));
             obj = board.registerNewObjective("hbw", "dummy", ChatColor.translateAlternateColorCodes('&', defaultTitle));
             obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         }
-
-        GameState state = arena.getState();
+        GameState state = arena != null ? arena.getState() : null;
         String title;
         List<String> lines;
-        if (state == GameState.WAITING || state == GameState.STARTING) {
+        if (arena == null) {
+            title = mainLobbyTitle;
+            lines = mainLobbyLines;
+        } else if (state == GameState.WAITING || state == GameState.STARTING) {
             title = lobbyTitle != null ? lobbyTitle : gameTitle;
             lines = (lobbyLines != null && !lobbyLines.isEmpty()) ? lobbyLines : gameLines;
         } else {
@@ -139,12 +140,14 @@ public class ScoreboardManager {
         List<String> result = new ArrayList<>();
         for (String line : baseLines) {
             if (line.contains("{team_status}")) {
-                for (String teamLine : buildTeamLines(player, arena)) {
-                    result.add(line.replace("{team_status}", teamLine));
+                if (arena != null) {
+                    for (String teamLine : buildTeamLines(player, arena)) {
+                        result.add(line.replace("{team_status}", teamLine));
+                    }
                 }
-            } else {
-                result.add(replacePlaceholders(line, player, arena));
+                continue;
             }
+            result.add(replacePlaceholders(line, player, arena));
         }
         return result;
     }
@@ -171,14 +174,33 @@ public class ScoreboardManager {
     }
 
     private String replacePlaceholders(String text, Player player, Arena arena) {
-        return text
-                .replace("{date}", LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
-                .replace("{next_event_name}", getNextEventName(arena))
-                .replace("{next_event_time}", getNextEventTime(arena))
-                .replace("{map_name}", arena.getName())
-                .replace("{current_players}", String.valueOf(arena.getPlayers().size()))
-                .replace("{max_players}", String.valueOf(arena.getMaxPlayers()))
-                .replace("{status}", getLobbyStatus(arena));
+        text = text.replace("{date}", LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                .replace("{player}", player.getName());
+
+        PlayerStats stats = plugin.getStatsManager().getStats(player);
+        if (stats != null) {
+            text = text.replace("{wins}", String.valueOf(stats.getWins()))
+                    .replace("{kills}", String.valueOf(stats.getKills()))
+                    .replace("{beds_broken}", String.valueOf(stats.getBedsBroken()))
+                    .replace("{deaths}", String.valueOf(stats.getDeaths()))
+                    .replace("{losses}", String.valueOf(stats.getLosses()))
+                    .replace("{games_played}", String.valueOf(stats.getGamesPlayed()));
+        }
+
+        if (arena != null) {
+            text = text.replace("{next_event_name}", getNextEventName(arena))
+                    .replace("{next_event_time}", getNextEventTime(arena))
+                    .replace("{map_name}", arena.getName())
+                    .replace("{current_players}", String.valueOf(arena.getPlayers().size()))
+                    .replace("{max_players}", String.valueOf(arena.getMaxPlayers()))
+                    .replace("{status}", getLobbyStatus(arena));
+        }
+
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            text = PlaceholderAPI.setPlaceholders(player, text);
+        }
+
+        return text;
     }
 
     private String getLobbyStatus(Arena arena) {

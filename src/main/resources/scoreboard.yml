@@ -1,3 +1,16 @@
+# Scoreboard pour le lobby principal
+main-lobby:
+  title: "&b&lHeneria Network"
+  lines:
+    - "&7Joueur: &f{player}"
+    - "&1"
+    - "&f&lStatistiques"
+    - " &fVictoires: &a{wins}"
+    - " &fKills: &a{kills}"
+    - " &fLits détruits: &a{beds_broken}"
+    - "&2"
+    - "&eplay.votreserveur.com"
+
 # Scoreboard pour le lobby d'attente
 lobby:
   title: "&b&lHeneria BedWars"

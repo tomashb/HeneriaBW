@@ -302,7 +302,7 @@ public class Arena {
         player.setLevel(0);
         player.setExp(0f);
         broadcast("game.player-leave-arena", "player", player.getName());
-        HeneriaBedwars.getInstance().getScoreboardManager().removeScoreboard(player);
+        HeneriaBedwars.getInstance().getScoreboardManager().setScoreboard(player);
         HeneriaBedwars.getInstance().getPlayerProgressionManager().removePlayer(player.getUniqueId());
         if (state == GameState.STARTING && players.size() < minPlayers) {
             cancelCountdown();
@@ -873,7 +873,7 @@ public class Arena {
                 if (mainLobby != null) {
                     p.teleport(mainLobby);
                 }
-                HeneriaBedwars.getInstance().getScoreboardManager().removeScoreboard(p);
+                HeneriaBedwars.getInstance().getScoreboardManager().setScoreboard(p);
                 // Restore visibility with all other players
                 for (Player other : Bukkit.getOnlinePlayers()) {
                     if (other.equals(p)) {

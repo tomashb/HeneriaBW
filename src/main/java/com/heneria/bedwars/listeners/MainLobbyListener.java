@@ -13,6 +13,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import com.heneria.bedwars.utils.MessageManager;
 
 /**
  * Handles player spawning and protection in the main lobby.
@@ -30,6 +31,10 @@ public class MainLobbyListener implements Listener {
             joining.teleport(lobby);
             joining.setGameMode(GameMode.ADVENTURE);
             joining.setFoodLevel(20);
+        }
+        plugin.getScoreboardManager().setScoreboard(joining);
+        for (String line : MessageManager.getList("on-join.welcome-message")) {
+            joining.sendMessage(line.replace("{player}", joining.getName()));
         }
         for (Player online : Bukkit.getOnlinePlayers()) {
             if (online.equals(joining)) {
