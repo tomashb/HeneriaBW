@@ -10,7 +10,7 @@ main-lobby:
     - " &fElo: &eN/A"
     - " &fHenacoins: &6%vault_eco_balance_formatted%"
     - "&2"
-    - "&f&lStatistiques BedWars"
+    - "&f&lStatistiques"
     - " &fVictoires: &a{wins}"
     - " &fKills: &a{kills}"
     - " &fLits détruits: &a{beds_broken}"
