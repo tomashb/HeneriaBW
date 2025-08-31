@@ -24,20 +24,23 @@ public class LobbyVoidListener implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
+        System.out.println("[LobbyVoidListener] Checking player " + player.getName());
         if (arenaManager.getArena(player) != null) {
+            System.out.println("[LobbyVoidListener] Player is in an arena, ignoring.");
             return;
         }
-        if (event.getTo() == null) {
+        Location lobby = plugin.getMainLobby();
+        if (lobby == null) {
+            System.out.println("[LobbyVoidListener] Main lobby is not set.");
             return;
         }
-        if (event.getTo().getY() >= event.getFrom().getY()) {
+        if (!player.getWorld().equals(lobby.getWorld())) {
+            System.out.println("[LobbyVoidListener] Player is not in the lobby world.");
             return;
         }
-        if (event.getTo().getY() < voidTeleportHeight) {
-            Location lobby = plugin.getMainLobby();
-            if (lobby != null) {
-                player.teleport(lobby);
-            }
+        if (player.getLocation().getY() < voidTeleportHeight) {
+            System.out.println("[LobbyVoidListener] Teleporting " + player.getName() + " to lobby.");
+            player.teleport(lobby);
         }
     }
 }
