@@ -18,7 +18,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `generators.yml` : Réglez la vitesse et la quantité de chaque générateur de ressources.
   - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
   - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
-  - `scoreboard.yml` : Personnalisez les tableaux de bord du lobby principal, du lobby d'attente et de la partie via les sections `main-lobby`, `lobby` et `game`.
+  - `scoreboard.yml` : Personnalisez les tableaux de bord du lobby principal, du lobby d'attente et de la partie via les sections `main-lobby`, `lobby` et `game`. La section `main-lobby` inclut une rubrique `Infos` (grade, rang, Elo, Henacoins) reposant sur PlaceholderAPI (`%luckperms_prefix%`, `%vault_eco_balance_formatted%`).
   - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons) et définissez un `display-name` lisible pour l'affichage du prochain événement sur le scoreboard.
   - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`) et personnalisez le format du chat via `chat-format`.
   - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie, avec l'option `purchase-limit` pour limiter le nombre d'achats par joueur.
@@ -57,6 +57,14 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 2.  Placez le fichier `.jar` téléchargé dans le dossier `plugins` de votre serveur Spigot 1.21.
 3.  Redémarrez votre serveur.
 4.  Les fichiers de configuration par défaut seront générés dans le dossier `plugins/HeneriaBedwars/`.
+
+## 🔌 Placeholders et dépendances optionnelles
+
+Le scoreboard du lobby principal utilise [PlaceholderAPI](https://github.com/PlaceholderAPI/PlaceholderAPI) pour afficher des informations dynamiques :
+- `%luckperms_prefix%` : grade du joueur (nécessite LuckPerms).
+- `%vault_eco_balance_formatted%` : solde de l'économie (nécessite Vault et un plugin d'économie compatible).
+
+Ces plugins restent facultatifs mais sont recommandés pour profiter pleinement du scoreboard.
 
 ---
 
