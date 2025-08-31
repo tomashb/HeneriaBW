@@ -21,7 +21,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `scoreboard.yml` : Personnalisez les tableaux de bord du lobby principal, du lobby d'attente et de la partie via les sections `main-lobby`, `lobby` et `game`. La section `main-lobby` inclut une rubrique `Infos` (grade, rang, Elo, Henacoins) reposant sur PlaceholderAPI (`%luckperms_prefix%`, `%vault_eco_balance_formatted%`).
   - `tablist.yml` : Configurez l'en-tête et le pied de page de la liste des joueurs du lobby avec couleurs, sauts de ligne (`\n`) et placeholders.
   - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons) et définissez un `display-name` lisible pour l'affichage du prochain événement sur le scoreboard.
-  - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`), la hauteur de téléportation anti-vide (`void-teleport-height`) et personnalisez le format du chat via `chat-format`.
+  - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`), la hauteur de téléportation anti-vide (`void-teleport-height`), personnalisez le format du chat via `chat-format` et contrôlez les animations du lobby via `animations.lobby-npc` (`enable`, `levitation-strength`, `presentation-speed`).
   - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie, avec l'option `purchase-limit` pour limiter le nombre d'achats par joueur.
   - `messages.yml` : Traduisez et personnalisez tous les messages du plugin.
 
@@ -386,6 +386,21 @@ mobs:
 
 Cette valeur contrôle les dégâts infligés par les Golems de Fer invoqués par les joueurs.
 
+### Animations du Lobby
+
+Les PNJ du lobby disposent d'animations configurables dans `config.yml` :
+
+```yaml
+animations:
+  lobby-npc:
+    enable: true
+    levitation-strength: 0.1
+    presentation-speed: 1.0
+```
+
+- `enable` : active ou désactive totalement les animations.
+- `levitation-strength` : amplitude de la lévitation verticale (en blocs).
+- `presentation-speed` : vitesse des mouvements de présentation d'objet.
 
 ---
 

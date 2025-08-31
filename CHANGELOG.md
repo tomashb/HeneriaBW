@@ -79,6 +79,7 @@
 
 ### Ajouté
 - Ajout d'animations (pose statique et respiration) pour les PNJ.
+- Ajout d'animations de présentation d'objet et de lévitation pour les PNJ du lobby.
 
 ### Corrigé
 - Correction d'un bug critique qui empêchait l'ouverture des menus de boutique via les PNJ.
