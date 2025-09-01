@@ -85,6 +85,9 @@
 ### Corrigé
 - Correction d'une erreur de compilation liée à un accès protégé dans les menus.
 
+### Modifié
+- Refonte complète du design de la boutique d'objets.
+
 ## [2.2.2] - 2024-??-??
 
 ### Ajouté
