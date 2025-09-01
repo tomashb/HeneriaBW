@@ -70,7 +70,11 @@ public class MainLobbyListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        if (arenaManager.getArena(event.getPlayer()) == null) {
+        Player player = event.getPlayer();
+        if (HeneriaBedwars.getInstance().getSetupManager().isBypassing(player.getUniqueId())) {
+            return;
+        }
+        if (arenaManager.getArena(player) == null) {
             event.setCancelled(true);
         }
     }

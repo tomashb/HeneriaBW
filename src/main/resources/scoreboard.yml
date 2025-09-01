@@ -3,18 +3,18 @@ main-lobby:
   title: "&b&lHENERIA"
   lines:
     - "&1"
-    - "&f&lInfos"
-    - " &fGrade: %luckperms_prefix%"
-    - " &fRang: &cNon classé"
-    - " &fElo: &eN/A"
-    - " &fHenacoins: &6%vault_eco_balance_formatted%"
+    - "&f&lProfil"
+    - " &7Grade: &f%luckperms_prefix%"
+    - " &7Rang: &fNon classé"
+    - " &7Elo: &eN/A"
+    - " &7Henacoins: &6%vault_eco_balance_formatted%"
     - "&2"
     - "&f&lStatistiques"
-    - " &fVictoires: &a{wins}"
-    - " &fKills: &a{kills}"
-    - " &fLits détruits: &a{beds_broken}"
+    - " &7Victoires: &a{wins}"
+    - " &7Kills: &a{kills}"
+    - " &7Lits détruits: &a{beds_broken}"
     - "&3"
-    - "&bheneria.com"
+    - "&b» heneria.com"
 
 # Scoreboard pour le lobby d'attente
 lobby:
@@ -22,13 +22,13 @@ lobby:
   lines:
     - "&7{date}"
     - "&1"
-    - "Carte: &a{map_name}"
+    - "&fCarte: &a{map_name}"
     - "&2"
-    - "Joueurs: &a{current_players}/{max_players}"
+    - "&fJoueurs: &a{current_players}/{max_players}"
     - "&3"
     - "&e{status}"
     - "&4"
-    - "&eheneria.com"
+    - "&b» heneria.com"
 
 # Scoreboard pour la partie en cours
 game:
@@ -36,12 +36,12 @@ game:
   lines:
     - "&7{date}"
     - "&1"
-    - "Prochain événement:"
-    - "&a{next_event_name} &fdans &a{next_event_time}"
+    - "&fProchain événement:"
+    - " &e{next_event_name} &7dans &e{next_event_time}"
     - "&2"
     - "{team_status}"
     - "&3"
-    - "&eheneria.com"
+    - "&b» heneria.com"
 
 # (La section team-line-format reste la même)
 team-line-format: "{team_color_code}{team_icon} {team_bed_status} &f{team_players_alive} {you_marker}"

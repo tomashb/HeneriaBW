@@ -549,6 +549,15 @@ public class Arena {
         }
     }
 
+    public void broadcastTitleExcept(Player excluded, String titlePath, String subtitlePath, int fadeIn, int stay, int fadeOut, String... placeholders) {
+        for (UUID id : players) {
+            Player p = Bukkit.getPlayer(id);
+            if (p != null && !p.equals(excluded)) {
+                MessageManager.sendTitle(p, titlePath, subtitlePath, fadeIn, stay, fadeOut, placeholders);
+            }
+        }
+    }
+
     public void eliminatePlayer(Player player) {
         removeAlivePlayer(player.getUniqueId());
         addSpectator(player.getUniqueId());
