@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [4.0.0] - 2024-??-??
+
+### Ajouté
+- Refonte majeure du design des boutiques, du scoreboard et des messages, et modification de la logique d'achat des armures.
+
 ## [3.2.0] - 2024-??-??
 
 ### Ajouté

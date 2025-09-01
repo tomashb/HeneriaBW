@@ -1,5 +1,6 @@
 package com.heneria.bedwars.listeners;
 
+import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -18,7 +19,9 @@ public class JoinQuitMessageListener implements Listener {
         event.setJoinMessage(null);
         String name = event.getPlayer().getName();
         for (Player player : Bukkit.getOnlinePlayers()) {
-            MessageManager.sendRawMessage(player, "server.join-message", "player", name);
+            if (HeneriaBedwars.getInstance().getArenaManager().getArena(player) == null) {
+                MessageManager.sendRawMessage(player, "server.join-message", "player", name);
+            }
         }
     }
 
@@ -27,7 +30,9 @@ public class JoinQuitMessageListener implements Listener {
         event.setQuitMessage(null);
         String name = event.getPlayer().getName();
         for (Player player : Bukkit.getOnlinePlayers()) {
-            MessageManager.sendRawMessage(player, "server.leave-message", "player", name);
+            if (HeneriaBedwars.getInstance().getArenaManager().getArena(player) == null) {
+                MessageManager.sendRawMessage(player, "server.leave-message", "player", name);
+            }
         }
     }
 }

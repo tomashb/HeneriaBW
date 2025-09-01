@@ -40,12 +40,12 @@ on-join:
 
 game:
   team-joined: "&aVous avez rejoint l'équipe {team}"
-  player-join-arena: "&e{player} a rejoint l'arène. (&b{current_players}&e/{max_players})"
+  player-join-arena: "&a» &f{player} &ea rejoint l'arène &7(&b{current_players}&7/&b{max_players}&7)"
   player-leave-arena: "&c{player} a quitté l'arène."
   player-eliminated: "&c{player} a été éliminé !"
-  countdown: "&eLa partie commence dans &6{time}s"
+  countdown: "&e» &fLa partie commence dans &6{time}&fs"
   countdown-title: ""
-  countdown-subtitle: "&eDémarrage dans {time}s"
+  countdown-subtitle: "&e» &fDémarrage dans &6{time}&fs"
   countdown-cancelled: "&cDécompte annulé : pas assez de joueurs."
   bed-destroyed-title: "&c&lDESTRUCTION DE LIT !"
   bed-destroyed-subtitle: "Lit de l'équipe {team} détruit par {player}"
