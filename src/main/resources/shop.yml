@@ -1,88 +1,67 @@
-# Ce menu affiche les catégories principales de la boutique.
-main-menu:
-  title: "Boutique d'objets"
-  rows: 4
-  items:
-    'quick-buy':
-      material: NETHER_STAR
-      name: "&aAchats Rapides"
-      lore:
-        - "&7Les objets les plus utiles"
-      slot: 10
-      category: 'quick_buy_category' # ID de la catégorie à ouvrir
-    'blocks':
-      material: BRICKS
-      name: "&aBlocs"
-      lore:
-        - "&7Pour construire et défendre"
-      slot: 11
-      category: 'blocks_category'
-    'melee':
-      material: DIAMOND_SWORD
-      name: "&cMêlée"
-      lore:
-        - "&7Armes pour le combat rapproché"
-      slot: 12
-      category: 'melee_category'
-    'armors':
-      material: CHAINMAIL_BOOTS
-      name: "&aArmures"
-      lore:
-        - "&7Protège ta peau"
-      slot: 13
-      category: 'armors_category'
-    'tools':
-      material: STONE_PICKAXE
-      name: "&aOutils"
-      lore:
-        - "&7Pour creuser vite"
-      slot: 14
-      category: 'tools_category'
-    'ranged':
-      material: BOW
-      name: "&6Combat à Distance"
-      lore:
-        - "&7Arcs et flèches"
-      slot: 15
-      category: 'ranged_category'
-    'potions':
-      material: BREWING_STAND
-      name: "&dPotions"
-      lore:
-        - "&7Effets temporaires"
-      slot: 16
-      category: 'potions_category'
-    'utilities':
-      material: FIRE_CHARGE
-      name: "&6Utilitaires"
-      lore:
-        - "&7Objets spéciaux"
-      slot: 17
-      category: 'utilities_category'
+# Nouveau design de boutique avec onglets et section d'achats rapides.
+# Les onglets sont définis dans `category-tabs`, les items rapides dans `quick-buy-items`
+# et les catégories complètes dans `shop-categories`.
 
-# Définition d'une catégorie d'objets
+category-tabs:
+  quick-buy:
+    material: NETHER_STAR
+    name: "&aAchats Rapides"
+    slot: 0
+  blocks:
+    material: BRICKS
+    name: "&aBlocs"
+    slot: 1
+    category: 'blocks_category'
+  melee:
+    material: DIAMOND_SWORD
+    name: "&cMêlée"
+    slot: 2
+    category: 'melee_category'
+  armors:
+    material: CHAINMAIL_BOOTS
+    name: "&aArmures"
+    slot: 3
+    category: 'armors_category'
+  tools:
+    material: STONE_PICKAXE
+    name: "&aOutils"
+    slot: 4
+    category: 'tools_category'
+  ranged:
+    material: BOW
+    name: "&6Combat à Distance"
+    slot: 5
+    category: 'ranged_category'
+  potions:
+    material: BREWING_STAND
+    name: "&dPotions"
+    slot: 6
+    category: 'potions_category'
+  utilities:
+    material: FIRE_CHARGE
+    name: "&6Utilitaires"
+    slot: 7
+    category: 'utilities_category'
+
+quick-buy-items:
+  wool:
+    material: WHITE_WOOL
+    name: "&fLaine"
+    amount: 16
+    cost:
+      resource: IRON
+      amount: 4
+    slot: 19
+  stone-sword:
+    material: STONE_SWORD
+    name: "&7Épée en Pierre"
+    amount: 1
+    cost:
+      resource: IRON
+      amount: 10
+    slot: 20
+
 shop-categories:
-  'quick_buy_category':
-    title: "Achats Rapides"
-    rows: 5
-    items:
-      'wool':
-        material: WHITE_WOOL
-        name: "&fLaine"
-        amount: 16
-        cost:
-          resource: IRON
-          amount: 4
-        slot: 10
-      'stone-sword':
-        material: STONE_SWORD
-        name: "&7Épée en Pierre"
-        amount: 1
-        cost:
-          resource: IRON
-          amount: 10
-        slot: 11
-
   'blocks_category':
     title: "Blocs"
     rows: 5
@@ -102,7 +81,7 @@ shop-categories:
         cost:
           resource: IRON
           amount: 12
-        slot: 11 # À côté de la laine
+        slot: 11
       'oak-planks':
         material: OAK_PLANKS
         name: "&6Planches de Chêne"
@@ -126,7 +105,7 @@ shop-categories:
         cost:
           resource: EMERALD
           amount: 4
-        slot: 14 # Dans la rangée des items chers
+        slot: 14
       'tempered_glass':
         material: GLASS
         name: "&fVerre Trempé"
@@ -143,7 +122,7 @@ shop-categories:
         cost:
           resource: IRON
           amount: 4
-        slot: 19 # Dans la deuxième rangée pour les utilitaires
+        slot: 19
       'cobweb':
         material: COBWEB
         name: "&fToile d'Araignée"
@@ -151,7 +130,7 @@ shop-categories:
         cost:
           resource: IRON
           amount: 20
-        slot: 20 # À côté des échelles
+        slot: 20
 
   'melee_category':
     title: "Mêlée"

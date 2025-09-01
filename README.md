@@ -123,30 +123,40 @@ Pour créer un PNJ de sélection d'arène, ouvrez le menu `/bw admin lobby`, cli
 
 ### Configuration de la Boutique d'Items
 
-La boutique mélange améliorations permanentes et achats temporaires, tous définis dans le fichier `shop.yml`. Les armures (jambières et bottes) utilisent des paliers `upgrade_tier` de type `ARMOR` et sont conservées après la mort. Les pioches et haches sont vendues par paliers (`PICKAXE`, `AXE`) dont le niveau reste débloqué, mais l'outil doit être racheté après chaque mort. Les épées sont listées directement et sont toujours perdues à la mort.
+La boutique mélange améliorations permanentes et achats temporaires, tous définis dans le fichier `shop.yml`. Ce dernier est organisé en trois sections :
+
+- `category-tabs` : définit les onglets du menu.
+- `quick-buy-items` : liste des objets d'achats rapides affichés par défaut.
+- `shop-categories` : toutes les catégories détaillées de la boutique.
 
 ```yaml
-tools_category:
-  items:
-    stone-pickaxe:
-      material: STONE_PICKAXE
-      cost:
-        resource: IRON
-        amount: 10
-      slot: 10
-      upgrade_tier:
-        type: 'PICKAXE'
-        level: 1
-    iron-pickaxe:
-      material: IRON_PICKAXE
-      cost:
-        resource: GOLD
-        amount: 4
-      slot: 10
-      upgrade_tier:
-        type: 'PICKAXE'
-        level: 2
+category-tabs:
+  blocks:
+    material: BRICKS
+    slot: 1
+    category: blocks_category
+quick-buy-items:
+  stone-sword:
+    material: STONE_SWORD
+    cost:
+      resource: IRON
+      amount: 10
+    slot: 20
+shop-categories:
+  tools_category:
+    items:
+      stone-pickaxe:
+        material: STONE_PICKAXE
+        cost:
+          resource: IRON
+          amount: 10
+        slot: 10
+        upgrade_tier:
+          type: 'PICKAXE'
+          level: 1
 ```
+
+Les armures (jambières et bottes) utilisent des paliers `upgrade_tier` de type `ARMOR` et sont conservées après la mort. Les pioches et haches sont vendues par paliers (`PICKAXE`, `AXE`) dont le niveau reste débloqué, mais l'outil doit être racheté après chaque mort. Les épées sont listées directement et sont toujours perdues à la mort.
 
 Les objets peuvent aussi définir des enchantements (`enchantments`) ou des effets de potion (`potion-effects`) via des listes de mappages :
 
