@@ -70,6 +70,16 @@ quick-buy-items:
       resource: IRON
       amount: 4
     slot: 19
+  tracker-compass:
+    material: COMPASS
+    name: "&e&lBoussole Traqueuse"
+    lore:
+      - "&7&oRepère les ennemis"
+    amount: 1
+    cost:
+      resource: EMERALD
+      amount: 2
+    slot: 20
   stone-sword:
     material: STONE_SWORD
     name: "&7&lÉpée en Pierre"
@@ -79,7 +89,7 @@ quick-buy-items:
     cost:
       resource: IRON
       amount: 10
-    slot: 20
+    slot: 21
   oak-planks:
     material: OAK_PLANKS
     name: "&6&lPlanches de Chêne"
@@ -89,7 +99,7 @@ quick-buy-items:
     cost:
       resource: IRON
       amount: 12
-    slot: 21
+    slot: 22
   golden-apple:
     material: GOLDEN_APPLE
     name: "&6&lPomme d'Or"
@@ -99,7 +109,7 @@ quick-buy-items:
     cost:
       resource: GOLD
       amount: 3
-    slot: 22
+    slot: 23
   shears:
     material: SHEARS
     name: "&f&lCisailles"
@@ -109,7 +119,7 @@ quick-buy-items:
     cost:
       resource: IRON
       amount: 20
-    slot: 23
+    slot: 24
   fireball:
     material: FIRE_CHARGE
     name: "&6&lBoule de Feu"
@@ -119,7 +129,7 @@ quick-buy-items:
     cost:
       resource: IRON
       amount: 40
-    slot: 24
+    slot: 25
   tnt:
     material: TNT
     name: "&c&lTNT"
@@ -129,7 +139,7 @@ quick-buy-items:
     cost:
       resource: GOLD
       amount: 4
-    slot: 25
+    slot: 26
   iron-sword:
     material: IRON_SWORD
     name: "&f&lÉpée en Fer"
@@ -139,7 +149,7 @@ quick-buy-items:
     cost:
       resource: GOLD
       amount: 7
-    slot: 26
+    slot: 27
 
 shop-categories:
   'blocks_category':

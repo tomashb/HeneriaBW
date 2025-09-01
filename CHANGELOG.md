@@ -1,5 +1,20 @@
 # Changelog - HeneriaBedwars
 
+## [4.2.0] - 2024-??-??
+
+### Ajouté
+- Affichage du niveau des générateurs sur les hologrammes avec chiffres romains.
+- Nouvel état `PLAYING` pour la tablist avec noms colorés par équipe.
+
+### Modifié
+- Boutique d'achats rapides réorganisée avec nouveaux objets populaires.
+- Scoreboards et tablists du lobby plus colorés.
+- Messages du plugin harmonisés et colorés.
+
+### Corrigé
+- Le mode bypass permet désormais également de placer des blocs.
+- Tous les PNJ disposent désormais d'un corps visible et de bras.
+
 ## [4.1.0] - 2024-??-??
 
 ### Modifié

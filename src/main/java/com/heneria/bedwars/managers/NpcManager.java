@@ -101,7 +101,7 @@ public class NpcManager {
     public void spawnNpc(NpcInfo info) {
         if (info.location == null || info.mode == null) return;
         ArmorStand npc = (ArmorStand) info.location.getWorld().spawnEntity(info.location, EntityType.ARMOR_STAND);
-        npc.setInvisible(true);
+        npc.setInvisible(false);
         npc.setInvulnerable(true);
         npc.setGravity(false);
         npc.setBasePlate(false);

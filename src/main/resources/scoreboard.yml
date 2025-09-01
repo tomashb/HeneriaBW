@@ -1,24 +1,24 @@
 # Scoreboard pour le lobby principal
 main-lobby:
-  title: "&b&lHENERIA"
+  title: "&d&lHENERIA"
   lines:
     - "&1"
-    - "&f&lProfil"
+    - "&e&lProfil"
     - " &8» &7Grade: &f%luckperms_prefix%"
     - " &8» &7Rang: &fNon classé"
     - " &8» &7Elo: &eN/A"
     - " &8» &7Henacoins: &6%vault_eco_balance_formatted%"
     - "&2"
-    - "&f&lStatistiques"
+    - "&e&lStatistiques"
     - " &8» &7Victoires: &a{wins}"
-    - " &8» &7Kills: &a{kills}"
-    - " &8» &7Lits détruits: &a{beds_broken}"
+    - " &8» &7Kills: &c{kills}"
+    - " &8» &7Lits détruits: &b{beds_broken}"
     - "&3"
-    - "&b» &fheneria.com"
+    - "&d» &fheneria.com"
 
 # Scoreboard pour le lobby d'attente
 lobby:
-  title: "&b&lHeneria BedWars"
+  title: "&d&lHeneria &bBedWars"
   lines:
     - "&7{date}"
     - "&1"
@@ -28,11 +28,11 @@ lobby:
     - "&3"
     - "&e{status}"
     - "&4"
-    - "&b» heneria.com"
+    - "&d» &bheneria.com"
 
 # Scoreboard pour la partie en cours
 game:
-  title: "&b&lHeneria BedWars"
+  title: "&d&lHeneria &bBedWars"
   lines:
     - "&7{date}"
     - "&1"
@@ -41,7 +41,7 @@ game:
     - "&2"
     - "{team_status}"
     - "&3"
-    - "&b» heneria.com"
+    - "&d» &bheneria.com"
 
 # (La section team-line-format reste la même)
 team-line-format: "{team_color_code}{team_icon} {team_bed_status} &f{team_players_alive} {you_marker}"

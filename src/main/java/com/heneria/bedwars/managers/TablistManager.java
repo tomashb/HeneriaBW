@@ -2,6 +2,7 @@ package com.heneria.bedwars.managers;
 
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
+import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.GameState;
 import com.heneria.bedwars.utils.MessageManager;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -24,6 +25,8 @@ public class TablistManager {
     private String mainLobbyFooter;
     private String waitingLobbyHeader;
     private String waitingLobbyFooter;
+    private String gameHeader;
+    private String gameFooter;
 
     public TablistManager(HeneriaBedwars plugin) {
         this.plugin = plugin;
@@ -42,6 +45,8 @@ public class TablistManager {
         this.mainLobbyFooter = config.getString("main-lobby.footer", "");
         this.waitingLobbyHeader = config.getString("waiting-lobby.header", "");
         this.waitingLobbyFooter = config.getString("waiting-lobby.footer", "");
+        this.gameHeader = config.getString("game.header", "");
+        this.gameFooter = config.getString("game.footer", "");
     }
 
     private void startTask() {
@@ -61,11 +66,19 @@ public class TablistManager {
     public void updatePlayer(Player player) {
         Arena arena = arenaManager.getArena(player);
         if (arena == null) {
+            player.setPlayerListName(player.getName());
             player.setPlayerListHeaderFooter(format(mainLobbyHeader, player, null), format(mainLobbyFooter, player, null));
         } else if (arena.getState() == GameState.WAITING || arena.getState() == GameState.STARTING) {
+            player.setPlayerListName(player.getName());
             player.setPlayerListHeaderFooter(format(waitingLobbyHeader, player, arena), format(waitingLobbyFooter, player, arena));
         } else {
-            player.setPlayerListHeaderFooter(null, null);
+            Team team = arena.getTeam(player);
+            if (team != null) {
+                player.setPlayerListName(team.getColor().getChatColor() + player.getName());
+            } else {
+                player.setPlayerListName(player.getName());
+            }
+            player.setPlayerListHeaderFooter(format(gameHeader, player, arena), format(gameFooter, player, arena));
         }
     }
 
