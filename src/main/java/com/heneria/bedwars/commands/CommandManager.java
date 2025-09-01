@@ -107,11 +107,11 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         ArenaManager manager = plugin.getArenaManager();
         Arena arena = manager.getArenaByPlayer(player.getUniqueId());
         if (arena != null) {
-            if (arena.getState() == GameState.PLAYING) {
-                MessageManager.sendMessage(player, "errors.command-disabled-in-game");
-                return;
-            }
+            boolean wasPlaying = arena.getState() == GameState.PLAYING;
             arena.removePlayer(player);
+            if (wasPlaying) {
+                arena.checkForWinner();
+            }
             return;
         }
         Location lobby = plugin.getMainLobby();
