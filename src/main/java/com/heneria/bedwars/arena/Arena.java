@@ -696,15 +696,6 @@ public class Arena {
         System.out.println("[DEBUG-STARTGAME] Téléportation des joueurs terminée.");
 
         for (Generator gen : generators) {
-            if (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD) {
-                Location loc = gen.getLocation();
-                if (loc != null) {
-                    Location holoLoc = loc.clone().add(0.5, 2.0, 0.5);
-                    String title = gen.getType() == GeneratorType.DIAMOND ? ChatColor.AQUA + "Diamant" : ChatColor.GREEN + "Émeraude";
-                    int seconds = HeneriaBedwars.getInstance().getGeneratorManager().getDelaySeconds(gen);
-                    HeneriaBedwars.getInstance().getHologramManager().createHologram(holoLoc, Arrays.asList(title, seconds + "s"));
-                }
-            }
             HeneriaBedwars.getInstance().getGeneratorManager().registerGenerator(gen);
         }
         System.out.println("[DEBUG-STARTGAME] Démarrage des générateurs terminé.");

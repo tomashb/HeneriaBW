@@ -65,8 +65,8 @@ game:
   trap-triggered-attacker: "Vous avez déclenché {trap}"
   trap-triggered-defender: "{player} a déclenché {trap}"
   team-trap-purchased: "Votre équipe a acheté {trap}"
-  shop-npc-name: "&aBoutique"
-  upgrade-npc-name: "&aAméliorations"
+  shop-npc-name: "&b&lBOUTIQUE\n&eClic-droit pour ouvrir"
+  upgrade-npc-name: "&b&lAMÉLIORATIONS\n&eClic-droit pour ouvrir"
 
 setup:
   lobby-click-block: "&cVeuillez cliquer sur un bloc pour définir le lobby."
@@ -111,6 +111,13 @@ admin:
 
 items:
   starter-lore: "&7Objet de départ"
+  starter-sword: "&eÉpée d'Entraînement"
+  starter-pickaxe: "&ePioche d'Entraînement"
+  starter-axe: "&eHache d'Entraînement"
+  starter-helmet: "&eCasque d'Apprentissage"
+  starter-chestplate: "&ePlastron d'Apprentissage"
+  starter-leggings: "&eJambières d'Apprentissage"
+  starter-boots: "&eBottes d'Apprentissage"
   team-selector-name: "&eSélecteur d'équipe"
   leave-item-name: "&cQuitter la partie"
 

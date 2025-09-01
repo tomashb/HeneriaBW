@@ -148,7 +148,12 @@ shop-categories:
     items:
       'wool':
         material: WHITE_WOOL
-        name: "&fLaine"
+        name: "&f&lLaine"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &74 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 16
         cost:
           resource: IRON
@@ -156,7 +161,12 @@ shop-categories:
         slot: 10
       'sandstone':
         material: SANDSTONE
-        name: "&eGrès"
+        name: "&e&lGrès"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &712 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 16
         cost:
           resource: IRON
@@ -164,7 +174,12 @@ shop-categories:
         slot: 11
       'oak-planks':
         material: OAK_PLANKS
-        name: "&6Planches de Chêne"
+        name: "&6&lPlanches de Chêne"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &712 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 16
         cost:
           resource: IRON
@@ -172,7 +187,12 @@ shop-categories:
         slot: 12
       'end-stone':
         material: END_STONE
-        name: "&ePierre de l'End"
+        name: "&e&lPierre de l'End"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &724 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 12
         cost:
           resource: IRON
@@ -180,7 +200,12 @@ shop-categories:
         slot: 13
       'obsidian':
         material: OBSIDIAN
-        name: "&5Obsidienne"
+        name: "&5&lObsidienne"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &a4 Émeraudes"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 2
         cost:
           resource: EMERALD
@@ -188,7 +213,12 @@ shop-categories:
         slot: 14
       'tempered_glass':
         material: GLASS
-        name: "&fVerre Trempé"
+        name: "&f&lVerre Trempé"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &712 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 4
         cost:
           resource: IRON
@@ -197,7 +227,12 @@ shop-categories:
         action: 'TEMPERED_GLASS'
       'ladders':
         material: LADDER
-        name: "&fÉchelles"
+        name: "&f&lÉchelles"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &74 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 8
         cost:
           resource: IRON
@@ -205,7 +240,12 @@ shop-categories:
         slot: 19
       'cobweb':
         material: COBWEB
-        name: "&fToile d'Araignée"
+        name: "&f&lToile d'Araignée"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &720 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: IRON
@@ -218,7 +258,12 @@ shop-categories:
     items:
       'knockback-stick':
         material: STICK
-        name: "&aBâton de Répulsion"
+        name: "&a&lBâton de Répulsion"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &710 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: IRON
@@ -229,7 +274,12 @@ shop-categories:
         slot: 10
       'stone-sword':
         material: STONE_SWORD
-        name: "&7Épée en Pierre"
+        name: "&7&lÉpée en Pierre"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &710 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: IRON
@@ -237,7 +287,12 @@ shop-categories:
         slot: 11
       'iron-sword':
         material: IRON_SWORD
-        name: "&fÉpée en Fer"
+        name: "&f&lÉpée en Fer"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &67 Or"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: GOLD
@@ -245,7 +300,12 @@ shop-categories:
         slot: 12
       'diamond-sword':
         material: DIAMOND_SWORD
-        name: "&bÉpée en Diamant"
+        name: "&b&lÉpée en Diamant"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &a4 Émeraudes"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: EMERALD
@@ -258,7 +318,12 @@ shop-categories:
     items:
       'fireball':
         material: FIRE_CHARGE
-        name: "&cBoule de Feu"
+        name: "&c&lBoule de Feu"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &740 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: IRON
@@ -266,7 +331,12 @@ shop-categories:
         slot: 10
       'tnt':
         material: TNT
-        name: "&cTNT"
+        name: "&c&lTNT"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &68 Or"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: GOLD
@@ -274,7 +344,12 @@ shop-categories:
         slot: 11
       'ender_pearl':
         material: ENDER_PEARL
-        name: "&dPerle de l'End"
+        name: "&d&lPerle de l'End"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &a4 Émeraudes"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: EMERALD
@@ -282,7 +357,12 @@ shop-categories:
         slot: 12
       'bridge_egg':
         material: EGG
-        name: "&aPont en œuf"
+        name: "&a&lPont en œuf"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &a1 Émeraude"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: EMERALD
@@ -290,7 +370,12 @@ shop-categories:
         slot: 13
       'popup_tower':
         material: CHEST
-        name: "&6Ascenseur de Laine"
+        name: "&6&lAscenseur de Laine"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &725 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: IRON
@@ -299,7 +384,12 @@ shop-categories:
         action: 'POPUP_TOWER'
       'enemy_tracker':
         material: COMPASS
-        name: "&eBoussole Traqueuse"
+        name: "&e&lBoussole Traqueuse"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &a2 Émeraudes"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: EMERALD
@@ -308,7 +398,12 @@ shop-categories:
         action: 'ENEMY_TRACKER'
       'magic_sponge':
         material: SPONGE
-        name: "&eÉponge Magique"
+        name: "&e&lÉponge Magique"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &63 Or"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: GOLD
@@ -317,7 +412,12 @@ shop-categories:
         action: 'MAGIC_SPONGE'
       'safety_platform':
         material: SLIME_BLOCK
-        name: "&aPlateforme de Secours"
+        name: "&a&lPlateforme de Secours"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &a1 Émeraude"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: EMERALD
@@ -326,7 +426,12 @@ shop-categories:
         action: 'SAFETY_PLATFORM'
       'healer_milk':
         material: MILK_BUCKET
-        name: "&fLait du Guérisseur"
+        name: "&f&lLait du Guérisseur"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &66 Or"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: GOLD
@@ -335,7 +440,12 @@ shop-categories:
         action: 'HEALER_MILK'
       'golden_apple':
         material: GOLDEN_APPLE
-        name: "&6Pomme d'Or"
+        name: "&6&lPomme d'Or"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &63 Or"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: GOLD
@@ -343,7 +453,12 @@ shop-categories:
         slot: 21
       'water_bucket':
         material: WATER_BUCKET
-        name: "&9Seau d'eau"
+        name: "&9&lSeau d'eau"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &63 Or"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: GOLD
@@ -358,7 +473,10 @@ shop-categories:
         material: CHAINMAIL_BOOTS
         name: "&7&lBottes en Mailles"
         lore:
-          - "&7&oProtection de base"
+          - "&7-------------------"
+          - "&fCoût: &740 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: IRON
@@ -371,7 +489,10 @@ shop-categories:
         material: IRON_BOOTS
         name: "&f&lBottes en Fer"
         lore:
-          - "&7&oProtection renforcée"
+          - "&7-------------------"
+          - "&fCoût: &612 Or"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: GOLD
@@ -384,7 +505,10 @@ shop-categories:
         material: DIAMOND_BOOTS
         name: "&b&lBottes en Diamant"
         lore:
-          - "&7&oProtection ultime"
+          - "&7-------------------"
+          - "&fCoût: &a6 Émeraudes"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: EMERALD
@@ -400,7 +524,12 @@ shop-categories:
     items:
       'stone-pickaxe':
         material: STONE_PICKAXE
-        name: "&fPioche en Pierre"
+        name: "&f&lPioche en Pierre"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &710 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: IRON
@@ -411,7 +540,12 @@ shop-categories:
           level: 1
       'iron-pickaxe':
         material: IRON_PICKAXE
-        name: "&fPioche en Fer"
+        name: "&f&lPioche en Fer"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &64 Or"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: GOLD
@@ -422,7 +556,12 @@ shop-categories:
           level: 2
       'diamond-pickaxe':
         material: DIAMOND_PICKAXE
-        name: "&bPioche en Diamant"
+        name: "&b&lPioche en Diamant"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &612 Or"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: GOLD
@@ -433,7 +572,12 @@ shop-categories:
           level: 3
       'stone-axe':
         material: STONE_AXE
-        name: "&fHache en Pierre"
+        name: "&f&lHache en Pierre"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &710 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: IRON
@@ -444,7 +588,12 @@ shop-categories:
           level: 1
       'iron-axe':
         material: IRON_AXE
-        name: "&fHache en Fer"
+        name: "&f&lHache en Fer"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &63 Or"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: GOLD
@@ -455,7 +604,12 @@ shop-categories:
           level: 2
       'diamond-axe':
         material: DIAMOND_AXE
-        name: "&bHache en Diamant"
+        name: "&b&lHache en Diamant"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &66 Or"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: GOLD
@@ -466,7 +620,12 @@ shop-categories:
           level: 3
       'shears':
         material: SHEARS
-        name: "&fCisailles"
+        name: "&f&lCisailles"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &720 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: IRON
@@ -479,7 +638,12 @@ shop-categories:
     items:
       'speed_potion':
         material: POTION
-        name: "&bPotion de Vitesse"
+        name: "&b&lPotion de Vitesse"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &a1 Émeraude"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: EMERALD
@@ -491,7 +655,12 @@ shop-categories:
             amplifier: 1
       'jump_potion':
         material: POTION
-        name: "&aPotion de Saut"
+        name: "&a&lPotion de Saut"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &a1 Émeraude"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: EMERALD
@@ -503,7 +672,12 @@ shop-categories:
             amplifier: 2
       'invisibility_potion':
         material: POTION
-        name: "&7Potion d'Invisibilité"
+        name: "&7&lPotion d'Invisibilité"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &a2 Émeraudes"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: EMERALD
@@ -520,7 +694,12 @@ shop-categories:
     items:
       'arrows':
         material: ARROW
-        name: "&fFlèches"
+        name: "&f&lFlèches"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &78 Fer"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 8
         cost:
           resource: IRON
@@ -528,7 +707,12 @@ shop-categories:
         slot: 10
       'bow':
         material: BOW
-        name: "&fArc"
+        name: "&f&lArc"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &612 Or"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: GOLD
@@ -536,7 +720,12 @@ shop-categories:
         slot: 11
       'power_bow':
         material: BOW
-        name: "&6Arc Puissant"
+        name: "&6&lArc Puissant"
+        lore:
+          - "&7-------------------"
+          - "&fCoût: &a6 Émeraudes"
+          - "&7-------------------"
+          - "&aCliquez pour acheter"
         amount: 1
         cost:
           resource: EMERALD
