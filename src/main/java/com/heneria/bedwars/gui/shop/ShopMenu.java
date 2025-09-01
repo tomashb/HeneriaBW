@@ -55,13 +55,29 @@ public class ShopMenu extends Menu {
         return 54;
     }
 
+    private Material getFillerMaterial() {
+        if (activeCategory == null) {
+            return Material.LIGHT_GRAY_STAINED_GLASS_PANE;
+        }
+        return switch (activeCategory.id().toLowerCase()) {
+            case "blocks_category" -> Material.LIME_STAINED_GLASS_PANE;
+            case "melee_category" -> Material.RED_STAINED_GLASS_PANE;
+            case "armors_category" -> Material.LIGHT_BLUE_STAINED_GLASS_PANE;
+            case "tools_category" -> Material.YELLOW_STAINED_GLASS_PANE;
+            case "ranged_category" -> Material.ORANGE_STAINED_GLASS_PANE;
+            case "potions_category" -> Material.MAGENTA_STAINED_GLASS_PANE;
+            case "utilities_category" -> Material.GREEN_STAINED_GLASS_PANE;
+            default -> Material.GRAY_STAINED_GLASS_PANE;
+        };
+    }
+
     @Override
     public void setupItems() {
         inventory.clear();
         slotItems.clear();
         slotTabs.clear();
 
-        ItemStack filler = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
+        ItemStack filler = new ItemBuilder(getFillerMaterial()).setName(" ").build();
         for (int i = 0; i < getSize(); i++) {
             inventory.setItem(i, filler);
         }

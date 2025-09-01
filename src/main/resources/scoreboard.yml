@@ -2,7 +2,6 @@
 main-lobby:
   title: "&b&lHENERIA"
   lines:
-    - "&7Joueur: &f{player}"
     - "&1"
     - "&f&lInfos"
     - " &fGrade: %luckperms_prefix%"

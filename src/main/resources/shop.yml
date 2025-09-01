@@ -5,48 +5,66 @@
 category-tabs:
   quick-buy:
     material: NETHER_STAR
-    name: "&aAchats Rapides"
+    name: "&a&lAchats Rapides"
+    lore:
+      - "&7&oVos favoris"
     slot: 0
   blocks:
     material: BRICKS
-    name: "&aBlocs"
+    name: "&a&lBlocs"
+    lore:
+      - "&7&oMatériaux de base"
     slot: 1
     category: 'blocks_category'
   melee:
     material: DIAMOND_SWORD
-    name: "&cMêlée"
+    name: "&c&lMêlée"
+    lore:
+      - "&7&oArmes de combat"
     slot: 2
     category: 'melee_category'
   armors:
     material: CHAINMAIL_BOOTS
-    name: "&aArmures"
+    name: "&a&lArmures"
+    lore:
+      - "&7&oProtection personnelle"
     slot: 3
     category: 'armors_category'
   tools:
     material: STONE_PICKAXE
-    name: "&aOutils"
+    name: "&a&lOutils"
+    lore:
+      - "&7&oPour miner plus vite"
     slot: 4
     category: 'tools_category'
   ranged:
     material: BOW
-    name: "&6Combat à Distance"
+    name: "&6&lCombat à Distance"
+    lore:
+      - "&7&oBows et projectiles"
     slot: 5
     category: 'ranged_category'
   potions:
     material: BREWING_STAND
-    name: "&dPotions"
+    name: "&d&lPotions"
+    lore:
+      - "&7&oEffets temporaires"
     slot: 6
     category: 'potions_category'
   utilities:
     material: FIRE_CHARGE
-    name: "&6Utilitaires"
+    name: "&6&lUtilitaires"
+    lore:
+      - "&7&oOutils spéciaux"
     slot: 7
     category: 'utilities_category'
 
 quick-buy-items:
   wool:
     material: WHITE_WOOL
-    name: "&fLaine"
+    name: "&f&lLaine"
+    lore:
+      - "&7&oParfait pour des ponts rapides"
     amount: 16
     cost:
       resource: IRON
@@ -54,12 +72,34 @@ quick-buy-items:
     slot: 19
   stone-sword:
     material: STONE_SWORD
-    name: "&7Épée en Pierre"
+    name: "&7&lÉpée en Pierre"
+    lore:
+      - "&7&oUne option économique"
     amount: 1
     cost:
       resource: IRON
       amount: 10
     slot: 20
+  oak-planks:
+    material: OAK_PLANKS
+    name: "&6&lPlanches de Chêne"
+    lore:
+      - "&7&oBlocs polyvalents"
+    amount: 16
+    cost:
+      resource: IRON
+      amount: 12
+    slot: 21
+  golden-apple:
+    material: GOLDEN_APPLE
+    name: "&6&lPomme d'Or"
+    lore:
+      - "&7&oUn regain vital"
+    amount: 1
+    cost:
+      resource: GOLD
+      amount: 3
+    slot: 22
 
 shop-categories:
   'blocks_category':
@@ -276,7 +316,9 @@ shop-categories:
     items:
       'chainmail-boots':
         material: CHAINMAIL_BOOTS
-        name: "&7Bottes en Mailles"
+        name: "&7&lBottes en Mailles"
+        lore:
+          - "&7&oProtection de base"
         amount: 1
         cost:
           resource: IRON
@@ -287,23 +329,27 @@ shop-categories:
           level: 1
       'iron-boots':
         material: IRON_BOOTS
-        name: "&fBottes en Fer"
+        name: "&f&lBottes en Fer"
+        lore:
+          - "&7&oProtection renforcée"
         amount: 1
         cost:
           resource: GOLD
           amount: 12
-        slot: 10
+        slot: 11
         upgrade_tier:
           type: 'ARMOR'
           level: 2
       'diamond-boots':
         material: DIAMOND_BOOTS
-        name: "&bBottes en Diamant"
+        name: "&b&lBottes en Diamant"
+        lore:
+          - "&7&oProtection ultime"
         amount: 1
         cost:
           resource: EMERALD
           amount: 6
-        slot: 10
+        slot: 12
         upgrade_tier:
           type: 'ARMOR'
           level: 3
