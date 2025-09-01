@@ -1,9 +1,18 @@
 # Changelog - HeneriaBedwars
 
-## [4.0.0] - 2024-??-??
+## [1.0.0] - 2024-??-??
 
 ### Ajouté
-- Refonte majeure du design des boutiques, du scoreboard et des messages, et modification de la logique d'achat des armures.
+- Commande `/bw admin bypass` pour modifier la carte sans protection.
+- Méthode `broadcastTitleExcept` pour ne pas afficher le titre de lit détruit au joueur l'ayant cassé.
+
+### Modifié
+- Section « Achats Rapides » enrichie et remplie de vitres teintées.
+- Messages de mort, de victoire et de destruction de lit redessinés avec des symboles colorés.
+- Scoreboards du lobby et du jeu remaniés pour une meilleure lisibilité.
+
+### Corrigé
+- Les items de lobby réagissent correctement aux clics dans le vide.
 
 ## [3.2.0] - 2024-??-??
 

@@ -68,6 +68,15 @@ public class AdminCommand implements SubCommand {
                     MessageManager.sendMessage(player, "errors.arena-not-found");
                 }
                 return;
+            } else if (sub.equals("bypass")) {
+                if (!player.hasPermission("heneriabw.admin.bypass")) {
+                    MessageManager.sendMessage(player, "errors.no-permission");
+                    return;
+                }
+                SetupManager setupManager = plugin.getSetupManager();
+                boolean enabled = setupManager.toggleBypass(player);
+                MessageManager.sendMessage(player, enabled ? "admin.bypass-enabled" : "admin.bypass-disabled");
+                return;
             } else if (sub.equals("lobby")) {
                 if (!player.hasPermission("heneriabw.admin.lobby")) {
                     MessageManager.sendMessage(player, "errors.no-permission");
@@ -176,7 +185,7 @@ public class AdminCommand implements SubCommand {
     @Override
     public List<String> tabComplete(Player player, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("delete", "confirmdelete", "setmainlobby", "setshopnpc", "lobby", "confirmnpc");
+            return Arrays.asList("delete", "confirmdelete", "setmainlobby", "setshopnpc", "lobby", "confirmnpc", "bypass");
         }
         if (args.length == 2 && (args[0].equalsIgnoreCase("delete") || args[0].equalsIgnoreCase("confirmdelete"))) {
             List<String> names = new ArrayList<>();

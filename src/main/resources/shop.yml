@@ -100,6 +100,46 @@ quick-buy-items:
       resource: GOLD
       amount: 3
     slot: 22
+  shears:
+    material: SHEARS
+    name: "&f&lCisailles"
+    lore:
+      - "&7&oIdéales contre la laine"
+    amount: 1
+    cost:
+      resource: IRON
+      amount: 20
+    slot: 23
+  fireball:
+    material: FIRE_CHARGE
+    name: "&6&lBoule de Feu"
+    lore:
+      - "&7&oProjette vos ennemis"
+    amount: 1
+    cost:
+      resource: IRON
+      amount: 40
+    slot: 24
+  tnt:
+    material: TNT
+    name: "&c&lTNT"
+    lore:
+      - "&7&oExplosif puissant"
+    amount: 1
+    cost:
+      resource: GOLD
+      amount: 4
+    slot: 25
+  iron-sword:
+    material: IRON_SWORD
+    name: "&f&lÉpée en Fer"
+    lore:
+      - "&7&oTranchante et durable"
+    amount: 1
+    cost:
+      resource: GOLD
+      amount: 7
+    slot: 26
 
 shop-categories:
   'blocks_category':

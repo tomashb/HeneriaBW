@@ -29,3 +29,6 @@ permissions:
   heneriabw.admin.setshopnpc:
     description: Place un PNJ de boutique pour une équipe.
     default: op
+  heneriabw.admin.bypass:
+    description: Permet d'activer le mode bypass pour modifier la carte.
+    default: op

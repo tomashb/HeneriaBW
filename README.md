@@ -93,6 +93,9 @@ Ces plugins restent facultatifs mais sont recommandés pour profiter pleinement 
 - `/bw admin setshopnpc <équipe> <type_boutique> [<plastron> <jambieres> <bottes>]`
   - Place un PNJ de boutique (`item` ou `upgrade`) sous forme de support d'armure pour l'équipe spécifiée. L'armure en cuir est automatiquement teinte à la couleur de l'équipe.
   - **Permission :** `heneriabw.admin.setshopnpc`
+- `/bw admin bypass`
+  - Active ou désactive le mode bypass pour modifier la carte sans restrictions.
+  - **Permission :** `heneriabw.admin.bypass`
 
 Pour créer un PNJ de sélection d'arène, ouvrez le menu `/bw admin lobby`, cliquez sur « Créer un PNJ » puis répondez aux questions dans le chat (skin, mode, nom, équipement...). Placez-vous à l'endroit souhaité et validez avec `/bw admin confirmnpc`.
 

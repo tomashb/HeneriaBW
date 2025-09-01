@@ -46,23 +46,24 @@ public class LeaveItemListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
         Action action = event.getAction();
-        // Accept clicks in the air or on blocks
-        if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
-            ItemStack item = event.getItem();
-            if (item == null) {
-                return;
-            }
-            ItemMeta meta = item.getItemMeta();
-            if (meta == null || !meta.getPersistentDataContainer().has(LEAVE_ITEM_KEY, PersistentDataType.BYTE)) {
-                return;
-            }
-            Player player = event.getPlayer();
-            Arena arena = arenaManager.getArena(player);
-            if (arena == null) {
-                return;
-            }
-            event.setCancelled(true);
-            arena.removePlayer(player);
+        // Trigger on both right-click in air and on block
+        if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) {
+            return;
         }
+        ItemStack item = event.getItem();
+        if (item == null) {
+            return;
+        }
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null || !meta.getPersistentDataContainer().has(LEAVE_ITEM_KEY, PersistentDataType.BYTE)) {
+            return;
+        }
+        Player player = event.getPlayer();
+        Arena arena = arenaManager.getArena(player);
+        if (arena == null) {
+            return;
+        }
+        event.setCancelled(true);
+        arena.removePlayer(player);
     }
 }

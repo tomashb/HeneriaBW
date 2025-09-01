@@ -67,10 +67,13 @@ public class TeamSelectorMenu extends Menu {
                     .setName(color.getChatColor() + team.getColor().getDisplayName());
             builder.addLore((full ? "&c" : "&a") + (full ? "Équipe pleine" : "Clique pour rejoindre"));
             builder.addLore("&7" + size + "/" + maxPerTeam + " Joueurs");
-            for (UUID id : team.getMembers()) {
-                Player p = Bukkit.getPlayer(id);
-                if (p != null) {
-                    builder.addLore(" &7- " + p.getName());
+            if (size > 0) {
+                builder.addLore(" &eMembres:");
+                for (UUID id : team.getMembers()) {
+                    Player p = Bukkit.getPlayer(id);
+                    if (p != null) {
+                        builder.addLore("  &7» " + p.getName());
+                    }
                 }
             }
             inventory.setItem(slot, builder.build());

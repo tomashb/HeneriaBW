@@ -61,6 +61,9 @@ public class GameListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         Block block = event.getBlock();
+        if (plugin.getSetupManager().isBypassing(player.getUniqueId())) {
+            return;
+        }
         Arena arena = arenaManager.getArena(player);
         if (arena == null || arena.getState() != GameState.PLAYING) {
             return;
@@ -76,7 +79,7 @@ public class GameListener implements Listener {
                 } else {
                     event.setDropItems(false);
                     bedTeam.setHasBed(false);
-                    arena.broadcastTitle("game.bed-destroyed-title", "game.bed-destroyed-subtitle", 10, 70, 20, "team", bedTeam.getColor().getDisplayName(), "player", player.getName());
+                    arena.broadcastTitleExcept(player, "game.bed-destroyed-title", "game.bed-destroyed-subtitle", 10, 70, 20, "team", bedTeam.getColor().getDisplayName(), "player", player.getName());
                     String attackerColor = playerTeam != null ? playerTeam.getColor().getChatColor().toString() : "";
                     arena.broadcast("game.bed-destroyed-chat",
                             "victim_team_color", bedTeam.getColor().getChatColor().toString(),

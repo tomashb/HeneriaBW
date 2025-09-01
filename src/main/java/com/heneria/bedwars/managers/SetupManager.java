@@ -8,7 +8,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -18,6 +20,7 @@ public class SetupManager {
 
     private final Map<UUID, SetupAction> setups = new HashMap<>();
     private final Map<UUID, NpcCreationProcess> npcCreations = new HashMap<>();
+    private final Set<UUID> bypassPlayers = new HashSet<>();
 
     /**
      * Puts a player in setup mode with the given action and gives them the setup tool.
@@ -44,6 +47,32 @@ public class SetupManager {
 
     public NpcCreationProcess getNpcCreation(UUID uuid) {
         return npcCreations.get(uuid);
+    }
+
+    /**
+     * Toggles bypass mode for the given player.
+     *
+     * @param player the player
+     * @return true if bypass is now enabled, false if disabled
+     */
+    public boolean toggleBypass(Player player) {
+        UUID uuid = player.getUniqueId();
+        if (bypassPlayers.contains(uuid)) {
+            bypassPlayers.remove(uuid);
+            return false;
+        }
+        bypassPlayers.add(uuid);
+        return true;
+    }
+
+    /**
+     * Checks if a player is currently bypassing protections.
+     *
+     * @param uuid player uuid
+     * @return true if bypassing
+     */
+    public boolean isBypassing(UUID uuid) {
+        return bypassPlayers.contains(uuid);
     }
 
     /**
