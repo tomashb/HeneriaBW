@@ -24,6 +24,7 @@ import com.heneria.bedwars.listeners.MainLobbyListener;
 import com.heneria.bedwars.listeners.ReconnectListener;
 import com.heneria.bedwars.listeners.JoinQuitMessageListener;
 import com.heneria.bedwars.listeners.LobbyVoidListener;
+import com.heneria.bedwars.listeners.PvpListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
@@ -150,6 +151,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new MainLobbyListener(), this);
         getServer().getPluginManager().registerEvents(new ReconnectListener(), this);
         getServer().getPluginManager().registerEvents(new JoinQuitMessageListener(), this);
+        getServer().getPluginManager().registerEvents(new PvpListener(), this);
     }
 
     public static HeneriaBedwars getInstance() {

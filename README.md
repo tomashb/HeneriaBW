@@ -32,7 +32,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🎡 **Lobby Principal Immersif** : Les joueurs apparaissent dans un lobby central et choisissent leur mode via des PNJ interactifs. Un message de bienvenue personnalisé et un scoreboard de statistiques les accueillent.
 - 🎮 **Hub de Jeu Intuitif** : En cliquant sur un PNJ de mode, un menu propose de lancer une partie, consulter ses statistiques ou se reconnecter.
 - 🕹️ **Cycle de Jeu Complet** : Rejoignez une arène, attendez dans le lobby avec un décompte, et lancez-vous dans la bataille.
-- ⚔️ **PvP 1.8** : Combat sans délai de recharge pour des affrontements plus dynamiques.
+- ⚔️ **PvP 1.8** : Combat sans délai de recharge avec particules de coup critique à chaque attaque pour un ressenti classique.
 - 🎽 **Sélecteur d'équipe** : Choisissez votre camp grâce à un menu interactif avant le début de la partie.
 - 💬 **Chat et Tablist isolés** : Les messages et la liste des joueurs sont limités à votre partie pour éviter le spam entre arènes.
 - 🎨 **Couleurs d'équipe dynamiques** : Les pseudos des joueurs prennent la couleur de leur équipe dans la tablist et au-dessus de leur tête.
@@ -43,7 +43,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🛒 **Boutiques Fonctionnelles** : Interagissez avec les PNJ pour acheter des objets dans une boutique colorée (vitres teintées par catégorie, section d'achats rapides enrichie) ou des améliorations permanentes pour votre équipe.
 - 🏥 **Soin de Base** : Achetez une aura de régénération autour de votre lit pour soigner vos défenseurs.
 - 🔔 **Alarme Anti-Intrusion** : Un son puissant alerte toute l'équipe lorsqu'un piège est déclenché.
-- 🧱 **Construction de Blocs** : Achetez, placez et cassez des blocs pour bâtir ponts et défenses. La catégorie « Blocs » propose désormais du Grès, de l'Obsidienne, des Échelles et de la Toile d'Araignée.
+- 🧱 **Construction de Blocs** : Achetez, placez et cassez des blocs pour bâtir ponts et défenses. La catégorie « Blocs » propose désormais du Grès, de l'Obsidienne, des Échelles et de la Toile d'Araignée. Des limites configurables empêchent de construire hors de la zone de jeu.
  - 🛡️ **Kit de départ lié** : Vous réapparaissez avec une armure en cuir teintée aux couleurs de votre équipe ainsi qu'une épée, une pioche et une hache en bois impossibles à jeter.
 - 🛡️ **Armures Directes** : Achetez directement l'armure de votre choix (mailles, fer ou diamant) et conservez-la après la mort, tandis que les outils et épées doivent être rachetés.
 - 🗡️ **Catégorie Mêlée** : Progression d'armes de corps à corps, du Bâton de Répulsion à l'Épée en Diamant.
@@ -112,7 +112,7 @@ Pour créer un PNJ de sélection d'arène, ouvrez le menu `/bw admin lobby`, cli
   - Affiche vos statistiques ou celles d'un autre joueur.
   - **Permission :** `heneriabw.admin.stats` pour consulter celles d'un autre joueur.
 - `/spawn`
-  - Téléporte le joueur au lobby principal BedWars.
+  - Téléporte le joueur au lobby principal BedWars. Utilisable en jeu pour quitter la partie ; déclenche une vérification de victoire.
 - `/hub`
   - Envoie le joueur vers le serveur lobby principal si BungeeCord est activé, sinon fonctionne comme `/spawn`.
 
@@ -355,7 +355,7 @@ Chaque arène peut définir des limites pour empêcher les constructions abusive
 
 ```yaml
 boundaries:
-  max-y: 150
+  max-height: 150
   max-distance-from-center: 100
 ```
 

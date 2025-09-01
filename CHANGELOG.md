@@ -1,5 +1,12 @@
 # Changelog - HeneriaBedwars
 
+## [4.3.0] - 2024-??-??
+
+### Ajouté
+- Simulation des particules de coup critique pour chaque attaque en PvP 1.8.
+- Commande `/spawn` utilisable en cours de partie pour quitter et déclencher la vérification de victoire.
+- Limites de construction configurables par arène (`boundaries`).
+
 ## [4.2.0] - 2024-??-??
 
 ### Ajouté
@@ -246,7 +253,7 @@
 
 ### Ajouté
 - Réinitialisation complète des arènes avec restauration des lits et nettoyage des items.
-- Limites de construction configurables par arène via `boundaries.max-y`.
+- Limites de construction configurables par arène via `boundaries.max-height`.
 - Mort instantanée dans le vide grâce à `void-kill-height`.
 - Ajout d'un scoreboard distinct et configurable pour le lobby d'attente.
 
