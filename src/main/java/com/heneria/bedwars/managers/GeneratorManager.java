@@ -8,6 +8,8 @@ import com.heneria.bedwars.arena.enums.GeneratorType;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -27,10 +29,14 @@ public class GeneratorManager {
     private final HeneriaBedwars plugin;
     private final Map<Generator, Integer> counters = new HashMap<>();
     private final Map<GeneratorType, Map<Integer, GeneratorSettings>> settings = new EnumMap<>(GeneratorType.class);
+    private final Map<GeneratorType, List<String>> hologramFormats = new EnumMap<>(GeneratorType.class);
+    private boolean hologramsEnabled = true;
+    private double hologramOffsetY = 2.0;
 
     public GeneratorManager(HeneriaBedwars plugin) {
         this.plugin = plugin;
         loadConfiguration();
+        loadHologramSettings();
         startTask();
     }
 
@@ -60,6 +66,40 @@ public class GeneratorManager {
         }
     }
 
+    private void loadHologramSettings() {
+        FileConfiguration cfg = plugin.getConfig();
+        hologramsEnabled = cfg.getBoolean("generator-holograms.enabled", true);
+        hologramOffsetY = cfg.getDouble("generator-holograms.offset-y", 2.0);
+        ConfigurationSection formats = cfg.getConfigurationSection("generator-holograms.formats");
+        if (formats != null) {
+            for (String key : formats.getKeys(false)) {
+                try {
+                    GeneratorType type = GeneratorType.valueOf(key.toUpperCase());
+                    hologramFormats.put(type, formats.getStringList(key));
+                } catch (IllegalArgumentException ignored) {
+                }
+            }
+        }
+    }
+
+    private List<String> formatLines(GeneratorType type, int seconds) {
+        List<String> template = hologramFormats.get(type);
+        if (template == null || template.isEmpty()) {
+            String name = type == GeneratorType.DIAMOND ? ChatColor.AQUA + "Diamants" : ChatColor.GREEN + "Émeraudes";
+            return Arrays.asList(name, seconds + "s");
+        }
+        List<String> lines = new ArrayList<>();
+        for (String line : template) {
+            line = line.replace("{time}", String.valueOf(seconds));
+            lines.add(ChatColor.translateAlternateColorCodes('&', line));
+        }
+        return lines;
+    }
+
+    private Location hologramLocation(Location base) {
+        return base.clone().add(0.5, hologramOffsetY, 0.5);
+    }
+
     private void startTask() {
         new BukkitRunnable() {
             @Override
@@ -78,13 +118,12 @@ public class GeneratorManager {
                 remaining = getDelayCycles(gen);
             }
             entry.setValue(remaining);
-            if (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD) {
+            if (hologramsEnabled && (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD)) {
                 Location loc = gen.getLocation();
                 if (loc != null) {
                     int seconds = (int) Math.ceil(remaining * TICK_RATE / 20.0);
-                    String title = gen.getType() == GeneratorType.DIAMOND ? ChatColor.AQUA + "Diamant" : ChatColor.GREEN + "Émeraude";
-                    Location holoLoc = loc.clone().add(0.5, 2.0, 0.5);
-                    plugin.getHologramManager().updateHologram(holoLoc, Arrays.asList(title, seconds + "s"));
+                    Location holoLoc = hologramLocation(loc);
+                    plugin.getHologramManager().updateHologram(holoLoc, formatLines(gen.getType(), seconds));
                 }
             }
         }
@@ -131,14 +170,13 @@ public class GeneratorManager {
 
     public void registerGenerator(Generator gen) {
         counters.put(gen, getDelayCycles(gen));
-        if (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD) {
+        if (hologramsEnabled && (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD)) {
             Location loc = gen.getLocation();
             if (loc != null) {
-                Location holoLoc = loc.clone().add(0.5, 2.0, 0.5);
+                Location holoLoc = hologramLocation(loc);
                 if (!plugin.getHologramManager().hasHologram(holoLoc)) {
                     int seconds = (int) Math.ceil(getDelayCycles(gen) * TICK_RATE / 20.0);
-                    String title = gen.getType() == GeneratorType.DIAMOND ? ChatColor.AQUA + "Diamant" : ChatColor.GREEN + "Émeraude";
-                    plugin.getHologramManager().createHologram(holoLoc, Arrays.asList(title, seconds + "s"));
+                    plugin.getHologramManager().createHologram(holoLoc, formatLines(gen.getType(), seconds));
                 }
             }
         }
@@ -149,11 +187,10 @@ public class GeneratorManager {
 
     public void unregisterGenerator(Generator gen) {
         counters.remove(gen);
-        if (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD) {
+        if (hologramsEnabled && (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD)) {
             Location loc = gen.getLocation();
             if (loc != null) {
-                Location holoLoc = loc.clone().add(0.5, 2.0, 0.5);
-                plugin.getHologramManager().removeHologram(holoLoc);
+                plugin.getHologramManager().removeHologram(hologramLocation(loc));
             }
         }
     }
@@ -210,11 +247,10 @@ public class GeneratorManager {
         while (it.hasNext()) {
             Generator gen = it.next();
             counters.remove(gen);
-            if (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD) {
+            if (hologramsEnabled && (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD)) {
                 Location loc = gen.getLocation();
                 if (loc != null) {
-                    Location holoLoc = loc.clone().add(0.5, 2.0, 0.5);
-                    plugin.getHologramManager().removeHologram(holoLoc);
+                    plugin.getHologramManager().removeHologram(hologramLocation(loc));
                 }
             }
             gen.setTier(1);

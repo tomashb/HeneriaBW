@@ -28,3 +28,14 @@ animations:
     enable: true
     levitation-strength: 0.1
     presentation-speed: 1.0
+
+generator-holograms:
+  enabled: true
+  offset-y: 2.5
+  formats:
+    DIAMOND:
+      - "&b&l♦ Diamants ♦"
+      - "&fApparition dans &a{time}s"
+    EMERALD:
+      - "&a&l❇ Émeraudes ❇"
+      - "&fApparition dans &a{time}s"

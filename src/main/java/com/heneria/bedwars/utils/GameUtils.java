@@ -38,7 +38,7 @@ public final class GameUtils {
         player.getInventory().clear();
         if (team != null) {
             Color color = team.getColor().getLeatherColor();
-            player.getInventory().setArmorContents(new ItemStack[]{
+        player.getInventory().setArmorContents(new ItemStack[]{
                     createArmor(Material.LEATHER_BOOTS, color),
                     createArmor(Material.LEATHER_LEGGINGS, color),
                     createArmor(Material.LEATHER_CHESTPLATE, color),
@@ -78,15 +78,17 @@ public final class GameUtils {
         meta.setColor(color);
         meta.addEnchant(Enchantment.BINDING_CURSE, 1, true);
         meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
+        meta.setDisplayName(MessageManager.get(getArmorNameKey(material)));
         meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
         meta.setUnbreakable(true);
         item.setItemMeta(meta);
         return item;
-        }
+    }
 
     private static ItemStack createStarterSword() {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(MessageManager.get("items.starter-sword"));
         meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
         meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
         meta.setUnbreakable(true);
@@ -97,6 +99,7 @@ public final class GameUtils {
     private static ItemStack createStarterPickaxe() {
         ItemStack item = new ItemStack(Material.WOODEN_PICKAXE);
         ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(MessageManager.get("items.starter-pickaxe"));
         meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
         meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
         meta.setUnbreakable(true);
@@ -107,6 +110,7 @@ public final class GameUtils {
     private static ItemStack createStarterAxe() {
         ItemStack item = new ItemStack(Material.WOODEN_AXE);
         ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(MessageManager.get("items.starter-axe"));
         meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
         meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
         meta.setUnbreakable(true);
@@ -120,11 +124,25 @@ public final class GameUtils {
         if (meta != null) {
             meta.addEnchant(Enchantment.BINDING_CURSE, 1, true);
             meta.setLore(Collections.singletonList(MessageManager.get("items.starter-lore")));
+            String key = getArmorNameKey(material);
+            if (key != null) {
+                meta.setDisplayName(MessageManager.get(key));
+            }
             meta.getPersistentDataContainer().set(STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
             meta.setUnbreakable(true);
             item.setItemMeta(meta);
         }
         return item;
+    }
+
+    private static String getArmorNameKey(Material material) {
+        return switch (material) {
+            case LEATHER_HELMET, CHAINMAIL_HELMET, IRON_HELMET, DIAMOND_HELMET -> "items.starter-helmet";
+            case LEATHER_CHESTPLATE, CHAINMAIL_CHESTPLATE, IRON_CHESTPLATE, DIAMOND_CHESTPLATE -> "items.starter-chestplate";
+            case LEATHER_LEGGINGS, CHAINMAIL_LEGGINGS, IRON_LEGGINGS, DIAMOND_LEGGINGS -> "items.starter-leggings";
+            case LEATHER_BOOTS, CHAINMAIL_BOOTS, IRON_BOOTS, DIAMOND_BOOTS -> "items.starter-boots";
+            default -> null;
+        };
     }
 
     public static void removeUpgradedToolsAndSwords(Player player) {
