@@ -73,6 +73,10 @@ public class ScoreboardManager {
         String initialTitle = mainLobbyTitle != null ? mainLobbyTitle : (lobbyTitle != null ? lobbyTitle : (gameTitle != null ? gameTitle : "BedWars"));
         Objective obj = board.registerNewObjective("hbw", "dummy", ChatColor.translateAlternateColorCodes('&', initialTitle));
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+        setBoard(player, board);
+    }
+
+    public void setBoard(Player player, Scoreboard board) {
         boards.put(player.getUniqueId(), board);
         player.setScoreboard(board);
         updatePlayer(player);

@@ -4,17 +4,17 @@ main-lobby:
   lines:
     - "&1"
     - "&f&lProfil"
-    - " &7Grade: &f%luckperms_prefix%"
-    - " &7Rang: &fNon classé"
-    - " &7Elo: &eN/A"
-    - " &7Henacoins: &6%vault_eco_balance_formatted%"
+    - " &8» &7Grade: &f%luckperms_prefix%"
+    - " &8» &7Rang: &fNon classé"
+    - " &8» &7Elo: &eN/A"
+    - " &8» &7Henacoins: &6%vault_eco_balance_formatted%"
     - "&2"
     - "&f&lStatistiques"
-    - " &7Victoires: &a{wins}"
-    - " &7Kills: &a{kills}"
-    - " &7Lits détruits: &a{beds_broken}"
+    - " &8» &7Victoires: &a{wins}"
+    - " &8» &7Kills: &a{kills}"
+    - " &8» &7Lits détruits: &a{beds_broken}"
     - "&3"
-    - "&b» heneria.com"
+    - "&b» &fheneria.com"
 
 # Scoreboard pour le lobby d'attente
 lobby:

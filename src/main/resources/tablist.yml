@@ -1,7 +1,16 @@
-header: |
-  &b&lHENERIA BEDWARS
-  &7Vous êtes sur le serveur &eBedWars-1
-footer: |
-  &bGrades, Henacoins et boosts rendez-vous sur heneria.com
-  &7Joueurs en ligne: &a%server_online%
-  &bheneria.com
+main-lobby:
+  header: |
+    &b&lHENERIA BEDWARS
+    &7Serveur &eBedWars-1
+  footer: |
+    &b» &7Grades, Henacoins et boosts sur &bheneria.com
+    &7Joueurs en ligne: &a%server_online%
+    &bheneria.com
+waiting-lobby:
+  header: |
+    &b&lHENERIA BEDWARS
+    &7Carte: &e{map_name}
+  footer: |
+    &7Joueurs: &a{current_players}/{max_players}
+    &e{status}
+    &bheneria.com

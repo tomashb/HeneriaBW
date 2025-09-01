@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [4.1.0] - 2024-??-??
+
+### Modifié
+- Refonte complète des scoreboards et des tablists avec gestion des couleurs d'équipe.
+
 ## [1.0.0] - 2024-??-??
 
 ### Ajouté
