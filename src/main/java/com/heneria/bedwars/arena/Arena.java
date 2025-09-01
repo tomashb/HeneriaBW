@@ -36,6 +36,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.*;
 
@@ -76,6 +77,7 @@ public class Arena {
     private int countdownTime;
     private int maxBuildY = 256;
     private int maxBuildDistance = 0;
+    private Scoreboard arenaScoreboard;
 
     /**
      * Creates a new arena with the given name.
@@ -665,6 +667,13 @@ public class Arena {
         }
         System.out.println("[DEBUG-STARTGAME] Préparation du monde terminée.");
 
+        arenaScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        for (Team team : teams.values()) {
+            org.bukkit.scoreboard.Team sbTeam = arenaScoreboard.registerNewTeam(team.getColor().name());
+            sbTeam.setPrefix(team.getColor().getChatColor().toString());
+            sbTeam.setColor(team.getColor().getChatColor());
+        }
+
         for (UUID id : players) {
             Player p = Bukkit.getPlayer(id);
             if (p == null) {
@@ -676,6 +685,13 @@ public class Arena {
             }
             p.setGameMode(GameMode.SURVIVAL);
             GameUtils.giveDefaultKit(p, team);
+            if (team != null) {
+                org.bukkit.scoreboard.Team sbTeam = arenaScoreboard.getTeam(team.getColor().name());
+                if (sbTeam != null) {
+                    sbTeam.addEntry(p.getName());
+                }
+            }
+            HeneriaBedwars.getInstance().getScoreboardManager().setBoard(p, arenaScoreboard);
         }
         System.out.println("[DEBUG-STARTGAME] Téléportation des joueurs terminée.");
 
@@ -917,6 +933,12 @@ public class Arena {
         dragons.forEach(Entity::remove);
         dragons.clear();
         purchaseCounts.clear();
+        if (arenaScoreboard != null) {
+            for (org.bukkit.scoreboard.Team team : new ArrayList<>(arenaScoreboard.getTeams())) {
+                team.unregister();
+            }
+            arenaScoreboard = null;
+        }
         HeneriaBedwars.getInstance().getGeneratorManager().resetGenerators(this);
         if (!placedBlocks.isEmpty()) {
             HeneriaBedwars.getInstance().getLogger().info("[DEBUG] Clearing " + placedBlocks.size() + " placed blocks in arena " + name);
