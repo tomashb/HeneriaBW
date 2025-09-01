@@ -82,18 +82,31 @@ public class GeneratorManager {
         }
     }
 
-    private List<String> formatLines(GeneratorType type, int seconds) {
+    private List<String> formatLines(Generator gen, int seconds) {
+        GeneratorType type = gen.getType();
         List<String> template = hologramFormats.get(type);
         if (template == null || template.isEmpty()) {
             String name = type == GeneratorType.DIAMOND ? ChatColor.AQUA + "Diamants" : ChatColor.GREEN + "Émeraudes";
-            return Arrays.asList(name, seconds + "s");
+            return Arrays.asList(name, toRoman(gen.getTier()), seconds + "s");
         }
         List<String> lines = new ArrayList<>();
         for (String line : template) {
-            line = line.replace("{time}", String.valueOf(seconds));
+            line = line.replace("{time}", String.valueOf(seconds))
+                    .replace("{tier}", toRoman(gen.getTier()));
             lines.add(ChatColor.translateAlternateColorCodes('&', line));
         }
         return lines;
+    }
+
+    private String toRoman(int number) {
+        return switch (number) {
+            case 1 -> "I";
+            case 2 -> "II";
+            case 3 -> "III";
+            case 4 -> "IV";
+            case 5 -> "V";
+            default -> String.valueOf(number);
+        };
     }
 
     private Location hologramLocation(Location base) {
@@ -123,7 +136,7 @@ public class GeneratorManager {
                 if (loc != null) {
                     int seconds = (int) Math.ceil(remaining * TICK_RATE / 20.0);
                     Location holoLoc = hologramLocation(loc);
-                    plugin.getHologramManager().updateHologram(holoLoc, formatLines(gen.getType(), seconds));
+                    plugin.getHologramManager().updateHologram(holoLoc, formatLines(gen, seconds));
                 }
             }
         }
@@ -176,7 +189,7 @@ public class GeneratorManager {
                 Location holoLoc = hologramLocation(loc);
                 if (!plugin.getHologramManager().hasHologram(holoLoc)) {
                     int seconds = (int) Math.ceil(getDelayCycles(gen) * TICK_RATE / 20.0);
-                    plugin.getHologramManager().createHologram(holoLoc, formatLines(gen.getType(), seconds));
+                    plugin.getHologramManager().createHologram(holoLoc, formatLines(gen, seconds));
                 }
             }
         }

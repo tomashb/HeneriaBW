@@ -103,7 +103,7 @@ public class AdminCommand implements SubCommand {
                 Material leggings = args.length > 4 ? Material.matchMaterial(args[4].toUpperCase()) : null;
                 Material boots = args.length > 5 ? Material.matchMaterial(args[5].toUpperCase()) : null;
                 ArmorStand npc = (ArmorStand) player.getWorld().spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
-                npc.setInvisible(true);
+                npc.setInvisible(false);
                 npc.setInvulnerable(true);
                 npc.setGravity(false);
                 npc.setBasePlate(false);

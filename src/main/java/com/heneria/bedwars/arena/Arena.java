@@ -425,7 +425,7 @@ public class Arena {
             return;
         }
         ArmorStand npc = (ArmorStand) specialNpcLocation.getWorld().spawnEntity(specialNpcLocation, EntityType.ARMOR_STAND);
-        npc.setInvisible(true);
+        npc.setInvisible(false);
         npc.setInvulnerable(true);
         npc.setGravity(false);
         npc.setBasePlate(false);
@@ -706,7 +706,7 @@ public class Arena {
         for (Team team : this.getTeams().values()) {
             if (team.getItemShopNpcLocation() != null) {
                 ArmorStand npc = (ArmorStand) team.getItemShopNpcLocation().getWorld().spawnEntity(team.getItemShopNpcLocation(), EntityType.ARMOR_STAND);
-                npc.setInvisible(true);
+                npc.setInvisible(false);
                 npc.setInvulnerable(true);
                 npc.setGravity(false);
                 npc.setBasePlate(false);
@@ -726,7 +726,7 @@ public class Arena {
             }
             if (team.getUpgradeShopNpcLocation() != null) {
                 ArmorStand npc = (ArmorStand) team.getUpgradeShopNpcLocation().getWorld().spawnEntity(team.getUpgradeShopNpcLocation(), EntityType.ARMOR_STAND);
-                npc.setInvisible(true);
+                npc.setInvisible(false);
                 npc.setInvulnerable(true);
                 npc.setGravity(false);
                 npc.setBasePlate(false);

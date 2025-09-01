@@ -1,16 +1,19 @@
 main-lobby:
   header: |
-    &b&lHENERIA BEDWARS
+    &d&lHENERIA &b&lBEDWARS
     &7Serveur &eBedWars-1
   footer: |
-    &b» &7Grades, Henacoins et boosts sur &bheneria.com
+    &d» &7Grades, Henacoins et boosts sur &bheneria.com
     &7Joueurs en ligne: &a%server_online%
-    &bheneria.com
+    &bwww.heneria.com
 waiting-lobby:
   header: |
-    &b&lHENERIA BEDWARS
+    &d&lHENERIA &b&lBEDWARS
     &7Carte: &e{map_name}
   footer: |
     &7Joueurs: &a{current_players}/{max_players}
     &e{status}
     &bheneria.com
+game:
+  header: ""
+  footer: ""

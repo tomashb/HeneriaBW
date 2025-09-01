@@ -35,7 +35,9 @@ generator-holograms:
   formats:
     DIAMOND:
       - "&b&l♦ Diamants ♦"
+      - "&fNiveau &e{tier}"
       - "&fApparition dans &a{time}s"
     EMERALD:
       - "&a&l❇ Émeraudes ❇"
+      - "&fNiveau &e{tier}"
       - "&fApparition dans &a{time}s"
