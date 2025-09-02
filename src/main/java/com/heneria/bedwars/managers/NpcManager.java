@@ -100,11 +100,11 @@ public class NpcManager {
             String bootsStr = (String) map.get("boots");
             Material boots = bootsStr != null ? Material.matchMaterial(bootsStr) : null;
             if (chestplate == null && leggings == null && boots == null) {
-                List<String> armorList = (List<String>) map.get("armor");
-                if (armorList != null) {
-                    if (armorList.size() > 0) chestplate = Material.matchMaterial(armorList.get(0));
-                    if (armorList.size() > 1) leggings = Material.matchMaterial(armorList.get(1));
-                    if (armorList.size() > 2) boots = Material.matchMaterial(armorList.get(2));
+                Object armorObj = map.get("armor");
+                if (armorObj instanceof List<?> armorList) {
+                    if (armorList.size() > 0) chestplate = Material.matchMaterial(String.valueOf(armorList.get(0)));
+                    if (armorList.size() > 1) leggings = Material.matchMaterial(String.valueOf(armorList.get(1)));
+                    if (armorList.size() > 2) boots = Material.matchMaterial(String.valueOf(armorList.get(2)));
                 }
             }
             String id = (String) map.get("id");

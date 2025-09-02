@@ -67,7 +67,7 @@ public class TrapListener implements Listener {
                             Player p = Bukkit.getPlayer(uuid);
                             if (p != null) {
                                 p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 15 * 20, 1, true, true, true));
-                                p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 15 * 20, 1, true, true, true));
+                                p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 15 * 20, 1, true, true, true));
                             }
                         }
                     } else if (entry.getKey().equals("reveal-trap")) {
