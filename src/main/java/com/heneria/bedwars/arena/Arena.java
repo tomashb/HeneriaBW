@@ -11,6 +11,7 @@ import com.heneria.bedwars.utils.GameUtils;
 import com.heneria.bedwars.utils.MessageManager;
 import com.heneria.bedwars.managers.StatsManager;
 import com.heneria.bedwars.stats.PlayerStats;
+import com.heneria.bedwars.managers.CosmeticManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -254,6 +255,10 @@ public class Arena {
      */
     public void addPlayer(Player player) {
         addPlayer(player.getUniqueId());
+        if (HeneriaBedwars.getInstance().getSetupManager().isBypassing(player.getUniqueId())) {
+            HeneriaBedwars.getInstance().getSetupManager().toggleBypass(player);
+            MessageManager.sendMessage(player, "admin.bypass-auto-disabled");
+        }
         savedStates.put(player.getUniqueId(), new PlayerData(player));
         AttributeInstance speed = player.getAttribute(Attribute.GENERIC_ATTACK_SPEED);
         if (speed != null) {
@@ -542,6 +547,15 @@ public class Arena {
         }
     }
 
+    public void broadcastRaw(String message) {
+        for (UUID id : players) {
+            Player p = Bukkit.getPlayer(id);
+            if (p != null) {
+                p.sendMessage(message);
+            }
+        }
+    }
+
     public void broadcastTitle(String titlePath, String subtitlePath, int fadeIn, int stay, int fadeOut, String... placeholders) {
         for (UUID id : players) {
             Player p = Bukkit.getPlayer(id);
@@ -713,7 +727,16 @@ public class Arena {
                 npc.setArms(true);
                 ItemStack head = new ItemStack(Material.PLAYER_HEAD);
                 SkullMeta meta = (SkullMeta) head.getItemMeta();
-                meta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_Villager"));
+                CosmeticManager.NpcSkin skin = null;
+                for (UUID member : team.getMembers()) {
+                    skin = HeneriaBedwars.getInstance().getCosmeticManager().getNpcSkin(member);
+                    if (skin != null) break;
+                }
+                if (skin != null) {
+                    meta.setOwningPlayer(Bukkit.getOfflinePlayer(skin.getOwner()));
+                } else {
+                    meta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_Villager"));
+                }
                 head.setItemMeta(meta);
                 npc.getEquipment().setHelmet(head);
                 npc.getEquipment().setItemInMainHand(new ItemStack(Material.EMERALD));
@@ -733,7 +756,16 @@ public class Arena {
                 npc.setArms(true);
                 ItemStack head = new ItemStack(Material.PLAYER_HEAD);
                 SkullMeta meta = (SkullMeta) head.getItemMeta();
-                meta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_Villager"));
+                CosmeticManager.NpcSkin skin = null;
+                for (UUID member : team.getMembers()) {
+                    skin = HeneriaBedwars.getInstance().getCosmeticManager().getNpcSkin(member);
+                    if (skin != null) break;
+                }
+                if (skin != null) {
+                    meta.setOwningPlayer(Bukkit.getOfflinePlayer(skin.getOwner()));
+                } else {
+                    meta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_Villager"));
+                }
                 head.setItemMeta(meta);
                 npc.getEquipment().setHelmet(head);
                 npc.getEquipment().setItemInMainHand(new ItemStack(Material.NETHER_STAR));

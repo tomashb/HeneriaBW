@@ -25,6 +25,7 @@ import com.heneria.bedwars.listeners.ReconnectListener;
 import com.heneria.bedwars.listeners.JoinQuitMessageListener;
 import com.heneria.bedwars.listeners.LobbyVoidListener;
 import com.heneria.bedwars.listeners.PvpListener;
+import com.heneria.bedwars.listeners.LobbyShopItemListener;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.managers.GeneratorManager;
@@ -42,6 +43,7 @@ import com.heneria.bedwars.managers.NpcAnimationManager;
 import com.heneria.bedwars.managers.ReconnectManager;
 import com.heneria.bedwars.managers.HologramManager;
 import com.heneria.bedwars.managers.TablistManager;
+import com.heneria.bedwars.managers.CosmeticManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -69,6 +71,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private NpcManager npcManager;
     private NpcAnimationManager npcAnimationManager;
     private ReconnectManager reconnectManager;
+    private CosmeticManager cosmeticManager;
     private Location mainLobby;
     private static NamespacedKey itemTypeKey;
     private static NamespacedKey npcKey;
@@ -105,6 +108,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.npcAnimationManager = new NpcAnimationManager(this, this.npcManager);
         this.npcAnimationManager.start();
         this.reconnectManager = new ReconnectManager(this);
+        this.cosmeticManager = new CosmeticManager();
 
         // Enregistrement des commandes
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
@@ -157,6 +161,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ReconnectListener(), this);
         getServer().getPluginManager().registerEvents(new JoinQuitMessageListener(), this);
         getServer().getPluginManager().registerEvents(new PvpListener(), this);
+        getServer().getPluginManager().registerEvents(new LobbyShopItemListener(), this);
     }
 
     public static HeneriaBedwars getInstance() {
@@ -247,6 +252,10 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public ReconnectManager getReconnectManager() {
         return reconnectManager;
+    }
+
+    public CosmeticManager getCosmeticManager() {
+        return cosmeticManager;
     }
 
     public NpcAnimationManager getNpcAnimationManager() {

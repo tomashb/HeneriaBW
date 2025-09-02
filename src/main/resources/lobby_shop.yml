@@ -7,3 +7,27 @@ items:
     vault-cost: 1000.0
     command-on-purchase: "lp user {player} permission set heneria.cosmetics.kill_effect.lightning"
     slot: 11
+  npc_skin_zombie:
+    display-item: ZOMBIE_HEAD
+    name: "&aSkin PNJ Zombie"
+    lore:
+      - "&7Coût: &6500"
+    vault-cost: 500.0
+    command-on-purchase: "lp user {player} permission set heneria.cosmetics.npc_skin.zombie"
+    slot: 12
+  bed_effect_firework:
+    display-item: FIREWORK_ROCKET
+    name: "&dEffet Lit Feu d'artifice"
+    lore:
+      - "&7Coût: &61000"
+    vault-cost: 1000.0
+    command-on-purchase: "lp user {player} permission set heneria.cosmetics.bed_effect.firework"
+    slot: 13
+  kill_message_toxic:
+    display-item: PAPER
+    name: "&cPack Messages Toxiques"
+    lore:
+      - "&7Coût: &6500"
+    vault-cost: 500.0
+    command-on-purchase: "lp user {player} permission set heneria.cosmetics.messages.toxic"
+    slot: 14

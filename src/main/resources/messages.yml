@@ -107,6 +107,7 @@ admin:
   delete-expired: "&cConfirmation expirée pour l'arène {arena}."
   bypass-enabled: "&aMode bypass activé."
   bypass-disabled: "&cMode bypass désactivé."
+  bypass-auto-disabled: "&eBypass désactivé automatiquement pour la partie."
 
   menus:
     admin-main-title: "&8HeneriaBedwars - Administration"

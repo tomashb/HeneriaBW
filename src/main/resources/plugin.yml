@@ -33,6 +33,3 @@ permissions:
   heneriabw.admin.bypass:
     description: Permet d'activer le mode bypass pour modifier la carte.
     default: op
-  heneriabw.player.shop:
-    description: Permet d'ouvrir la boutique de cosmétiques.
-    default: true
