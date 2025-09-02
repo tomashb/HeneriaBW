@@ -158,6 +158,14 @@ public class GeneratorManager {
         Location dropLocation = gen.getLocation().getBlock().getLocation().add(0.5, 1.0, 0.5);
         var item = dropLocation.getWorld().dropItem(dropLocation, new ItemStack(material, gs.amount()));
         item.setVelocity(new org.bukkit.util.Vector(0, 0, 0));
+        if (hologramsEnabled && gen.isHologramEnabled()
+                && (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD)) {
+            Location loc = gen.getLocation();
+            if (loc != null) {
+                plugin.getHologramManager().updateHologram(hologramLocation(loc),
+                        formatLines(gen, getDelaySeconds(gen)));
+            }
+        }
         if (gen.getType() == GeneratorType.GOLD) {
             plugin.getLogger().info("[DEBUG] Spawned gold at " + dropLocation);
         }

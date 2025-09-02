@@ -1,14 +1,17 @@
 # Changelog - HeneriaBedwars
 
 ## [4.3.2] - 2024-??-??
-
-### Modifié
+\n### Ajouté
+- Système de primes à paliers avec récompenses évolutives.
+\n### Modifié
 - Hologramme du PNJ central du lobby redésigné et synchronisé avec ses mouvements.
 - PNJ de boutique et d'améliorations dotés de skins distincts par défaut.
-
-### Corrigé
+- Message de prime redessiné avec un préfixe dédié.
+\n### Corrigé
 - Les vitres trempées ne sont plus disponibles via les achats rapides.
 - La forge au niveau maximal génère immédiatement des émeraudes dans le générateur de l'équipe.
+- Le texte des hologrammes de générateurs d'Émeraude reste lisible après l'apparition.
+- Les dragons de fin de partie se déplacent et attaquent correctement.
 
 ## [4.3.1] - 2024-??-??
 
