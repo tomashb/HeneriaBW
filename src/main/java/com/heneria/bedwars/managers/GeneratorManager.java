@@ -256,6 +256,8 @@ public class GeneratorManager {
                 emerald.setHologramEnabled(false);
                 arena.getGenerators().add(emerald);
                 registerGenerator(emerald);
+                spawn(emerald);
+                counters.put(emerald, getDelayCycles(emerald));
             }
         }
     }

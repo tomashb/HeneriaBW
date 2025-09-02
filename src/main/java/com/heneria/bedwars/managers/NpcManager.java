@@ -147,13 +147,16 @@ public class NpcManager {
         String modeName = displayMode(info.mode);
         int count = countPlayers(info.mode);
         List<String> lines = List.of(
-                ChatColor.YELLOW + "Mode: " + modeName,
-                ChatColor.GREEN + String.valueOf(count) + " joueurs"
+                ChatColor.GOLD + "★ " + ChatColor.AQUA + modeName,
+                ChatColor.GRAY + "Joueurs: " + ChatColor.GREEN + count
         );
         plugin.getHologramManager().updateHologram(holoLoc, lines);
     }
 
     private Location hologramLocation(NpcInfo info) {
+        if (info.stand != null) {
+            return info.stand.getLocation().add(0, hologramOffsetY, 0);
+        }
         return info.location.clone().add(0, hologramOffsetY, 0);
     }
 
@@ -240,6 +243,8 @@ public class NpcManager {
         npc.setLeftArmPose(new EulerAngle(Math.toRadians(-15), 0, 0));
         npc.setRightLegPose(new EulerAngle(Math.toRadians(-2), 0, 0));
         npc.setLeftLegPose(new EulerAngle(Math.toRadians(2), 0, 0));
+
+        info.stand = npc;
     }
 
     private String capitalize(String input) {
@@ -272,16 +277,22 @@ public class NpcManager {
      * @param info the NPC to remove
      */
     public void removeNpc(NpcInfo info) {
-        for (Entity entity : info.location.getWorld().getNearbyEntities(info.location, 1, 1, 1)) {
-            if (entity.getType() == EntityType.ARMOR_STAND) {
-                String tag = entity.getPersistentDataContainer().get(npcKey, PersistentDataType.STRING);
-                if (tag != null && tag.equals("JOIN_NPC:" + info.id)) {
-                    entity.remove();
-                    break;
+        Location holoLoc = hologramLocation(info);
+        if (info.stand != null) {
+            info.stand.remove();
+            info.stand = null;
+        } else {
+            for (Entity entity : info.location.getWorld().getNearbyEntities(info.location, 1, 1, 1)) {
+                if (entity.getType() == EntityType.ARMOR_STAND) {
+                    String tag = entity.getPersistentDataContainer().get(npcKey, PersistentDataType.STRING);
+                    if (tag != null && tag.equals("JOIN_NPC:" + info.id)) {
+                        entity.remove();
+                        break;
+                    }
                 }
             }
         }
-        plugin.getHologramManager().removeHologram(hologramLocation(info));
+        plugin.getHologramManager().removeHologram(holoLoc);
         npcs.remove(info);
         saveNpcs();
     }
@@ -384,6 +395,7 @@ public class NpcManager {
         public final Material chestplate;
         public final Material leggings;
         public final Material boots;
+        public ArmorStand stand;
 
         NpcInfo(String id, Location location, String mode, String skin, String name, Material item,
                 Material chestplate, Material leggings, Material boots) {
