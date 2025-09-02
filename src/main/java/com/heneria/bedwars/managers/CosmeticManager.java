@@ -55,7 +55,7 @@ public class CosmeticManager {
             @Override
             public void play(Location loc) {
                 if (loc.getWorld() != null) {
-                    loc.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, loc, 1);
+                    loc.getWorld().spawnParticle(Particle.EXPLOSION_EMITTER, loc, 1);
                     loc.getWorld().playSound(loc, Sound.ENTITY_GENERIC_EXPLODE, 1f, 1f);
                 }
             }
@@ -69,7 +69,7 @@ public class CosmeticManager {
             @Override
             public void play(Location loc) {
                 if (loc.getWorld() != null) {
-                    loc.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, loc.add(0.5,0.5,0.5), 30, 0.3,0.3,0.3);
+                    loc.getWorld().spawnParticle(Particle.FIREWORK, loc.add(0.5,0.5,0.5), 30, 0.3,0.3,0.3);
                     loc.getWorld().playSound(loc, Sound.ENTITY_FIREWORK_ROCKET_BLAST, 1f, 1f);
                 }
             }
@@ -78,8 +78,8 @@ public class CosmeticManager {
             @Override
             public void play(Location loc) {
                 if (loc.getWorld() != null) {
-                    loc.getWorld().spawnParticle(Particle.SMOKE_LARGE, loc.add(0.5,0.5,0.5), 20, 0.3,0.3,0.3);
-                    loc.getWorld().playSound(loc, Sound.BLOCK_CAMPFIRE_SMOKE, 1f, 1f);
+                    loc.getWorld().spawnParticle(Particle.LARGE_SMOKE, loc.add(0.5,0.5,0.5), 20, 0.3,0.3,0.3);
+                    loc.getWorld().playSound(loc, Sound.BLOCK_CAMPFIRE_CRACKLE, 1f, 1f);
                 }
             }
         };
