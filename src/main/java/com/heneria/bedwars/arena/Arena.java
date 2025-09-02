@@ -78,6 +78,10 @@ public class Arena {
     private int countdownTime;
     private int maxBuildY = 256;
     private int maxBuildDistance = 0;
+    private int minX = Integer.MIN_VALUE;
+    private int maxX = Integer.MAX_VALUE;
+    private int minZ = Integer.MIN_VALUE;
+    private int maxZ = Integer.MAX_VALUE;
     private Scoreboard arenaScoreboard;
 
     /**
@@ -214,8 +218,67 @@ public class Arena {
         this.maxBuildDistance = maxBuildDistance;
     }
 
+    public int getMinX() {
+        return minX;
+    }
+
+    public void setMinX(int minX) {
+        this.minX = minX;
+    }
+
+    public int getMaxX() {
+        return maxX;
+    }
+
+    public void setMaxX(int maxX) {
+        this.maxX = maxX;
+    }
+
+    public int getMinZ() {
+        return minZ;
+    }
+
+    public void setMinZ(int minZ) {
+        this.minZ = minZ;
+    }
+
+    public int getMaxZ() {
+        return maxZ;
+    }
+
+    public void setMaxZ(int maxZ) {
+        this.maxZ = maxZ;
+    }
+
     public int getCountdownTime() {
         return countdownTime;
+    }
+
+    public boolean isWithinBounds(Location loc) {
+        if (loc == null) {
+            return true;
+        }
+        if (maxBuildY > 0 && loc.getBlockY() > maxBuildY) {
+            return false;
+        }
+        if (loc.getBlockX() < minX || loc.getBlockX() > maxX) {
+            return false;
+        }
+        if (loc.getBlockZ() < minZ || loc.getBlockZ() > maxZ) {
+            return false;
+        }
+        if (maxBuildDistance > 0) {
+            Location center = getCenterLocation();
+            if (center != null) {
+                double dx = loc.getX() - center.getX();
+                double dz = loc.getZ() - center.getZ();
+                double dist = Math.sqrt(dx * dx + dz * dz);
+                if (dist > maxBuildDistance) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
