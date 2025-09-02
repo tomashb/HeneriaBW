@@ -12,6 +12,7 @@
 ### Corrigé
 - Téléportation des spectateurs au-dessus du lobby après la mort pour éviter qu'ils restent sous la carte.
 - Correction d'une erreur de compilation dans `TrapListener` et suppression de plusieurs avertissements Maven.
+- Correction d'une erreur de compilation due à une variable `key` redéfinie dans `ShopManager#parseItem`.
 
 ## [4.2.0] - 2024-??-??
 
