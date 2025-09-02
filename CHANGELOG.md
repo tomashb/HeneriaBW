@@ -1,5 +1,10 @@
 # Changelog - HeneriaBedwars
 
+## [4.3.1] - 2024-??-??
+
+### Corrigé
+- Correction d'une erreur de compilation dans le GameListener due à un appel de méthode incorrect.
+
 ## [4.3.0] - 2024-??-??
 
 ### Ajouté

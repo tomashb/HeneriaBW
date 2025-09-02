@@ -64,6 +64,9 @@ public class GameListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         Block block = event.getBlock();
+        if (event.isCancelled()) {
+            return;
+        }
         if (plugin.getSetupManager().isBypassing(player.getUniqueId())) {
             return;
         }
