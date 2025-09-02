@@ -110,7 +110,7 @@ public class ItemBuilder {
             if (texture.startsWith("http")) {
                 profile.getTextures().setSkin(new URL(texture));
             } else if (texture.length() > 60) {
-                profile.getTextures().setSkin(texture);
+                profile.getTextures().setSkin(new URL(texture));
             } else {
                 skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(texture));
                 itemStack.setItemMeta(skullMeta);
