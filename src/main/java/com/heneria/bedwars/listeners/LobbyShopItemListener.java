@@ -2,6 +2,7 @@ package com.heneria.bedwars.listeners;
 
 import com.heneria.bedwars.gui.LobbyShopMenu;
 import com.heneria.bedwars.utils.ItemBuilder;
+import com.heneria.bedwars.HeneriaBedwars;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,10 +18,21 @@ import org.bukkit.inventory.ItemStack;
  */
 public class LobbyShopItemListener implements Listener {
 
-    private final ItemStack shopItem = new ItemBuilder(Material.CHEST)
-            .setName("&aBoutique Cosmétiques")
-            .addLore("&7Clique-droit pour ouvrir")
-            .build();
+    private final ItemStack shopItem;
+
+    public LobbyShopItemListener() {
+        var cfg = HeneriaBedwars.getInstance().getConfig();
+        String name = cfg.getString("lobby-shop-item.name", "&aBoutique Cosmétiques");
+        String skin = cfg.getString("lobby-shop-item.skin", "MHF_Chest");
+        var lore = cfg.getStringList("lobby-shop-item.lore");
+        ItemBuilder builder = new ItemBuilder(Material.PLAYER_HEAD)
+                .setName(name)
+                .setSkullOwner(skin);
+        for (String line : lore) {
+            builder.addLore(line);
+        }
+        this.shopItem = builder.build();
+    }
 
     private boolean isShopItem(ItemStack stack) {
         if (stack == null) return false;

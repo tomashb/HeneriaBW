@@ -110,7 +110,7 @@ public class GeneratorManager {
     }
 
     private Location hologramLocation(Location base) {
-        return base.clone().add(0.5, hologramOffsetY, 0.5);
+        return base.getBlock().getLocation().add(0.5, hologramOffsetY, 0.5);
     }
 
     private void startTask() {
@@ -154,8 +154,9 @@ public class GeneratorManager {
             case EMERALD -> material = Material.EMERALD;
             default -> material = Material.IRON_INGOT;
         }
-        Location dropLocation = gen.getLocation().clone().add(0.5, 1.0, 0.5);
-        dropLocation.getWorld().dropItem(dropLocation, new ItemStack(material, gs.amount()));
+        Location dropLocation = gen.getLocation().getBlock().getLocation().add(0.5, 1.0, 0.5);
+        var item = dropLocation.getWorld().dropItem(dropLocation, new ItemStack(material, gs.amount()));
+        item.setVelocity(new org.bukkit.util.Vector(0, 0, 0));
         if (gen.getType() == GeneratorType.GOLD) {
             plugin.getLogger().info("[DEBUG] Spawned gold at " + dropLocation);
         }

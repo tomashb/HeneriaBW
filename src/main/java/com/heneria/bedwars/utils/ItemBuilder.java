@@ -4,6 +4,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +68,23 @@ public class ItemBuilder {
         lore.add(ChatColor.translateAlternateColorCodes('&', line));
         meta.setLore(lore);
         itemStack.setItemMeta(meta);
+        return this;
+    }
+
+    /**
+     * Sets the owning player for a player head item to apply a custom skin.
+     *
+     * <p>This method has no effect if the item is not a player head or if the
+     * provided skin name is {@code null}.</p>
+     *
+     * @param skin the player name whose skin should be applied
+     * @return this builder
+     */
+    public ItemBuilder setSkullOwner(String skin) {
+        if (skin != null && meta instanceof SkullMeta skullMeta) {
+            skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(skin));
+            itemStack.setItemMeta(skullMeta);
+        }
         return this;
     }
 
