@@ -451,6 +451,11 @@ public class Arena {
             return;
         }
         EnderDragon dragon = center.getWorld().spawn(center, EnderDragon.class);
+        dragon.setAI(true);
+        try {
+            dragon.setPhase(EnderDragon.Phase.CIRCLING);
+        } catch (NoSuchMethodError ignored) {
+        }
         dragons.add(dragon);
         HeneriaBedwars.getInstance().getLogger().info("Arena " + name + " spawned a dragon at " + center);
     }

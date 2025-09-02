@@ -103,7 +103,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.databaseManager = new DatabaseManager(this);
         this.statsManager = new StatsManager(this, this.databaseManager);
         this.playerProgressionManager = new PlayerProgressionManager();
-        this.bountyManager = new BountyManager(3, 5);
+        this.bountyManager = new BountyManager();
         this.npcManager = new NpcManager(this);
         this.npcManager.startHologramTask();
         this.npcAnimationManager = new NpcAnimationManager(this, this.npcManager);
