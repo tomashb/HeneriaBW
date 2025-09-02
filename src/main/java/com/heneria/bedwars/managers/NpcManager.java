@@ -16,6 +16,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.EulerAngle;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +33,8 @@ public class NpcManager {
     private final YamlConfiguration config;
     private final List<NpcInfo> npcs = new ArrayList<>();
     private final NamespacedKey npcKey;
+    private BukkitTask hologramTask;
+    private final double hologramOffsetY = 2.2;
 
     public NpcManager(HeneriaBedwars plugin) {
         this.plugin = plugin;
@@ -109,8 +113,83 @@ public class NpcManager {
             }
             NpcInfo info = new NpcInfo(id, loc, mode, skin, name, item, chestplate, leggings, boots);
             spawnNpc(info);
+            updateNpcHologram(info);
             npcs.add(info);
         }
+    }
+
+    public void startHologramTask() {
+        if (hologramTask != null) {
+            return;
+        }
+        hologramTask = new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (NpcInfo info : npcs) {
+                    updateNpcHologram(info);
+                }
+            }
+        }.runTaskTimer(plugin, 0L, 40L);
+    }
+
+    public void stopHologramTask() {
+        if (hologramTask != null) {
+            hologramTask.cancel();
+            hologramTask = null;
+        }
+    }
+
+    private void updateNpcHologram(NpcInfo info) {
+        if (info.location == null || info.mode == null) {
+            return;
+        }
+        Location holoLoc = hologramLocation(info);
+        String modeName = displayMode(info.mode);
+        int count = countPlayers(info.mode);
+        List<String> lines = List.of(
+                ChatColor.YELLOW + "Mode: " + modeName,
+                ChatColor.GREEN + String.valueOf(count) + " joueurs"
+        );
+        plugin.getHologramManager().updateHologram(holoLoc, lines);
+    }
+
+    private Location hologramLocation(NpcInfo info) {
+        return info.location.clone().add(0, hologramOffsetY, 0);
+    }
+
+    private int countPlayers(String mode) {
+        int count = 0;
+        for (com.heneria.bedwars.arena.Arena arena : plugin.getArenaManager().getAllArenas()) {
+            if (matchesMode(arena, mode)) {
+                count += arena.getPlayers().size();
+            }
+        }
+        return count;
+    }
+
+    private boolean matchesMode(com.heneria.bedwars.arena.Arena arena, String mode) {
+        int teams = arena.getTeams().size();
+        if (teams == 0) {
+            return false;
+        }
+        int teamSize = arena.getMaxPlayers() / teams;
+        return switch (mode.toUpperCase()) {
+            case "SOLOS" -> teamSize == 1;
+            case "DUOS" -> teamSize == 2;
+            case "TRIOS", "TRIO" -> teamSize == 3;
+            case "QUADS", "QUAD", "SQUADS", "SQUAD" -> teamSize == 4;
+            default -> false;
+        };
+    }
+
+    private String displayMode(String mode) {
+        return switch (mode.toUpperCase()) {
+            case "SOLOS" -> "Solos";
+            case "DUOS" -> "Duos";
+            case "TRIO", "TRIOS" -> "Trio";
+            case "QUAD", "QUADS", "SQUAD", "SQUADS" -> "Squad";
+            default -> capitalize(mode);
+        };
     }
 
     public void spawnNpc(NpcInfo info) {
@@ -174,6 +253,7 @@ public class NpcManager {
         NpcInfo info = new NpcInfo(UUID.randomUUID().toString(), location, upperMode, skin, name, item, chestplate, leggings, boots);
         npcs.add(info);
         spawnNpc(info);
+        updateNpcHologram(info);
         saveNpcs();
     }
 
@@ -201,6 +281,7 @@ public class NpcManager {
                 }
             }
         }
+        plugin.getHologramManager().removeHologram(hologramLocation(info));
         npcs.remove(info);
         saveNpcs();
     }
@@ -264,19 +345,7 @@ public class NpcManager {
         if (target == null) {
             return false;
         }
-
-        for (Entity entity : target.location.getWorld().getNearbyEntities(target.location, 1, 1, 1)) {
-            if (entity.getType() == EntityType.ARMOR_STAND) {
-                String tag = entity.getPersistentDataContainer().get(npcKey, PersistentDataType.STRING);
-                if (tag != null && tag.equals("JOIN_NPC:" + target.id)) {
-                    entity.remove();
-                    break;
-                }
-            }
-        }
-
-        npcs.remove(target);
-        saveNpcs();
+        removeNpc(target);
         return true;
     }
 

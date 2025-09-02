@@ -105,6 +105,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         this.playerProgressionManager = new PlayerProgressionManager();
         this.bountyManager = new BountyManager(3, 5);
         this.npcManager = new NpcManager(this);
+        this.npcManager.startHologramTask();
         this.npcAnimationManager = new NpcAnimationManager(this, this.npcManager);
         this.npcAnimationManager.start();
         this.reconnectManager = new ReconnectManager(this);
@@ -132,6 +133,9 @@ public final class HeneriaBedwars extends JavaPlugin {
         }
         if (npcAnimationManager != null) {
             npcAnimationManager.stop();
+        }
+        if (npcManager != null) {
+            npcManager.stopHologramTask();
         }
         getLogger().info("HeneriaBedwars a été désactivé.");
     }

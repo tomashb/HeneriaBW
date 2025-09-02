@@ -6,6 +6,7 @@
 - Simulation des particules de coup critique pour chaque attaque en PvP 1.8.
 - Commande `/spawn` utilisable en cours de partie pour quitter et déclencher la vérification de victoire.
 - Limites de construction configurables par arène (`boundaries`).
+- Hologrammes de mode au-dessus des PNJ du lobby indiquant les joueurs connectés par mode.
 
 ## [4.2.0] - 2024-??-??
 
