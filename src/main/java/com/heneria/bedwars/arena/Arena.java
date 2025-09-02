@@ -798,7 +798,8 @@ public class Arena {
                 if (skin != null) {
                     meta.setOwningPlayer(Bukkit.getOfflinePlayer(skin.getOwner()));
                 } else {
-                    meta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_Villager"));
+                    String cfgSkin = HeneriaBedwars.getInstance().getConfig().getString("npc-skins.item-shop", "MHF_Villager");
+                    meta.setOwningPlayer(Bukkit.getOfflinePlayer(cfgSkin));
                 }
                 head.setItemMeta(meta);
                 npc.getEquipment().setHelmet(head);
@@ -827,7 +828,8 @@ public class Arena {
                 if (skin != null) {
                     meta.setOwningPlayer(Bukkit.getOfflinePlayer(skin.getOwner()));
                 } else {
-                    meta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_Villager"));
+                    String cfgSkin = HeneriaBedwars.getInstance().getConfig().getString("npc-skins.upgrade-shop", "MHF_Villager");
+                    meta.setOwningPlayer(Bukkit.getOfflinePlayer(cfgSkin));
                 }
                 head.setItemMeta(meta);
                 npc.getEquipment().setHelmet(head);

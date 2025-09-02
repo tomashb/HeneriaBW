@@ -48,9 +48,12 @@ public class TeamSelectorListener implements Listener {
         if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
+        if (event.getHand() != org.bukkit.inventory.EquipmentSlot.HAND) {
+            return;
+        }
         ItemStack item = event.getItem();
         if (item == null) {
-            return;
+            item = event.getPlayer().getInventory().getItemInMainHand();
         }
         ItemMeta meta = item.getItemMeta();
         if (meta == null || !meta.getPersistentDataContainer().has(TEAM_SELECTOR_KEY, PersistentDataType.BYTE)) {
