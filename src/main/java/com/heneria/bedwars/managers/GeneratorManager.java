@@ -31,7 +31,7 @@ public class GeneratorManager {
     private final Map<GeneratorType, Map<Integer, GeneratorSettings>> settings = new EnumMap<>(GeneratorType.class);
     private final Map<GeneratorType, List<String>> hologramFormats = new EnumMap<>(GeneratorType.class);
     private boolean hologramsEnabled = true;
-    private double hologramOffsetY = 2.0;
+    private double hologramOffsetY = 2.5;
 
     public GeneratorManager(HeneriaBedwars plugin) {
         this.plugin = plugin;
@@ -69,7 +69,7 @@ public class GeneratorManager {
     private void loadHologramSettings() {
         FileConfiguration cfg = plugin.getConfig();
         hologramsEnabled = cfg.getBoolean("generator-holograms.enabled", true);
-        hologramOffsetY = cfg.getDouble("generator-holograms.offset-y", 2.0);
+        hologramOffsetY = cfg.getDouble("generator-holograms.offset-y", 2.5);
         ConfigurationSection formats = cfg.getConfigurationSection("generator-holograms.formats");
         if (formats != null) {
             for (String key : formats.getKeys(false)) {
@@ -154,7 +154,7 @@ public class GeneratorManager {
             case EMERALD -> material = Material.EMERALD;
             default -> material = Material.IRON_INGOT;
         }
-        Location dropLocation = gen.getLocation().clone().add(0.5, 0.5, 0.5);
+        Location dropLocation = gen.getLocation().clone().add(0.5, 1.0, 0.5);
         dropLocation.getWorld().dropItem(dropLocation, new ItemStack(material, gs.amount()));
         if (gen.getType() == GeneratorType.GOLD) {
             plugin.getLogger().info("[DEBUG] Spawned gold at " + dropLocation);

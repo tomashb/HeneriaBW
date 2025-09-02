@@ -74,6 +74,18 @@ public class ArenaManager {
             if (config.contains("boundaries.max-distance-from-center")) {
                 arena.setMaxBuildDistance(config.getInt("boundaries.max-distance-from-center"));
             }
+            if (config.contains("boundaries.min-x")) {
+                arena.setMinX(config.getInt("boundaries.min-x"));
+            }
+            if (config.contains("boundaries.max-x")) {
+                arena.setMaxX(config.getInt("boundaries.max-x"));
+            }
+            if (config.contains("boundaries.min-z")) {
+                arena.setMinZ(config.getInt("boundaries.min-z"));
+            }
+            if (config.contains("boundaries.max-z")) {
+                arena.setMaxZ(config.getInt("boundaries.max-z"));
+            }
             if (config.contains("lobby.world")) {
                 World world = Bukkit.getWorld(config.getString("lobby.world"));
                 if (world != null) {
@@ -217,6 +229,10 @@ public class ArenaManager {
         config.set("maxPlayers", arena.getMaxPlayers());
         config.set("boundaries.max-height", arena.getMaxBuildY());
         config.set("boundaries.max-distance-from-center", arena.getMaxBuildDistance());
+        config.set("boundaries.min-x", arena.getMinX());
+        config.set("boundaries.max-x", arena.getMaxX());
+        config.set("boundaries.min-z", arena.getMinZ());
+        config.set("boundaries.max-z", arena.getMaxZ());
         if (arena.getWorldName() != null) {
             config.set("world", arena.getWorldName());
         }
