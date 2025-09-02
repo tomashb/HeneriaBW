@@ -212,6 +212,17 @@ public class UpgradeManager {
     }
 
     /**
+     * Applies the speed potion effect to the player.
+     *
+     * @param player    the player receiving the effect
+     * @param amplifier the amplifier of the effect
+     * @param duration  the duration of the effect in ticks
+     */
+    public void applySpeed(Player player, int amplifier, int duration) {
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, amplifier, true, true, true));
+    }
+
+    /**
      * Applies the trap's potion effect to the player.
      *
      * @param player the player affected
@@ -272,6 +283,11 @@ public class UpgradeManager {
         int haste = team.getUpgradeLevel("haste");
         if (haste > 0) {
             applyHaste(player, haste - 1, 20 * 60 * 60);
+        }
+
+        int speed = team.getUpgradeLevel("speed");
+        if (speed > 0) {
+            applySpeed(player, speed - 1, 20 * 60 * 60);
         }
     }
 

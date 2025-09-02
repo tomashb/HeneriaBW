@@ -20,14 +20,14 @@ upgrade-categories:
     upgrades:
       sharpness:
         name: "&aTranchant d'équipe"
-        item: DIAMOND_SWORD
+        item: IRON_SWORD
         tiers:
           1:
             cost: 4
             description: "&7Les épées de l'équipe obtiennent Tranchant I."
       protection:
         name: "&aProtection d'équipe"
-        item: DIAMOND_CHESTPLATE
+        item: IRON_CHESTPLATE
         tiers:
           1:
             cost: 2
@@ -50,7 +50,7 @@ upgrade-categories:
             description: "&7Les joueurs gagnent Hâte II."
       heal-pool:
         name: "&aSoin de Base"
-        item: GOLDEN_APPLE
+        item: BEACON
         tiers:
           1:
             cost: 5
@@ -83,13 +83,20 @@ upgrade-categories:
           4:
             cost: 8
             description: "&7Active un générateur d'Émeraudes lent."
+      speed:
+        name: "&aVitesse d'équipe"
+        item: DIAMOND_BOOTS
+        tiers:
+          1:
+            cost: 4
+            description: "&7Les joueurs gagnent Speed I permanent."
   traps:
     title: "Pièges"
     rows: 3
     traps:
       miner-fatigue-trap:
         name: "&cPiège de Fatigue"
-        item: PRISMARINE_SHARD
+        item: IRON_PICKAXE
         cost: 1
         description:
           - "&7Le prochain ennemi qui entre"
@@ -100,7 +107,7 @@ upgrade-categories:
           amplifier: 1
       blindness-trap:
         name: "&8Piège d'Aveuglement"
-        item: INK_SAC
+        item: IRON_SHOVEL
         cost: 1
         description:
           - "&7Le prochain ennemi qui entre"
@@ -108,4 +115,25 @@ upgrade-categories:
         effect:
           type: BLINDNESS
           duration: 8
+          amplifier: 0
+      counter-offensive-trap:
+        name: "&bPiège Contre-Offensive"
+        item: FEATHER
+        cost: 1
+        description:
+          - "&7Confère Speed II et Jump Boost II"
+          - "&7aux alliés pendant 15 secondes."
+        effect:
+          type: SPEED
+          duration: 15
+          amplifier: 1
+      reveal-trap:
+        name: "&ePiège Révélateur"
+        item: REDSTONE_TORCH
+        cost: 1
+        description:
+          - "&7Révèle les ennemis invisibles."
+        effect:
+          type: GLOWING
+          duration: 10
           amplifier: 0

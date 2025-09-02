@@ -44,6 +44,11 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🛒 **Boutiques Fonctionnelles** : Interagissez avec les PNJ pour acheter des objets dans une boutique colorée (vitres teintées par catégorie, section d'achats rapides enrichie) ou des améliorations permanentes pour votre équipe.
 - 🏥 **Soin de Base** : Achetez une aura de régénération autour de votre lit pour soigner vos défenseurs.
 - 🔔 **Alarme Anti-Intrusion** : Un son puissant alerte toute l'équipe lorsqu'un piège est déclenché.
+- 🪤 **Menu "Upgrades & Traps" remanié** : Les améliorations et pièges sont affichés sur deux rangées, les pièges achetés apparaissant dans une barre dédiée.
+  - Blindness Trap : applique Cécité aux intrus.
+  - Counter-Offensive Trap : donne Speed II et Jump Boost II aux alliés pendant 15 s.
+  - Reveal Trap : révèle et illumine les ennemis invisibles.
+  - Miner Fatigue Trap : ralentit le minage des ennemis.
 - 🧱 **Construction de Blocs** : Achetez, placez et cassez des blocs pour bâtir ponts et défenses. La catégorie « Blocs » propose désormais du Grès, de l'Obsidienne, des Échelles et de la Toile d'Araignée. Des limites configurables empêchent de construire hors de la zone de jeu.
  - 🛡️ **Kit de départ lié** : Vous réapparaissez avec une armure en cuir teintée aux couleurs de votre équipe ainsi qu'une épée, une pioche et une hache en bois impossibles à jeter.
 - 🛡️ **Armures Directes** : Achetez directement l'armure de votre choix (mailles, fer ou diamant) et conservez-la après la mort, tandis que les outils et épées doivent être rachetés.

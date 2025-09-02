@@ -7,6 +7,7 @@
 - Commande `/spawn` utilisable en cours de partie pour quitter et déclencher la vérification de victoire.
 - Limites de construction configurables par arène (`boundaries`).
 - Hologrammes de mode au-dessus des PNJ du lobby indiquant les joueurs connectés par mode.
+- Refonte du menu "Upgrades & Traps" avec affichage des pièges actifs et nouveaux pièges (Cécité, Contre-Offensive, Révélation, Fatigue de minage).
 
 ## [4.2.0] - 2024-??-??
 
