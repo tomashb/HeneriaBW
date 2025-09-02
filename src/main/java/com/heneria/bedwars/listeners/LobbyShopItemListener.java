@@ -27,7 +27,7 @@ public class LobbyShopItemListener implements Listener {
         var lore = cfg.getStringList("lobby-shop-item.lore");
         ItemBuilder builder = new ItemBuilder(Material.PLAYER_HEAD)
                 .setName(name)
-                .setSkullOwner(skin);
+                .setSkullTexture(skin);
         for (String line : lore) {
             builder.addLore(line);
         }

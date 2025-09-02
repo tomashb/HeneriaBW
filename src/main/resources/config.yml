@@ -44,6 +44,10 @@ generator-holograms:
 npc-skins:
   item-shop: "MHF_Villager"
   upgrade-shop: "MHF_Zombie"
+team-selector-item:
+  skin: "MHF_Banner"
+leave-item:
+  skin: "MHF_Bed"
 lobby-shop-item:
   name: "&aBoutique Cosmétiques"
   lore:

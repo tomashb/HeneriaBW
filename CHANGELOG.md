@@ -3,6 +3,8 @@
 ## [4.3.2] - 2024-??-??
 \n### Ajouté
 - Système de primes à paliers avec récompenses évolutives.
+- Tablist en jeu affichant la couleur d'équipe et l'état des lits.
+- Icônes du lobby (boutique, sélecteur d'équipe, sortie) converties en têtes personnalisées.
 \n### Modifié
 - Hologramme du PNJ central du lobby redésigné et synchronisé avec ses mouvements.
 - PNJ de boutique et d'améliorations dotés de skins distincts par défaut.

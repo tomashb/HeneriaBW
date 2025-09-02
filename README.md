@@ -20,9 +20,9 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `shop.yml` : Personnalisez entièrement les catégories et les objets de la boutique d'items.
   - `upgrades.yml` : Définissez les améliorations d'équipe et les pièges de base.
   - `scoreboard.yml` : Personnalisez les tableaux de bord du lobby principal, du lobby d'attente et de la partie via les sections `main-lobby`, `lobby` et `game`. La section `main-lobby` inclut une rubrique `Infos` (grade, rang, Elo, Henacoins) reposant sur PlaceholderAPI (`%luckperms_prefix%`, `%vault_eco_balance_formatted%`).
-  - `tablist.yml` : Configurez l'en-tête et le pied de page du lobby principal (`main-lobby`) et du lobby d'attente (`waiting-lobby`) avec couleurs, sauts de ligne (`\n`) et placeholders.
+  - `tablist.yml` : Configurez l'en-tête et le pied de page du lobby principal (`main-lobby`), du lobby d'attente (`waiting-lobby`) et de la partie (`game`) avec couleurs, sauts de ligne (`\n`) et placeholders.
   - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons) et définissez un `display-name` lisible pour l'affichage du prochain événement sur le scoreboard.
-  - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`), la hauteur de téléportation anti-vide (`void-teleport-height`), personnalisez le format du chat via `chat-format` et contrôlez les animations du lobby via `animations.lobby-npc` (`enable`, `levitation-strength`, `presentation-speed`).
+  - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`), la hauteur de téléportation anti-vide (`void-teleport-height`), personnalisez le format du chat via `chat-format`, contrôlez les animations du lobby via `animations.lobby-npc` (`enable`, `levitation-strength`, `presentation-speed`) et définissez les textures des items du lobby (`team-selector-item.skin`, `leave-item.skin`, `lobby-shop-item.skin`).
   - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie, avec l'option `purchase-limit` pour limiter le nombre d'achats par joueur.
   - `messages.yml` : Traduisez et personnalisez tous les messages du plugin, y compris `server.join-message` et `server.leave-message` (préfixe vide par défaut).
 
@@ -39,6 +39,8 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🎽 **Sélecteur d'équipe** : Choisissez votre camp grâce à un menu interactif avant le début de la partie.
 - 💬 **Chat et Tablist isolés** : Les messages et la liste des joueurs sont limités à votre partie pour éviter le spam entre arènes.
 - 🎨 **Couleurs d'équipe dynamiques** : Les pseudos des joueurs prennent la couleur de leur équipe dans la tablist et au-dessus de leur tête.
+- 📋 **Tablist en Jeu Détaillée** : Affiche pour chaque joueur la couleur de son équipe et l'état de son lit.
+- 🎭 **Icônes de Lobby Personnalisées** : Boutique, sélecteur d'équipe et sortie utilisent des têtes texturées uniques.
 - 🛏️ **Mécaniques Classiques** : Protégez votre lit pour pouvoir réapparaître, et détruisez celui de vos ennemis pour les éliminer définitivement.
 - 💰 **Système Économique** : Collectez du Fer, de l'Or, des Diamants et des Émeraudes à des vitesses différentes pour acheter de l'équipement.
 - 🎯 **Système de primes à paliers** : Devenez recherché en enchaînant les éliminations et offrez des récompenses croissantes à ceux qui vous arrêtent.

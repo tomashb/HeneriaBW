@@ -31,8 +31,10 @@ public class LeaveItemListener implements Listener {
      * @return the configured ItemStack
      */
     public static ItemStack createLeaveItem() {
-        ItemStack item = new ItemBuilder(Material.RED_BED)
+        String skin = HeneriaBedwars.getInstance().getConfig().getString("leave-item.skin", "MHF_Bed");
+        ItemStack item = new ItemBuilder(Material.PLAYER_HEAD)
                 .setName(MessageManager.get("items.leave-item-name"))
+                .setSkullTexture(skin)
                 .build();
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
