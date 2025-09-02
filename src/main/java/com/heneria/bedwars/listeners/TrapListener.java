@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.Map;
 import java.util.UUID;
@@ -60,7 +62,20 @@ public class TrapListener implements Listener {
                     if (trap == null) {
                         continue;
                     }
-                    upgradeManager.applyTrapEffect(player, trap);
+                    if (entry.getKey().equals("counter-offensive-trap")) {
+                        for (UUID uuid : team.getMembers()) {
+                            Player p = Bukkit.getPlayer(uuid);
+                            if (p != null) {
+                                p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 15 * 20, 1, true, true, true));
+                                p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 15 * 20, 1, true, true, true));
+                            }
+                        }
+                    } else if (entry.getKey().equals("reveal-trap")) {
+                        player.removePotionEffect(PotionEffectType.INVISIBILITY);
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, trap.duration() * 20, 0, true, true, true));
+                    } else {
+                        upgradeManager.applyTrapEffect(player, trap);
+                    }
                     team.setTrapActive(entry.getKey(), false);
                     MessageManager.sendMessage(player, "game.trap-triggered-attacker", "trap", trap.name());
                     Sound alarm = team.hasTrapAlarm() ? Sound.valueOf(upgradeManager.getTrapAlarmSound()) : null;
@@ -74,6 +89,7 @@ public class TrapListener implements Listener {
                         }
                     }
                     triggered = true;
+                    break;
                 }
                 if (triggered) {
                     break;

@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -29,7 +30,7 @@ public class Team {
     private Material upgradeShopBoots;
     private boolean hasBed = true;
     private final Map<String, Integer> upgradeLevels = new HashMap<>();
-    private final Map<String, Boolean> traps = new HashMap<>();
+    private final Map<String, Boolean> traps = new LinkedHashMap<>();
 
     /**
      * Creates a new team with the given color.
