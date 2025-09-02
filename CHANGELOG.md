@@ -1,5 +1,15 @@
 # Changelog - HeneriaBedwars
 
+## [4.3.2] - 2024-??-??
+
+### Modifié
+- Hologramme du PNJ central du lobby redésigné et synchronisé avec ses mouvements.
+- PNJ de boutique et d'améliorations dotés de skins distincts par défaut.
+
+### Corrigé
+- Les vitres trempées ne sont plus disponibles via les achats rapides.
+- La forge au niveau maximal génère immédiatement des émeraudes dans le générateur de l'équipe.
+
 ## [4.3.1] - 2024-??-??
 
 ### Modifié

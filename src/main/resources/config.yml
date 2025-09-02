@@ -43,7 +43,7 @@ generator-holograms:
       - "&fApparition dans &a{time}s"
 npc-skins:
   item-shop: "MHF_Villager"
-  upgrade-shop: "MHF_Villager"
+  upgrade-shop: "MHF_Zombie"
 lobby-shop-item:
   name: "&aBoutique Cosmétiques"
   lore:

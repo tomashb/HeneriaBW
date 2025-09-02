@@ -44,6 +44,10 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 📡 **Hologrammes Intégrés** : Compte à rebours dynamique au-dessus des générateurs de Diamants et d'Émeraudes sans dépendance externe.
 - 🔥 **Forge évolutive** : Améliorez la Forge de votre équipe pour accélérer le Fer et l'Or, le dernier niveau produisant même des Émeraudes sur votre île.
 - 🛒 **Boutiques Fonctionnelles** : Interagissez avec les PNJ pour acheter des objets dans une boutique colorée (vitres teintées par catégorie, section d'achats rapides enrichie) ou des améliorations permanentes pour votre équipe.
+- 🧍 **PNJ personnalisés** : Les vendeurs d'objets et d'améliorations arborent désormais des skins distincts.
+- 🪧 **Hologramme dynamique** : L'affichage du PNJ central du lobby est plus coloré et suit ses mouvements.
+- 🧱 **Achat rapide épuré** : Les vitres trempées ne sont plus proposées dans la section d'achats rapides.
+- 💎 **Forge Max fiable** : Le niveau maximal de forge génère immédiatement des émeraudes dans votre base.
 - 🏥 **Soin de Base** : Achetez une aura de régénération autour de votre lit pour soigner vos défenseurs.
 - 🔔 **Alarme Anti-Intrusion** : Un son puissant alerte toute l'équipe lorsqu'un piège est déclenché.
 - 🪤 **Menu "Upgrades & Traps" remanié** : Les améliorations et pièges sont affichés sur deux rangées centrées avec descriptions colorées, les pièges achetés apparaissant dans une barre dédiée.
