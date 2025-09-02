@@ -10,6 +10,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -125,7 +126,8 @@ public class UpgradeManager {
                         int cost = trs.getInt(base + "cost", 1);
                         List<String> description = trs.getStringList(base + "description");
                         ConfigurationSection effectSec = trs.getConfigurationSection(base + "effect");
-                        PotionEffectType type = PotionEffectType.getByName(effectSec.getString("type", "BLINDNESS"));
+                        PotionEffectType type = PotionEffectType.getByKey(
+                                NamespacedKey.minecraft(effectSec.getString("type", "BLINDNESS").toLowerCase(Locale.ROOT)));
                         int duration = effectSec.getInt("duration", 5);
                         int amplifier = effectSec.getInt("amplifier", 0);
                         Trap trap = new Trap(id, name, item, cost, description, type, duration, amplifier);

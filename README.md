@@ -481,3 +481,5 @@ animations:
 - Correction d'une erreur de compilation en renommant `PotionEffectType.JUMP` en `PotionEffectType.JUMP_BOOST`.
 - Suppression d'avertissements Maven liés à une API dépréciée et à des opérations non vérifiées.
 - Résolution d'une erreur de compilation due à la redéfinition de la variable `key` dans `ShopManager#parseItem`.
+- Mise à jour de la gestion des textures de têtes personnalisées avec `PlayerProfile`.
+- Remplacement de `PotionEffectType#getByName` par `PotionEffectType#getByKey` pour supprimer les avertissements de dépréciation.
