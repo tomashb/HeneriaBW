@@ -482,4 +482,5 @@ animations:
 - Suppression d'avertissements Maven liés à une API dépréciée et à des opérations non vérifiées.
 - Résolution d'une erreur de compilation due à la redéfinition de la variable `key` dans `ShopManager#parseItem`.
 - Mise à jour de la gestion des textures de têtes personnalisées avec `PlayerProfile`.
+- Correction d'une incompatibilité de type dans `ItemBuilder#setSkullTexture` en convertissant les chaînes d'URL en objets `URL`.
 - Remplacement de `PotionEffectType#getByName` par `PotionEffectType#getByKey` pour supprimer les avertissements de dépréciation.
