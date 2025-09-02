@@ -8,7 +8,6 @@ import com.heneria.bedwars.managers.SetupManager;
 import com.heneria.bedwars.setup.NpcCreationProcess;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -90,7 +89,7 @@ public class AdminCommand implements SubCommand {
                     return;
                 }
                 plugin.setMainLobby(player.getLocation());
-                player.sendMessage(ChatColor.GREEN + "Lobby principal défini.");
+                MessageManager.sendMessage(player, "admin.main-lobby-set");
                 return;
             } else if (sub.equals("setshopnpc") && args.length >= 3) {
                 if (!player.hasPermission("heneriabw.admin.setshopnpc")) {
@@ -155,7 +154,7 @@ public class AdminCommand implements SubCommand {
                     npc.getEquipment().setBoots(item);
                 }
                 npc.setCustomNameVisible(true);
-                player.sendMessage(ChatColor.GREEN + "PNJ de boutique " + type + " pour l'équipe " + team + " placé.");
+                MessageManager.sendMessage(player, "admin.shop-npc-placed", "type", type, "team", team);
                 return;
             } else if (sub.equals("confirmnpc")) {
                 if (!player.hasPermission("heneriabw.admin.lobby")) {
@@ -165,12 +164,12 @@ public class AdminCommand implements SubCommand {
                 SetupManager setupManager = plugin.getSetupManager();
                 NpcCreationProcess process = setupManager.getNpcCreation(player.getUniqueId());
                 if (process == null || process.getStep() != NpcCreationProcess.Step.WAITING_CONFIRM) {
-                    player.sendMessage(ChatColor.RED + "Aucune création de PNJ en cours.");
+                    MessageManager.sendMessage(player, "admin.no-pending-npc");
                     return;
                 }
                 plugin.getNpcManager().addNpc(player.getLocation(), process.getMode(), process.getSkin(), process.getItem(), process.getName(), process.getChestplate(), process.getLeggings(), process.getBoots());
                 setupManager.clearNpcCreation(player);
-                player.sendMessage(ChatColor.GREEN + "PNJ créé.");
+                MessageManager.sendMessage(player, "admin.npc-created");
                 return;
             }
         }

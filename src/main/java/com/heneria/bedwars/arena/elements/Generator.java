@@ -12,6 +12,7 @@ public class Generator {
     private GeneratorType type;
     private int level;
     private int tier = 1;
+    private boolean hologramEnabled = true;
 
     /**
      * Creates a new generator.
@@ -96,5 +97,23 @@ public class Generator {
      */
     public void setTier(int tier) {
         this.tier = tier;
+    }
+
+    /**
+     * Checks whether holograms are enabled for this generator.
+     *
+     * @return true if holograms should be displayed
+     */
+    public boolean isHologramEnabled() {
+        return hologramEnabled;
+    }
+
+    /**
+     * Sets whether holograms should be displayed for this generator.
+     *
+     * @param hologramEnabled flag indicating hologram usage
+     */
+    public void setHologramEnabled(boolean hologramEnabled) {
+        this.hologramEnabled = hologramEnabled;
     }
 }

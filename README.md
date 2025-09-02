@@ -13,6 +13,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
 - ⚔️ **Gestion 100% en Jeu** : Créez, gérez et configurez vos arènes sans jamais avoir à éditer de fichiers manuellement grâce à une interface graphique complète (`/bw admin`).
 - 🧙‍♂️ **Assistant de Création Intuitif** : Un système de création d'arène simple via le chat vous guide pour définir les paramètres de base.
 - 🧍 **Assistant PNJ Guidé** : Créez des PNJ du lobby via une conversation étape par étape dans le chat.
+- 🛑 **Messages Administrateur Lisibles** : Les retours de commandes sont préfixés et colorés pour se distinguer du chat.
 - 📍 **Configuration Précise** : Utilisez un outil de positionnement en jeu pour définir avec précision l'emplacement du lobby, des lits, des points de spawn, des générateurs et des PNJ pour chaque équipe.
 - ⚙️ **Haute Personnalisation** : Prenez le contrôle total du gameplay en modifiant les fichiers de configuration dédiés :
   - `generators.yml` : Réglez la vitesse et la quantité de chaque générateur de ressources.
@@ -45,11 +46,12 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🛒 **Boutiques Fonctionnelles** : Interagissez avec les PNJ pour acheter des objets dans une boutique colorée (vitres teintées par catégorie, section d'achats rapides enrichie) ou des améliorations permanentes pour votre équipe.
 - 🏥 **Soin de Base** : Achetez une aura de régénération autour de votre lit pour soigner vos défenseurs.
 - 🔔 **Alarme Anti-Intrusion** : Un son puissant alerte toute l'équipe lorsqu'un piège est déclenché.
-- 🪤 **Menu "Upgrades & Traps" remanié** : Les améliorations et pièges sont affichés sur deux rangées, les pièges achetés apparaissant dans une barre dédiée.
+- 🪤 **Menu "Upgrades & Traps" remanié** : Les améliorations et pièges sont affichés sur deux rangées centrées avec descriptions colorées, les pièges achetés apparaissant dans une barre dédiée.
   - Blindness Trap : applique Cécité aux intrus.
   - Counter-Offensive Trap : donne Speed II et Jump Boost II aux alliés pendant 15 s.
   - Reveal Trap : révèle et illumine les ennemis invisibles.
   - Miner Fatigue Trap : ralentit le minage des ennemis.
+- 💬 **Messages d'achat stylisés** : chaque achat affiche un message coloré indiquant l'objet et son prix.
 - 🧱 **Construction de Blocs** : Achetez, placez et cassez des blocs pour bâtir ponts et défenses. La catégorie « Blocs » propose désormais du Grès, de l'Obsidienne, des Échelles et de la Toile d'Araignée. Des limites configurables empêchent de construire hors de la zone de jeu.
  - 🛡️ **Kit de départ lié** : Vous réapparaissez avec une armure en cuir teintée aux couleurs de votre équipe ainsi qu'une épée, une pioche et une hache en bois impossibles à jeter.
 - 🛡️ **Armures Directes** : Achetez directement l'armure de votre choix (mailles, fer ou diamant) et conservez-la après la mort, tandis que les outils et épées doivent être rachetés.

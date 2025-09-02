@@ -131,7 +131,8 @@ public class GeneratorManager {
                 remaining = getDelayCycles(gen);
             }
             entry.setValue(remaining);
-            if (hologramsEnabled && (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD)) {
+            if (hologramsEnabled && gen.isHologramEnabled()
+                    && (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD)) {
                 Location loc = gen.getLocation();
                 if (loc != null) {
                     int seconds = (int) Math.ceil(remaining * TICK_RATE / 20.0);
@@ -184,7 +185,8 @@ public class GeneratorManager {
 
     public void registerGenerator(Generator gen) {
         counters.put(gen, getDelayCycles(gen));
-        if (hologramsEnabled && (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD)) {
+        if (hologramsEnabled && gen.isHologramEnabled()
+                && (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD)) {
             Location loc = gen.getLocation();
             if (loc != null) {
                 Location holoLoc = hologramLocation(loc);
@@ -201,7 +203,8 @@ public class GeneratorManager {
 
     public void unregisterGenerator(Generator gen) {
         counters.remove(gen);
-        if (hologramsEnabled && (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD)) {
+        if (hologramsEnabled && gen.isHologramEnabled()
+                && (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD)) {
             Location loc = gen.getLocation();
             if (loc != null) {
                 plugin.getHologramManager().removeHologram(hologramLocation(loc));
@@ -250,6 +253,7 @@ public class GeneratorManager {
                     && g.getLocation().distance(spawn) < 10);
             if (!exists) {
                 Generator emerald = new Generator(genLocation.clone(), GeneratorType.EMERALD, 1);
+                emerald.setHologramEnabled(false);
                 arena.getGenerators().add(emerald);
                 registerGenerator(emerald);
             }
@@ -261,7 +265,8 @@ public class GeneratorManager {
         while (it.hasNext()) {
             Generator gen = it.next();
             counters.remove(gen);
-            if (hologramsEnabled && (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD)) {
+            if (hologramsEnabled && gen.isHologramEnabled()
+                    && (gen.getType() == GeneratorType.DIAMOND || gen.getType() == GeneratorType.EMERALD)) {
                 Location loc = gen.getLocation();
                 if (loc != null) {
                     plugin.getHologramManager().removeHologram(hologramLocation(loc));

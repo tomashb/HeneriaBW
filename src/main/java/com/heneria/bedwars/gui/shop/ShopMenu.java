@@ -161,7 +161,12 @@ public class ShopMenu extends Menu {
         ResourceType type = item.costResource();
         int price = item.costAmount();
         if (ResourceManager.hasResources(clicker, type, price)) {
+            String coloredName = ChatColor.translateAlternateColorCodes('&', item.name());
             ResourceManager.takeResources(clicker, type, price);
+            MessageManager.sendMessage(clicker, "shop.purchase-success",
+                    "item", coloredName,
+                    "price", String.valueOf(price),
+                    "resource", type.getColor() + type.getDisplayName());
             Material material = item.material();
             Arena arena = HeneriaBedwars.getInstance().getArenaManager().getArena(clicker);
             Team team = arena != null ? arena.getTeam(clicker) : null;

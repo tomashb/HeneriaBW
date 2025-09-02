@@ -33,7 +33,7 @@ errors:
 
 shop:
   not-enough-money: "&c✖ &7Vous n'avez pas assez d'argent."
-  purchase-success: "&a✔ &7Achat effectué !"
+  purchase-success: "&8[&6Boutique&8] &7Vous avez acheté &e{item} &7pour &c{price} {resource}&7."
   vault-required: "&c✖ &7Le système d'économie n'est pas disponible."
 
 on-join:
@@ -92,22 +92,26 @@ setup:
   start-generator-setup: "&eClic droit pour définir la position du générateur."
 
 admin:
-  name-prompt: "&aVeuillez entrer le nom de la nouvelle arène dans le chat."
-  cancel-tips: "&7Tapez 'annuler' pour quitter le mode création."
-  creation-cancelled: "&cCréation d'arène annulée."
-  invalid-name: "&cNom invalide (1-16 caractères). Veuillez réessayer ou tapez 'annuler'."
-  name-exists: "&cUne arène avec ce nom existe déjà. Veuillez réessayer ou tapez 'annuler'."
-  name-validated: "&aNom '&e{arena}&a' validé !"
-  arena-created: "&aL'arène '{arena}' a été créée avec succès !"
-  generator-removed: "&cGénérateur supprimé."
-  arena-activated: "&aArène activée."
-  arena-deactivated: "&cArène désactivée."
-  delete-pending: "&eTapez /bw admin confirmdelete {arena} dans 30s pour confirmer la suppression."
-  delete-confirmed: "&aL'arène {arena} a été supprimée."
-  delete-expired: "&cConfirmation expirée pour l'arène {arena}."
-  bypass-enabled: "&aMode bypass activé."
-  bypass-disabled: "&cMode bypass désactivé."
-  bypass-auto-disabled: "&eBypass désactivé automatiquement pour la partie."
+  name-prompt: "&8[&cAdmin&8] &7Veuillez entrer le nom de la nouvelle arène dans le chat."
+  cancel-tips: "&8[&cAdmin&8] &7Tapez 'annuler' pour quitter le mode création."
+  creation-cancelled: "&8[&cAdmin&8] &cCréation d'arène annulée."
+  invalid-name: "&8[&cAdmin&8] &cNom invalide (1-16 caractères). Veuillez réessayer ou tapez 'annuler'."
+  name-exists: "&8[&cAdmin&8] &cUne arène avec ce nom existe déjà. Veuillez réessayer ou tapez 'annuler'."
+  name-validated: "&8[&cAdmin&8] &aNom '&e{arena}&a' validé !"
+  arena-created: "&8[&cAdmin&8] &aL'arène '{arena}' a été créée avec succès !"
+  generator-removed: "&8[&cAdmin&8] &cGénérateur supprimé."
+  arena-activated: "&8[&cAdmin&8] &aArène activée."
+  arena-deactivated: "&8[&cAdmin&8] &cArène désactivée."
+  delete-pending: "&8[&cAdmin&8] &eTapez /bw admin confirmdelete {arena} dans 30s pour confirmer la suppression."
+  delete-confirmed: "&8[&cAdmin&8] &aL'arène {arena} a été supprimée."
+  delete-expired: "&8[&cAdmin&8] &cConfirmation expirée pour l'arène {arena}."
+  bypass-enabled: "&8[&cAdmin&8] &aMode bypass activé."
+  bypass-disabled: "&8[&cAdmin&8] &cMode bypass désactivé."
+  bypass-auto-disabled: "&8[&cAdmin&8] &eBypass désactivé automatiquement pour la partie."
+  main-lobby-set: "&8[&cAdmin&8] &7Lobby principal défini."
+  shop-npc-placed: "&8[&cAdmin&8] &7PNJ de boutique {type} pour l'équipe {team} placé."
+  npc-created: "&8[&cAdmin&8] &7PNJ créé."
+  no-pending-npc: "&8[&cAdmin&8] &cAucune création de PNJ en cours."
 
   menus:
     admin-main-title: "&8HeneriaBedwars - Administration"
