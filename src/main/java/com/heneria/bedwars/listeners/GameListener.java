@@ -129,11 +129,20 @@ public class GameListener implements Listener {
         event.getDrops().clear();
         event.setDeathMessage(null);
         
-        // On force la réapparition pour éviter l'écran de mort
-        plugin.getServer().getScheduler().runTaskLater(plugin, () -> player.spigot().respawn(), 1L);
-
         Team playerTeam = arena.getTeam(player);
         if (playerTeam == null) return;
+
+        // Point de vue du lobby utilisé pour les spectateurs
+        Location lobbyView = arena.getLobbyLocation() != null
+                ? arena.getLobbyLocation().clone().add(0, 20, 0)
+                : playerTeam.getSpawnLocation();
+
+        // Forcer la réapparition et téléporter le joueur en spectateur au-dessus du lobby
+        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+            player.spigot().respawn();
+            player.setGameMode(GameMode.SPECTATOR);
+            player.teleport(lobbyView);
+        }, 1L);
 
         Player killer = player.getKiller();
         if (killer != null) {
@@ -174,11 +183,6 @@ public class GameListener implements Listener {
 
         if (playerTeam.hasBed()) {
             GameUtils.removeUpgradedToolsAndSwords(player);
-            player.setGameMode(GameMode.SPECTATOR);
-            Location lobbyView = arena.getLobbyLocation() != null
-                    ? arena.getLobbyLocation().clone().add(0, 20, 0)
-                    : playerTeam.getSpawnLocation();
-            player.teleport(lobbyView);
             new BukkitRunnable() {
                 int countdown = 5;
                 public void run() {
@@ -196,12 +200,7 @@ public class GameListener implements Listener {
             }.runTaskTimer(plugin, 0L, 20L);
         } else {
             arena.eliminatePlayer(player);
-            player.setGameMode(GameMode.SPECTATOR);
             player.getInventory().clear();
-            Location lobbyView = arena.getLobbyLocation() != null
-                    ? arena.getLobbyLocation().clone().add(0, 20, 0)
-                    : playerTeam.getSpawnLocation();
-            player.teleport(lobbyView);
             arena.broadcastTitle("game.elimination-title", "game.elimination-subtitle", 10, 70, 20, "player", player.getName());
             plugin.getPlayerProgressionManager().removePlayer(player.getUniqueId());
             arena.checkForWinner();
