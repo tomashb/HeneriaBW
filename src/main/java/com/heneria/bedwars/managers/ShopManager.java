@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -143,7 +144,11 @@ public class ShopManager {
 
         Map<Enchantment, Integer> enchantments = new HashMap<>();
         for (Map<?, ?> map : config.getMapList(path + ".enchantments")) {
-            Enchantment ench = Enchantment.getByName(String.valueOf(map.get("type")));
+            Object typeObj = map.get("type");
+            NamespacedKey key = typeObj != null
+                    ? NamespacedKey.minecraft(String.valueOf(typeObj).toLowerCase(Locale.ROOT))
+                    : null;
+            Enchantment ench = key != null ? Enchantment.getByKey(key) : null;
             if (ench != null) {
                 int lvl = map.get("level") instanceof Number n ? n.intValue() : 1;
                 enchantments.put(ench, lvl);

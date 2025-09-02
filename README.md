@@ -466,3 +466,8 @@ animations:
 2.  Naviguez dans le dossier : `cd HeneriaBW`
 3.  Compilez avec Maven : `mvn clean package`
 4.  Le JAR final se trouvera dans le dossier `target/`.
+
+### Notes de développement
+
+- Correction d'une erreur de compilation en renommant `PotionEffectType.JUMP` en `PotionEffectType.JUMP_BOOST`.
+- Suppression d'avertissements Maven liés à une API dépréciée et à des opérations non vérifiées.
