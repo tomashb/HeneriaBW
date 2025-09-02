@@ -69,6 +69,9 @@
 ### Ajouté
 - Message de bienvenue configurable à la connexion.
 - Scoreboard du lobby principal affichant les statistiques des joueurs.
+- Système de cosmétiques complet avec skins de PNJ, effets de kill, effets de destruction de lit et messages personnalisés.
+- Accès à la boutique de cosmétiques via un item dédié dans le lobby.
+- Désactivation automatique du mode bypass lorsqu'un administrateur rejoint une partie.
 
 ## [3.0.1] - 2024-??-??
 

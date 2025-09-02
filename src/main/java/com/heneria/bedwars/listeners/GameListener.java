@@ -9,6 +9,7 @@ import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.managers.StatsManager;
 import com.heneria.bedwars.stats.PlayerStats;
 import com.heneria.bedwars.utils.MessageManager;
+import com.heneria.bedwars.managers.CosmeticManager;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -30,6 +31,7 @@ public class GameListener implements Listener {
     private final HeneriaBedwars plugin = HeneriaBedwars.getInstance();
     private final ArenaManager arenaManager = plugin.getArenaManager();
     private final StatsManager statsManager = plugin.getStatsManager();
+    private final CosmeticManager cosmeticManager = plugin.getCosmeticManager();
 
     // Quand le jeu démarre, on doit enregistrer les lits
     // CECI EST UN NOUVEL ÉVÉNEMENT A AJOUTER
@@ -82,11 +84,21 @@ public class GameListener implements Listener {
                     bedTeam.setHasBed(false);
                     arena.broadcastTitleExcept(player, "game.bed-destroyed-title", "game.bed-destroyed-subtitle", 10, 70, 20, "team", bedTeam.getColor().getDisplayName(), "player", player.getName());
                     String attackerColor = playerTeam != null ? playerTeam.getColor().getChatColor().toString() : "";
-                    arena.broadcast("game.bed-destroyed-chat",
-                            "victim_team_color", bedTeam.getColor().getChatColor().toString(),
-                            "victim_team_name", bedTeam.getColor().getDisplayName(),
-                            "attacker_color", attackerColor,
-                            "attacker_name", player.getName());
+                    String custom = cosmeticManager.getBedBreakMessage(player.getUniqueId());
+                    if (custom != null) {
+                        arena.broadcastRaw(custom.replace("{victim_team}", bedTeam.getColor().getDisplayName())
+                                .replace("{player}", player.getName()));
+                    } else {
+                        arena.broadcast("game.bed-destroyed-chat",
+                                "victim_team_color", bedTeam.getColor().getChatColor().toString(),
+                                "victim_team_name", bedTeam.getColor().getDisplayName(),
+                                "attacker_color", attackerColor,
+                                "attacker_name", player.getName());
+                    }
+                    CosmeticManager.BedBreakEffect effect = cosmeticManager.getBedBreakEffect(player.getUniqueId());
+                    if (effect != null) {
+                        effect.play(block.getLocation());
+                    }
                     PlayerStats stats = statsManager.getStats(player);
                     if (stats != null) {
                         stats.incrementBedsBroken();
@@ -140,11 +152,20 @@ public class GameListener implements Listener {
         if (killer != null) {
             Team killerTeam = arena.getTeam(killer);
             String attackerColor = killerTeam != null ? killerTeam.getColor().getChatColor().toString() : "";
-            arena.broadcast("game.player-kill-by-player",
-                    "victim_color", victimColor,
-                    "victim_name", player.getName(),
-                    "attacker_color", attackerColor,
-                    "attacker_name", killer.getName());
+            String custom = cosmeticManager.getKillMessage(killer.getUniqueId());
+            if (custom != null) {
+                arena.broadcastRaw(custom.replace("{victim}", player.getName()).replace("{killer}", killer.getName()));
+            } else {
+                arena.broadcast("game.player-kill-by-player",
+                        "victim_color", victimColor,
+                        "victim_name", player.getName(),
+                        "attacker_color", attackerColor,
+                        "attacker_name", killer.getName());
+            }
+            CosmeticManager.KillEffect effect = cosmeticManager.getKillEffect(killer.getUniqueId());
+            if (effect != null) {
+                effect.play(player.getLocation());
+            }
         } else {
             arena.broadcast("game.player-kill-void",
                     "victim_color", victimColor,

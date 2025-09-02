@@ -7,7 +7,6 @@ import com.heneria.bedwars.commands.subcommands.AdminCommand;
 import com.heneria.bedwars.commands.subcommands.JoinCommand;
 import com.heneria.bedwars.commands.subcommands.LeaveCommand;
 import com.heneria.bedwars.commands.subcommands.StatsCommand;
-import com.heneria.bedwars.commands.subcommands.ShopCommand;
 import com.heneria.bedwars.commands.subcommands.SubCommand;
 import com.heneria.bedwars.managers.ArenaManager;
 import com.heneria.bedwars.utils.MessageManager;
@@ -42,7 +41,6 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         registerSubCommand(new JoinCommand());
         registerSubCommand(new LeaveCommand());
         registerSubCommand(new StatsCommand());
-        registerSubCommand(new ShopCommand());
     }
 
     private void registerSubCommand(SubCommand subCommand) {

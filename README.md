@@ -50,7 +50,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🌈 **Achats intelligents** : La laine achetée s'adapte automatiquement à la couleur de votre équipe et toute nouvelle épée remplace la précédente.
 - 📊 **Tableau de Bord Dynamique** : Consultez en un coup d'œil l'état des équipes et le prochain événement.
 - 🛍️ **Marchand Mystérieux** : Un PNJ spécial apparaît au centre en milieu de partie pour vendre des objets uniques comme le Golem de Fer de Poche.
-- 💄 **Boutique de Cosmétiques** : Personnalisez votre expérience dans le lobby avec des particules, skins de PNJ, effets de kill et messages.
+- 💄 **Boutique de Cosmétiques** : Personnalisez votre expérience dans le lobby avec des particules, skins de PNJ, effets de kill et messages, accessible via un objet dédié dans votre inventaire.
 - 🏆 **Conditions de Victoire** : La partie se termine automatiquement lorsque la dernière équipe en vie est déclarée vainqueur, et l'arène se réinitialise pour le prochain combat.
 
 ---
@@ -107,6 +107,8 @@ Pour créer un PNJ de sélection d'arène, ouvrez le menu `/bw admin lobby`, cli
 
 ### Commandes Joueurs
 
+La boutique de cosmétiques est accessible via un objet spécial dans votre inventaire du lobby.
+
 - `/bw join <nom_de_l_arene>`
   - Rejoint une arène en attente (principalement pour les tests, l'accès se fait désormais via les PNJ du lobby).
   - **Permission :** `heneriabw.player.join`
@@ -116,16 +118,12 @@ Pour créer un PNJ de sélection d'arène, ouvrez le menu `/bw admin lobby`, cli
 - `/bw stats [joueur]`
   - Affiche vos statistiques ou celles d'un autre joueur.
   - **Permission :** `heneriabw.admin.stats` pour consulter celles d'un autre joueur.
-- `/bw shop`
-  - Ouvre la boutique de cosmétiques du lobby.
-  - **Permission :** `heneriabw.player.shop`
 - `/spawn`
   - Téléporte le joueur au lobby principal BedWars. Utilisable en jeu pour quitter la partie ; déclenche une vérification de victoire.
 - `/hub`
   - Envoie le joueur vers le serveur lobby principal si BungeeCord est activé, sinon fonctionne comme `/spawn`.
 
 #### Permissions de Cosmétiques
-- `heneriabw.player.shop` : ouvrir la boutique de cosmétiques.
 - `heneria.cosmetics.kill_effect.lightning` : exemple de permission accordée après achat.
 
 ### Créer et Configurer une Arène (Flux de travail)
