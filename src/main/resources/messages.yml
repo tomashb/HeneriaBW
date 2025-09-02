@@ -1,4 +1,4 @@
-prefix: "&b[HBW]&r "
+prefix: ""
 
 server:
   join-message: "&a+ &7{player}"
