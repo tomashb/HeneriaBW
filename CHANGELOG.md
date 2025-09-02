@@ -14,6 +14,8 @@
 - La forge au niveau maximal génère immédiatement des émeraudes dans le générateur de l'équipe.
 - Le texte des hologrammes de générateurs d'Émeraude reste lisible après l'apparition.
 - Les dragons de fin de partie se déplacent et attaquent correctement.
+- Correction des erreurs de compilation lors de l'application de textures de têtes personnalisées.
+- Suppression d'un avertissement de dépréciation en remplaçant `PotionEffectType#getByName` par `getByKey`.
 
 ## [4.3.1] - 2024-??-??
 

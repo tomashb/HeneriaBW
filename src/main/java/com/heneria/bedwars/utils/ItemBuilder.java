@@ -106,7 +106,7 @@ public class ItemBuilder {
             return this;
         }
         try {
-            PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID());
+            PlayerProfile profile = Bukkit.createPlayerProfile(UUID.randomUUID());
             if (texture.startsWith("http")) {
                 profile.getTextures().setSkin(new URL(texture));
             } else if (texture.length() > 60) {
@@ -116,7 +116,7 @@ public class ItemBuilder {
                 itemStack.setItemMeta(skullMeta);
                 return this;
             }
-            skullMeta.setPlayerProfile(profile);
+            skullMeta.setOwnerProfile(profile);
             itemStack.setItemMeta(skullMeta);
         } catch (MalformedURLException e) {
             skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(texture));

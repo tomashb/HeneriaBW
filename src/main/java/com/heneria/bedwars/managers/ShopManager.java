@@ -134,7 +134,8 @@ public class ShopManager {
 
         List<PotionEffect> potionEffects = new ArrayList<>();
         for (Map<?, ?> map : config.getMapList(path + ".potion-effects")) {
-            PotionEffectType pet = PotionEffectType.getByName(String.valueOf(map.get("type")));
+            PotionEffectType pet = PotionEffectType.getByKey(
+                    NamespacedKey.minecraft(String.valueOf(map.get("type")).toLowerCase(Locale.ROOT)));
             if (pet != null) {
                 int duration = map.get("duration") instanceof Number d ? d.intValue() * 20 : 0;
                 int amplifier = map.get("amplifier") instanceof Number a ? a.intValue() : 0;
