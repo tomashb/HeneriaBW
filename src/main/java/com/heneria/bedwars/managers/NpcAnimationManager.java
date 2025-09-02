@@ -81,7 +81,7 @@ public class NpcAnimationManager {
         for (Entity entity : info.location.getWorld().getNearbyEntities(info.location, 1, 1, 1)) {
             if (entity instanceof ArmorStand stand) {
                 String tag = stand.getPersistentDataContainer().get(npcKey, PersistentDataType.STRING);
-                if (tag != null && tag.equals("JOIN_NPC:" + info.mode)) {
+                if (tag != null && tag.equals("JOIN_NPC:" + info.id)) {
                     return stand;
                 }
             }

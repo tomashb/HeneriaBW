@@ -139,7 +139,7 @@ quick-buy-items:
     cost:
       resource: GOLD
       amount: 4
-    slot: 26
+    slot: 29
   iron-sword:
     material: IRON_SWORD
     name: "&f&lÉpée en Fer"
@@ -149,7 +149,79 @@ quick-buy-items:
     cost:
       resource: GOLD
       amount: 7
+    slot: 28
+  filler-18:
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    amount: 1
+    cost:
+      resource: IRON
+      amount: 0
+    slot: 18
+  filler-26:
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    amount: 1
+    cost:
+      resource: IRON
+      amount: 0
+    slot: 26
+  filler-27:
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    amount: 1
+    cost:
+      resource: IRON
+      amount: 0
     slot: 27
+  filler-30:
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    amount: 1
+    cost:
+      resource: IRON
+      amount: 0
+    slot: 30
+  filler-31:
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    amount: 1
+    cost:
+      resource: IRON
+      amount: 0
+    slot: 31
+  filler-32:
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    amount: 1
+    cost:
+      resource: IRON
+      amount: 0
+    slot: 32
+  filler-33:
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    amount: 1
+    cost:
+      resource: IRON
+      amount: 0
+    slot: 33
+  filler-34:
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    amount: 1
+    cost:
+      resource: IRON
+      amount: 0
+    slot: 34
+  filler-35:
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    amount: 1
+    cost:
+      resource: IRON
+      amount: 0
+    slot: 35
 
 shop-categories:
   'blocks_category':

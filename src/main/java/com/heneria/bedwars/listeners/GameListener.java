@@ -10,6 +10,7 @@ import com.heneria.bedwars.managers.StatsManager;
 import com.heneria.bedwars.stats.PlayerStats;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
@@ -153,7 +154,10 @@ public class GameListener implements Listener {
         if (playerTeam.hasBed()) {
             GameUtils.removeUpgradedToolsAndSwords(player);
             player.setGameMode(GameMode.SPECTATOR);
-            player.teleport(playerTeam.getSpawnLocation());
+            Location lobbyView = arena.getLobbyLocation() != null
+                    ? arena.getLobbyLocation().clone().add(0, 20, 0)
+                    : playerTeam.getSpawnLocation();
+            player.teleport(lobbyView);
             new BukkitRunnable() {
                 int countdown = 5;
                 public void run() {
@@ -173,7 +177,10 @@ public class GameListener implements Listener {
             arena.eliminatePlayer(player);
             player.setGameMode(GameMode.SPECTATOR);
             player.getInventory().clear();
-            player.teleport(playerTeam.getSpawnLocation());
+            Location lobbyView = arena.getLobbyLocation() != null
+                    ? arena.getLobbyLocation().clone().add(0, 20, 0)
+                    : playerTeam.getSpawnLocation();
+            player.teleport(lobbyView);
             arena.broadcastTitle("game.elimination-title", "game.elimination-subtitle", 10, 70, 20, "player", player.getName());
             plugin.getPlayerProgressionManager().removePlayer(player.getUniqueId());
             arena.checkForWinner();

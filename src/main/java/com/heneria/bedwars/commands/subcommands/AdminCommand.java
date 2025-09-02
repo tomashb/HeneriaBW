@@ -110,7 +110,7 @@ public class AdminCommand implements SubCommand {
                 npc.setArms(true);
                 ItemStack head = new ItemStack(Material.PLAYER_HEAD);
                 SkullMeta meta = (SkullMeta) head.getItemMeta();
-                meta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_Villager"));
+                meta.setOwningPlayer(player);
                 head.setItemMeta(meta);
                 npc.getEquipment().setHelmet(head);
                 String pdcValue = (type.equals("upgrade") ? "UPGRADE_SHOP" : "ITEM_SHOP") + ":" + team.toUpperCase();
