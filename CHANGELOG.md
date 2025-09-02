@@ -8,6 +8,9 @@
 - Limites de construction configurables par arène (`boundaries`).
 - Hologrammes de mode au-dessus des PNJ du lobby indiquant les joueurs connectés par mode.
 
+### Corrigé
+- Téléportation des spectateurs au-dessus du lobby après la mort pour éviter qu'ils restent sous la carte.
+
 ## [4.2.0] - 2024-??-??
 
 ### Ajouté

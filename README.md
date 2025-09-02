@@ -33,6 +33,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🎮 **Hub de Jeu Intuitif** : En cliquant sur un PNJ de mode, un menu propose de lancer une partie, consulter ses statistiques ou se reconnecter.
 - 🪧 **Stats par Mode** : Chaque PNJ affiche un hologramme indiquant en temps réel le nombre de joueurs pour son mode.
 - 🕹️ **Cycle de Jeu Complet** : Rejoignez une arène, attendez dans le lobby avec un décompte, et lancez-vous dans la bataille.
+- 👁️ **Vue Spectateur Optimisée** : Après la mort, les joueurs sont téléportés au-dessus du lobby pour observer la partie.
 - ⚔️ **PvP 1.8** : Combat sans délai de recharge avec particules de coup critique à chaque attaque pour un ressenti classique.
 - 🎽 **Sélecteur d'équipe** : Choisissez votre camp grâce à un menu interactif avant le début de la partie.
 - 💬 **Chat et Tablist isolés** : Les messages et la liste des joueurs sont limités à votre partie pour éviter le spam entre arènes.
