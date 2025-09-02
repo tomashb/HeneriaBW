@@ -45,7 +45,9 @@ import com.heneria.bedwars.managers.TablistManager;
 import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import net.milkbowl.vault.economy.Economy;
 
 public final class HeneriaBedwars extends JavaPlugin {
 
@@ -70,6 +72,7 @@ public final class HeneriaBedwars extends JavaPlugin {
     private Location mainLobby;
     private static NamespacedKey itemTypeKey;
     private static NamespacedKey npcKey;
+    private Economy economy;
 
     @Override
     public void onEnable() {
@@ -77,6 +80,7 @@ public final class HeneriaBedwars extends JavaPlugin {
         itemTypeKey = new NamespacedKey(this, "heneria_item_type");
         npcKey = new NamespacedKey(this, "heneria_npc_type");
         saveDefaultConfig();
+        saveResource("lobby_shop.yml", false);
         mainLobby = getConfig().getLocation("main-lobby");
         MessageManager.init(this);
         getLogger().info("HeneriaBedwars v" + getDescription().getVersion() + " est en cours de chargement...");
@@ -113,6 +117,7 @@ public final class HeneriaBedwars extends JavaPlugin {
 
         registerListeners();
 
+        setupEconomy();
         getLogger().info("HeneriaBedwars a été activé avec succès.");
     }
 
@@ -212,6 +217,20 @@ public final class HeneriaBedwars extends JavaPlugin {
 
     public static NamespacedKey getNpcKey() {
         return npcKey;
+    }
+
+    private void setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return;
+        }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp != null) {
+            economy = rsp.getProvider();
+        }
+    }
+
+    public Economy getEconomy() {
+        return economy;
     }
 
     public PlayerProgressionManager getPlayerProgressionManager() {

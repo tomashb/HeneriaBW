@@ -27,9 +27,14 @@ errors:
   arena-full-or-started: "&c✖ &7Cette arène est pleine ou déjà en cours."
   command-disabled-in-game: "&c✖ &7Vous ne pouvez pas utiliser cette commande en pleine partie."
 
-commands:
-  main-usage: "&eUsage: /{label} <admin|join|leave>"
-  join-usage: "&eUsage: /bw join <arène>"
+  commands:
+    main-usage: "&eUsage: /{label} <admin|join|leave>"
+    join-usage: "&eUsage: /bw join <arène>"
+
+shop:
+  not-enough-money: "&c✖ &7Vous n'avez pas assez d'argent."
+  purchase-success: "&a✔ &7Achat effectué !"
+  vault-required: "&c✖ &7Le système d'économie n'est pas disponible."
 
 on-join:
   welcome-message:
