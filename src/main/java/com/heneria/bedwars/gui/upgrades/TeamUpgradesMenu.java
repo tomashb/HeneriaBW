@@ -61,19 +61,19 @@ public class TeamUpgradesMenu extends Menu {
             inventory.setItem(i, filler);
         }
 
-        // Row 1
-        setUpgradeItem(0, "sharpness");
-        setUpgradeItem(1, "protection");
-        setUpgradeItem(2, "haste");
-        setTrapItem(3, "blindness-trap");
-        setTrapItem(4, "counter-offensive-trap");
-        setTrapItem(5, "reveal-trap");
+        // Top row - centered
+        setUpgradeItem(10, "sharpness");
+        setUpgradeItem(11, "protection");
+        setUpgradeItem(12, "haste");
+        setTrapItem(14, "blindness-trap");
+        setTrapItem(15, "counter-offensive-trap");
+        setTrapItem(16, "reveal-trap");
 
-        // Row 2
-        setUpgradeItem(9, "forge");
-        setUpgradeItem(10, "heal-pool");
-        setUpgradeItem(11, "speed");
-        setTrapItem(13, "miner-fatigue-trap");
+        // Second row - centered
+        setUpgradeItem(19, "forge");
+        setUpgradeItem(20, "heal-pool");
+        setUpgradeItem(21, "speed");
+        setTrapItem(23, "miner-fatigue-trap");
 
         // Trap slots (row 4)
         ItemStack placeholder = new ItemBuilder(Material.GRAY_WOOL).setName("&7Aucun piège").build();
@@ -98,9 +98,9 @@ public class TeamUpgradesMenu extends Menu {
         ItemBuilder builder = new ItemBuilder(upgrade.item()).setName(upgrade.name());
         if (tier != null) {
             builder.addLore(tier.description())
-                    .addLore("&7Coût: " + ResourceType.DIAMOND.getColor() + tier.cost() + " Diamants");
+                    .addLore("&7Prix: " + ResourceType.DIAMOND.getColor() + tier.cost() + " Diamant" + (tier.cost() > 1 ? "s" : ""));
         } else {
-            builder.addLore("&7Amélioration maximale atteinte");
+            builder.addLore("&aNiveau maximum atteint");
         }
         inventory.setItem(slot, builder.build());
         slotUpgrades.put(slot, upgrade);
@@ -111,9 +111,9 @@ public class TeamUpgradesMenu extends Menu {
         if (trap == null) return;
         ItemBuilder builder = new ItemBuilder(trap.item()).setName(trap.name()).setLore(trap.description());
         if (!team.isTrapActive(id)) {
-            builder.addLore("&7Coût: " + ResourceType.DIAMOND.getColor() + trap.cost() + " Diamants");
+            builder.addLore("&7Prix: " + ResourceType.DIAMOND.getColor() + trap.cost() + " Diamant" + (trap.cost() > 1 ? "s" : ""));
         } else {
-            builder.addLore("&7Piège acheté");
+            builder.addLore("&aPiège actif");
         }
         inventory.setItem(slot, builder.build());
         slotTraps.put(slot, trap);
@@ -143,6 +143,10 @@ public class TeamUpgradesMenu extends Menu {
                 return;
             }
             ResourceManager.takeResources(player, ResourceType.DIAMOND, cost);
+            MessageManager.sendMessage(player, "shop.purchase-success",
+                    "item", upgrade.name(),
+                    "price", String.valueOf(cost),
+                    "resource", ResourceType.DIAMOND.getColor() + ResourceType.DIAMOND.getDisplayName());
             team.setUpgradeLevel(upgrade.id(), current + 1);
             applyUpgradeEffect(upgrade.id(), current + 1);
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
@@ -165,6 +169,10 @@ public class TeamUpgradesMenu extends Menu {
             return;
         }
         ResourceManager.takeResources(player, ResourceType.DIAMOND, cost);
+        MessageManager.sendMessage(player, "shop.purchase-success",
+                "item", trap.name(),
+                "price", String.valueOf(cost),
+                "resource", ResourceType.DIAMOND.getColor() + ResourceType.DIAMOND.getDisplayName());
         team.setTrapActive(trap.id(), true);
         for (UUID uuid : team.getMembers()) {
             Player p = Bukkit.getPlayer(uuid);

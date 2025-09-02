@@ -1,5 +1,14 @@
 # Changelog - HeneriaBedwars
 
+## [4.3.1] - 2024-??-??
+
+### Modifié
+- Menu "Upgrades & Traps" centré avec descriptions recolorées.
+- Messages d'achat et de commandes admin dotés de préfixes colorés.
+
+### Corrigé
+- Suppression de l'hologramme d'Émeraude sur les générateurs de base.
+
 ## [4.3.0] - 2024-??-??
 
 ### Ajouté

@@ -4,7 +4,7 @@ main-menu:
   items:
     'general':
       material: DIAMOND_SWORD
-      name: "&aAméliorations Générales"
+      name: "&6Améliorations Générales"
       slot: 11
       category: 'general'
     'traps':
@@ -15,46 +15,46 @@ main-menu:
 
 upgrade-categories:
   general:
-    title: "Améliorations Générales"
+    title: "&6Améliorations Générales"
     rows: 3
     upgrades:
       sharpness:
-        name: "&aTranchant d'équipe"
+        name: "&6Tranchant d'équipe"
         item: IRON_SWORD
         tiers:
           1:
             cost: 4
-            description: "&7Les épées de l'équipe obtiennent Tranchant I."
+            description: "&7Toutes vos épées gagnent Tranchant I."
       protection:
-        name: "&aProtection d'équipe"
+        name: "&6Protection d'équipe"
         item: IRON_CHESTPLATE
         tiers:
           1:
             cost: 2
-            description: "&7Les armures de l'équipe obtiennent Protection I."
+            description: "&7Toutes les armures gagnent Protection I."
           2:
             cost: 4
-            description: "&7Les armures de l'équipe obtiennent Protection II."
+            description: "&7Toutes les armures gagnent Protection II."
           3:
             cost: 8
-            description: "&7Les armures de l'équipe obtiennent Protection III."
+            description: "&7Toutes les armures gagnent Protection III."
       haste:
-        name: "&aHâte d'équipe"
+        name: "&6Hâte d'équipe"
         item: GOLDEN_PICKAXE
         tiers:
           1:
             cost: 2
-            description: "&7Les joueurs gagnent Hâte I."
+            description: "&7Accorde Hâte I permanente."
           2:
             cost: 4
-            description: "&7Les joueurs gagnent Hâte II."
+            description: "&7Accorde Hâte II permanente."
       heal-pool:
-        name: "&aSoin de Base"
+        name: "&6Soin de Base"
         item: BEACON
         tiers:
           1:
             cost: 5
-            description: "&7Crée une aura de régénération"
+            description: "&7Génère une aura de régénération autour de la base."
             parameters:
               radius: 8
               amplifier: 0
@@ -64,32 +64,32 @@ upgrade-categories:
         tiers:
           1:
             cost: 2
-            description: "&7Vous alerte avec un son strident"
+            description: "&7Émet un signal sonore à l'approche d'un intrus."
             parameters:
               sound: ENTITY_ENDER_DRAGON_GROWL
       forge:
-        name: "&aForge améliorée"
+        name: "&6Forge améliorée"
         item: FURNACE
         tiers:
           1:
             cost: 2
-            description: "&7+25% de vitesse pour le Fer et l'Or."
+            description: "&7Augmente de 25% la production de Fer et d'Or."
           2:
             cost: 4
-            description: "&7+50% de vitesse pour le Fer et l'Or."
+            description: "&7Augmente de 50% la production de Fer et d'Or."
           3:
             cost: 6
-            description: "&7Vitesse maximale pour le Fer et l'Or."
+            description: "&7Double la production de Fer et d'Or."
           4:
             cost: 8
-            description: "&7Active un générateur d'Émeraudes lent."
+            description: "&7Ajoute un générateur d'Émeraudes lent."
       speed:
-        name: "&aVitesse d'équipe"
+        name: "&6Vitesse d'équipe"
         item: DIAMOND_BOOTS
         tiers:
           1:
             cost: 4
-            description: "&7Les joueurs gagnent Speed I permanent."
+            description: "&7Octroie Speed I permanente à l'équipe."
   traps:
     title: "Pièges"
     rows: 3
@@ -99,8 +99,8 @@ upgrade-categories:
         item: IRON_PICKAXE
         cost: 1
         description:
-          - "&7Le prochain ennemi qui entre"
-          - "&7dans votre base recevra Fatigue de Minage."
+          - "&7Le prochain intrus subit"
+          - "&7Fatigue de minage."
         effect:
           type: SLOW_DIGGING
           duration: 10
@@ -110,8 +110,8 @@ upgrade-categories:
         item: IRON_SHOVEL
         cost: 1
         description:
-          - "&7Le prochain ennemi qui entre"
-          - "&7dans votre base deviendra aveugle."
+          - "&7Le prochain intrus devient"
+          - "&7aveugle quelques secondes."
         effect:
           type: BLINDNESS
           duration: 8
@@ -121,8 +121,8 @@ upgrade-categories:
         item: FEATHER
         cost: 1
         description:
-          - "&7Confère Speed II et Jump Boost II"
-          - "&7aux alliés pendant 15 secondes."
+          - "&7Speed II et Jump Boost II"
+          - "&7pour les alliés pendant 15 s."
         effect:
           type: SPEED
           duration: 15
