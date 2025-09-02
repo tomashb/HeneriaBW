@@ -471,3 +471,4 @@ animations:
 
 - Correction d'une erreur de compilation en renommant `PotionEffectType.JUMP` en `PotionEffectType.JUMP_BOOST`.
 - Suppression d'avertissements Maven liés à une API dépréciée et à des opérations non vérifiées.
+- Résolution d'une erreur de compilation due à la redéfinition de la variable `key` dans `ShopManager#parseItem`.

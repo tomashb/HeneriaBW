@@ -145,10 +145,10 @@ public class ShopManager {
         Map<Enchantment, Integer> enchantments = new HashMap<>();
         for (Map<?, ?> map : config.getMapList(path + ".enchantments")) {
             Object typeObj = map.get("type");
-            NamespacedKey key = typeObj != null
+            NamespacedKey enchKey = typeObj != null
                     ? NamespacedKey.minecraft(String.valueOf(typeObj).toLowerCase(Locale.ROOT))
                     : null;
-            Enchantment ench = key != null ? Enchantment.getByKey(key) : null;
+            Enchantment ench = enchKey != null ? Enchantment.getByKey(enchKey) : null;
             if (ench != null) {
                 int lvl = map.get("level") instanceof Number n ? n.intValue() : 1;
                 enchantments.put(ench, lvl);
