@@ -1,0 +1,9 @@
+items:
+  kill_effect_lightning:
+    display-item: NETHER_STAR
+    name: "&eEffet Kill Foudre"
+    lore:
+      - "&7Coût: &61000"
+    vault-cost: 1000.0
+    command-on-purchase: "lp user {player} permission set heneria.cosmetics.kill_effect.lightning"
+    slot: 11

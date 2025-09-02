@@ -3,6 +3,7 @@ version: ${project.version}
 main: com.heneria.bedwars.HeneriaBedwars
 api-version: '1.21'
 author: tomashb
+softdepend: [Vault]
 
 commands:
   bedwars:
@@ -32,3 +33,6 @@ permissions:
   heneriabw.admin.bypass:
     description: Permet d'activer le mode bypass pour modifier la carte.
     default: op
+  heneriabw.player.shop:
+    description: Permet d'ouvrir la boutique de cosmétiques.
+    default: true

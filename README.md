@@ -50,6 +50,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🌈 **Achats intelligents** : La laine achetée s'adapte automatiquement à la couleur de votre équipe et toute nouvelle épée remplace la précédente.
 - 📊 **Tableau de Bord Dynamique** : Consultez en un coup d'œil l'état des équipes et le prochain événement.
 - 🛍️ **Marchand Mystérieux** : Un PNJ spécial apparaît au centre en milieu de partie pour vendre des objets uniques comme le Golem de Fer de Poche.
+- 💄 **Boutique de Cosmétiques** : Personnalisez votre expérience dans le lobby avec des particules, skins de PNJ, effets de kill et messages.
 - 🏆 **Conditions de Victoire** : La partie se termine automatiquement lorsque la dernière équipe en vie est déclarée vainqueur, et l'arène se réinitialise pour le prochain combat.
 
 ---
@@ -61,13 +62,17 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 3.  Redémarrez votre serveur.
 4.  Les fichiers de configuration par défaut seront générés dans le dossier `plugins/HeneriaBedwars/`.
 
-## 🔌 Placeholders et dépendances optionnelles
+## 🔌 Placeholders et dépendances
 
-Le scoreboard du lobby principal utilise [PlaceholderAPI](https://github.com/PlaceholderAPI/PlaceholderAPI) pour afficher des informations dynamiques :
+Le plugin peut s'intégrer avec plusieurs dépendances :
+- [PlaceholderAPI](https://github.com/PlaceholderAPI/PlaceholderAPI) pour afficher des informations dynamiques.
+- [Vault](https://github.com/MilkBowl/Vault) pour gérer l'économie du serveur. Vault est requis pour la boutique de cosmétiques du lobby et pour les placeholders économiques.
+
+Placeholders disponibles :
 - `%luckperms_prefix%` : grade du joueur (nécessite LuckPerms).
-- `%vault_eco_balance_formatted%` : solde de l'économie (nécessite Vault et un plugin d'économie compatible).
+- `%vault_eco_balance_formatted%` : solde de l'économie.
 
-Ces plugins restent facultatifs mais sont recommandés pour profiter pleinement du scoreboard.
+PlaceholderAPI reste optionnel mais Vault et un plugin d'économie compatible sont nécessaires pour la boutique de cosmétiques.
 
 ---
 
@@ -111,10 +116,17 @@ Pour créer un PNJ de sélection d'arène, ouvrez le menu `/bw admin lobby`, cli
 - `/bw stats [joueur]`
   - Affiche vos statistiques ou celles d'un autre joueur.
   - **Permission :** `heneriabw.admin.stats` pour consulter celles d'un autre joueur.
+- `/bw shop`
+  - Ouvre la boutique de cosmétiques du lobby.
+  - **Permission :** `heneriabw.player.shop`
 - `/spawn`
   - Téléporte le joueur au lobby principal BedWars. Utilisable en jeu pour quitter la partie ; déclenche une vérification de victoire.
 - `/hub`
   - Envoie le joueur vers le serveur lobby principal si BungeeCord est activé, sinon fonctionne comme `/spawn`.
+
+#### Permissions de Cosmétiques
+- `heneriabw.player.shop` : ouvrir la boutique de cosmétiques.
+- `heneria.cosmetics.kill_effect.lightning` : exemple de permission accordée après achat.
 
 ### Créer et Configurer une Arène (Flux de travail)
 
@@ -179,6 +191,30 @@ speed_potion:
 ```
 
 Seul le prochain palier disponible est proposé à l'achat. Après une mort, les joueurs réapparaissent avec leur meilleure armure débloquée mais uniquement les outils et armes en bois.
+
+### Configuration de la Boutique de Cosmétiques
+
+Le fichier `lobby_shop.yml` définit les cosmétiques disponibles dans le lobby. Chaque objet comporte :
+
+- `display-item` : l'item affiché dans le menu.
+- `vault-cost` : coût en monnaie via Vault.
+- `command-on-purchase` : commande exécutée après l'achat (placeholder `{player}`).
+
+Exemple :
+
+```yaml
+items:
+  kill_effect_lightning:
+    display-item: NETHER_STAR
+    name: "&eEffet Kill Foudre"
+    lore:
+      - "&7Coût: &61000"
+    vault-cost: 1000
+    command-on-purchase: "lp user {player} permission set heneria.cosmetics.kill_effect.lightning"
+    slot: 11
+```
+
+La commande attribue généralement une permission comme `heneria.cosmetics.kill_effect.lightning` au joueur.
 
 ### Configuration des Améliorations et Pièges d'Équipe
 

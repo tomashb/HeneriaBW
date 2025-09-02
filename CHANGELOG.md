@@ -77,6 +77,11 @@
 - Suppression des blocs placés lors du reset d'arène.
 - Empêchement de rejoindre une arène pleine ou déjà en cours.
 
+## [3.0.0] - 2024-??-??
+
+### Ajouté
+- Hub cosmétique et boutique du lobby intégrés à l'économie Vault.
+
 ## [2.6.0] - 2024-??-??
 
 ### Ajouté
