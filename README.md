@@ -489,4 +489,4 @@ animations:
 - Correction d'un bug critique de duplication infinie des PNJ du lobby provoquant une chute drastique des performances.
 - Suppression d'une redéclaration de variable dans `ShopMenu#handleClick` causant un échec de compilation.
 - Remplacement de l'API dépréciée `getByKey` par `Registry` dans `ShopManager`.
-- Correction d'une erreur de compilation en remplaçant `Registry.POTION_EFFECT_TYPE` par `Registry.POTION_EFFECT` et migration de `UpgradeManager` vers cette API pour supprimer l'avertissement de dépréciation.
+- Correction d'une erreur de compilation en remplaçant `Registry.POTION_EFFECT` par `Registry.POTION_EFFECT_TYPE` et migration de `UpgradeManager` vers cette API pour supprimer l'avertissement de dépréciation.
