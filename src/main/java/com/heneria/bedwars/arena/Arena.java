@@ -864,7 +864,7 @@ public class Arena {
         if (meta == null || skinName == null || skinName.isEmpty()) {
             return;
         }
-        PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), skinName);
+        PlayerProfile profile = Bukkit.createPlayerProfile(UUID.randomUUID(), skinName);
         profile.update();
         meta.setPlayerProfile(profile);
     }
