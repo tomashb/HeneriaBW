@@ -36,7 +36,8 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🕹️ **Cycle de Jeu Complet** : Rejoignez une arène, attendez dans le lobby avec un décompte, et lancez-vous dans la bataille.
 - 👁️ **Vue Spectateur Optimisée** : Après la mort, les joueurs sont téléportés au-dessus du lobby pour observer la partie.
 - ⚔️ **PvP 1.8** : Combat sans délai de recharge avec particules de coup critique à chaque attaque pour un ressenti classique.
-- 🎽 **Sélecteur d'équipe** : Choisissez votre camp grâce à un menu interactif avant le début de la partie.
+- 🎽 **Sélecteur d'équipe** : Menu 3x9 centré avec bannières colorées, accessible par clic gauche ou droit.
+- 🚪 **Menu Quitter la partie** : Confirmation stylisée (3x9) s'ouvrant via clic gauche ou droit.
 - 💬 **Chat et Tablist isolés** : Les messages et la liste des joueurs sont limités à votre partie pour éviter le spam entre arènes.
 - 🗨️ **Préfixe coloré dans le chat** : Les messages en partie indiquent clairement la couleur de l'équipe du joueur.
 - 🎨 **Couleurs d'équipe dynamiques** : Les pseudos des joueurs prennent la couleur de leur équipe dans la tablist et au-dessus de leur tête.

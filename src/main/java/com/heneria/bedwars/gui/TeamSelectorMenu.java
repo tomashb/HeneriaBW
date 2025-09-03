@@ -3,17 +3,17 @@ package com.heneria.bedwars.gui;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.arena.elements.Team;
 import com.heneria.bedwars.arena.enums.TeamColor;
-import com.heneria.bedwars.utils.MessageManager;
 import com.heneria.bedwars.utils.ItemBuilder;
+import com.heneria.bedwars.utils.MessageManager;
 import org.bukkit.Material;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 /**
  * Menu allowing players to choose their team before the game starts.
@@ -35,47 +35,35 @@ public class TeamSelectorMenu extends Menu {
 
     @Override
     public int getSize() {
-        int teams = arena.getTeams().size();
-        int innerRows = (int) Math.ceil(teams / 7.0);
-        int rows = Math.max(3, innerRows + 2);
-        return rows * 9;
+        // Fixed 3-row inventory
+        return 27;
     }
 
     @Override
     public void setupItems() {
         slotTeam.clear();
-        int maxPerTeam = arena.getMaxPlayers() / arena.getTeams().size();
-        ItemStack border = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
-        int rows = getSize() / 9;
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < 9; c++) {
-                if (r == 0 || r == rows - 1 || c == 0 || c == 8) {
-                    inventory.setItem(r * 9 + c, border);
-                }
-            }
+        int teams = arena.getTeams().size();
+        int maxPerTeam = arena.getMaxPlayers() / teams;
+
+        // Fill background with grey glass panes
+        ItemStack background = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
+        for (int i = 0; i < getSize(); i++) {
+            inventory.setItem(i, background);
         }
+
+        // Center team icons on the middle row
+        int start = 13 - teams / 2;
         int index = 0;
         for (Map.Entry<TeamColor, Team> entry : arena.getTeams().entrySet()) {
             TeamColor color = entry.getKey();
             Team team = entry.getValue();
-            int row = index / 7;
-            int col = index % 7;
-            int slot = 10 + row * 9 + col;
+            int slot = start + index;
             int size = team.getMembers().size();
-            boolean full = size >= maxPerTeam;
             ItemBuilder builder = new ItemBuilder(color.getWoolMaterial())
-                    .setName(color.getChatColor() + team.getColor().getDisplayName());
-            builder.addLore((full ? "&c" : "&a") + (full ? "Équipe pleine" : "Clique pour rejoindre"));
-            builder.addLore("&7" + size + "/" + maxPerTeam + " Joueurs");
-            if (size > 0) {
-                builder.addLore(" &eMembres:");
-                for (UUID id : team.getMembers()) {
-                    Player p = Bukkit.getPlayer(id);
-                    if (p != null) {
-                        builder.addLore("  &7» " + p.getName());
-                    }
-                }
-            }
+                    .setName(color.getChatColor() + "Équipe " + color.getDisplayName())
+                    .addLore("&7Joueurs: &a" + size + "/" + maxPerTeam)
+                    .addLore(" ")
+                    .addLore("&e► Cliquez pour rejoindre");
             inventory.setItem(slot, builder.build());
             slotTeam.put(slot, color);
             index++;
