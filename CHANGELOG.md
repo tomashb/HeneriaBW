@@ -13,6 +13,9 @@
 - PNJ de boutique et d'améliorations dotés de skins distincts par défaut.
 - Message de prime redessiné avec un préfixe dédié.
 - Section d'achats rapides remplie de vitres décoratives.
+- Position de l'hologramme du PNJ du lobby ajustée pour éviter tout chevauchement avec le nametag.
+- Butin de Guerre et Réduction d'Équipe déplacés vers la rangée 3 (slots 6 et 7) du menu d'améliorations.
+- Scoreboard et tablist rafraîchis à chaque tick pour une mise à jour instantanée.
 \n### Corrigé
 - Duplication infinie des PNJ du lobby éliminée pour éviter la surcharge du serveur.
 - Les vitres trempées ne sont plus disponibles via les achats rapides.
@@ -30,6 +33,8 @@
 - Correction d'une erreur de compilation en remplaçant `Registry.POTION_EFFECT` par `Registry.POTION_EFFECT_TYPE` dans `ShopManager`.
 - Remplacement de `PotionEffectType#getByKey` par `Registry.POTION_EFFECT_TYPE` dans `UpgradeManager` pour supprimer l'avertissement de dépréciation.
 - Correction d'une erreur de compilation en remplaçant `Registry.POTION_EFFECT_TYPE` par `Registry.EFFECT` dans `ShopManager` et `UpgradeManager`.
+- Bouton « Ressusciter » supprimé après la mort pour éviter l'affichage furtif.
+- Les messages de chat affichent désormais correctement la couleur de l'équipe.
 
 ## [4.3.1] - 2024-??-??
 

@@ -493,3 +493,8 @@ animations:
 - Remplacement de l'API dépréciée `getByKey` par `Registry` dans `ShopManager`.
 - Correction d'une erreur de compilation en remplaçant `Registry.POTION_EFFECT` par `Registry.POTION_EFFECT_TYPE` et migration de `UpgradeManager` vers cette API pour supprimer l'avertissement de dépréciation.
 - Correction d'une erreur de compilation en remplaçant `Registry.POTION_EFFECT_TYPE` par `Registry.EFFECT` dans `ShopManager` et `UpgradeManager`.
+- Ajustement de la hauteur de l'hologramme des PNJ du lobby pour éviter tout chevauchement avec leur nametag.
+- Suppression du bouton "Ressusciter" qui clignotait brièvement après la mort des joueurs.
+- Déplacement de Butin de Guerre et Réduction d'Équipe vers la troisième rangée (slots 6 et 7) du menu d'améliorations.
+- Correction de l'affichage de la couleur d'équipe dans le chat en partie.
+- Rafraîchissement instantané des interfaces visuelles (scoreboard, tablist) pour une meilleure réactivité.

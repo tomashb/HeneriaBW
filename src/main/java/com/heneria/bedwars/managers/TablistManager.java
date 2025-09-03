@@ -55,7 +55,7 @@ public class TablistManager {
             public void run() {
                 updateAll();
             }
-        }.runTaskTimer(plugin, 0L, 100L);
+        }.runTaskTimer(plugin, 0L, 1L);
     }
 
     /**
