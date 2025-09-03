@@ -197,6 +197,18 @@ public class NpcManager {
 
     public void spawnNpc(NpcInfo info) {
         if (info.location == null || info.mode == null) return;
+
+        // Avoid spawning duplicate NPCs if one with the same id already exists
+        for (Entity entity : info.location.getWorld().getNearbyEntities(info.location, 1, 1, 1)) {
+            if (entity instanceof ArmorStand stand) {
+                String tag = stand.getPersistentDataContainer().get(npcKey, PersistentDataType.STRING);
+                if (tag != null && tag.equals("JOIN_NPC:" + info.id)) {
+                    info.stand = stand;
+                    return; // NPC already present
+                }
+            }
+        }
+
         ArmorStand npc = (ArmorStand) info.location.getWorld().spawnEntity(info.location, EntityType.ARMOR_STAND);
         npc.setInvisible(false);
         npc.setInvulnerable(true);
