@@ -501,3 +501,4 @@ animations:
 - Déplacement de Butin de Guerre et Réduction d'Équipe vers la troisième rangée (slots 6 et 7) du menu d'améliorations.
 - Correction de l'affichage de la couleur d'équipe dans le chat en partie.
 - Rafraîchissement instantané des interfaces visuelles (scoreboard, tablist) pour une meilleure réactivité.
+- Mise à jour vers l'API Spigot 1.21.1 avec adoption de l'API moderne du scoreboard et correction des méthodes de profil joueur pour assurer un build Maven sans erreur.
