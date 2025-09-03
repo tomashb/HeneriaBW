@@ -90,6 +90,26 @@ upgrade-categories:
           1:
             cost: 4
             description: "&7Octroie Speed I permanente à l'équipe."
+      war-loot:
+        name: "&6Butin de Guerre"
+        item: GOLDEN_SWORD
+        tiers:
+          1:
+            cost: 4
+            description: "&7+8 Fer par élimination."
+          2:
+            cost: 8
+            description: "&7+12 Fer et +2 Or par élimination."
+      team-discount:
+        name: "&6Réduction d'Équipe"
+        item: EMERALD
+        tiers:
+          1:
+            cost: 10
+            description: "&7Réduction de 10% sur les achats."
+          2:
+            cost: 20
+            description: "&7Réduction de 20% sur les achats."
   traps:
     title: "Pièges"
     rows: 3

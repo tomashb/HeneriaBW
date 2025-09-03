@@ -53,6 +53,8 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 💎 **Forge Max fiable** : Le niveau maximal de forge génère immédiatement des émeraudes dans votre base.
 - 🏥 **Soin de Base** : Achetez une aura de régénération autour de votre lit pour soigner vos défenseurs.
 - 🔔 **Alarme Anti-Intrusion** : Un son puissant alerte toute l'équipe lorsqu'un piège est déclenché.
+- ⚔️ **Butin de Guerre** : Récoltez du Fer et de l'Or bonus à chaque élimination.
+- 🛍️ **Réduction d'Équipe** : Bénéficiez de 10% puis 20% de remise sur tous les achats de la boutique.
 - 🪤 **Menu "Upgrades & Traps" remanié** : Les améliorations et pièges sont affichés sur deux rangées centrées avec descriptions colorées, les pièges achetés apparaissant dans une barre dédiée.
   - Blindness Trap : applique Cécité aux intrus.
   - Counter-Offensive Trap : donne Speed II et Jump Boost II aux alliés pendant 15 s.

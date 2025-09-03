@@ -12,6 +12,7 @@ import com.heneria.bedwars.utils.MessageManager;
 import com.heneria.bedwars.managers.CosmeticManager;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
@@ -23,6 +24,7 @@ import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.block.Action;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import com.heneria.bedwars.utils.GameUtils;
 
@@ -151,6 +153,18 @@ public class GameListener implements Listener {
                 killerStats.incrementKills();
             }
             plugin.getBountyManager().handleKill(killer, player, arena);
+
+            Team killerTeam = arena.getTeam(killer);
+            if (killerTeam != null) {
+                int loot = killerTeam.getUpgradeLevel("war-loot");
+                if (loot > 0) {
+                    int iron = loot == 1 ? 8 : 12;
+                    killer.getInventory().addItem(new ItemStack(Material.IRON_INGOT, iron));
+                    if (loot >= 2) {
+                        killer.getInventory().addItem(new ItemStack(Material.GOLD_INGOT, 2));
+                    }
+                }
+            }
         }
         PlayerStats victimStats = statsManager.getStats(player);
         if (victimStats != null) {

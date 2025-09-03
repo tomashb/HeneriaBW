@@ -7,6 +7,7 @@ import com.heneria.bedwars.managers.SpecialShopManager;
 import com.heneria.bedwars.utils.ItemBuilder;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
+import com.heneria.bedwars.arena.elements.Team;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -25,6 +26,7 @@ public class SpecialShopMenu extends Menu {
 
     private final SpecialShopManager manager;
     private final Map<Integer, SpecialShopManager.SpecialItem> slotItems = new HashMap<>();
+    private Player viewer;
 
     public SpecialShopMenu(SpecialShopManager manager) {
         this.manager = manager;
@@ -41,14 +43,22 @@ public class SpecialShopMenu extends Menu {
     }
 
     @Override
+    public void open(Player player, Menu previousMenu) {
+        this.viewer = player;
+        super.open(player, previousMenu);
+    }
+
+    @Override
     public void setupItems() {
+        Team team = getTeam();
         for (SpecialShopManager.SpecialItem item : manager.getItems().values()) {
+            int price = getDiscountedPrice(team, item.costAmount());
             ItemBuilder builder = new ItemBuilder(item.material())
                     .setName(item.name());
             for (String line : item.lore()) {
                 builder.addLore(line);
             }
-            builder.addLore("&7Coût: " + item.costResource().getColor() + item.costAmount() + " " + item.costResource().getDisplayName());
+            builder.addLore("&7Coût: " + item.costResource().getColor() + price + " " + item.costResource().getDisplayName());
             if (item.purchaseLimit() > 0) {
                 builder.addLore("&7Limite: &f" + item.purchaseLimit());
             }
@@ -84,8 +94,9 @@ public class SpecialShopMenu extends Menu {
                 return;
             }
         }
+        Team team = getTeam();
         ResourceType type = item.costResource();
-        int price = item.costAmount();
+        int price = getDiscountedPrice(team, item.costAmount());
         if (ResourceManager.hasResources(player, type, price)) {
             ResourceManager.takeResources(player, type, price);
             ItemStack give = new ItemStack(item.material(), 1);
@@ -105,6 +116,28 @@ public class SpecialShopMenu extends Menu {
         } else {
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
         }
+    }
+
+    private Team getTeam() {
+        if (viewer == null) {
+            return null;
+        }
+        Arena arena = HeneriaBedwars.getInstance().getArenaManager().getArena(viewer);
+        return arena != null ? arena.getTeam(viewer) : null;
+    }
+
+    private int getDiscountedPrice(Team team, int basePrice) {
+        if (team == null) {
+            return basePrice;
+        }
+        int level = team.getUpgradeLevel("team-discount");
+        double multiplier = switch (level) {
+            case 1 -> 0.9;
+            case 2 -> 0.8;
+            default -> 1.0;
+        };
+        int price = (int) Math.ceil(basePrice * multiplier);
+        return Math.max(1, price);
     }
 }
 
