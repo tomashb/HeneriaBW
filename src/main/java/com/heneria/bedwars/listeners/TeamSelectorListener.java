@@ -29,10 +29,8 @@ public class TeamSelectorListener implements Listener {
     public static final NamespacedKey TEAM_SELECTOR_KEY = new NamespacedKey(HeneriaBedwars.getInstance(), "team-selector");
 
     public static ItemStack createSelectorItem() {
-        String skin = HeneriaBedwars.getInstance().getConfig().getString("team-selector-item.skin", "MHF_Banner");
-        ItemStack item = new ItemBuilder(Material.PLAYER_HEAD)
+        ItemStack item = new ItemBuilder(Material.WHITE_BANNER)
                 .setName(MessageManager.get("items.team-selector-name"))
-                .setSkullTexture(skin)
                 .build();
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {

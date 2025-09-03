@@ -23,11 +23,9 @@ public class LobbyShopItemListener implements Listener {
     public LobbyShopItemListener() {
         var cfg = HeneriaBedwars.getInstance().getConfig();
         String name = cfg.getString("lobby-shop-item.name", "&aBoutique Cosmétiques");
-        String skin = cfg.getString("lobby-shop-item.skin", "MHF_Chest");
         var lore = cfg.getStringList("lobby-shop-item.lore");
-        ItemBuilder builder = new ItemBuilder(Material.PLAYER_HEAD)
-                .setName(name)
-                .setSkullTexture(skin);
+        ItemBuilder builder = new ItemBuilder(Material.CHEST)
+                .setName(name);
         for (String line : lore) {
             builder.addLore(line);
         }

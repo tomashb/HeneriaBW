@@ -1,5 +1,9 @@
 # Changelog - HeneriaBedwars
 
+## [4.3.3] - 2024-??-??
+### Modifié
+- Retrait temporaire des têtes personnalisées, des attributs de joueur modernes et de l'utilisation de Kyori Adventure pour restaurer la stabilité de la compilation.
+
 ## [4.3.2] - 2024-??-??
 \n### Ajouté
 - Système de primes à paliers avec récompenses évolutives.

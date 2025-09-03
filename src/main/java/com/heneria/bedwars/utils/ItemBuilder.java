@@ -6,11 +6,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.Bukkit;
-import org.bukkit.profile.PlayerProfile;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.UUID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,38 +83,6 @@ public class ItemBuilder {
     public ItemBuilder setSkullOwner(String skin) {
         if (skin != null && meta instanceof SkullMeta skullMeta) {
             skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(skin));
-            itemStack.setItemMeta(skullMeta);
-        }
-        return this;
-    }
-
-    /**
-     * Applies a custom texture to a player head using either a skin URL,
-     * a Base64 string or a known player name. Falls back to the skin owner
-     * method if the value is not a URL or Base64 data.
-     *
-     * @param texture the texture data, URL or player name
-     * @return this builder
-     */
-    public ItemBuilder setSkullTexture(String texture) {
-        if (texture == null || !(meta instanceof SkullMeta skullMeta)) {
-            return this;
-        }
-        try {
-            PlayerProfile profile = Bukkit.createPlayerProfile(UUID.randomUUID());
-            if (texture.startsWith("http")) {
-                profile.getTextures().setSkin(new URL(texture));
-            } else if (texture.length() > 60) {
-                profile.getTextures().setSkin(new URL(texture));
-            } else {
-                skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(texture));
-                itemStack.setItemMeta(skullMeta);
-                return this;
-            }
-            skullMeta.setOwnerProfile(profile);
-            itemStack.setItemMeta(skullMeta);
-        } catch (MalformedURLException e) {
-            skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(texture));
             itemStack.setItemMeta(skullMeta);
         }
         return this;

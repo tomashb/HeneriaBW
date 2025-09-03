@@ -22,7 +22,7 @@ Le plugin est structuré autour d'un cycle de jeu complet et d'outils d'administ
   - `scoreboard.yml` : Personnalisez les tableaux de bord du lobby principal, du lobby d'attente et de la partie via les sections `main-lobby`, `lobby` et `game`. La section `main-lobby` inclut une rubrique `Infos` (grade, rang, Elo, Henacoins) reposant sur PlaceholderAPI (`%luckperms_prefix%`, `%vault_eco_balance_formatted%`).
   - `tablist.yml` : Configurez l'en-tête et le pied de page du lobby principal (`main-lobby`), du lobby d'attente (`waiting-lobby`) et de la partie (`game`) avec couleurs, sauts de ligne (`\n`) et placeholders.
   - `events.yml` : Planifiez les événements automatiques (amélioration des générateurs, Mort Subite, apparition de dragons) et définissez un `display-name` lisible pour l'affichage du prochain événement sur le scoreboard.
-  - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`), la hauteur de téléportation anti-vide (`void-teleport-height`), personnalisez le format du chat via `chat-format`, contrôlez les animations du lobby via `animations.lobby-npc` (`enable`, `levitation-strength`, `presentation-speed`) et définissez les textures des items du lobby (`team-selector-item.skin`, `leave-item.skin`, `lobby-shop-item.skin`).
+  - `config.yml` : Ajustez les réglages globaux, comme les dégâts infligés par le Golem de Fer (`mobs.iron-golem.damage`), la hauteur de téléportation anti-vide (`void-teleport-height`), personnalisez le format du chat via `chat-format` et contrôlez les animations du lobby via `animations.lobby-npc` (`enable`, `levitation-strength`, `presentation-speed`).
   - `special_shop.yml` : Définissez les objets uniques vendus par le PNJ spécial de milieu de partie, avec l'option `purchase-limit` pour limiter le nombre d'achats par joueur.
   - `messages.yml` : Traduisez et personnalisez tous les messages du plugin, y compris `server.join-message` et `server.leave-message` (préfixe vide par défaut).
 
@@ -488,8 +488,6 @@ animations:
 - Correction d'une erreur de compilation en renommant `PotionEffectType.JUMP` en `PotionEffectType.JUMP_BOOST`.
 - Suppression d'avertissements Maven liés à une API dépréciée et à des opérations non vérifiées.
 - Résolution d'une erreur de compilation due à la redéfinition de la variable `key` dans `ShopManager#parseItem`.
-- Mise à jour de la gestion des textures de têtes personnalisées avec `PlayerProfile`.
-- Correction d'une incompatibilité de type dans `ItemBuilder#setSkullTexture` en convertissant les chaînes d'URL en objets `URL`.
 - Remplacement de `PotionEffectType#getByName` par `PotionEffectType#getByKey` pour supprimer les avertissements de dépréciation.
 - Correction d'un bug critique de duplication infinie des PNJ du lobby provoquant une chute drastique des performances.
 - Suppression d'une redéclaration de variable dans `ShopMenu#handleClick` causant un échec de compilation.
@@ -501,5 +499,3 @@ animations:
 - Déplacement de Butin de Guerre et Réduction d'Équipe vers la troisième rangée (slots 6 et 7) du menu d'améliorations.
 - Correction de l'affichage de la couleur d'équipe dans le chat en partie.
 - Rafraîchissement instantané des interfaces visuelles (scoreboard, tablist) pour une meilleure réactivité.
-- Mise à jour vers l'API Spigot 1.21.1 avec adoption de l'API moderne du scoreboard et correction des méthodes de profil joueur pour assurer un build Maven sans erreur.
-- Migration vers l'API Paper 1.21.3 et adaptation du scoreboard aux composants Adventure pour supprimer les erreurs de compilation restantes.
