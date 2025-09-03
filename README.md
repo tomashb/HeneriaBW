@@ -39,17 +39,17 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🎽 **Sélecteur d'équipe** : Choisissez votre camp grâce à un menu interactif avant le début de la partie.
 - 💬 **Chat et Tablist isolés** : Les messages et la liste des joueurs sont limités à votre partie pour éviter le spam entre arènes.
 - 🎨 **Couleurs d'équipe dynamiques** : Les pseudos des joueurs prennent la couleur de leur équipe dans la tablist et au-dessus de leur tête.
-- 📋 **Tablist en Jeu Détaillée** : Affiche pour chaque joueur la couleur de son équipe et l'état de son lit.
+- 📋 **Tablist en Jeu Détaillée** : Affiche pour chaque joueur la couleur exacte de son équipe et l'état de son lit.
 - 🎭 **Icônes de Lobby Personnalisées** : Boutique, sélecteur d'équipe et sortie utilisent des têtes texturées uniques.
-- 🛏️ **Mécaniques Classiques** : Protégez votre lit pour pouvoir réapparaître, et détruisez celui de vos ennemis pour les éliminer définitivement.
+- 🛏️ **Mécaniques Classiques** : Protégez votre lit pour pouvoir réapparaître, détruisez celui de vos ennemis pour les éliminer définitivement et utilisez des boules de feu pour percer la laine.
 - 💰 **Système Économique** : Collectez du Fer, de l'Or, des Diamants et des Émeraudes à des vitesses différentes pour acheter de l'équipement.
 - 🎯 **Système de primes à paliers** : Devenez recherché en enchaînant les éliminations et offrez des récompenses croissantes à ceux qui vous arrêtent.
 - 📡 **Hologrammes Intégrés** : Compte à rebours dynamique au-dessus des générateurs de Diamants et d'Émeraudes sans dépendance externe.
 - 🔥 **Forge évolutive** : Améliorez la Forge de votre équipe pour accélérer le Fer et l'Or, le dernier niveau produisant même des Émeraudes sur votre île.
 - 🛒 **Boutiques Fonctionnelles** : Interagissez avec les PNJ pour acheter des objets dans une boutique colorée (vitres teintées par catégorie, section d'achats rapides enrichie) ou des améliorations permanentes pour votre équipe.
 - 🧍 **PNJ personnalisés** : Les vendeurs d'objets et d'améliorations arborent désormais des skins distincts.
-- 🪧 **Hologramme dynamique** : L'affichage du PNJ central du lobby est plus coloré et suit ses mouvements.
-- 🧱 **Achat rapide épuré** : Les vitres trempées ne sont plus proposées dans la section d'achats rapides.
+- 🪧 **Hologramme stable** : L'affichage du PNJ central du lobby reste unique et statique au-dessus de sa tête.
+- 🧱 **Achat rapide soigné** : Les vitres trempées ne sont plus proposées et les cases vides sont remplies de vitres décoratives.
 - 💎 **Forge Max fiable** : Le niveau maximal de forge génère immédiatement des émeraudes dans votre base.
 - 🏥 **Soin de Base** : Achetez une aura de régénération autour de votre lit pour soigner vos défenseurs.
 - 🔔 **Alarme Anti-Intrusion** : Un son puissant alerte toute l'équipe lorsqu'un piège est déclenché.

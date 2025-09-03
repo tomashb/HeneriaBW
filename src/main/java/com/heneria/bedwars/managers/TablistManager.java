@@ -75,7 +75,8 @@ public class TablistManager {
             Team team = arena.getTeam(player);
             if (team != null) {
                 String bed = team.hasBed() ? MessageManager.get("scoreboard.bed-alive") : MessageManager.get("scoreboard.bed-destroyed");
-                player.setPlayerListName(team.getColor().getChatColor() + bed + " " + player.getName());
+                ChatColor teamColor = team.getColor().getChatColor();
+                player.setPlayerListName(teamColor + bed + " " + teamColor + player.getName());
             } else {
                 player.setPlayerListName(player.getName());
             }

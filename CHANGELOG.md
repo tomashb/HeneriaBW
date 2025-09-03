@@ -6,9 +6,10 @@
 - Tablist en jeu affichant la couleur d'équipe et l'état des lits.
 - Icônes du lobby (boutique, sélecteur d'équipe, sortie) converties en têtes personnalisées.
 \n### Modifié
-- Hologramme du PNJ central du lobby redésigné et synchronisé avec ses mouvements.
+- Hologramme du PNJ central du lobby stabilisé au-dessus d'un PNJ désormais statique.
 - PNJ de boutique et d'améliorations dotés de skins distincts par défaut.
 - Message de prime redessiné avec un préfixe dédié.
+- Section d'achats rapides remplie de vitres décoratives.
 \n### Corrigé
 - Duplication infinie des PNJ du lobby éliminée pour éviter la surcharge du serveur.
 - Les vitres trempées ne sont plus disponibles via les achats rapides.
@@ -18,6 +19,9 @@
 - Correction des erreurs de compilation lors de l'application de textures de têtes personnalisées.
 - Conversion explicite des chaînes d'URL en `URL` dans `ItemBuilder#setSkullTexture` pour résoudre l'incompatibilité de type restante.
 - Suppression d'un avertissement de dépréciation en remplaçant `PotionEffectType#getByName` par `getByKey`.
+- Les noms de la tablist conservent désormais la couleur de l'équipe.
+- Les boules de feu détruisent correctement la laine placée par les joueurs.
+- Hologramme du PNJ du lobby ne se duplique plus.
 
 ## [4.3.1] - 2024-??-??
 
