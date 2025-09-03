@@ -40,6 +40,8 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - 🚪 **Menu Quitter la partie** : Confirmation stylisée (3x9) s'ouvrant via clic gauche ou droit.
 - 💬 **Chat et Tablist isolés** : Les messages et la liste des joueurs sont limités à votre partie pour éviter le spam entre arènes.
 - 🗨️ **Préfixe coloré dans le chat** : Les messages en partie indiquent clairement la couleur de l'équipe du joueur.
+- ⏱️ **Décompte épuré** : Affiché uniquement en titre, il n'est annoncé dans le chat qu'à 10 puis de 5 à 1 seconde(s).
+- 🧴 **Effets réinitialisés** : Tous les bonus temporaires sont supprimés lorsque vous retournez au lobby.
 - 🎨 **Couleurs d'équipe dynamiques** : Les pseudos des joueurs prennent la couleur de leur équipe dans la tablist et au-dessus de leur tête.
 - 📋 **Tablist en Jeu Détaillée** : Affiche pour chaque joueur la couleur exacte de son équipe et l'état de son lit.
 - 🎭 **Icônes de Lobby Personnalisées** : Boutique, sélecteur d'équipe et sortie utilisent des têtes texturées uniques.

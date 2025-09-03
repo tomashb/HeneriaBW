@@ -36,6 +36,10 @@
 - Correction d'une erreur de compilation en remplaçant `Registry.POTION_EFFECT_TYPE` par `Registry.EFFECT` dans `ShopManager` et `UpgradeManager`.
 - Bouton « Ressusciter » supprimé après la mort pour éviter l'affichage furtif.
 - Les messages de chat affichent désormais correctement la couleur de l'équipe.
+- Les effets de potion sont retirés lors du retour au lobby.
+- Le compteur de démarrage n'apparaît plus sur le scoreboard ni la tablist et le chat ne l'annonce qu'à 10 puis de 5 à 1 seconde(s).
+- Les blocs de laine récupérés se cumulent correctement dans l'inventaire.
+- Les PNJ de boutique et d'améliorations affichent désormais correctement leur skin.
 
 ## [4.3.1] - 2024-??-??
 

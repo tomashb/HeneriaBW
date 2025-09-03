@@ -199,28 +199,30 @@ public class ShopMenu extends Menu {
                 }
             }
             ItemStack give = new ItemStack(material, item.amount());
-            ItemMeta meta = give.getItemMeta();
-            if (meta != null) {
-                meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', item.name()));
-                if (isSword || isPickaxe || isAxe) {
-                    meta.getPersistentDataContainer().set(GameUtils.STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
-                }
-                if (item.action() != null) {
-                    meta.getPersistentDataContainer()
-                            .set(HeneriaBedwars.getItemTypeKey(), PersistentDataType.STRING, item.action());
-                }
-                for (Map.Entry<Enchantment, Integer> entry : item.enchantments().entrySet()) {
-                    meta.addEnchant(entry.getKey(), entry.getValue(), true);
-                }
-                if (meta instanceof org.bukkit.inventory.meta.PotionMeta potionMeta) {
-                    for (PotionEffect effect : item.potionEffects()) {
-                        potionMeta.addCustomEffect(effect, true);
+            if (!material.toString().endsWith("_WOOL")) {
+                ItemMeta meta = give.getItemMeta();
+                if (meta != null) {
+                    meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', item.name()));
+                    if (isSword || isPickaxe || isAxe) {
+                        meta.getPersistentDataContainer().set(GameUtils.STARTER_KEY, PersistentDataType.BYTE, (byte) 1);
                     }
+                    if (item.action() != null) {
+                        meta.getPersistentDataContainer()
+                                .set(HeneriaBedwars.getItemTypeKey(), PersistentDataType.STRING, item.action());
+                    }
+                    for (Map.Entry<Enchantment, Integer> entry : item.enchantments().entrySet()) {
+                        meta.addEnchant(entry.getKey(), entry.getValue(), true);
+                    }
+                    if (meta instanceof org.bukkit.inventory.meta.PotionMeta potionMeta) {
+                        for (PotionEffect effect : item.potionEffects()) {
+                            potionMeta.addCustomEffect(effect, true);
+                        }
+                    }
+                    if (give.getType().getMaxDurability() > 0) {
+                        meta.setUnbreakable(true);
+                    }
+                    give.setItemMeta(meta);
                 }
-                if (give.getType().getMaxDurability() > 0) {
-                    meta.setUnbreakable(true);
-                }
-                give.setItemMeta(meta);
             }
             HeneriaBedwars.getInstance().getUpgradeManager().applyTeamUpgrades(clicker, give);
             handleUpgrade(clicker, item, give);
