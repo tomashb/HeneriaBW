@@ -10,6 +10,7 @@
 - PNJ de boutique et d'améliorations dotés de skins distincts par défaut.
 - Message de prime redessiné avec un préfixe dédié.
 \n### Corrigé
+- Duplication infinie des PNJ du lobby éliminée pour éviter la surcharge du serveur.
 - Les vitres trempées ne sont plus disponibles via les achats rapides.
 - La forge au niveau maximal génère immédiatement des émeraudes dans le générateur de l'équipe.
 - Le texte des hologrammes de générateurs d'Émeraude reste lisible après l'apparition.
