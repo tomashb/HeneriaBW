@@ -183,7 +183,7 @@ public class ShopMenu extends Menu {
                     "resource", type.getColor() + type.getDisplayName());
             Material material = item.material();
             Arena arena = HeneriaBedwars.getInstance().getArenaManager().getArena(clicker);
-            Team team = arena != null ? arena.getTeam(clicker) : null;
+            team = arena != null ? arena.getTeam(clicker) : null;
             if (material.toString().endsWith("_WOOL") && team != null) {
                 material = team.getColor().getWoolMaterial();
             }

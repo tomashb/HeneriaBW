@@ -487,3 +487,5 @@ animations:
 - Correction d'une incompatibilité de type dans `ItemBuilder#setSkullTexture` en convertissant les chaînes d'URL en objets `URL`.
 - Remplacement de `PotionEffectType#getByName` par `PotionEffectType#getByKey` pour supprimer les avertissements de dépréciation.
 - Correction d'un bug critique de duplication infinie des PNJ du lobby provoquant une chute drastique des performances.
+- Suppression d'une redéclaration de variable dans `ShopMenu#handleClick` causant un échec de compilation.
+- Remplacement de l'API dépréciée `getByKey` par `Registry` dans `ShopManager`.
