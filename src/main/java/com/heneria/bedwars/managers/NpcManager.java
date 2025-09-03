@@ -34,7 +34,7 @@ public class NpcManager {
     private final List<NpcInfo> npcs = new ArrayList<>();
     private final NamespacedKey npcKey;
     private BukkitTask hologramTask;
-    private final double hologramOffsetY = 2.2;
+    private final double hologramOffsetY = 2.5;
 
     public NpcManager(HeneriaBedwars plugin) {
         this.plugin = plugin;

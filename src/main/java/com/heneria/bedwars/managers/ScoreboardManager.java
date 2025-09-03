@@ -65,7 +65,7 @@ public class ScoreboardManager {
             public void run() {
                 updateAll();
             }
-        }.runTaskTimer(plugin, 20L, 20L);
+        }.runTaskTimer(plugin, 0L, 1L);
     }
 
     public void setScoreboard(Player player) {

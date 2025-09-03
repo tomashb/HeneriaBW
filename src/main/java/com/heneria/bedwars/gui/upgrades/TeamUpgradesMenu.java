@@ -76,9 +76,9 @@ public class TeamUpgradesMenu extends Menu {
         setUpgradeItem(21, "speed");
         setTrapItem(23, "miner-fatigue-trap");
 
-        // Third row - right side
-        setUpgradeItem(25, "war-loot");
-        setUpgradeItem(26, "team-discount");
+        // Third row - updated economic upgrades positions
+        setUpgradeItem(23, "war-loot");
+        setUpgradeItem(24, "team-discount");
 
         // Trap slots (row 4)
         ItemStack placeholder = new ItemBuilder(Material.GRAY_WOOL).setName("&7Aucun piège").build();

@@ -139,12 +139,12 @@ public class GameListener implements Listener {
                 ? arena.getLobbyLocation().clone().add(0, 20, 0)
                 : playerTeam.getSpawnLocation();
 
-        // Forcer la réapparition et téléporter le joueur en spectateur au-dessus du lobby
-        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+        // Forcer la réapparition sans afficher l'écran de mort
+        plugin.getServer().getScheduler().runTask(plugin, () -> {
             player.spigot().respawn();
             player.setGameMode(GameMode.SPECTATOR);
             player.teleport(lobbyView);
-        }, 1L);
+        });
 
         Player killer = player.getKiller();
         if (killer != null) {

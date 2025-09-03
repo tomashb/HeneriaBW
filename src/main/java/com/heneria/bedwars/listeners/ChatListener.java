@@ -152,7 +152,7 @@ public class ChatListener implements Listener {
             ChatColor color = team != null ? team.getColor().getChatColor() : ChatColor.WHITE;
             String teamName = team != null ? team.getColor().getDisplayName() : "";
             String format = ChatColor.DARK_GRAY + "[" + color + teamName + ChatColor.DARK_GRAY + "] "
-                    + ChatColor.GRAY + "%1$s" + ChatColor.WHITE + ": %2$s";
+                    + color + "%1$s" + ChatColor.WHITE + ": %2$s";
             event.setFormat(format);
             return;
         }
