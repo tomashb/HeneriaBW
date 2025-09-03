@@ -19,6 +19,7 @@ import com.heneria.bedwars.utils.MessageManager;
 import com.heneria.bedwars.stats.PlayerStats;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -73,7 +74,8 @@ public class ScoreboardManager {
     public void setScoreboard(Player player) {
         Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
         String initialTitle = mainLobbyTitle != null ? mainLobbyTitle : (lobbyTitle != null ? lobbyTitle : (gameTitle != null ? gameTitle : "BedWars"));
-        Objective obj = board.registerNewObjective("hbw", Criteria.DUMMY, Component.text(ChatColor.translateAlternateColorCodes('&', initialTitle)));
+        Component titleComponent = LegacyComponentSerializer.legacyAmpersand().deserialize(initialTitle);
+        Objective obj = board.registerNewObjective("hbw", Criteria.DUMMY, titleComponent);
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         setBoard(player, board);
     }
@@ -109,7 +111,8 @@ public class ScoreboardManager {
         Objective obj = board.getObjective(DisplaySlot.SIDEBAR);
         if (obj == null) {
             String defaultTitle = mainLobbyTitle != null ? mainLobbyTitle : (lobbyTitle != null ? lobbyTitle : (gameTitle != null ? gameTitle : "BedWars"));
-            obj = board.registerNewObjective("hbw", Criteria.DUMMY, Component.text(ChatColor.translateAlternateColorCodes('&', defaultTitle)));
+            Component defaultComponent = LegacyComponentSerializer.legacyAmpersand().deserialize(defaultTitle);
+            obj = board.registerNewObjective("hbw", Criteria.DUMMY, defaultComponent);
             obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         }
         GameState state = arena != null ? arena.getState() : null;
@@ -128,7 +131,8 @@ public class ScoreboardManager {
         if (title == null || lines == null) {
             return;
         }
-        obj.displayName(Component.text(ChatColor.translateAlternateColorCodes('&', replacePlaceholders(title, player, arena))));
+        Component titleComponent = LegacyComponentSerializer.legacyAmpersand().deserialize(replacePlaceholders(title, player, arena));
+        obj.displayName(titleComponent);
 
         for (String entry : new HashSet<>(board.getEntries())) {
             board.resetScores(entry);

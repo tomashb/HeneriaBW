@@ -40,7 +40,7 @@
 - Le compteur de démarrage n'apparaît plus sur le scoreboard ni la tablist et le chat ne l'annonce qu'à 10 puis de 5 à 1 seconde(s).
 - Les blocs de laine récupérés se cumulent correctement dans l'inventaire.
 - Les PNJ de boutique et d'améliorations affichent désormais correctement leur skin.
-- Mise à jour de l'API vers Spigot 1.21.1 et correction des appels `PlayerProfile` et du scoreboard pour supprimer les erreurs de compilation.
+- Migration vers l'API Paper 1.21.3 et correction des appels `PlayerProfile` et du scoreboard pour supprimer les erreurs de compilation.
 
 ## [4.3.1] - 2024-??-??
 
