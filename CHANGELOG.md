@@ -27,6 +27,7 @@
 - Remplacement de `PotionEffectType#getByKey` et `Enchantment#getByKey` par l'API `Registry` dans `ShopManager` pour éliminer l'avertissement de dépréciation.
 - Correction d'une erreur de compilation en remplaçant `Registry.POTION_EFFECT` par `Registry.POTION_EFFECT_TYPE` dans `ShopManager`.
 - Remplacement de `PotionEffectType#getByKey` par `Registry.POTION_EFFECT_TYPE` dans `UpgradeManager` pour supprimer l'avertissement de dépréciation.
+- Correction d'une erreur de compilation en remplaçant `Registry.POTION_EFFECT_TYPE` par `Registry.EFFECT` dans `ShopManager` et `UpgradeManager`.
 
 ## [4.3.1] - 2024-??-??
 
