@@ -25,6 +25,8 @@
 - Hologramme du PNJ du lobby ne se duplique plus.
 - Correction d'une variable `team` redéclarée dans `ShopMenu` causant un échec de compilation.
 - Remplacement de `PotionEffectType#getByKey` et `Enchantment#getByKey` par l'API `Registry` dans `ShopManager` pour éliminer l'avertissement de dépréciation.
+- Correction d'une erreur de compilation en utilisant `Registry.POTION_EFFECT` au lieu de `Registry.POTION_EFFECT_TYPE` dans `ShopManager`.
+- Remplacement de `PotionEffectType#getByKey` par `Registry.POTION_EFFECT` dans `UpgradeManager` pour supprimer l'avertissement de dépréciation.
 
 ## [4.3.1] - 2024-??-??
 

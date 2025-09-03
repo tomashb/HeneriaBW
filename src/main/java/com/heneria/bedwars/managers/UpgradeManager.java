@@ -14,6 +14,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.Registry;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
@@ -126,7 +127,7 @@ public class UpgradeManager {
                         int cost = trs.getInt(base + "cost", 1);
                         List<String> description = trs.getStringList(base + "description");
                         ConfigurationSection effectSec = trs.getConfigurationSection(base + "effect");
-                        PotionEffectType type = PotionEffectType.getByKey(
+                        PotionEffectType type = Registry.POTION_EFFECT.get(
                                 NamespacedKey.minecraft(effectSec.getString("type", "BLINDNESS").toLowerCase(Locale.ROOT)));
                         int duration = effectSec.getInt("duration", 5);
                         int amplifier = effectSec.getInt("amplifier", 0);
