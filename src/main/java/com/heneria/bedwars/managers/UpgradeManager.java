@@ -127,7 +127,7 @@ public class UpgradeManager {
                         int cost = trs.getInt(base + "cost", 1);
                         List<String> description = trs.getStringList(base + "description");
                         ConfigurationSection effectSec = trs.getConfigurationSection(base + "effect");
-                        PotionEffectType type = Registry.POTION_EFFECT.get(
+                        PotionEffectType type = Registry.POTION_EFFECT_TYPE.get(
                                 NamespacedKey.minecraft(effectSec.getString("type", "BLINDNESS").toLowerCase(Locale.ROOT)));
                         int duration = effectSec.getInt("duration", 5);
                         int amplifier = effectSec.getInt("amplifier", 0);
