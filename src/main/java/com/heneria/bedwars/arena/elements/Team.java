@@ -284,6 +284,21 @@ public class Team {
     }
 
     /**
+     * Counts how many traps are currently active for this team.
+     *
+     * @return number of active traps
+     */
+    public int getActiveTrapCount() {
+        int count = 0;
+        for (boolean active : traps.values()) {
+            if (active) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
      * Resets all upgrades and traps for this team.
      */
      public void resetUpgrades() {

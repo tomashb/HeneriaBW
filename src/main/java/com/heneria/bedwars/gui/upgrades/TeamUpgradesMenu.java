@@ -33,6 +33,7 @@ public class TeamUpgradesMenu extends Menu {
     private final Map<Integer, UpgradeManager.Upgrade> slotUpgrades = new HashMap<>();
     private final Map<Integer, Trap> slotTraps = new HashMap<>();
     private final int[] trapSlots = {30, 31, 32};
+    private static final int MAX_TRAPS = 3;
 
     public TeamUpgradesMenu(HeneriaBedwars plugin, Arena arena, Team team) {
         this.plugin = plugin;
@@ -114,10 +115,12 @@ public class TeamUpgradesMenu extends Menu {
         Trap trap = upgradeManager.getTrap(id);
         if (trap == null) return;
         ItemBuilder builder = new ItemBuilder(trap.item()).setName(trap.name()).setLore(trap.description());
-        if (!team.isTrapActive(id)) {
-            builder.addLore("&7Prix: " + ResourceType.DIAMOND.getColor() + trap.cost() + " Diamant" + (trap.cost() > 1 ? "s" : ""));
-        } else {
+        if (team.isTrapActive(id)) {
             builder.addLore("&aPiège actif");
+        } else if (team.getActiveTrapCount() >= MAX_TRAPS) {
+            builder.addLore("&cStock de pièges plein");
+        } else {
+            builder.addLore("&7Prix: " + ResourceType.DIAMOND.getColor() + trap.cost() + " Diamant" + (trap.cost() > 1 ? "s" : ""));
         }
         inventory.setItem(slot, builder.build());
         slotTraps.put(slot, trap);
@@ -160,6 +163,11 @@ public class TeamUpgradesMenu extends Menu {
 
         Trap trap = slotTraps.get(event.getRawSlot());
         if (trap == null) {
+            return;
+        }
+        if (team.getActiveTrapCount() >= MAX_TRAPS) {
+            MessageManager.sendMessage(player, "errors.trap-limit-reached");
+            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
             return;
         }
         if (team.isTrapActive(trap.id())) {

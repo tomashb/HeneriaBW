@@ -6,6 +6,8 @@
 - Tablist en jeu affichant la couleur d'équipe et l'état des lits.
 - Icônes du lobby (boutique, sélecteur d'équipe, sortie) converties en têtes personnalisées.
 - Nouvelles améliorations d'équipe : Butin de Guerre et Réduction d'Équipe.
+- Limite de trois pièges actifs par équipe avec réapprovisionnement automatique après déclenchement.
+- Préfixe d'équipe coloré dans le chat des parties.
 \n### Modifié
 - Hologramme du PNJ central du lobby stabilisé au-dessus d'un PNJ désormais statique.
 - PNJ de boutique et d'améliorations dotés de skins distincts par défaut.
