@@ -135,7 +135,7 @@ public class ShopManager {
 
         List<PotionEffect> potionEffects = new ArrayList<>();
         for (Map<?, ?> map : config.getMapList(path + ".potion-effects")) {
-            PotionEffectType pet = Registry.POTION_EFFECT_TYPE.get(
+            PotionEffectType pet = Registry.EFFECT.get(
                     NamespacedKey.minecraft(String.valueOf(map.get("type")).toLowerCase(Locale.ROOT)));
             if (pet != null) {
                 int duration = map.get("duration") instanceof Number d ? d.intValue() * 20 : 0;
