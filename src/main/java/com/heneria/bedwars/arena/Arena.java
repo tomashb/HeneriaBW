@@ -39,7 +39,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.PlayerProfile;
 
 import java.util.*;
 
@@ -864,7 +864,7 @@ public class Arena {
         if (meta == null || skinName == null || skinName.isEmpty()) {
             return;
         }
-        PlayerProfile profile = Bukkit.createPlayerProfile(UUID.randomUUID(), skinName);
+        PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), skinName);
         profile.update();
         meta.setPlayerProfile(profile);
     }
