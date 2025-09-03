@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -134,7 +135,7 @@ public class ShopManager {
 
         List<PotionEffect> potionEffects = new ArrayList<>();
         for (Map<?, ?> map : config.getMapList(path + ".potion-effects")) {
-            PotionEffectType pet = PotionEffectType.getByKey(
+            PotionEffectType pet = Registry.POTION_EFFECT_TYPE.get(
                     NamespacedKey.minecraft(String.valueOf(map.get("type")).toLowerCase(Locale.ROOT)));
             if (pet != null) {
                 int duration = map.get("duration") instanceof Number d ? d.intValue() * 20 : 0;
@@ -149,7 +150,7 @@ public class ShopManager {
             NamespacedKey enchKey = typeObj != null
                     ? NamespacedKey.minecraft(String.valueOf(typeObj).toLowerCase(Locale.ROOT))
                     : null;
-            Enchantment ench = enchKey != null ? Enchantment.getByKey(enchKey) : null;
+            Enchantment ench = enchKey != null ? Registry.ENCHANTMENT.get(enchKey) : null;
             if (ench != null) {
                 int lvl = map.get("level") instanceof Number n ? n.intValue() : 1;
                 enchantments.put(ench, lvl);

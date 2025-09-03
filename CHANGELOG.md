@@ -23,6 +23,8 @@
 - Les noms de la tablist conservent désormais la couleur de l'équipe.
 - Les boules de feu détruisent correctement la laine placée par les joueurs.
 - Hologramme du PNJ du lobby ne se duplique plus.
+- Correction d'une variable `team` redéclarée dans `ShopMenu` causant un échec de compilation.
+- Remplacement de `PotionEffectType#getByKey` et `Enchantment#getByKey` par l'API `Registry` dans `ShopManager` pour éliminer l'avertissement de dépréciation.
 
 ## [4.3.1] - 2024-??-??
 
