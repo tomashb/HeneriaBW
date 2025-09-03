@@ -174,7 +174,8 @@ public class SpecialItemListener implements Listener {
                 fireball.setVelocity(player.getLocation().getDirection().multiply(1.5));
                 fireball.setShooter(player);
                 fireball.setIsIncendiary(false);
-                fireball.setYield(0f);
+                // Allow explosions to break nearby wool blocks
+                fireball.setYield(2f);
             });
         } else if (type == Material.EGG) {
             event.setCancelled(true);

@@ -131,6 +131,16 @@ public class ShopMenu extends Menu {
             inventory.setItem(slot, stack);
             slotItems.put(slot, display);
         }
+
+        // Fill remaining slots in the quick buy menu with decorative panes
+        if (activeCategory == null) {
+            ItemStack pane = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
+            for (int i = 0; i < getSize(); i++) {
+                if (!slotItems.containsKey(i) && !slotTabs.containsKey(i)) {
+                    inventory.setItem(i, pane);
+                }
+            }
+        }
     }
 
     @Override

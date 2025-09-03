@@ -154,9 +154,7 @@ public class NpcManager {
     }
 
     private Location hologramLocation(NpcInfo info) {
-        if (info.stand != null) {
-            return info.stand.getLocation().add(0, hologramOffsetY, 0);
-        }
+        // Always base the hologram on the original NPC location to avoid duplicates
         return info.location.clone().add(0, hologramOffsetY, 0);
     }
 
