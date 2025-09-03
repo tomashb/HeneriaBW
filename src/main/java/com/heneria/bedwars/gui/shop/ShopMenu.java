@@ -95,6 +95,8 @@ public class ShopMenu extends Menu {
                 ? activeCategory.items()
                 : shopManager.getQuickBuyItems();
 
+        Team team = getTeam();
+
         for (Map.Entry<Integer, List<ShopManager.ShopItem>> entry : items.entrySet()) {
             int slot = entry.getKey();
             List<ShopManager.ShopItem> list = entry.getValue();
@@ -122,10 +124,11 @@ public class ShopMenu extends Menu {
                     continue;
                 }
             }
+            int price = getDiscountedPrice(team, display.costAmount());
             ItemBuilder builder = new ItemBuilder(display.material())
                     .setName(display.name())
                     .addLore("&7Quantité: &f" + display.amount())
-                    .addLore("&7Coût: " + display.costResource().getColor() + display.costAmount() + " " + display.costResource().getDisplayName());
+                    .addLore("&7Coût: " + display.costResource().getColor() + price + " " + display.costResource().getDisplayName());
             ItemStack stack = builder.build();
             stack.setAmount(display.amount());
             inventory.setItem(slot, stack);
@@ -158,8 +161,9 @@ public class ShopMenu extends Menu {
             return;
         }
 
+        Team team = getTeam();
         ResourceType type = item.costResource();
-        int price = item.costAmount();
+        int price = getDiscountedPrice(team, item.costAmount());
         if (ResourceManager.hasResources(clicker, type, price)) {
             String coloredName = ChatColor.translateAlternateColorCodes('&', item.name());
             ResourceManager.takeResources(clicker, type, price);
@@ -286,6 +290,25 @@ public class ShopMenu extends Menu {
                 player.getInventory().setItem(i, null);
             }
         }
+    }
+
+    private Team getTeam() {
+        Arena arena = HeneriaBedwars.getInstance().getArenaManager().getArena(player);
+        return arena != null ? arena.getTeam(player) : null;
+    }
+
+    private int getDiscountedPrice(Team team, int basePrice) {
+        if (team == null) {
+            return basePrice;
+        }
+        int level = team.getUpgradeLevel("team-discount");
+        double multiplier = switch (level) {
+            case 1 -> 0.9;
+            case 2 -> 0.8;
+            default -> 1.0;
+        };
+        int price = (int) Math.ceil(basePrice * multiplier);
+        return Math.max(1, price);
     }
 }
 
