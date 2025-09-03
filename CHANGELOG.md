@@ -16,6 +16,7 @@
 - Position de l'hologramme du PNJ du lobby ajustée pour éviter tout chevauchement avec le nametag.
 - Butin de Guerre et Réduction d'Équipe déplacés vers la rangée 3 (slots 6 et 7) du menu d'améliorations.
 - Scoreboard et tablist rafraîchis à chaque tick pour une mise à jour instantanée.
+- Menus « Sélecteur d'équipe » et « Quitter la partie » entièrement redessinés (3x9, clic gauche ou droit).
 \n### Corrigé
 - Duplication infinie des PNJ du lobby éliminée pour éviter la surcharge du serveur.
 - Les vitres trempées ne sont plus disponibles via les achats rapides.

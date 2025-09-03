@@ -46,8 +46,9 @@ public class TeamSelectorListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
         Action action = event.getAction();
-        // Trigger on both right-click in air and on block
-        if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) {
+        // Allow opening with any click (left or right, air or block)
+        if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK
+                && action != Action.LEFT_CLICK_AIR && action != Action.LEFT_CLICK_BLOCK) {
             return;
         }
         if (event.getHand() != org.bukkit.inventory.EquipmentSlot.HAND) {

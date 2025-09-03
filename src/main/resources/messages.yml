@@ -118,7 +118,7 @@ admin:
     admin-main-title: "&8HeneriaBedwars - Administration"
     arena-settings-title: "&8Configurer: {arena}"
     upgrades-title: "&aAméliorations"
-    team-selector-title: "&eSélection d'équipe"
+    team-selector-title: "&8» &bChoisissez votre équipe &8«"
 
 items:
   starter-lore: "&7Objet de départ"

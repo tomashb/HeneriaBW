@@ -3,6 +3,7 @@ package com.heneria.bedwars.listeners;
 import com.heneria.bedwars.HeneriaBedwars;
 import com.heneria.bedwars.arena.Arena;
 import com.heneria.bedwars.managers.ArenaManager;
+import com.heneria.bedwars.gui.QuitArenaMenu;
 import com.heneria.bedwars.utils.GameUtils;
 import com.heneria.bedwars.utils.ItemBuilder;
 import com.heneria.bedwars.utils.MessageManager;
@@ -48,8 +49,9 @@ public class LeaveItemListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
         Action action = event.getAction();
-        // Trigger on both right-click in air and on block
-        if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) {
+        // Allow opening with any click (left or right, air or block)
+        if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK
+                && action != Action.LEFT_CLICK_AIR && action != Action.LEFT_CLICK_BLOCK) {
             return;
         }
         if (event.getHand() != org.bukkit.inventory.EquipmentSlot.HAND) {
@@ -69,6 +71,6 @@ public class LeaveItemListener implements Listener {
             return;
         }
         event.setCancelled(true);
-        arena.removePlayer(player);
+        new QuitArenaMenu(arena).open(player);
     }
 }
