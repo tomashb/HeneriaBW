@@ -210,7 +210,7 @@ public class ScoreboardManager {
     private String getLobbyStatus(Arena arena) {
         GameState state = arena.getState();
         if (state == GameState.STARTING) {
-            return MessageManager.get("scoreboard.lobby-starting", "time", String.valueOf(arena.getCountdownTime()));
+            return MessageManager.get("scoreboard.lobby-starting");
         }
         if (state == GameState.WAITING) {
             return MessageManager.get("scoreboard.lobby-waiting");

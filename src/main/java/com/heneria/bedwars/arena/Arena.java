@@ -38,6 +38,8 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.profile.PlayerProfile;
 
 import java.util.*;
 
@@ -376,6 +378,10 @@ public class Arena {
         if (data != null) {
             data.restore(player);
         }
+        // Remove any lingering potion effects so players return to lobby clean
+        for (PotionEffect effect : player.getActivePotionEffects()) {
+            player.removePotionEffect(effect.getType());
+        }
         player.setLevel(0);
         player.setExp(0f);
         broadcast("game.player-leave-arena", "player", player.getName());
@@ -683,7 +689,9 @@ public class Arena {
                 System.out.println("[DEBUG-COMPTEUR] Tick ! Temps restant: " + countdownTime);
 
                 if (countdownTime > 0) {
-                    broadcast("game.countdown", "time", String.valueOf(countdownTime));
+                    if (countdownTime == 10 || countdownTime <= 5) {
+                        broadcast("game.countdown", "time", String.valueOf(countdownTime));
+                    }
                     for (UUID id : players) {
                         Player p = Bukkit.getPlayer(id);
                         if (p != null) {
@@ -801,10 +809,10 @@ public class Arena {
                     if (skin != null) break;
                 }
                 if (skin != null) {
-                    meta.setOwningPlayer(Bukkit.getOfflinePlayer(skin.getOwner()));
+                    applySkin(meta, skin.getOwner());
                 } else {
                     String cfgSkin = HeneriaBedwars.getInstance().getConfig().getString("npc-skins.item-shop", "MHF_Villager");
-                    meta.setOwningPlayer(Bukkit.getOfflinePlayer(cfgSkin));
+                    applySkin(meta, cfgSkin);
                 }
                 head.setItemMeta(meta);
                 npc.getEquipment().setHelmet(head);
@@ -831,10 +839,10 @@ public class Arena {
                     if (skin != null) break;
                 }
                 if (skin != null) {
-                    meta.setOwningPlayer(Bukkit.getOfflinePlayer(skin.getOwner()));
+                    applySkin(meta, skin.getOwner());
                 } else {
                     String cfgSkin = HeneriaBedwars.getInstance().getConfig().getString("npc-skins.upgrade-shop", "MHF_Villager");
-                    meta.setOwningPlayer(Bukkit.getOfflinePlayer(cfgSkin));
+                    applySkin(meta, cfgSkin);
                 }
                 head.setItemMeta(meta);
                 npc.getEquipment().setHelmet(head);
@@ -850,6 +858,15 @@ public class Arena {
         System.out.println("[DEBUG-STARTGAME] Apparition des PNJ terminée.");
 
         System.out.println("[DEBUG-STARTGAME] La méthode startGame a terminé son exécution SANS ERREUR.");
+    }
+
+    private void applySkin(SkullMeta meta, String skinName) {
+        if (meta == null || skinName == null || skinName.isEmpty()) {
+            return;
+        }
+        PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), skinName);
+        profile.update();
+        meta.setPlayerProfile(profile);
     }
 
     private void equipNpcArmor(ArmorStand npc, Material chestplate, Material leggings, Material boots, TeamColor color) {

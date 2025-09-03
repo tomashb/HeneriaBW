@@ -137,7 +137,7 @@ scoreboard:
   bed-destroyed: "&c❌"
   you-marker: "&e(VOUS)"
   lobby-waiting: "En attente de joueurs..."
-  lobby-starting: "Démarrage dans {time} seconde(s)..."
+  lobby-starting: "Démarrage imminent..."
 
 stats:
   format:

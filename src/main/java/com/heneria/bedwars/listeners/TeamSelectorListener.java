@@ -51,12 +51,11 @@ public class TeamSelectorListener implements Listener {
                 && action != Action.LEFT_CLICK_AIR && action != Action.LEFT_CLICK_BLOCK) {
             return;
         }
-        if (event.getHand() != org.bukkit.inventory.EquipmentSlot.HAND) {
-            return;
-        }
         ItemStack item = event.getItem();
         if (item == null) {
-            item = event.getPlayer().getInventory().getItemInMainHand();
+            item = event.getHand() == org.bukkit.inventory.EquipmentSlot.OFF_HAND
+                    ? event.getPlayer().getInventory().getItemInOffHand()
+                    : event.getPlayer().getInventory().getItemInMainHand();
         }
         ItemMeta meta = item.getItemMeta();
         if (meta == null || !meta.getPersistentDataContainer().has(TEAM_SELECTOR_KEY, PersistentDataType.BYTE)) {
