@@ -503,3 +503,4 @@ animations:
 - Rafraîchissement instantané des interfaces visuelles (scoreboard, tablist) pour une meilleure réactivité.
 - Mise à jour vers l'API Spigot 1.21.1 avec adoption de l'API moderne du scoreboard et correction des méthodes de profil joueur pour assurer un build Maven sans erreur.
 - Migration vers l'API Paper 1.21.3 et adaptation du scoreboard aux composants Adventure pour supprimer les erreurs de compilation restantes.
+- Standardisation complète sur l'API Paper et remplacement de `PlayerProfile` Bukkit par la version Paper pour corriger une incompatibilité de type et les erreurs de compilation associées.

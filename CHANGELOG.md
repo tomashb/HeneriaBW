@@ -494,6 +494,7 @@
 - Correction d'un bug critique où la validation du nom d'arène échouait systématiquement, empêchant toute création.
 - Correction définitive d'une régression critique où le wizard de création d'arène se bloquait silencieusement après la saisie du nom.
 - Correction majeure et définitive du wizard de création d'arène, résolvant le blocage silencieux et le bug du coût en XP.
+- Standardisation de la dépendance Maven sur l'API Paper 1.21.3 et remplacement de `PlayerProfile` Bukkit par celui de Paper pour éliminer les erreurs de compilation.
 
 ## [0.0.1] - En développement
 
