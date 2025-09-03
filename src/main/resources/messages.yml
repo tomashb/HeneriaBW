@@ -19,6 +19,7 @@ errors:
   not-enough-diamonds: "&c✖ &7Vous n'avez pas assez de diamants !"
   upgrade-max-level: "&c✖ &7Cette amélioration est déjà au maximum."
   trap-already-bought: "&c✖ &7Ce piège a déjà été acheté."
+  trap-limit-reached: "&c✖ &7Votre équipe possède déjà 3 pièges actifs."
   category-not-found: "&c✖ &7Catégorie introuvable."
   lobby-not-set: "&c✖ &7Le lobby n'est pas défini."
   team-incomplete: "&c✖ &7Toutes les équipes n'ont pas leur spawn et leur lit définis."

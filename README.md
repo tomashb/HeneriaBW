@@ -38,6 +38,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
 - ⚔️ **PvP 1.8** : Combat sans délai de recharge avec particules de coup critique à chaque attaque pour un ressenti classique.
 - 🎽 **Sélecteur d'équipe** : Choisissez votre camp grâce à un menu interactif avant le début de la partie.
 - 💬 **Chat et Tablist isolés** : Les messages et la liste des joueurs sont limités à votre partie pour éviter le spam entre arènes.
+- 🗨️ **Préfixe coloré dans le chat** : Les messages en partie indiquent clairement la couleur de l'équipe du joueur.
 - 🎨 **Couleurs d'équipe dynamiques** : Les pseudos des joueurs prennent la couleur de leur équipe dans la tablist et au-dessus de leur tête.
 - 📋 **Tablist en Jeu Détaillée** : Affiche pour chaque joueur la couleur exacte de son équipe et l'état de son lit.
 - 🎭 **Icônes de Lobby Personnalisées** : Boutique, sélecteur d'équipe et sortie utilisent des têtes texturées uniques.
@@ -60,6 +61,7 @@ Ce fichier `messages.yml` est généré automatiquement et permet d'adapter le p
   - Counter-Offensive Trap : donne Speed II et Jump Boost II aux alliés pendant 15 s.
   - Reveal Trap : révèle et illumine les ennemis invisibles.
   - Miner Fatigue Trap : ralentit le minage des ennemis.
+- 📦 **Gestion du stock de pièges** : une équipe ne peut avoir que 3 pièges actifs simultanément et un piège déclenché libère immédiatement un emplacement.
 - 💬 **Messages d'achat stylisés** : chaque achat affiche un message coloré indiquant l'objet et son prix.
 - 🧱 **Construction de Blocs** : Achetez, placez et cassez des blocs pour bâtir ponts et défenses. La catégorie « Blocs » propose désormais du Grès, de l'Obsidienne, des Échelles et de la Toile d'Araignée. Des limites configurables empêchent de construire hors de la zone de jeu.
  - 🛡️ **Kit de départ lié** : Vous réapparaissez avec une armure en cuir teintée aux couleurs de votre équipe ainsi qu'une épée, une pioche et une hache en bois impossibles à jeter.

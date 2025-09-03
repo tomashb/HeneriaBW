@@ -149,14 +149,10 @@ public class ChatListener implements Listener {
                 }
             }
             Team team = arena.getTeam(player);
-            String format = HeneriaBedwars.getInstance().getConfig().getString("chat-format", "[{team_color}{team_name}] {player_name}: {message}");
             ChatColor color = team != null ? team.getColor().getChatColor() : ChatColor.WHITE;
             String teamName = team != null ? team.getColor().getDisplayName() : "";
-            format = ChatColor.translateAlternateColorCodes('&', format
-                    .replace("{team_color}", color.toString())
-                    .replace("{team_name}", teamName)
-                    .replace("{player_name}", "%1$s")
-                    .replace("{message}", "%2$s"));
+            String format = ChatColor.DARK_GRAY + "[" + color + teamName + ChatColor.DARK_GRAY + "] "
+                    + ChatColor.GRAY + "%1$s" + ChatColor.WHITE + ": %2$s";
             event.setFormat(format);
             return;
         }
@@ -167,12 +163,7 @@ public class ChatListener implements Listener {
                 event.getRecipients().add(p);
             }
         }
-        String format = HeneriaBedwars.getInstance().getConfig().getString("chat-format", "{player_name}: {message}");
-        format = ChatColor.translateAlternateColorCodes('&', format
-                .replace("{team_color}", "")
-                .replace("{team_name}", "")
-                .replace("{player_name}", "%1$s")
-                .replace("{message}", "%2$s"));
+        String format = ChatColor.GRAY + "%1$s" + ChatColor.WHITE + ": %2$s";
         event.setFormat(format);
     }
 }
