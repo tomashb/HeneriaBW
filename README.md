@@ -483,6 +483,20 @@ animations:
 3.  Compilez avec Maven : `mvn clean package`
 4.  Le JAR final se trouvera dans le dossier `target/`.
 
+### Pipeline CI/CD
+
+Le projet utilise GitHub Actions pour l'intégration continue avec Java 21 LTS :
+
+- **Build automatique** : Compilation et tests à chaque push/PR sur la branche `main`
+- **Analyse de qualité** : SpotBugs intégré pour détecter les bugs potentiels
+- **SonarQube** : Analyse de la qualité du code (nécessite la configuration des secrets)
+- **Tests unitaires** : Exécution automatique via JUnit 5
+- **Artifacts** : Upload automatique des JARs compilés
+
+Les secrets suivants doivent être configurés pour SonarQube :
+- `SONAR_TOKEN` : Token d'authentification SonarQube
+- `SONAR_HOST_URL` : URL de votre instance SonarQube
+
 ### Notes de développement
 
 - Correction d'une erreur de compilation en renommant `PotionEffectType.JUMP` en `PotionEffectType.JUMP_BOOST`.

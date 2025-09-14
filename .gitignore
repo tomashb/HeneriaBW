@@ -1,0 +1,26 @@
+# Maven build output
+target/
+dependency-reduced-pom.xml
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# SpotBugs output
+spotbugsXml.xml
